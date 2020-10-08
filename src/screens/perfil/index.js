@@ -1,12 +1,12 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-function HomeScreen() {
+function Perfil() {
 	return (
 		<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-			<Text>Eleva App</Text>
+			<Text>Perfil</Text>
 		</View>
 	);
 }
 
-export default HomeScreen;
+export default Perfil;

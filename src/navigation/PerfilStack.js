@@ -1,17 +1,17 @@
 import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-/** SCREENS */
-import HomeScreen from '../screens/Home';
+/** Screen */
+import Perfil from '../screens/perfil';
 
 const Stack = createStackNavigator();
 
-function HomeStack() {
+function PerfilStack() {
 	return (
 		<Stack.Navigator>
-			<Stack.Screen name="Inicio" component={ HomeScreen } />
+			<Stack.Screen name="Perfil" component={Perfil}/>
 		</Stack.Navigator>
 	);
 }
 
-export default HomeStack;
+export default PerfilStack;

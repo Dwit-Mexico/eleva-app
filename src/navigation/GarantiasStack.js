@@ -1,17 +1,17 @@
 import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-/** SCREENS */
-import LoginScreen from '../screens/login';
+/** Screen */
+import Garantias from '../screens/garantias';
 
 const Stack = createStackNavigator();
 
-function AuthStack() {
+function GarantiasStack() {
 	return (
 		<Stack.Navigator>
-			<Stack.Screen name="Login" component={ LoginScreen } />
+			<Stack.Screen name="Garantias" component={Garantias}/>
 		</Stack.Navigator>
 	);
 }
 
-export default AuthStack;
+export default GarantiasStack;

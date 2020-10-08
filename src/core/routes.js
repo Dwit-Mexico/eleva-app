@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { KeyboardAvoidingView } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 import { GlobalContext } from '../context/index';
 
 /** Navigation */
