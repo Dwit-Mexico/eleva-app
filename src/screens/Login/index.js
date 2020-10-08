@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { Consumer } from '../../context';
+//Components
+import LoginUsername from '../../components/inputs/LoginUsername';
+import LoginPassword from '../../components/inputs/LoginPassword';
+//Styles
+import TextStyle from '../../styles/text';
 
 class LoginScreen extends Component {
 	constructor(props) {
@@ -20,9 +25,11 @@ class LoginScreen extends Component {
 	render () {
 		return (
 			<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-				<Text>Login Screen</Text>
-				<TextInput style={{borderColor: "#000", width: 200, borderWidth: 2}}></TextInput>
-				<TextInput style={{borderColor: "#000", width: 200, borderWidth: 2}}></TextInput>
+				<Text style={TextStyle.LoginTitle}>
+					Desarrollos Urbanísticos
+				</Text>
+				<LoginUsername/>
+				<LoginPassword/>
 				<TouchableOpacity onPress={this.login.bind(this)}>
 					<Text>Iniciar</Text>
 				</TouchableOpacity>

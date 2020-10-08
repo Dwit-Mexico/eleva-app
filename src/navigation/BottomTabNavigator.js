@@ -14,20 +14,13 @@ function HomeStack() {
 			<Tab.Screen
 				name="Perfil"
 				component={ PerfilStack }
-				options={{ 
-					headerLeft: () => (
-						<DrawerButton onPress={() => navigation.toggleDrawer()} />
-					)
-				}}/>
+				options={{ tabBarBadge: 3 }}/>
 			<Tab.Screen
 				name="Garantias"
-				component={ GarantiasStack }
-				options={{ 
-					headerLeft: () => (
-						<DrawerButton onPress={() => navigation.toggleDrawer()} />
-					)
-				}}/>
-			<Tab.Screen name="Galería" component={ GaleriaStack } />
+				component={ GarantiasStack }/>
+			<Tab.Screen
+				name="Galería"
+				component={ GaleriaStack }/>
 		</Tab.Navigator>
 	);
 }
