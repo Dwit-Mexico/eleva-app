@@ -3,7 +3,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 //Screens
 import Garantias from '../screens/garantias';
-import NuevaGarantia from '../screens/garantias/Nueva';
 
 const Stack = createStackNavigator();
 
