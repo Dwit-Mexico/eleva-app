@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Consumer } from '../context';
 
@@ -10,6 +11,19 @@ import BottomNavigator from './BottomTabNavigator';
 
 //Screens
 import Notificaciones from '../screens/notificaciones';
+
+function getHeaderTitle(route) {
+  	const routeName = getFocusedRouteNameFromRoute(route) ?? 'perfil';
+	console.log(routeName);
+  	switch (routeName) {
+		case 'perfil':
+			return 'Perfil';
+		case 'garantias':
+			return 'Garantias';
+		case 'galeria':
+			return 'Galería';
+	}
+}
 
 const Stack = createStackNavigator();
 
@@ -30,7 +44,8 @@ class AppStack extends Component {
 				<Stack.Screen
 					name="Main"
 					component={BottomNavigator}
-					options={({ navigation }) => ({ 
+					options={({ navigation, route }) => ({ 
+						headerTitle: getHeaderTitle(route),
 						headerRight: () => <BotonNotificaciones navigation={navigation}/> 
 					})}/>
 				<Stack.Screen

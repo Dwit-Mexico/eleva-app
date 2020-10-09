@@ -12,13 +12,13 @@ function BottomTabNavigator(props) {
 	return (
 		<Tab.Navigator>
 			<Tab.Screen
-				name="Perfil"
+				name="perfil"
 				component={ PerfilStack }/>
 			<Tab.Screen
-				name="Garantias"
+				name="garantias"
 				component={ GarantiasStack }/>
 			<Tab.Screen
-				name="Galería"
+				name="galeria"
 				component={ GaleriaStack }/>
 		</Tab.Navigator>
 	);
