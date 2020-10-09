@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { Consumer } from '../context';
 
 //Componentes
-import BotonNotificaciones from '../components/boton-notificasiones/BotonNotificaciones';
+import BotonNotificaciones from '../components/boton-notificaciones/BotonNotificaciones';
 
 //Stacks
 import BottomNavigator from './BottomTabNavigator';
@@ -12,6 +12,7 @@ import BottomNavigator from './BottomTabNavigator';
 //Screens
 import Notificaciones from '../screens/notificaciones';
 import NuevaGarantia from '../screens/garantias/Nueva';
+import DetalleGarantia from '../screens/garantias/Detalle';
 
 function getHeaderTitle(route) {
 	const routeName = getFocusedRouteNameFromRoute(route) ?? 'perfil';
@@ -55,6 +56,12 @@ class AppStack extends Component {
 				<Stack.Screen
 					name="NuevaGarantia"
 					component={NuevaGarantia}/>
+				<Stack.Screen
+					name="DetalleGarantia"
+					component={DetalleGarantia}
+					options={{
+						headerTitle: 'Detalle Garantía'
+					}}/>
 			</Stack.Navigator>
 		);
 	}

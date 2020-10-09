@@ -4,12 +4,12 @@ import { Text } from 'react-native';
 //Componentes
 import Container from '../../components/container';
 
-function NuevaGarantia() {
+function DetalleGarantia() {
 	return (
 		<Container>
-			<Text>Nueva Garantía</Text>
+			<Text>Detalle Garantía</Text>
 		</Container>
 	);
 }
 
-export default NuevaGarantia;
+export default DetalleGarantia;

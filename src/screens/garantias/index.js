@@ -5,16 +5,13 @@ import { FontAwesome5 } from '@expo/vector-icons';
 //Componentes
 import Container from '../../components/container';
 import ListaGarantias from '../../components/lista-garantias';
+import BotonNuevo from '../../components/boton-nuevo/BotonNuevo';
 
 function Garantias({navigation}) {
 	return (
 		<Container>
-			<ListaGarantias/>
-			<View style={{position: 'absolute', right: 15, bottom: 15}}>
-				<TouchableOpacity onPress={() => navigation.navigate('NuevaGarantia')}>
-					<FontAwesome5 name="plus" size={25}/>
-				</TouchableOpacity>
-			</View>
+			<ListaGarantias navigation={navigation}/>
+			<BotonNuevo navigation={navigation} screen={'NuevaGarantia'}/>
 		</Container>
 	);
 }

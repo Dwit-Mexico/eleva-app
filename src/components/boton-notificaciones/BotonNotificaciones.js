@@ -9,7 +9,7 @@ const BotonNotificaciones = (props) => {
 	const { navigation } = props;
 	return (
 		<TouchableOpacity style={Styles.boton} onPress={() => navigation.navigate('Notificaciones')}>
-			<FontAwesome5 name="bell" size={20}/>
+			<FontAwesome5 name="bell" size={25}/>
 		</TouchableOpacity>
 	)
 }
