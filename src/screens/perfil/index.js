@@ -1,11 +1,17 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { Text } from 'react-native';
+
+//Componentes
+import Container from '../../components/container';
+import ListaViviendas from '../../components/lista-viviendas';
 
 function Perfil() {
 	return (
-		<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-			<Text>Perfil</Text>
-		</View>
+		<Container>
+			<Text>Mariano Rodriguez</Text>
+			<Text>Calle 18 PTE Mz98 Lote 13 Region 91</Text>
+			<ListaViviendas/>
+		</Container>
 	);
 }
 

@@ -1,11 +1,15 @@
 import React from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
+import { FontAwesome5 } from '@expo/vector-icons';
+
+//Styles
+import Styles from '../../styles/components/BotonNotificacionesStyle';
 
 const BotonNotificaciones = (props) => {
 	const { navigation } = props;
 	return (
-		<TouchableOpacity onPress={() => navigation.navigate('Notificaciones')}>
-			<Text>N</Text>
+		<TouchableOpacity style={Styles.boton} onPress={() => navigation.navigate('Notificaciones')}>
+			<FontAwesome5 name="bell" size={20}/>
 		</TouchableOpacity>
 	)
 }

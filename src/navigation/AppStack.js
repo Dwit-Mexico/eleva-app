@@ -13,8 +13,8 @@ import BottomNavigator from './BottomTabNavigator';
 import Notificaciones from '../screens/notificaciones';
 
 function getHeaderTitle(route) {
-  	const routeName = getFocusedRouteNameFromRoute(route) ?? 'perfil';
-	console.log(routeName);
+	const routeName = getFocusedRouteNameFromRoute(route) ?? 'perfil';
+
   	switch (routeName) {
 		case 'perfil':
 			return 'Perfil';

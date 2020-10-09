@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { FontAwesome5 } from '@expo/vector-icons'; 
 
 //Stacks
 import PerfilStack from './PerfilStack';
@@ -13,13 +14,31 @@ function BottomTabNavigator(props) {
 		<Tab.Navigator>
 			<Tab.Screen
 				name="perfil"
-				component={ PerfilStack }/>
+				component={ PerfilStack }
+				options={{
+					tabBarLabel: () => null,
+					tabBarIcon: ({ color, size }) => (
+						<FontAwesome5 name="id-card" size={size}/>
+					)
+				}}/>
 			<Tab.Screen
 				name="garantias"
-				component={ GarantiasStack }/>
+				component={ GarantiasStack }
+				options={{
+					tabBarLabel: () => null,
+					tabBarIcon: ({ color, size }) => (
+						<FontAwesome5 name="inbox" size={size}/>
+					)
+				}}/>
 			<Tab.Screen
 				name="galeria"
-				component={ GaleriaStack }/>
+				component={ GaleriaStack }
+				options={{
+					tabBarLabel: () => null,
+					tabBarIcon: ({ color, size }) => (
+						<FontAwesome5 name="images" size={size}/>
+					)
+				}}/>
 		</Tab.Navigator>
 	);
 }
