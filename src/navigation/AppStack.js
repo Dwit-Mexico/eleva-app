@@ -11,6 +11,7 @@ import BottomNavigator from './BottomTabNavigator';
 
 //Screens
 import Notificaciones from '../screens/notificaciones';
+import NuevaGarantia from '../screens/garantias/Nueva';
 
 function getHeaderTitle(route) {
 	const routeName = getFocusedRouteNameFromRoute(route) ?? 'perfil';
@@ -19,7 +20,7 @@ function getHeaderTitle(route) {
 		case 'perfil':
 			return 'Perfil';
 		case 'garantias':
-			return 'Garantias';
+			return 'Garantías';
 		case 'galeria':
 			return 'Galería';
 	}
@@ -51,6 +52,9 @@ class AppStack extends Component {
 				<Stack.Screen
 					name="Notificaciones"
 					component={Notificaciones}/>
+				<Stack.Screen
+					name="NuevaGarantia"
+					component={NuevaGarantia}/>
 			</Stack.Navigator>
 		);
 	}
