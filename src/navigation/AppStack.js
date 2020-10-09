@@ -30,7 +30,9 @@ class AppStack extends Component {
 				<Stack.Screen
 					name="Main"
 					component={BottomNavigator}
-					options={({ navigation }) => ({ headerRight: () => <BotonNotificaciones navigation={navigation}/> })}/>
+					options={({ navigation }) => ({ 
+						headerRight: () => <BotonNotificaciones navigation={navigation}/> 
+					})}/>
 				<Stack.Screen
 					name="Notificaciones"
 					component={Notificaciones}/>
