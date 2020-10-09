@@ -1,20 +1,19 @@
 import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-/** Stacks */
+//Stacks
 import PerfilStack from './PerfilStack';
 import GarantiasStack from './GarantiasStack';
 import GaleriaStack from './GaleriaStack';
 
 const Tab = createBottomTabNavigator();
 
-function HomeStack() {
+function BottomTabNavigator(props) {
 	return (
 		<Tab.Navigator>
 			<Tab.Screen
 				name="Perfil"
-				component={ PerfilStack }
-				options={{ tabBarBadge: 3 }}/>
+				component={ PerfilStack }/>
 			<Tab.Screen
 				name="Garantias"
 				component={ GarantiasStack }/>
@@ -25,4 +24,4 @@ function HomeStack() {
 	);
 }
 
-export default HomeStack;
+export default BottomTabNavigator;

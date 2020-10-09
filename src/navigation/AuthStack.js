@@ -9,7 +9,12 @@ const Stack = createStackNavigator();
 function AuthStack() {
 	return (
 		<Stack.Navigator>
-			<Stack.Screen name="Login" component={ LoginScreen } />
+			<Stack.Screen
+				options={{
+					header: () => null
+				}}
+				name="Login"
+				component={ LoginScreen } />
 		</Stack.Navigator>
 	);
 }

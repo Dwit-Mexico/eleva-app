@@ -4,7 +4,7 @@ import { Consumer } from '../context';
 
 /** Stacks */
 import AuthStack from './AuthStack';
-import BottomNavigator from './BottomTabNavigator';
+import AppStack from './AppStack';
 
 class Navigation extends Component {
 	constructor(props) {
@@ -21,7 +21,7 @@ class Navigation extends Component {
 		return (
 			<NavigationContainer>
 				{auth?
-					<BottomNavigator/>
+					<AppStack/>
 					:
 					<AuthStack/>
 				}

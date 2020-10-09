@@ -1,9 +1,10 @@
 import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 
-const BotonNotificaciones = () => {
+const BotonNotificaciones = (props) => {
+	const { navigation } = props;
 	return (
-		<TouchableOpacity>
+		<TouchableOpacity onPress={() => navigation.navigate('Notificaciones')}>
 			<Text>N</Text>
 		</TouchableOpacity>
 	)
