@@ -5,7 +5,6 @@ import OneSignal from 'react-native-onesignal';
 class App extends Component {
 	constructor(props) {
 		super(props);
-		// OneSignal.setLogLevel(OneSignal.LOG_LEVEL.DEBUG, OneSignal.LOG_LEVEL.DEBUG);
 		OneSignal.init("ee672dec-e2d4-426a-8cd0-c8fa3ba8c154", {
 			kOSSettingsKeyAutoPrompt: false, 
             kOSSettingsKeyInAppLaunchURL: false

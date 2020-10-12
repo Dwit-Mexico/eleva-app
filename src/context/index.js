@@ -1,6 +1,6 @@
 import React, { Component, createContext } from 'react';
 //Funciones
-import { login } from './User';
+import { login, logout } from './User';
 
 const Context = createContext();
 
@@ -9,7 +9,8 @@ class GlobalContext extends Component {
 		super(props);
 		this.state = {
 			auth: false,
-			login: login.bind(this)
+			login: login.bind(this),
+			logout: logout.bind(this)
 		}
 	}
 

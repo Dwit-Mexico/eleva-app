@@ -1,6 +1,8 @@
 //Colores de la app
 const colores = {
-	titulos: '#000002'
+	tituloLogin: '#ffffff',
+	titulos: '#000002',
+	loginButtonText: '#ffffff'
 }
 
 export default colores;
