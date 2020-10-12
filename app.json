@@ -17,7 +17,7 @@
       "**/*"
     ],
     "ios": {
-		"bundleIdentifier": "com.dwitmexico.eleva_app",
+		"bundleIdentifier": "com.dwitmexico.elevaapp",
 		"supportsTablet": true
     },
     "web": {
