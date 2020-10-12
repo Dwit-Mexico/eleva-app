@@ -6,7 +6,7 @@
     "ios": "react-native run-ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "build:test": "expo build:android --config app.test.json --release-channel test-v1.0.0"
+    "build:test": "npx react-native run-android --variant=release"
   },
   "dependencies": {
     "expo": "~39.0.2",
