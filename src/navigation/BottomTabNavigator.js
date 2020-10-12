@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { StatusBar } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { FontAwesome5 } from '@expo/vector-icons'; 
 
@@ -10,6 +11,7 @@ import GaleriaStack from './GaleriaStack';
 const Tab = createBottomTabNavigator();
 
 function BottomTabNavigator(props) {
+	StatusBar.setBarStyle('dark-content');
 	return (
 		<Tab.Navigator>
 			<Tab.Screen

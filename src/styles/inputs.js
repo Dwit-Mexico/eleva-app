@@ -8,14 +8,21 @@ const input = {
 	padding: 5,
 	marginBottom: 5,
 	marginTop: 5,
-	color: '#ffffff'
+	color: '#ffffff',
+	backgroundColor: '#fff'
+}
+
+const alignCenter = {
+	textAlign: 'center'
 }
 
 export default StyleSheet.create({
 	LoginUsername: {
-		...input
+		...input,
+		...alignCenter
 	},
 	LoginPassword: {
-		...input
+		...input,
+		...alignCenter
 	}
 });

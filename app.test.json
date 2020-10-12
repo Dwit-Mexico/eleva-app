@@ -25,6 +25,11 @@
     },
     "android": {
       "package": "com.marte1309.eleva_app"
-    }
+	},
+	"androidNavigationBar": {
+		"visible": true,
+		"barStyle": "",
+		"backgroundColor": "#18191A"
+	}
   }
 }

@@ -6,7 +6,8 @@ import {
 	TouchableOpacity,
 	TouchableWithoutFeedback,
 	Keyboard,
-	Image
+	Image,
+	StatusBar
 } from 'react-native';
 import { Consumer } from '../../context';
 
@@ -37,6 +38,7 @@ class LoginScreen extends Component {
 	}
 
 	render () {
+		StatusBar.setBarStyle('light-content');
 		return (
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
 				<View style={LoginStyle.backGround}>
@@ -48,12 +50,16 @@ class LoginScreen extends Component {
 							</Text>
 							<View style={{height: 16}} />
 							<TextInput
+								placeholder="correo@dominio.com"
+								placeholderTextColor="#757575"
 								style={InputStyles.LoginUsername}
 								onSubmitEditing={() => this.inputPassword.focus()}
 								ref={(input) => this.inputUsername = input}
 								returnKeyType="next"/>
 							<View style={{height: 8}} />
 							<TextInput
+								placeholder="Contraseña"
+								placeholderTextColor="#757575"
 								style={InputStyles.LoginPassword}
 								secureTextEntry={true}
 								ref={(input) => this.inputPassword = input}
