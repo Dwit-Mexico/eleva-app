@@ -11,5 +11,9 @@ export default StyleSheet.create({
 	loginButton: {
 		color: Colores.loginButtonText,
 		textAlign: 'center'
+	},
+	logoutButton: {
+		color: Colores.logoutButtonText,
+		textAlign: 'center'
 	}
 });

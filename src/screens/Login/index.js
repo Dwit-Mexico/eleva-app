@@ -32,9 +32,17 @@ class LoginScreen extends Component {
 	}
 
 	async _handleSubmit() {
+		const { usuario, password } = this.state;
+		if (!usuario) {
+			alert('Debe proporcionar un usuario válido.')
+			return;
+		}
+		if (!password) {
+			alert('Debe proporcionar una contraseña válida.')
+			return;
+		}
 		const { context } = this.props;
 		if (context) {
-			const { usuario, password } = this.state;
 			await context.login(usuario, password);
 		}
 	}

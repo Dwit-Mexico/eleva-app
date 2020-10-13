@@ -8,5 +8,13 @@ export default StyleSheet.create({
 		width: 200,
 		textAlign: 'center',
 		borderRadius: 5
+	},
+	logoutButton: {
+		backgroundColor: '#B29360',
+		color: '#ffffff',
+		padding: 10,
+		width: 200,
+		textAlign: 'center',
+		borderRadius: 5
 	}
 });
