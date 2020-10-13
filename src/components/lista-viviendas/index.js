@@ -7,7 +7,7 @@ import CardVivienda from './CardVivienda';
 function ListaViviendas() {
 	return (
 		<ScrollView
-			style = {{height: 250}}
+			style = {{height: '50%'}}
 			refreshControl = {
 				<RefreshControl refreshing={false} onRefresh={() => console.log('on refresh')} />
 			}>
@@ -15,7 +15,6 @@ function ListaViviendas() {
 			<CardVivienda name="Vivienda 2" direccion= "direccion de prueba 2" fecha="2020/10/21"/>
 			<CardVivienda name="Vivienda 3" direccion= "direccion de prueba 3" fecha="2020/10/21"/>
 			<CardVivienda name="Vivienda 4" direccion= "direccion de prueba 3" fecha="2020/10/21"/>
-			<CardVivienda name="Vivienda 5" direccion= "direccion de prueba 3" fecha="2020/10/21"/>
 		</ScrollView>
 	);
 }

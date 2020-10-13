@@ -15,7 +15,7 @@ import NuevaGarantia from '../screens/garantias/Nueva';
 import DetalleGarantia from '../screens/garantias/Detalle';
 
 function getHeaderTitle(route) {
-	const routeName = getFocusedRouteNameFromRoute(route) ?? 'perfil';
+	const routeName = getFocusedRouteNameFromRoute(route) ?? 'garantias';
 
   	switch (routeName) {
 		case 'perfil':

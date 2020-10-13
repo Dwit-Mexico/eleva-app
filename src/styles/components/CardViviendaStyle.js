@@ -9,8 +9,8 @@ export default StyleSheet.create({
 		borderColor: '#aaa',
 		borderWidth: 1,
 		flexDirection: 'row',
-		marginTop: 15,
-		padding: 10,
+		marginTop: 10,
+		padding: 5,
 		backgroundColor: Colores.CardViviendaBG,
 		borderRadius: 5
 	}

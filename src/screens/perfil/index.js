@@ -7,7 +7,7 @@ import Container from '../../components/container';
 import ListaViviendas from '../../components/lista-viviendas';
 
 // Styles
-import Styles from '../../styles/screens/Perfil';
+import Styles from '../../styles/screens/PerfilStyle';
 import StylesButtons from '../../styles/buttons';
 import StylesTexts from '../../styles/text';
 
