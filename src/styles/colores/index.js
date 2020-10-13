@@ -2,7 +2,11 @@
 const colores = {
 	tituloLogin: '#ffffff',
 	titulos: '#000002',
-	loginButtonText: '#ffffff'
+	inputs: '#000002',
+	loginButtonText: '#ffffff',
+	CardViviendaBG: '#fff',
+	loadingLoginScreenBG: '#18191A',
+	loadingLoginScreenSpinner: '#B29360'
 }
 
 export default colores;

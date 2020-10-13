@@ -24,16 +24,18 @@ class LoginScreen extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-
+			usuario: '',
+			password: ''
 		}
 		this.inputUsername = null;
 		this.inputPassword = null;
 	}
 
-	_handleSubmit() {
+	async _handleSubmit() {
 		const { context } = this.props;
 		if (context) {
-			context.login();
+			const { usuario, password } = this.state;
+			await context.login(usuario, password);
 		}
 	}
 
@@ -55,7 +57,8 @@ class LoginScreen extends Component {
 								style={InputStyles.LoginUsername}
 								onSubmitEditing={() => this.inputPassword.focus()}
 								ref={(input) => this.inputUsername = input}
-								returnKeyType="next"/>
+								returnKeyType="next"
+								onChangeText={text => this.setState({usuario: text})}/>
 							<View style={{height: 8}} />
 							<TextInput
 								placeholder="Contraseña"
@@ -64,7 +67,8 @@ class LoginScreen extends Component {
 								secureTextEntry={true}
 								ref={(input) => this.inputPassword = input}
 								returnKeyType="go"
-								onSubmitEditing={this._handleSubmit.bind(this)}/>
+								onSubmitEditing={this._handleSubmit.bind(this)}
+								onChangeText={text => this.setState({password: text})}/>
 							<View style={{height: 32}} />
 							<TouchableOpacity style={ButtonStyles.loginButton} onPress={this._handleSubmit.bind(this)}>
 								<Text style={TextStyle.loginButton}>Iniciar</Text>

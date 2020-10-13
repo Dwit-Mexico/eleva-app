@@ -4,7 +4,7 @@
     "slug": "eleva_app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/splash2.png",
     "splash": {
       "image": "./assets/logo.png",
       "resizeMode": "contain",
@@ -25,11 +25,6 @@
     },
     "android": {
       "package": "com.marte1309.eleva_app"
-	},
-	"androidNavigationBar": {
-		"visible": true,
-		"barStyle": "",
-		"backgroundColor": "#18191A"
 	}
   }
 }

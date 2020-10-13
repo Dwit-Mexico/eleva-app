@@ -1,5 +1,8 @@
 import { StyleSheet } from 'react-native';
 
+//Colores
+import Colores from './colores';
+
 const input = {
 	borderColor: '#ffffff',
 	borderWidth: 1,
@@ -8,7 +11,7 @@ const input = {
 	padding: 5,
 	marginBottom: 5,
 	marginTop: 5,
-	color: '#ffffff',
+	color: Colores.inputs,
 	backgroundColor: '#fff'
 }
 
