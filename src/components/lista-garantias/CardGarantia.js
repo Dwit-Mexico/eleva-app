@@ -2,10 +2,13 @@ import React from 'react';
 import { View ,Text, TouchableOpacity } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 
+//Styles
+import CardStyles from '../../styles/components/CardGarantiaStyle';
+
 function CardGarantia(props) {
 	return (
 		<TouchableOpacity onPress={()=> props.navigation? props.navigation.navigate('DetalleGarantia') : null}>
-			<View style={{flex: 1, borderColor: '#12345', borderWidth: 1, marginTop: 2}}>
+			<View style={CardStyles.card}>
 				<View style={{flexDirection: 'row'}}>
 					<View style={{flexDirection:'column', justifyContent:'center', padding: 5}}>
 						<FontAwesome5 name="exclamation-circle" size={24} color="black" />

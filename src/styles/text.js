@@ -1,14 +1,19 @@
 import { StyleSheet } from 'react-native';
+
 //Colores
 import Colores from './colores';
-
-const text = {
-	
-}
 
 export default StyleSheet.create({
 	LoginTitle: {
 		fontSize: 18,
-		color: Colores.titulos
+		color: Colores.tituloLogin
 	},
+	loginButton: {
+		color: Colores.loginButtonText,
+		textAlign: 'center'
+	},
+	logoutButton: {
+		color: Colores.logoutButtonText,
+		textAlign: 'center'
+	}
 });
