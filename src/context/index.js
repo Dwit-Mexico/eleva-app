@@ -1,6 +1,8 @@
 import React, { Component, createContext } from 'react';
+import { AsyncStorage } from 'react-native';
+
 //Funciones
-import { login } from './User';
+import { login, logout } from './User';
 
 const Context = createContext();
 
@@ -9,7 +11,25 @@ class GlobalContext extends Component {
 		super(props);
 		this.state = {
 			auth: false,
-			login: login.bind(this)
+			login: login.bind(this),
+			logout: logout.bind(this)
+		}
+
+		this.initUser();
+	}
+
+	async componentDidMount() {
+		await this.initUser();
+	}
+
+	async initUser() {
+		//Comprobar si el usuario inició sesión
+		let loginUser = await AsyncStorage.getItem('LoginUser');
+		if (loginUser) {
+			loginUser = JSON.parse(loginUser);
+			if (loginUser.token) {
+				this.setState({auth: true, token: loginUser.token});
+			}
 		}
 	}
 

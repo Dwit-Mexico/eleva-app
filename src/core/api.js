@@ -1,8 +1,9 @@
+import { AsyncStorage } from 'react-native';
 import request from 'superagent';
 import { API_URL } from './url';
 
 class Request {
-	async get(method, data) {
+	async get(method, data, auth) {
         const res = await request
             .get(`${API_URL}${method}`)
             .query(data)
@@ -22,6 +23,13 @@ class Request {
 	}
 
 	async post(method, data) {
+		let auth = null;
+		const loginUser = await AsyncStorage.getItem('LoginUser');
+
+		if (loginUser) {
+			auth = JSON.parse(loginUser);
+		}
+
         const res = await request
             .post(`${API_URL}${method}`)
             .send(data)
