@@ -9,19 +9,19 @@ function CardGarantia(props) {
 	return (
 		<TouchableOpacity onPress={()=> props.navigation? props.navigation.navigate('DetalleGarantia') : null}>
 			<View style={CardStyles.card}>
+				<Text style={{fontWeight: 'bold', fontSize: 18, marginBottom: 10}}>Etapa 1</Text>
 				<View style={{flexDirection: 'row'}}>
 					<View style={{flexDirection:'column', justifyContent:'center', padding: 5}}>
-						<FontAwesome5 name="exclamation-circle" size={24} color="black" />
+						<FontAwesome5 name="exclamation-circle" size={30} color="black" />
 					</View>
-					<View>
+					<View style={{paddingLeft: 15}}>
 						<Text>{props.proyecto}</Text>
 						<Text>{props.name}</Text>
-						<Text>{props.direccion}</Text>
 					</View>
 				</View>
-				<View>
+				<View style={{marginTop: 5}}>
 					<Text>{props.area}</Text>
-					<Text>{props.fecha}</Text>
+					<Text style={{textAlign: 'right', fontWeight: 'bold'}}>{props.fecha}</Text>
 				</View>
 			</View>
 		</TouchableOpacity>

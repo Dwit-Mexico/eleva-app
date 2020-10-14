@@ -7,7 +7,8 @@ const colores = {
 	logoutButtonText: '#ffffff',
 	CardViviendaBG: '#fff',
 	loadingLoginScreenBG: '#18191A',
-	loadingLoginScreenSpinner: '#B29360'
+	loadingLoginScreenSpinner: '#B29360',
+	selectTheme:'#B29360'
 }
 
 export default colores;

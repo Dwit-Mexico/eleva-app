@@ -27,5 +27,13 @@ export default StyleSheet.create({
 	LoginPassword: {
 		...input,
 		...alignCenter
+	},
+	Select: {
+		flexDirection: "row",
+		width: '100%',
+		alignItems: "center",
+		borderWidth: 1,
+		borderColor: '#555',
+		borderRadius: 8
 	}
 });
