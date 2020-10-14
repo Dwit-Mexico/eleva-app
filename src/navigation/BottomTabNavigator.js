@@ -1,6 +1,7 @@
 import * as React from 'react';
+import { StatusBar } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { FontAwesome5 } from '@expo/vector-icons'; 
+import { FontAwesome5 } from '@expo/vector-icons';
 
 //Stacks
 import PerfilStack from './PerfilStack';
@@ -10,24 +11,16 @@ import GaleriaStack from './GaleriaStack';
 const Tab = createBottomTabNavigator();
 
 function BottomTabNavigator(props) {
+	StatusBar.setBarStyle('dark-content');
 	return (
-		<Tab.Navigator>
-			<Tab.Screen
-				name="perfil"
-				component={ PerfilStack }
-				options={{
-					tabBarLabel: () => null,
-					tabBarIcon: ({ color, size }) => (
-						<FontAwesome5 name="id-card" size={size}/>
-					)
-				}}/>
+		<Tab.Navigator tabBarOptions = {{activeTintColor: '#B29360'}}>
 			<Tab.Screen
 				name="garantias"
 				component={ GarantiasStack }
 				options={{
 					tabBarLabel: () => null,
 					tabBarIcon: ({ color, size }) => (
-						<FontAwesome5 name="inbox" size={size}/>
+						<FontAwesome5 name="inbox" size = {size} color = {color}/>
 					)
 				}}/>
 			<Tab.Screen
@@ -36,7 +29,16 @@ function BottomTabNavigator(props) {
 				options={{
 					tabBarLabel: () => null,
 					tabBarIcon: ({ color, size }) => (
-						<FontAwesome5 name="images" size={size}/>
+						<FontAwesome5 name="images" size={size} color = {color}/>
+					)
+				}}/>
+			<Tab.Screen
+				name="perfil"
+				component={ PerfilStack }
+				options={{
+					tabBarLabel: () => null,
+					tabBarIcon: ({ color, size }) => (
+						<FontAwesome5 name="id-card" size={size} color = {color}/>
 					)
 				}}/>
 		</Tab.Navigator>
