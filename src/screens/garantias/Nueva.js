@@ -7,10 +7,10 @@ import Etapa1 from './etapas/Etapa1';
 //Componentes
 import Container from '../../components/container';
 
-function NuevaGarantia() {
+function NuevaGarantia({navigation}) {
 	return (
 		<Container>
-			<Etapa1 />
+			<Etapa1 navigation={navigation}/>
 		</Container>
 	);
 }

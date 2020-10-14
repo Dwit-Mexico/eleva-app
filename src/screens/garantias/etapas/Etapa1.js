@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, Text, View, TextInput, Image } from 'react-native';
+import { ScrollView, Text, View, TextInput, Image, TouchableOpacity } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 
 // Componentes
@@ -12,7 +12,11 @@ import BotonEnviar from '../../../components/boton-enviar/BotonEnviar';
 // Styles
 import TextStyle from '../../../styles/text';
 
-function Etapa1() {
+function _openCamara(navigation) {
+	navigation.navigate('MyModal')
+}
+
+function Etapa1({navigation}) {
 	const EmptyImage = require('../../../../assets/picture_icon.png');
 	return (
 		<ScrollView>
@@ -35,7 +39,9 @@ function Etapa1() {
 			<View style={{height: 16}}/>
 			<View style={{flexDirection: 'row', justifyContent: 'space-between', width: '100%'}}>
 				<View style={{flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', width: '30%'}}>
-					<FontAwesome5 name="camera" size={45}/>
+					<TouchableOpacity onPress={_openCamara.bind(this, navigation)}>
+						<FontAwesome5 name="camera" size={60}/>
+					</TouchableOpacity>
 				</View>
 				<View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '70%'}}>
 					<Image source={EmptyImage} style={{width: 60, height: 60}}/>

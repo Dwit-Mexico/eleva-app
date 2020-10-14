@@ -13,6 +13,7 @@ import BottomNavigator from './BottomTabNavigator';
 import Notificaciones from '../screens/notificaciones';
 import NuevaGarantia from '../screens/garantias/Nueva';
 import DetalleGarantia from '../screens/garantias/Detalle';
+import Camara from '../screens/camara';
 
 function getHeaderTitle(route) {
 	const routeName = getFocusedRouteNameFromRoute(route) ?? 'garantias';
@@ -42,7 +43,7 @@ class AppStack extends Component {
 			auth = context.auth;
 		}
 		return (
-			<Stack.Navigator>
+			<Stack.Navigator mode="modal">
 				<Stack.Screen
 					name="Main"
 					component={BottomNavigator}
@@ -62,6 +63,13 @@ class AppStack extends Component {
 					options={{
 						headerTitle: 'Detalle Garantía'
 					}}/>
+				<Stack.Screen
+					name="MyModal"
+					component={Camara}
+					options={{
+						header: () => null
+					}}
+					/>
 			</Stack.Navigator>
 		);
 	}
