@@ -15,5 +15,12 @@ export default StyleSheet.create({
 	logoutButton: {
 		color: Colores.logoutButtonText,
 		textAlign: 'center'
-	}
+	},
+	EtapaTitulo: {
+		fontSize: 18,
+		color: Colores.titulos,
+		fontWeight: 'bold',
+		textAlign: 'right',
+		marginVertical: 10
+	},
 });
