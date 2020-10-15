@@ -25,9 +25,11 @@ function Etapa1({navigation}) {
 	const EmptyImage = require('../../../../assets/picture_icon.png');
 
 	useFocusEffect(() => {
-		const { imagenes } = route.params;
-		if (Array.isArray(imagenes)) {
-			setImagenes(imagenes);
+		if (route.params) {
+			const { imagenes } = route.params;
+			if (Array.isArray(imagenes)) {
+				setImagenes(imagenes);
+			}
 		}
 	});
 
