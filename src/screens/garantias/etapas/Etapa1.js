@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView, Text, View, TextInput, Image, TouchableOpacity } from 'react-native';
+import { StatusBar, ScrollView, Text, View, TextInput, Image, TouchableOpacity } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useRoute, useFocusEffect } from '@react-navigation/native';
 
@@ -20,11 +20,15 @@ function _openCamara(navigation) {
 }
 
 function Etapa1({navigation}) {
+
 	const [imagenes, setImagenes] = useState([]);
 	const route = useRoute();
 	const EmptyImage = require('../../../../assets/picture_icon.png');
 
 	useFocusEffect(() => {
+
+		StatusBar.setBarStyle('dark-content');
+
 		if (route.params) {
 			const { imagenes } = route.params;
 			if (Array.isArray(imagenes)) {
