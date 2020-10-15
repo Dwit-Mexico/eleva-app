@@ -6,29 +6,30 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/splash2.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#18191A"
+    	"image": "./assets/splash2.png",
+    	"resizeMode": "contain",
+    	"backgroundColor": "#18191A"
 	},
 	"notification": {
 		"icon": "./assets/icon.png"
 	},
     "updates": {
-      "fallbackToCacheTimeout": 0
+		"enabled": false
     },
     "assetBundlePatterns": [
-      "**/*"
+    	"**/*"
     ],
     "ios": {
 	  "supportsTablet": false,
-	  "buildNumber": "4",
-	  "bundleIdentifier": "com.dwitmexico.elevaapp"
+	  "buildNumber": "5",
+	  "bundleIdentifier": "com.dwitmexico.elevaapp",
+	  "requireFullScreen": true
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "android": {
-      "package": "com.marte1309.eleva_app"
+      "package": "com.dwitmexico.elevaapp"
 	}
   }
 }

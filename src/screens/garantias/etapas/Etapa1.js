@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ScrollView, Text, View, TextInput, Image, TouchableOpacity } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
+import { useRoute, useFocusEffect } from '@react-navigation/native';
 
 // Componentes
 import SelectVivienda from '../../../components/select/SelectVivienda';
@@ -13,11 +14,23 @@ import BotonEnviar from '../../../components/boton-enviar/BotonEnviar';
 import TextStyle from '../../../styles/text';
 
 function _openCamara(navigation) {
-	navigation.navigate('MyModal')
+	if (navigation) {
+		navigation.navigate('MyModal');
+	}
 }
 
 function Etapa1({navigation}) {
+	const [imagenes, setImagenes] = useState([]);
+	const route = useRoute();
 	const EmptyImage = require('../../../../assets/picture_icon.png');
+
+	useFocusEffect(() => {
+		const { imagenes } = route.params;
+		if (Array.isArray(imagenes)) {
+			setImagenes(imagenes);
+		}
+	});
+
 	return (
 		<ScrollView>
 			<Text style={TextStyle.EtapaTitulo}>Etapa 1</Text>
@@ -38,15 +51,15 @@ function Etapa1({navigation}) {
 				maxLength={1500}/>
 			<View style={{height: 16}}/>
 			<View style={{flexDirection: 'row', justifyContent: 'space-between', width: '100%'}}>
-				<View style={{flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', width: '30%'}}>
+				<View style={{flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', width: '25%'}}>
 					<TouchableOpacity onPress={_openCamara.bind(this, navigation)}>
 						<FontAwesome5 name="camera" size={60}/>
 					</TouchableOpacity>
 				</View>
-				<View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '70%'}}>
-					<Image source={EmptyImage} style={{width: 60, height: 60}}/>
-					<Image source={EmptyImage} style={{width: 60, height: 60}}/>
-					<Image source={EmptyImage} style={{width: 60, height: 60}}/>
+				<View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '75%'}}>
+					<Image source={imagenes[0] || EmptyImage} style={{width: 80, height: 80}}/>
+					<Image source={imagenes[1] || EmptyImage} style={{width: 80, height: 80}}/>
+					<Image source={imagenes[2] || EmptyImage} style={{width: 80, height: 80}}/>
 				</View>
 			</View>
 			<View style={{height: 32}}/>
