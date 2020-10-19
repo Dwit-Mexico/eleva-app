@@ -13,7 +13,7 @@ function Galeria() {
 
 	const EmptyImage = require('../../../assets/picture_icon.png');
 
-	const imagenes = [EmptyImage, EmptyImage, {uri: 'https://as.com/meristation/imagenes/2019/06/10/betech/1560195710_365328_1560195771_noticia_normal.jpg'}];
+	const imagenes = [{uri: 'https://www.coppel.com/images/catalog/pm/3098693-1.jpg'}, {uri: 'https://decoraideas.com/wp-content/uploads/2018/12/01_guetzli-1.jpg'}, {uri: 'https://www.arquitecturaydiseno.es/medio/2020/03/24/bano-pequeno-con-pavimento-continuo-en-la-ducha-y-mini-mampara_63470ad2_1280x1917.jpg'}];
 
 	return (
 		<Container>
