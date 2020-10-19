@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, StatusBar, Linking, Platform, Image } fro
 import { Camera } from 'expo-camera';
 import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
 import { FontAwesome5, MaterialIcons } from '@expo/vector-icons';
+import ImageViewer from 'react-native-image-zoom-viewer';
 
 // Componentes
 import Preview from './preview';
@@ -14,7 +15,7 @@ import Container from '../../components/container';
 let camara = null;
 
 const Camara = () => {
-	// StatusBar.setBarStyle('light-content');
+	StatusBar.setBarStyle('light-content');
 
 	const navigation = useNavigation();
 	const [hasPermission, setHasPermission] = useState(null);

@@ -14,7 +14,6 @@ import BottomNavigator from './BottomTabNavigator';
 import Notificaciones from '../screens/notificaciones';
 import NuevaGarantia from '../screens/garantias/Nueva';
 import DetalleGarantia from '../screens/garantias/Detalle';
-import DetalleImagen from '../screens/detalle-imagen';
 import Camara from '../screens/camara';
 
 function getHeaderTitle(route) {
@@ -69,9 +68,6 @@ function AppStack(props) {
 				options={{
 					header: () => null
 				}}/>
-			<Stack.Screen
-				name="DetalleImagen"
-				component={DetalleImagen}/>
 		</Stack.Navigator>
 	);
 }
