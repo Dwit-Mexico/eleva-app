@@ -24,12 +24,14 @@ const Camara = () => {
 	const [imagen, setImagen] = useState(null);
 	const [view, setView] = useState('camara');
 	const [imgIndex, setImagenIndex] = useState(0);
+	const [esDetalle, setEsDetalle] = useState(false);
 
 	const route = useRoute();
 
 	useFocusEffect(() => {
-		const { imagenIndex } = route.params;
+		const { imagenIndex, esDetalle } = route.params;
 		setImagenIndex(imagenIndex);
+		setEsDetalle(esDetalle);
 	});
 
 	useEffect(() => {
@@ -67,7 +69,7 @@ const Camara = () => {
 	async function _aceptarFotos() {
 		if (navigation.canGoBack()) {
 			navigation.setParams(imagen);
-			navigation.navigate('NuevaGarantia', { imagen, imagenIndex: imgIndex });
+			navigation.navigate(esDetalle? 'DetalleGarantia' : 'NuevaGarantia', { imagen, imagenIndex: imgIndex });
 		}
 	}
 

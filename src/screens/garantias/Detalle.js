@@ -10,31 +10,33 @@ import Etapa3 from './etapas/Etapa3';
 //Componentes
 import Container from '../../components/container';
 
-function DetalleGarantia() {
+function DetalleGarantia({navigation}) {
 
 	const [etapa, setEtapa] = useState(0);
+	const [esDetalle, setEsDetalle] = useState(false);
 
 	const route = useRoute();
 
 	useFocusEffect(() => {
 		if (route.params) {
-			const { garantiaEtapa } = route.params;
-			setEtapa(garantiaEtapa)
+			const { garantiaEtapa, detalle } = route.params;
+			setEtapa(garantiaEtapa);
+			setEsDetalle(detalle)
 		}
 	})
 
-	const Etapa = ({ etapaIndex }) => {
+	const Etapa = ({ etapaIndex, navigation }) => {
 		switch(etapaIndex) {
-			case 1: return <Etapa1/>
-			case 2: return <Etapa2/>
-			case 3: return <Etapa3/>
+			case 1: return <Etapa1 navigation = {navigation} esDetalle = {esDetalle}/>
+			case 2: return <Etapa2 navigation = {navigation}/>
+			case 3: return <Etapa3 navigation = {navigation}/>
 			default: return null
 		}
 	}
 
 	return (
 		<Container>
-			<Etapa etapaIndex = {etapa}/>
+			<Etapa etapaIndex = {etapa} navigation = {navigation}/>
 		</Container>
 	);
 }

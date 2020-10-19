@@ -15,7 +15,7 @@ import BotonEnviar from '../../../components/boton-enviar/BotonEnviar';
 // Styles
 import TextStyle from '../../../styles/text';
 
-function Etapa1({navigation}) {
+function Etapa1({navigation, esDetalle}) {
 
 	const [imagen1, setImagen1] = useState(null);
 	const [imagen2, setImagen2] = useState(null);
@@ -49,7 +49,7 @@ function Etapa1({navigation}) {
 			return;
 		}
 		if (navigation) {
-			navigation.navigate('Camara', { imagenIndex: index });
+			navigation.navigate('Camara', { imagenIndex: index, esDetalle });
 		}
 	}
 

@@ -7,7 +7,7 @@ import CardStyles from '../../styles/components/CardGarantiaStyle';
 
 function CardGarantia(props) {
 	return (
-		<TouchableOpacity onPress={()=> props.navigation? props.navigation.navigate('DetalleGarantia', { garantiaEtapa: props.etapa }) : null}>
+		<TouchableOpacity onPress={()=> props.navigation? props.navigation.navigate('DetalleGarantia', { garantiaEtapa: props.etapa, detalle: true }) : null}>
 			<View style={CardStyles.card}>
 				<Text style={{fontWeight: 'bold', fontSize: 18, marginBottom: 10}}>Etapa {props.etapa}</Text>
 				<View style={{flexDirection: 'row'}}>
