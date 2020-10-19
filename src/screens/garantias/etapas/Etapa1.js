@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { StatusBar, ScrollView, Text, View, TextInput, Image, TouchableOpacity } from 'react-native';
-import { FontAwesome5 } from '@expo/vector-icons';
 import { useRoute, useFocusEffect } from '@react-navigation/native';
 
 // Componentes
@@ -13,26 +12,63 @@ import BotonEnviar from '../../../components/boton-enviar/BotonEnviar';
 // Styles
 import TextStyle from '../../../styles/text';
 
-function _openCamara(navigation) {
+function _openCamara(navigation, index, imagen, borrarImagen) {
+	if (imagen) {
+		navigation.navigate('DetalleImagen', { imagenIndex: index, imagen, borrarImagen });
+		return;
+	}
 	if (navigation) {
-		navigation.navigate('MyModal');
+		navigation.navigate('Camara', { imagenIndex: index });
 	}
 }
 
 function Etapa1({navigation}) {
 
-	const [imagenes, setImagenes] = useState([]);
+	const [imagen1, setImagen1] = useState(null);
+	const [imagen2, setImagen2] = useState(null);
+	const [imagen3, setImagen3] = useState(null);
 	const route = useRoute();
-	const EmptyImage = require('../../../../assets/picture_icon.png');
+
+	function _borrarImagen(index) {
+		switch(index) {
+			case 1: 
+				setImagen1(null);
+				break;
+			case 2: 
+				setImagen2(null);
+				break;
+			case 3: 
+				setImagen3(null);
+				break;
+		}
+	}
+
+	const ImagenButton = ({ navigation, index, imagen }) => {
+		const EmptyImage = require('../../../../assets/picture_icon.png');
+	
+		return (
+			<TouchableOpacity onPress={_openCamara.bind(this, navigation, index, imagen, _borrarImagen)}>
+				<Image source={imagen || EmptyImage} style={{width: 80, height: 80}}/>
+			</TouchableOpacity>
+		)
+	}
 
 	useFocusEffect(() => {
 
 		StatusBar.setBarStyle('dark-content');
 
 		if (route.params) {
-			const { imagenes } = route.params;
-			if (Array.isArray(imagenes)) {
-				setImagenes(imagenes);
+			const { imagen, imagenIndex } = route.params;
+			switch(imagenIndex) {
+				case 1: 
+					setImagen1(imagen);
+					break;
+				case 2: 
+					setImagen2(imagen);
+					break;
+				case 3: 
+					setImagen3(imagen);
+					break;
 			}
 		}
 	});
@@ -56,16 +92,11 @@ function Etapa1({navigation}) {
 				numberOfLines={6}
 				maxLength={1500}/>
 			<View style={{height: 16}}/>
-			<View style={{flexDirection: 'row', justifyContent: 'space-between', width: '100%'}}>
-				<View style={{flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', width: '25%'}}>
-					<TouchableOpacity onPress={_openCamara.bind(this, navigation)}>
-						<FontAwesome5 name="camera" size={60}/>
-					</TouchableOpacity>
-				</View>
-				<View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '75%'}}>
-					<Image source={imagenes[0] || EmptyImage} style={{width: 80, height: 80}}/>
-					<Image source={imagenes[1] || EmptyImage} style={{width: 80, height: 80}}/>
-					<Image source={imagenes[2] || EmptyImage} style={{width: 80, height: 80}}/>
+			<View style={{flexDirection: 'row', justifyContent: 'center', width: '100%'}}>
+				<View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '100%'}}>
+					<ImagenButton index = {1} imagen = {imagen1} navigation = {navigation}/>
+					<ImagenButton index = {2} imagen = {imagen2} navigation = {navigation}/>
+					<ImagenButton index = {3} imagen = {imagen3} navigation = {navigation}/>
 				</View>
 			</View>
 			<View style={{height: 32}}/>
