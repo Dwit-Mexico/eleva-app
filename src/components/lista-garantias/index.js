@@ -8,6 +8,7 @@ function ListaViviendas({navigation}) {
 	return (
 		<ScrollView>
 			<CardGarantia
+				etapa = {1}
 				navigation={navigation}
 				proyecto="Demo1"
 				name="Vivienda 1"
@@ -15,6 +16,7 @@ function ListaViviendas({navigation}) {
 				area="cocina"
 				fecha="2020/10/21"/>
 			<CardGarantia
+				etapa = {2}
 				navigation={navigation}
 				proyecto="Demo1"
 				name="Vivienda 2"
@@ -22,6 +24,7 @@ function ListaViviendas({navigation}) {
 				area="comedor"
 				fecha="2020/10/21"/>
 			<CardGarantia
+				etapa = {3}
 				navigation={navigation}
 				proyecto="Demo1"
 				name="Vivienda 3"
