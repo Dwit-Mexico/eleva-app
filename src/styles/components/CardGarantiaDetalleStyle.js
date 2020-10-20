@@ -13,7 +13,7 @@ export default StyleSheet.create({
 		flexDirection: 'column',
 		marginTop: 10,
 		marginBottom: 10,
-		padding: 25,
+		padding: 10,
 		backgroundColor: Colores.CardViviendaBG,
 		borderRadius: 5,
 		shadowColor: "#000",

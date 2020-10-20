@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
 import Select2 from 'react-native-select-two';
 import { AntDesign } from '@expo/vector-icons';
+import { Consumer } from '../../context';
 
 // Styles
 import InputStyles from '../../styles/inputs';
@@ -15,20 +16,32 @@ onSelectionsChange = (data, onChange) => {
 	}
 }
 
-function SelectObjeto({viviendas, onChange}) {
+function SelectEquipo({onChange, context}) {
+	const [equipos, setEquipos] = useState([]);
+
+	if (context) {
+		useEffect(() => {
+			let equiposNew = Array.isArray(context.equipos) ? context.equipos : [] ;
+			equiposNew = equiposNew.map(p => {
+				return {id: p.IdEquipo, name: p.NombreEquipo};
+			});
+			setEquipos(equiposNew);
+		}, [context.equipos]);
+	}
+
 	return (
 		<View style={ InputStyles.Select }>
 			<Select2
 				isSelectSingle={true}
 				style={{ borderWidth: 0 }}
 				colorTheme={Colores.selectTheme}
-				popupTitle={`Seleccionar objeto`}
-				title="Seleccione objeto"
-				searchPlaceHolderText="Buscar objeto"
+				popupTitle={`Seleccionar equipo`}
+				title="Seleccione equipo"
+				searchPlaceHolderText="Buscar equipo"
 				cancelButtonText="Cancelar"
 				selectButtonText="Aceptar"
-				listEmptyTitle="No se encontraron objeto diponibles"
-				data={[{id: 1, name: 'Objeto1'}, {id: 2, name: 'Objeto2'}]}
+				listEmptyTitle="No se encontraron equipos diponibles"
+				data={equipos}
 				onSelect={data => onSelectionsChange(data, onChange)}
 				onRemoveItem={data => onSelectionsChange(data)}
 			/>
@@ -37,4 +50,4 @@ function SelectObjeto({viviendas, onChange}) {
 	);
 }
 
-export default SelectObjeto;
+export default Consumer(SelectEquipo);

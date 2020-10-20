@@ -2,20 +2,21 @@ import React, { useState } from 'react';
 import { StatusBar, ScrollView, Text, View, TextInput, Image, TouchableOpacity, Modal } from 'react-native';
 import { useRoute, useFocusEffect } from '@react-navigation/native';
 import { FontAwesome5 } from '@expo/vector-icons';
+import { Consumer } from '../../../context';
 import ImageZoom from 'react-native-image-zoom-viewer';
 
 // Componentes
 import Container from '../../../components/container';
 import SelectVivienda from '../../../components/select/SelectVivienda';
 import SelectArea from '../../../components/select/SelectArea';
-import SelectObjeto from '../../../components/select/SelectObjeto';
+import SelectObjeto from '../../../components/select/SelectEquipo';
 import SelectProblema from '../../../components/select/SelectProblema';
 import BotonEnviar from '../../../components/boton-enviar/BotonEnviar';
 
 // Styles
 import TextStyle from '../../../styles/text';
 
-function Etapa1({navigation, esDetalle}) {
+function Etapa1({navigation, esDetalle, context}) {
 
 	const [imagen1, setImagen1] = useState(null);
 	const [imagen2, setImagen2] = useState(null);
@@ -156,4 +157,4 @@ function Etapa1({navigation, esDetalle}) {
 	);
 }
 
-export default Etapa1;
+export default Consumer(Etapa1);

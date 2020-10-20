@@ -12,6 +12,7 @@ import BottomNavigator from './BottomTabNavigator';
 
 //Screens
 import Notificaciones from '../screens/notificaciones';
+import GarantiasDetalle from '../screens/garantias/Garantias';
 import NuevaGarantia from '../screens/garantias/Nueva';
 import DetalleGarantia from '../screens/garantias/Detalle';
 import Camara from '../screens/camara';
@@ -54,8 +55,17 @@ function AppStack(props) {
 				name="Notificaciones"
 				component={Notificaciones}/>
 			<Stack.Screen
+				name="GarantiasDetalle"
+				component={GarantiasDetalle}
+				options={{
+					headerTitle: 'Garantía'
+				}}/>
+			<Stack.Screen
 				name="NuevaGarantia"
-				component={NuevaGarantia}/>
+				component={NuevaGarantia}
+				options={{
+					headerTitle: 'Nueva Garantía'
+				}}/>
 			<Stack.Screen
 				name="DetalleGarantia"
 				component={DetalleGarantia}
