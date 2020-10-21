@@ -1,22 +1,41 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ScrollView, RefreshControl } from 'react-native';
+import { Consumer } from '../../context';
 
 //Componentes
 import CardVivienda from './CardVivienda';
 
-function ListaViviendas() {
+function ListaViviendas({context}) {
+	const [unidades, setUnidades] = useState([]);
+
+	if (context) {
+		useEffect(() => {
+			console.log('Unidades', context.unidades);
+			setUnidades(context.unidades || []);
+		}, [context.unidades])
+	}
+
 	return (
 		<ScrollView
 			style = {{height: '50%'}}
 			refreshControl = {
 				<RefreshControl refreshing={false} onRefresh={() => console.log('on refresh')} />
 			}>
-			<CardVivienda name="Vivienda 1" direccion= "direccion de prueba" fecha="2020/10/21"/>
-			<CardVivienda name="Vivienda 2" direccion= "direccion de prueba 2" fecha="2020/10/21"/>
-			<CardVivienda name="Vivienda 3" direccion= "direccion de prueba 3" fecha="2020/10/21"/>
-			<CardVivienda name="Vivienda 4" direccion= "direccion de prueba 3" fecha="2020/10/21"/>
+			{
+				unidades.map((unidad) => {
+					console.log(unidad);
+					return (
+						<CardVivienda
+							key			=	{unidad.IdUnidad}
+							proyecto 	= 	{unidad.Nombre}
+							nombre 		= 	{unidad.Numero}
+							direccion 	= 	{unidad.Direccion}
+							fecha		=	"2020/10/21"/>
+					)
+				})
+			}
 		</ScrollView>
 	);
 }
 
-export default ListaViviendas;
+export default Consumer(ListaViviendas);

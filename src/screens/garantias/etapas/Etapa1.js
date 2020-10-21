@@ -7,17 +7,24 @@ import ImageZoom from 'react-native-image-zoom-viewer';
 
 // Componentes
 import Container from '../../../components/container';
-import SelectVivienda from '../../../components/select/SelectVivienda';
+import SelectUnidad from '../../../components/select/SelectUnidad';
 import SelectArea from '../../../components/select/SelectArea';
-import SelectObjeto from '../../../components/select/SelectEquipo';
+import SelectEquipo from '../../../components/select/SelectEquipo';
 import SelectProblema from '../../../components/select/SelectProblema';
 import BotonEnviar from '../../../components/boton-enviar/BotonEnviar';
 
 // Styles
 import TextStyle from '../../../styles/text';
 
-function Etapa1({navigation, esDetalle, context}) {
+// API
+import Request from '../../../core/api';
+const request = new Request();
 
+const formValues = { unidad: null, area: null, equipo: null, problema: null, comentarios: null };
+
+function Etapa1({navigation, esDetalle, context}) {
+	const [form, setForm] = useState(formValues);
+	const [loading, setLoading] = useState(false);
 	const [imagen1, setImagen1] = useState(null);
 	const [imagen2, setImagen2] = useState(null);
 	const [imagen3, setImagen3] = useState(null);
@@ -52,6 +59,18 @@ function Etapa1({navigation, esDetalle, context}) {
 		if (navigation) {
 			navigation.navigate('Camara', { imagenIndex: index, esDetalle });
 		}
+	}
+
+	async function _handleSubmit() {
+		setLoading(true);
+		const data = form;
+		console.log(data);
+		const response = await request.post('/app/garantias/crear', data);
+		console.log(response);
+		if (response.error) {
+			alert(response.message);
+		}
+		setLoading(false);
 	}
 
 	const ImagenButton = ({ navigation, index, imagen }) => {
@@ -91,19 +110,19 @@ function Etapa1({navigation, esDetalle, context}) {
 
 				<View style={{height: 8}}/>
 
-				<SelectVivienda onChange = {(data) => console.log('SelectVivienda', data)}/>
+				<SelectUnidad onChange = {(data) => setForm({...form, unidad: data})}/>
 
 				<View style={{height: 8}}/>
 
-				<SelectArea onChange = {(data) => console.log('SelectArea', data)}/>
+				<SelectArea onChange = {(data) => setForm({...form, area: data})}/>
 
 				<View style={{height: 8}}/>
 
-				<SelectObjeto onChange = {(data) => console.log('SelectObjeto', data)}/>
+				<SelectEquipo onChange = {(data) => setForm({...form, equipo: data})}/>
 
 				<View style={{height: 8}}/>
 
-				<SelectProblema onChange = {(data) => console.log('SelectProblema', data)}/>
+				<SelectProblema onChange = {(data) => setForm({...form, problema: data})}/>
 
 				<View style={{height: 8}}/>
 
@@ -112,7 +131,8 @@ function Etapa1({navigation, esDetalle, context}) {
 					style={{borderRadius: 8, borderColor: '#000', borderWidth: 1, paddingVertical: 10, paddingHorizontal: 17, textAlignVertical: "top", fontSize: 14}}
 					multiline
 					numberOfLines={6}
-					maxLength={1500}/>
+					maxLength={1500}
+					onChangeText = {(text) => setForm({...form, comentarios: text})}/>
 
 				<View style={{height: 16}}/>
 
@@ -127,7 +147,7 @@ function Etapa1({navigation, esDetalle, context}) {
 				<View style={{height: 32}}/>
 
 				<View style={{flexDirection: 'row', justifyContent: 'center'}}>
-					<BotonEnviar onSubmit = {(submit) => console.log(submit)}/>
+					<BotonEnviar onSubmit = {_handleSubmit.bind(this)} loading = {loading}/>
 				</View>
 
 				<Modal

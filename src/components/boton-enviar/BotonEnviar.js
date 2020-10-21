@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, Text } from 'react-native';
+import { TouchableOpacity, Text, ActivityIndicator } from 'react-native';
 
 //Styles
 import Styles from '../../styles/components/BotonEnviarStyle';
@@ -12,6 +12,13 @@ function _onSubmit(onSubmit) {
 
 const BotonEnviar = (props) => {
 	const { navigation, onSubmit } = props;
+	if (props.loading) {
+		return (
+			<TouchableOpacity style={Styles.boton}>
+				<ActivityIndicator color={Styles.spinner.color}/>
+			</TouchableOpacity>
+		)
+	}
 	return (
 		<TouchableOpacity style={Styles.boton} onPress={_onSubmit.bind(this, onSubmit)}>
 			<Text style={Styles.text}>Enviar</Text>

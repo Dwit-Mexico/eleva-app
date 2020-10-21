@@ -12,5 +12,8 @@ export default StyleSheet.create({
 	text: {
 		textAlign: 'center',
 		color: 'white'
+	},
+	spinner: {
+		color: 'white'
 	}
 });

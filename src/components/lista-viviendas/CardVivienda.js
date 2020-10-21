@@ -12,7 +12,8 @@ function CardVivienda(props) {
 				<FontAwesome5 name="home" size={25}/>
 			</View>
 			<View>
-				<Text style={{padding: 5}}>{props.name}</Text>
+				<Text style={{padding: 5, fontWeight: 'bold'}}>{props.proyecto}</Text>
+				<Text style={{padding: 5}}>{props.nombre}</Text>
 				<Text style={{padding: 5}}>{props.direccion}</Text>
 				<Text style={{padding: 5}}>Validez Garantía: {props.fecha}</Text>
 			</View>

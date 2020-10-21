@@ -3,6 +3,7 @@ import { AsyncStorage } from 'react-native';
 
 //Funciones
 import { login, logout } from './user';
+import { getUnidades } from './catalogos/Unidades';
 import { getAreas } from './catalogos/Areas';
 import { getEquipos } from './catalogos/Equipos';
 import { getProblemas } from './catalogos/Problemas';
@@ -16,7 +17,7 @@ class GlobalContext extends Component {
 			auth: false,
 			login: login.bind(this),
 			logout: logout.bind(this),
-			viviendas: [],
+			unidades: [],
 			areas: [],
 			equipos: [],
 			problemas: []
@@ -75,6 +76,11 @@ class GlobalContext extends Component {
 		if (problemas.problemas) {
 			catalogoObj.problemas = areas.problemas;
 			this.setState({problemas: problemas.problemas});
+		}
+
+		const unidades = await getUnidades();
+		if (unidades.unidades) {
+			this.setState({unidades: unidades.unidades});
 		}
 
 		AsyncStorage.setItem('Catalogos', JSON.stringify(catalogoObj));

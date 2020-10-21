@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
 import Select2 from 'react-native-select-two';
 import { AntDesign } from '@expo/vector-icons';
@@ -15,7 +15,19 @@ onSelectionsChange = (data, onChange) => {
 	}
 }
 
-function SelectVivienda({viviendas, onChange}) {
+function SelectVivienda({onChange, context}) {
+	const [unidades, setUnidades] = useState([]);
+
+	if (context) {
+		useEffect(() => {
+			let unidadesNew = Array.isArray(context.unidades) ? context.unidades : [];
+			unidadesNew = unidadesNew.map(u => {
+				return {id: u.IdUnidad, name: u.Numero};
+			});
+			setUnidades(unidadesNew);
+		}, [context.unidades])
+	}
+
 	return (
 		<View style={InputStyles.Select}>
 			<Select2
@@ -28,7 +40,7 @@ function SelectVivienda({viviendas, onChange}) {
 				cancelButtonText="Cancelar"
 				selectButtonText="Aceptar"
 				listEmptyTitle="No se encontraron viviendas diponibles"
-				data={[{id: 1, name: 'Vivienda1'}, {id: 2, name: 'Vivienda2'}]}
+				data={unidades}
 				onSelect={data => onSelectionsChange(data, onChange)}
 				onRemoveItem={data => onSelectionsChange(data)}
 			/>
