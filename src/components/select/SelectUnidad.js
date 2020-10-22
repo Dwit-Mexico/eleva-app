@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
 import Select2 from 'react-native-select-two';
 import { AntDesign } from '@expo/vector-icons';
+import { Consumer } from '../../context';
 
 // Styles
 import InputStyles from '../../styles/inputs';
@@ -24,6 +25,7 @@ function SelectVivienda({onChange, context}) {
 			unidadesNew = unidadesNew.map(u => {
 				return {id: u.IdUnidad, name: u.Numero};
 			});
+			console.log(unidadesNew);
 			setUnidades(unidadesNew);
 		}, [context.unidades])
 	}
@@ -49,4 +51,4 @@ function SelectVivienda({onChange, context}) {
 	);
 }
 
-export default SelectVivienda;
+export default Consumer(SelectVivienda);

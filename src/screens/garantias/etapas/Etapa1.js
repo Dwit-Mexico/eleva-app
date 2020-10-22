@@ -12,6 +12,7 @@ import SelectArea from '../../../components/select/SelectArea';
 import SelectEquipo from '../../../components/select/SelectEquipo';
 import SelectProblema from '../../../components/select/SelectProblema';
 import BotonEnviar from '../../../components/boton-enviar/BotonEnviar';
+import * as ImageManipulator from 'expo-image-manipulator';
 
 // Styles
 import TextStyle from '../../../styles/text';
@@ -61,12 +62,37 @@ function Etapa1({navigation, esDetalle, context}) {
 		}
 	}
 
+	async function _compressImage(imagen, name) {
+		const manipResult = await ImageManipulator.manipulateAsync (
+			imagen.uri,
+			[],
+			{ compress: 0.5, format: ImageManipulator.SaveFormat.JPEG, base64: false }
+		);
+
+		return {
+			uri: manipResult.uri,
+			name: `${name}.jpg`,
+			type: `image/jpg`,
+		}
+	}
+
 	async function _handleSubmit() {
 		setLoading(true);
 		const data = form;
-		console.log(data);
-		const response = await request.post('/app/garantias/crear', data);
-		console.log(response);
+		let newImagen1, newImagen2, newImagen3;
+		if(imagen1) {
+			newImagen1 = await _compressImage(imagen1, 'imagen1');
+		}
+
+		if(imagen2) {
+			newImagen2 = await _compressImage(imagen2, 'imagen2');
+		}
+
+		if(imagen3) {
+			newImagen3 = await _compressImage(imagen3, 'imagen3');
+		}
+
+		const response = await request.postFile('/app/garantias/crear', [newImagen1, newImagen2, newImagen3], data);
 		if (response.error) {
 			alert(response.message);
 		}
