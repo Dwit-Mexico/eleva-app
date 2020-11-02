@@ -32,6 +32,7 @@ function Etapa1({navigation, esDetalle, context}) {
 	const [imagenIndex, setimagenIndex] = useState(null);
 	const [modalImagen, setModalImagen] = useState(false);
 	const [zoomImagen, setZoomImagen] = useState(null);
+	const [paso, setPaso] = useState(1);
 	const route = useRoute();
 
 	function _borrarImagen() {
@@ -129,6 +130,88 @@ function Etapa1({navigation, esDetalle, context}) {
 		}
 	});
 
+	const Wizard = ({paso}) => {
+		switch(paso) {
+			case 1: 
+				return (
+					<View style={{flex: 1, height: '100%', alignItems: 'center'}}>
+						<Text style={{fontSize: 20, padding: 10}}>¿Dónde ocurrio el problema?</Text>
+						<SelectUnidad onChange = {(data) => setForm({...form, unidad: data})}/>
+						<View style={{flexDirection: 'row', width: '100%'}}>
+							<TouchableOpacity style={{padding: 20, backgroundColor: 'gray'}} onPress={() => setPaso(2)}>
+								<Text>Siguiente</Text>
+							</TouchableOpacity>
+						</View>
+					</View>
+				)
+			case 2: 
+				return (
+					<View style={{flex: 1, height: '100%', alignItems: 'center'}}>
+						<Text style={{fontSize: 20, padding: 10}}>¿Dónde ocurrio el problema?</Text>
+						<SelectArea onChange = {(data) => setForm({...form, area: data})}/>
+						<View style={{flexDirection: 'row', width: '100%'}}>
+							<TouchableOpacity style={{padding: 20, backgroundColor: 'gray'}} onPress={() => setPaso(1)}>
+								<Text>Anterior</Text>
+							</TouchableOpacity>
+							<TouchableOpacity style={{padding: 20, backgroundColor: 'gray'}} onPress={() => setPaso(3)}>
+								<Text>Siguiente</Text>
+							</TouchableOpacity>
+						</View>
+					</View>
+				)
+			case 3: 
+				return (
+					<View>
+						<Text>Paso 3</Text>
+						<SelectEquipo onChange = {(data) => setForm({...form, equipo: data})}/>
+						<View style={{flexDirection: 'row', width: '100%'}}>
+							<TouchableOpacity style={{padding: 20, backgroundColor: 'gray'}} onPress={() => setPaso(2)}>
+								<Text>Anterior</Text>
+							</TouchableOpacity>
+							<TouchableOpacity style={{padding: 20, backgroundColor: 'gray'}} onPress={() => setPaso(4)}>
+								<Text>Finalizar</Text>
+							</TouchableOpacity>
+						</View>
+					</View>
+				);
+			case 4: 
+				return (
+					<View>
+						<Text>Paso 4</Text>
+						<SelectProblema onChange = {(data) => setForm({...form, problema: data})}/>
+						<View style={{flexDirection: 'row', width: '100%'}}>
+							<TouchableOpacity style={{padding: 20, backgroundColor: 'gray'}} onPress={() => setPaso(3)}>
+								<Text>Anterior</Text>
+							</TouchableOpacity>
+							<TouchableOpacity style={{padding: 20, backgroundColor: 'gray'}} onPress={() => setPaso(1)}>
+								<Text>Finalizar</Text>
+							</TouchableOpacity>
+						</View>
+					</View>
+				);
+			case 5: 
+				return (
+					<View>
+						<Text>Paso 5</Text>
+						<View style={{flexDirection: 'row', width: '100%'}}>
+							<TouchableOpacity style={{padding: 20, backgroundColor: 'gray'}} onPress={() => setPaso(3)}>
+								<Text>Anterior</Text>
+							</TouchableOpacity>
+							<TouchableOpacity style={{padding: 20, backgroundColor: 'gray'}} onPress={() => setPaso(1)}>
+								<Text>Finalizar</Text>
+							</TouchableOpacity>
+						</View>
+					</View>
+				);
+			default:		
+				return (
+					<View>
+						<Text>Nueva Garantia</Text>
+					</View>
+				)
+		}
+	}
+
 	return (
 		<Container>
 			<ScrollView style = {{flex: 1}}>
@@ -136,19 +219,8 @@ function Etapa1({navigation, esDetalle, context}) {
 
 				<View style={{height: 8}}/>
 
-				<SelectUnidad onChange = {(data) => setForm({...form, unidad: data})}/>
-
-				<View style={{height: 8}}/>
-
-				<SelectArea onChange = {(data) => setForm({...form, area: data})}/>
-
-				<View style={{height: 8}}/>
-
-				<SelectEquipo onChange = {(data) => setForm({...form, equipo: data})}/>
-
-				<View style={{height: 8}}/>
-
-				<SelectProblema onChange = {(data) => setForm({...form, problema: data})}/>
+				<Wizard paso = {paso}/>
+				{/*
 
 				<View style={{height: 8}}/>
 
@@ -196,7 +268,7 @@ function Etapa1({navigation, esDetalle, context}) {
 							</TouchableOpacity>
 						</View>
 					</View>
-				</Modal>
+				</Modal>*/}
 
 			</ScrollView>
 		</Container>

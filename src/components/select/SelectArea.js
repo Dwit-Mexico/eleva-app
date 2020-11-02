@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import Select2 from 'react-native-select-two';
 import { AntDesign } from '@expo/vector-icons';
 import { Consumer } from '../../context';
@@ -30,22 +30,14 @@ function SelectArea({onChange, context}) {
 	}
 
 	return (
-		<View style={InputStyles.Select}>
-			<Select2
-				isSelectSingle={true}
-				style={{ borderWidth: 0 }}
-				colorTheme={Colores.selectTheme}
-				popupTitle={`Seleccionar area`}
-				title="Seleccione area"
-				searchPlaceHolderText="Buscar area"
-				cancelButtonText="Cancelar"
-				selectButtonText="Aceptar"
-				listEmptyTitle="No se encontraron areas diponibles"
-				data={areas}
-				onSelect={data => onSelectionsChange(data, onChange)}
-				onRemoveItem={data => onSelectionsChange(data)}
-			/>
-			<AntDesign style={{ right: 25 }} name="caretdown" color="grey" size={10} />
+		<View style={{width: '100%', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center'}}>
+			{areas.map((area) => {
+				return (
+					<TouchableOpacity style={{padding: 10, backgroundColor: '#eaeaea', marginHorizontal: 2, marginVertical: 2}}>
+						<Text>{area.name}</Text>
+					</TouchableOpacity>
+				)
+			})}
 		</View>
 	);
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { View } from 'react-native';
 
 //Componentes
 import Container from '../../components/container';

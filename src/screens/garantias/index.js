@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { Animated } from 'react-native';
 
 //Componentes
 import Container from '../../components/container';
