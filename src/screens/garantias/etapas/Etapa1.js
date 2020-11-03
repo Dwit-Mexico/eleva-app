@@ -4,15 +4,19 @@ import { useRoute, useFocusEffect } from '@react-navigation/native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Consumer } from '../../../context';
 import ImageZoom from 'react-native-image-zoom-viewer';
+import * as ImageManipulator from 'expo-image-manipulator';
 
 // Componentes
 import Container from '../../../components/container';
-import SelectUnidad from '../../../components/select/SelectUnidad';
-import SelectArea from '../../../components/select/SelectArea';
-import SelectEquipo from '../../../components/select/SelectEquipo';
 import SelectProblema from '../../../components/select/SelectProblema';
 import BotonEnviar from '../../../components/boton-enviar/BotonEnviar';
-import * as ImageManipulator from 'expo-image-manipulator';
+import Wizard from '../../../components/wizard';
+
+//Pages
+import Vivienda from './formulario/vivienda';
+import Area from './formulario/area';
+import Equipo from './formulario/equipo';
+import Problema from './formulario/problema';
 
 // Styles
 import TextStyle from '../../../styles/text';
@@ -130,96 +134,20 @@ function Etapa1({navigation, esDetalle, context}) {
 		}
 	});
 
-	const Wizard = ({paso}) => {
-		switch(paso) {
-			case 1: 
-				return (
-					<View style={{flex: 1, height: '100%', alignItems: 'center'}}>
-						<Text style={{fontSize: 20, padding: 10}}>¿Dónde ocurrio el problema?</Text>
-						<SelectUnidad onChange = {(data) => setForm({...form, unidad: data})}/>
-						<View style={{flexDirection: 'row', width: '100%'}}>
-							<TouchableOpacity style={{padding: 20, backgroundColor: 'gray'}} onPress={() => setPaso(2)}>
-								<Text>Siguiente</Text>
-							</TouchableOpacity>
-						</View>
-					</View>
-				)
-			case 2: 
-				return (
-					<View style={{flex: 1, height: '100%', alignItems: 'center'}}>
-						<Text style={{fontSize: 20, padding: 10}}>¿Dónde ocurrio el problema?</Text>
-						<SelectArea onChange = {(data) => setForm({...form, area: data})}/>
-						<View style={{flexDirection: 'row', width: '100%'}}>
-							<TouchableOpacity style={{padding: 20, backgroundColor: 'gray'}} onPress={() => setPaso(1)}>
-								<Text>Anterior</Text>
-							</TouchableOpacity>
-							<TouchableOpacity style={{padding: 20, backgroundColor: 'gray'}} onPress={() => setPaso(3)}>
-								<Text>Siguiente</Text>
-							</TouchableOpacity>
-						</View>
-					</View>
-				)
-			case 3: 
-				return (
-					<View>
-						<Text>Paso 3</Text>
-						<SelectEquipo onChange = {(data) => setForm({...form, equipo: data})}/>
-						<View style={{flexDirection: 'row', width: '100%'}}>
-							<TouchableOpacity style={{padding: 20, backgroundColor: 'gray'}} onPress={() => setPaso(2)}>
-								<Text>Anterior</Text>
-							</TouchableOpacity>
-							<TouchableOpacity style={{padding: 20, backgroundColor: 'gray'}} onPress={() => setPaso(4)}>
-								<Text>Finalizar</Text>
-							</TouchableOpacity>
-						</View>
-					</View>
-				);
-			case 4: 
-				return (
-					<View>
-						<Text>Paso 4</Text>
-						<SelectProblema onChange = {(data) => setForm({...form, problema: data})}/>
-						<View style={{flexDirection: 'row', width: '100%'}}>
-							<TouchableOpacity style={{padding: 20, backgroundColor: 'gray'}} onPress={() => setPaso(3)}>
-								<Text>Anterior</Text>
-							</TouchableOpacity>
-							<TouchableOpacity style={{padding: 20, backgroundColor: 'gray'}} onPress={() => setPaso(1)}>
-								<Text>Finalizar</Text>
-							</TouchableOpacity>
-						</View>
-					</View>
-				);
-			case 5: 
-				return (
-					<View>
-						<Text>Paso 5</Text>
-						<View style={{flexDirection: 'row', width: '100%'}}>
-							<TouchableOpacity style={{padding: 20, backgroundColor: 'gray'}} onPress={() => setPaso(3)}>
-								<Text>Anterior</Text>
-							</TouchableOpacity>
-							<TouchableOpacity style={{padding: 20, backgroundColor: 'gray'}} onPress={() => setPaso(1)}>
-								<Text>Finalizar</Text>
-							</TouchableOpacity>
-						</View>
-					</View>
-				);
-			default:		
-				return (
-					<View>
-						<Text>Nueva Garantia</Text>
-					</View>
-				)
-		}
-	}
-
 	return (
 		<Container>
-			<ScrollView style = {{flex: 1}}>
+			<View style = {{flex: 1, height: '100%'}}>
 				<Text style={TextStyle.EtapaTitulo}>Etapa 1</Text>
 
 				<View style={{height: 8}}/>
 
-				<Wizard paso = {paso}/>
+				<Wizard
+					steps = {[
+					<Vivienda />,
+					<Area />,
+					<Equipo />,
+					<Problema />
+				]}/>
 				{/*
 
 				<View style={{height: 8}}/>
@@ -270,7 +198,7 @@ function Etapa1({navigation, esDetalle, context}) {
 					</View>
 				</Modal>*/}
 
-			</ScrollView>
+			</View>
 		</Container>
 	);
 }

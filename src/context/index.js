@@ -20,7 +20,8 @@ class GlobalContext extends Component {
 			unidades: [],
 			areas: [],
 			equipos: [],
-			problemas: []
+			problemas: [],
+			getAreas: getAreas.bind(this)
 		}
 
 		this.initUser();
@@ -60,7 +61,7 @@ class GlobalContext extends Component {
 			equipos: []
 		};
 
-		const areas = await getAreas();
+		/*const areas = await getAreas();
 		if (areas.areas) {
 			catalogoObj.areas = areas.areas;
 			this.setState({areas: areas.areas});
@@ -70,17 +71,18 @@ class GlobalContext extends Component {
 		if (equipos.equipos) {
 			catalogoObj.equipos = equipos.equipos;
 			this.setState({equipos: equipos.equipos});
-		}
+		}*/
 
 		const problemas = await getProblemas();
 		if (problemas.problemas) {
-			catalogoObj.problemas = areas.problemas;
+			catalogoObj.problemas = problemas.problemas;
 			this.setState({problemas: problemas.problemas});
 		}
 
 		const unidades = await getUnidades();
-		if (unidades.unidades) {
-			this.setState({unidades: unidades.unidades});
+		console.log(unidades.data);
+		if (unidades.data) {
+			this.setState({unidades: unidades.data});
 		}
 
 		AsyncStorage.setItem('Catalogos', JSON.stringify(catalogoObj));

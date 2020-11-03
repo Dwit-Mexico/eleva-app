@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { View } from 'react-native';
+import { ScrollView, TouchableOpacity, Text } from 'react-native';
 import Select2 from 'react-native-select-two';
-import { AntDesign } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 import { Consumer } from '../../context';
 
 // Styles
@@ -16,8 +16,9 @@ onSelectionsChange = (data, onChange) => {
 	}
 }
 
-function SelectVivienda({onChange, context}) {
+function SelectUnidad({onChange, context}) {
 	const [unidades, setUnidades] = useState([]);
+	const [selected, setSelected] = useState();
 
 	if (context) {
 		useEffect(() => {
@@ -25,30 +26,33 @@ function SelectVivienda({onChange, context}) {
 			unidadesNew = unidadesNew.map(u => {
 				return {id: u.IdUnidad, name: u.Numero};
 			});
-			console.log(unidadesNew);
 			setUnidades(unidadesNew);
 		}, [context.unidades])
 	}
 
 	return (
-		<View style={InputStyles.Select}>
-			<Select2
-				isSelectSingle={true}
-				style={{ borderWidth: 0 }}
-				colorTheme={Colores.selectTheme}
-				popupTitle={`Seleccionar vivienda`}
-				title="Seleccione vivienda"
-				searchPlaceHolderText="Buscar vivienda"
-				cancelButtonText="Cancelar"
-				selectButtonText="Aceptar"
-				listEmptyTitle="No se encontraron viviendas diponibles"
-				data={unidades}
-				onSelect={data => onSelectionsChange(data, onChange)}
-				onRemoveItem={data => onSelectionsChange(data)}
-			/>
-			<AntDesign style={{ right: 25 }} name="caretdown" color="grey" size={10} />
-		</View>
+		<ScrollView contentContainerStyle={{width: '100%', flexDirection: 'column', justifyContent: 'center'}}>
+			{unidades.map((unidad) => {
+
+				const textStyle = unidad.id == selected ? InputStyles.itemTextSelected: InputStyles.itemTextNormal
+
+				return (
+					<TouchableOpacity
+						key={unidad.id}
+						onPress={() => setSelected(unidad.id)}
+						style={unidad.id == selected ? InputStyles.itemSelected: InputStyles.itemNormal}>
+							<FontAwesome5
+								name="home"
+								style={{...textStyle, margin: 10}}/>
+							<Text
+								style={textStyle}>
+									{unidad.name}
+							</Text>
+					</TouchableOpacity>
+				)
+			})}
+		</ScrollView>
 	);
 }
 
-export default Consumer(SelectVivienda);
+export default Consumer(SelectUnidad);

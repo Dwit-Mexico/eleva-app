@@ -1,6 +1,9 @@
-import React from 'react';
-import { View, Animated } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, Animated, Text } from 'react-native';
 import { Consumer } from '../../../../context';
+
+//Componentes
+import SelectArea from '../../../../components/select/SelectArea';
 
 function SeleccionarArea(props) {
 	const animatedOpacity = new Animated.Value(0);
@@ -14,15 +17,18 @@ function SeleccionarArea(props) {
 	}, []);
 
 	return (
-		<View>
+		<View style={{flex: 1}}>
 			<Animated.View
 				style={{
-					height: 100,
-					widht: 100,
+					flex: 1,
+					height: '100%',
 					opacity: animatedOpacity,
-					backgroundColor: 'lightgray',
+					// backgroundColor: 'lightgray',
 				}}
-			/>
+			>
+				<Text style={{fontSize: 18, textAlign: 'center', padding: 10}}>¿Dónde tienes el problema?</Text>
+				<SelectArea />
+			</Animated.View>
 		</View>
 	)
 }

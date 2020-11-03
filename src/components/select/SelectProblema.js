@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View } from 'react-native';
+import { ScrollView, TouchableOpacity, Text } from 'react-native';
 import Select2 from 'react-native-select-two';
 import { AntDesign } from '@expo/vector-icons';
 import { Consumer } from '../../context';
@@ -18,6 +18,7 @@ onSelectionsChange = (data, onChange) => {
 
 function SelectProblema({ onChange, context }) {
 	const [problemas, setProblemas] = useState([]);
+	const [selected, setSelected] = useState();
 
 	if (context) {
 		useEffect(() => {
@@ -30,23 +31,18 @@ function SelectProblema({ onChange, context }) {
 	}
 
 	return (
-		<View style={ InputStyles.Select }>
-			<Select2
-				isSelectSingle={true}
-				style={{ borderWidth: 0 }}
-				colorTheme={Colores.selectTheme}
-				popupTitle={`Seleccionar problema`}
-				title="Seleccione problema"
-				searchPlaceHolderText="Buscar problema"
-				cancelButtonText="Cancelar"
-				selectButtonText="Aceptar"
-				listEmptyTitle="No se encontraron objeto diponibles"
-				data={problemas}
-				onSelect={data => onSelectionsChange(data, onChange)}
-				onRemoveItem={data => onSelectionsChange(data)}
-			/>
-			<AntDesign style={{ right: 25 }} name="caretdown" color="grey" size={10} />
-		</View>
+		<ScrollView contentContainerStyle={{width: '100%', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center'}}>
+			{problemas.map((problema) => {
+				return (
+					<TouchableOpacity
+						key={problema.id}
+						onPress={() => setSelected(problema.id)}
+						style={problema.id == selected ? InputStyles.itemSelected: InputStyles.itemNormal}>
+						<Text style={problema.id == selected ? InputStyles.itemTextSelected: InputStyles.itemTextNormal}>{problema.name}</Text>
+					</TouchableOpacity>
+				)
+			})}
+		</ScrollView>
 	);
 }
 

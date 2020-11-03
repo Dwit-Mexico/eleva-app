@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { ScrollView, Text, TouchableOpacity } from 'react-native';
 import Select2 from 'react-native-select-two';
 import { AntDesign } from '@expo/vector-icons';
 import { Consumer } from '../../context';
@@ -10,35 +10,61 @@ import InputStyles from '../../styles/inputs';
 // Colores
 import Colores from '../../styles/colores';
 
-onSelectionsChange = (data, onChange) => {
-	if (onChange) {
-		onChange(data[0]);
-	}
-}
 
-function SelectArea({onChange, context}) {
+function SelectArea({value, onChange, context}) {
 	const [areas, setAreas] = useState([]);
+	const [selected, setSelected] = useState();
 
 	if (context) {
 		useEffect(() => {
+
+			const fetchData = async () => {
+				let result = await context.getAreas(5);
+				console.log(result)
+				if (Array.isArray(result.data)) {
+					let areasNew = result.data;
+					console.log(areasNew);
+					areasNew = areasNew.map(p => {
+						return {id: p.IdArea, name: p.NombreArea};
+					});
+					setAreas(areasNew);
+				}
+			}
+
+			fetchData();
+
+		}, []);
+
+		/*useEffect(() => {
 			let areasNew = Array.isArray(context.areas) ? context.areas : [] ;
+			console.log(areasNew);
 			areasNew = areasNew.map(p => {
 				return {id: p.IdArea, name: p.NombreArea};
 			});
 			setAreas(areasNew);
-		}, [context.areas]);
+		}, []);*/
+	}
+
+	function selectArea(id) {
+		setSelected(id);
+		if (onChange) {
+			onChange(id);
+		}
 	}
 
 	return (
-		<View style={{width: '100%', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center'}}>
+		<ScrollView contentContainerStyle={{width: '100%', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center'}}>
 			{areas.map((area) => {
 				return (
-					<TouchableOpacity style={{padding: 10, backgroundColor: '#eaeaea', marginHorizontal: 2, marginVertical: 2}}>
-						<Text>{area.name}</Text>
+					<TouchableOpacity
+						key={area.id}
+						onPress={() => setSelected(area.id)}
+						style={area.id == selected ? InputStyles.itemSelected: InputStyles.itemNormal}>
+						<Text style={area.id == selected ? InputStyles.itemTextSelected: InputStyles.itemTextNormal}>{area.name}</Text>
 					</TouchableOpacity>
 				)
 			})}
-		</View>
+		</ScrollView>
 	);
 }
 

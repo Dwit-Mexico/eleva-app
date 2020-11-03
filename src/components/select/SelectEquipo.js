@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View } from 'react-native';
+import { ScrollView, TouchableOpacity, Text } from 'react-native';
 import Select2 from 'react-native-select-two';
 import { AntDesign } from '@expo/vector-icons';
 import { Consumer } from '../../context';
@@ -18,6 +18,7 @@ onSelectionsChange = (data, onChange) => {
 
 function SelectEquipo({onChange, context}) {
 	const [equipos, setEquipos] = useState([]);
+	const [selected, setSelected] = useState();
 
 	if (context) {
 		useEffect(() => {
@@ -30,23 +31,18 @@ function SelectEquipo({onChange, context}) {
 	}
 
 	return (
-		<View style={ InputStyles.Select }>
-			<Select2
-				isSelectSingle={true}
-				style={{ borderWidth: 0 }}
-				colorTheme={Colores.selectTheme}
-				popupTitle={`Seleccionar equipo`}
-				title="Seleccione equipo"
-				searchPlaceHolderText="Buscar equipo"
-				cancelButtonText="Cancelar"
-				selectButtonText="Aceptar"
-				listEmptyTitle="No se encontraron equipos diponibles"
-				data={equipos}
-				onSelect={data => onSelectionsChange(data, onChange)}
-				onRemoveItem={data => onSelectionsChange(data)}
-			/>
-			<AntDesign style={{ right: 25 }} name="caretdown" color="grey" size={10} />
-		</View>
+		<ScrollView contentContainerStyle={{width: '100%', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center'}}>
+			{equipos.map((equipo) => {
+				return (
+					<TouchableOpacity
+						key={equipo.id}
+						onPress={() => setSelected(equipo.id)}
+						style={equipo.id == selected ? InputStyles.itemSelected: InputStyles.itemNormal}>
+						<Text style={equipo.id == selected ? InputStyles.itemTextSelected: InputStyles.itemTextNormal}>{equipo.name}</Text>
+					</TouchableOpacity>
+				)
+			})}
+		</ScrollView>
 	);
 }
 

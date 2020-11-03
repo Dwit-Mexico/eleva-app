@@ -35,5 +35,31 @@ export default StyleSheet.create({
 		borderWidth: 1,
 		borderColor: '#555',
 		borderRadius: 8
-	}
+	},
+	itemNormal: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		padding: 10,
+		backgroundColor: '#eaeaea',
+		marginHorizontal: 2,
+		marginVertical: 2
+	},
+	itemTextNormal: {
+		color: '#B29330',
+		fontWeight: 'bold',
+		fontSize: 18
+	},
+	itemSelected: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		padding: 10,
+		backgroundColor: '#B29330',
+		marginHorizontal: 2,
+		marginVertical: 2
+	},
+	itemTextSelected: {
+		color: '#ffffff',
+		fontWeight: 'bold',
+		fontSize: 18
+	},
 });

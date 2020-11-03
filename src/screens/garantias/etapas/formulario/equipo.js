@@ -3,9 +3,9 @@ import { View, Animated, Text } from 'react-native';
 import { Consumer } from '../../../../context';
 
 //Componentes
-import SelectUnidad from '../../../../components/select/SelectUnidad';
+import SelectEquipo from '../../../../components/select/SelectEquipo';
 
-function SeleccionarVivienda(props) {
+function SeleccionarEquipo(props) {
 	const animatedOpacity = new Animated.Value(0);
 
 	useEffect(() => {
@@ -26,11 +26,11 @@ function SeleccionarVivienda(props) {
 					// backgroundColor: 'lightgray',
 				}}
 			>
-				<Text style={{fontSize: 18, textAlign: 'center', padding: 10}}>¿En donde ocurrió el problema?</Text>
-				<SelectUnidad />
+				<Text style={{fontSize: 18, textAlign: 'center', padding: 10}}>¿Que equipo presenta problemas?</Text>
+				<SelectEquipo />
 			</Animated.View>
 		</View>
 	)
 }
 
-export default Consumer(SeleccionarVivienda);
+export default Consumer(SeleccionarEquipo);
