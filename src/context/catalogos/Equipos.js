@@ -2,8 +2,17 @@ import Request from '../../core/api';
 
 const request = new Request();
 
-export async function getEquipos(IdUnidad) {
+export async function getEquipos(IdTipoUnidadArea) {
 	console.log('Obteniendo catalogo equipo');
-	const response = await request.get('/app/config/get/equipos', {IdUnidad});
+	this.setState({equipos: []});
+
+	const response = await request.get('/app/unidades/get/equipos/areas', {IdTipoUnidadArea});
+
+	console.log(response);
+
+	if (Array.isArray(response.data)) {
+		this.setState({equipos: response.data});
+	}
+
 	return response;
 };

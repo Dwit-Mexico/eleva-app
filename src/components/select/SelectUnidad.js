@@ -30,6 +30,14 @@ function SelectUnidad({onChange, context}) {
 		}, [context.unidades])
 	}
 
+	async function selectUnidad(id) {
+		setSelected(id);
+
+		if (context) {
+			await context.getAreas(id);
+		}
+	}
+
 	return (
 		<ScrollView contentContainerStyle={{width: '100%', flexDirection: 'column', justifyContent: 'center'}}>
 			{unidades.map((unidad) => {
@@ -39,7 +47,7 @@ function SelectUnidad({onChange, context}) {
 				return (
 					<TouchableOpacity
 						key={unidad.id}
-						onPress={() => setSelected(unidad.id)}
+						onPress={selectUnidad.bind(this, unidad.id)}
 						style={unidad.id == selected ? InputStyles.itemSelected: InputStyles.itemNormal}>
 							<FontAwesome5
 								name="home"

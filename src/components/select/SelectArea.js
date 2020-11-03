@@ -18,22 +18,17 @@ function SelectArea({value, onChange, context}) {
 	if (context) {
 		useEffect(() => {
 
-			const fetchData = async () => {
-				let result = await context.getAreas(5);
-				console.log(result)
-				if (Array.isArray(result.data)) {
-					let areasNew = result.data;
-					console.log(areasNew);
-					areasNew = areasNew.map(p => {
-						return {id: p.IdArea, name: p.NombreArea};
-					});
-					setAreas(areasNew);
-				}
+			let result = context.areas;
+
+			if (Array.isArray(result)) {
+				let areasNew = result;
+				areasNew = areasNew.map(p => {
+					return {id: p.IdArea, name: p.NombreArea, idTipo: p.IdTipoUnidadArea};
+				});
+				setAreas(areasNew);
 			}
 
-			fetchData();
-
-		}, []);
+		}, [context.areas]);
 
 		/*useEffect(() => {
 			let areasNew = Array.isArray(context.areas) ? context.areas : [] ;
@@ -45,10 +40,11 @@ function SelectArea({value, onChange, context}) {
 		}, []);*/
 	}
 
-	function selectArea(id) {
-		setSelected(id);
-		if (onChange) {
-			onChange(id);
+	async function selectArea(area) {
+		setSelected(area.id);
+		console.log(area);
+		if (context) {
+			await context.getEquipos(area.idTipo);
 		}
 	}
 
@@ -58,7 +54,7 @@ function SelectArea({value, onChange, context}) {
 				return (
 					<TouchableOpacity
 						key={area.id}
-						onPress={() => setSelected(area.id)}
+						onPress={selectArea.bind(this, area)}
 						style={area.id == selected ? InputStyles.itemSelected: InputStyles.itemNormal}>
 						<Text style={area.id == selected ? InputStyles.itemTextSelected: InputStyles.itemTextNormal}>{area.name}</Text>
 					</TouchableOpacity>
