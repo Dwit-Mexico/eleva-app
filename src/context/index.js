@@ -7,6 +7,7 @@ import { getUnidades } from './catalogos/Unidades';
 import { getAreas } from './catalogos/Areas';
 import { getEquipos } from './catalogos/Equipos';
 import { getProblemas } from './catalogos/Problemas';
+import { setStep } from './catalogos/Wizard';
 
 const Context = createContext();
 
@@ -22,7 +23,9 @@ class GlobalContext extends Component {
 			equipos: [],
 			problemas: [],
 			getAreas: getAreas.bind(this),
-			getEquipos: getEquipos.bind(this)
+			getEquipos: getEquipos.bind(this),
+			step: 1,
+			setStep: setStep.bind(this)
 		}
 
 		this.initUser();

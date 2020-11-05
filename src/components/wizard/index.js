@@ -1,39 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
+import { Consumer } from '../../context';
 
 //Styles
 import WizardStyle from '../../styles/components/WizardStyle';
 
-const Wizard = (props) => {
-	const [page, setPage] = useState(props.page || 1);
-	const [steps, setSteps] = useState([]);
+const Wizard = ({context, steps}) => {
+	const [page, setPage] = useState(1);
+	// const [steps, setSteps] = useState([]);
 	const [totalSteps, setTotalSteps] = useState(0);
 
 	function prevStep() {
-		if (props.prevStep) {
-			props.prevStep()
-		}
 		if (page > 1) {
-			setPage(page - 1);
+			context.setStep(page - 1);
 		}
 	}
 
 	function nextStep() {
-		if (props.nexStep) {
-			props.nextStep()
-		}
-		if (page < totalSteps) {
-			setPage(page + 1);
+		if (page < totalSteps && context) {
+			context.setStep(page + 1);
 		}
 	}
 
 	useEffect(() => {
-		const propSteps = props.steps;
+		const propSteps = steps;
 		if (Array.isArray(propSteps)) {
-			setSteps(propSteps);
+			// setSteps(propSteps);
 			setTotalSteps(propSteps.length);
 		}
-	}, [props.steps])
+	}, [steps]);
+
+	if (context) {
+		useEffect(() => {
+			setPage(context.step);
+		}, [context.step]);
+	}
 
 	return (
 		<View style={{flex: 1, flexDirection: 'column', position: 'relative'}}>
@@ -56,4 +57,4 @@ const Wizard = (props) => {
 	)
 }
 
-export default Wizard;
+export default Consumer(Wizard);
