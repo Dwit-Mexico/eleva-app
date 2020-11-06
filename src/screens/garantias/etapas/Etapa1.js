@@ -6,8 +6,6 @@ import * as ImageManipulator from 'expo-image-manipulator';
 
 // Componentes
 import Container from '../../../components/container';
-import SelectProblema from '../../../components/select/SelectProblema';
-import BotonEnviar from '../../../components/boton-enviar/BotonEnviar';
 import Wizard from '../../../components/wizard';
 
 //Pages
@@ -144,7 +142,24 @@ function Etapa1({navigation, esDetalle, context}) {
 
 	async function _handleSubmit() {
 		setLoading(true);
-		console.log('Submit');
+		const data = {
+			IdUnidad: unidad,
+			IdArea: area,
+			IdEquipo: equipo,
+			IdProblema: problema,
+			Comentarios: comentario,
+			Fecha: "2020-11-06"
+		};
+		const file1 = await _compressImage(imagen1, 'imagen1');
+		const file2 = await _compressImage(imagen2, 'imagen2');
+		const file3 = await _compressImage(imagen3, 'imagen3');
+
+		const response = await request.postFile('/app/garantias/crear', [file1, file2, file3], data);
+
+		if (response.error) {
+			alert(response.message || 'Error interno');
+		}
+
 		setLoading(false);
 	}
 
