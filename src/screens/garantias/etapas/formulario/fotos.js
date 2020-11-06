@@ -9,11 +9,11 @@ import { useFocusEffect, useRoute } from '@react-navigation/native';
 //Componentes
 // import SelectArea from '../../../../components/select/SelectArea';
 
-function SeleccionarFotos({ navigation, esDetalle }) {
+function SeleccionarFotos({ navigation, esDetalle, imagenes }) {
 	let animatedOpacity = new Animated.Value(0);
-	const [imagen1, setImagen1] = useState(null);
-	const [imagen2, setImagen2] = useState(null);
-	const [imagen3, setImagen3] = useState(null);
+	const [imagen1, setImagen1] = useState(imagenes.imagen1 || null);
+	const [imagen2, setImagen2] = useState(imagenes.imagen2 || null);
+	const [imagen3, setImagen3] = useState(imagenes.imagen3 || null);
 	const [imagenIndex, setimagenIndex] = useState(null);
 	const [modalImagen, setModalImagen] = useState(false);
 	const [zoomImagen, setZoomImagen] = useState(null);
@@ -32,23 +32,6 @@ function SeleccionarFotos({ navigation, esDetalle }) {
 	useFocusEffect(() => {
 		initOpactity();
 	}, []);
-
-	if (params) {
-		useEffect(() => {
-			const { imagen, imagenIndex } = params;
-			switch(imagenIndex) {
-				case 1: 
-					setImagen1(imagen);
-					break;
-				case 2: 
-					setImagen2(imagen);
-					break;
-				case 3: 
-					setImagen3(imagen);
-					break;
-			}
-		}, [params])
-	}
 
 	function _borrarImagen() {
 		switch(imagenIndex) {

@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Animated, Text } from 'react-native';
 import { Consumer } from '../../../../context';
 
 //Componentes
 import SelectUnidad from '../../../../components/select/SelectUnidad';
 
-function SeleccionarVivienda(props) {
+function SeleccionarUnidad({unidad, setUnidad}) {
 	const animatedOpacity = new Animated.Value(0);
 
 	useEffect(() => {
@@ -15,6 +15,12 @@ function SeleccionarVivienda(props) {
 			useNativeDriver: true
 		}).start();
 	}, []);
+
+	function onSelect(opcion) {
+		if (setUnidad) {
+			setUnidad(opcion);
+		}
+	}
 
 	return (
 		<View style={{flex: 1}}>
@@ -27,10 +33,10 @@ function SeleccionarVivienda(props) {
 				}}
 			>
 				<Text style={{fontSize: 18, textAlign: 'center', padding: 10}}>¿En donde ocurrió el problema?</Text>
-				<SelectUnidad />
+				<SelectUnidad onSelect = {onSelect.bind(this)} value = {unidad}/>
 			</Animated.View>
 		</View>
 	)
 }
 
-export default Consumer(SeleccionarVivienda);
+export default Consumer(SeleccionarUnidad);

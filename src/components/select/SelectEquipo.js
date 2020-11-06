@@ -16,7 +16,7 @@ onSelectionsChange = (data, onChange) => {
 	}
 }
 
-function SelectEquipo({onChange, context}) {
+function SelectEquipo({onSelect, value, context}) {
 	const [equipos, setEquipos] = useState([]);
 	const [selected, setSelected] = useState();
 
@@ -27,7 +27,20 @@ function SelectEquipo({onChange, context}) {
 				return {id: p.IdEquipo, name: p.NombreEquipo};
 			});
 			setEquipos(equiposNew);
+
+			if (value) {
+				setSelected(value);
+			}
+
 		}, [context.equipos]);
+	}
+
+	async function selectEquipo(id) {
+		setSelected(id);
+
+		if (onSelect) {
+			onSelect(id);
+		}
 	}
 
 	return (
@@ -36,7 +49,7 @@ function SelectEquipo({onChange, context}) {
 				return (
 					<TouchableOpacity
 						key={equipo.id}
-						onPress={() => setSelected(equipo.id)}
+						onPress={selectEquipo.bind(this, equipo.id)}
 						style={equipo.id == selected ? InputStyles.itemSelected: InputStyles.itemNormal}>
 						<Text style={equipo.id == selected ? InputStyles.itemTextSelected: InputStyles.itemTextNormal}>{equipo.name}</Text>
 					</TouchableOpacity>

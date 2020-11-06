@@ -11,7 +11,7 @@ import InputStyles from '../../styles/inputs';
 import Colores from '../../styles/colores';
 
 
-function SelectArea({value, onChange, context}) {
+function SelectArea({ onSelect, value, context }) {
 	const [areas, setAreas] = useState([]);
 	const [selected, setSelected] = useState();
 
@@ -28,21 +28,20 @@ function SelectArea({value, onChange, context}) {
 				setAreas(areasNew);
 			}
 
-		}, [context.areas]);
+			if (value) {
+				setSelected(value);
+			}
 
-		/*useEffect(() => {
-			let areasNew = Array.isArray(context.areas) ? context.areas : [] ;
-			console.log(areasNew);
-			areasNew = areasNew.map(p => {
-				return {id: p.IdArea, name: p.NombreArea};
-			});
-			setAreas(areasNew);
-		}, []);*/
+		}, [context.areas]);
 	}
 
 	async function selectArea(area) {
 		setSelected(area.id);
-		console.log(area);
+
+		if (onSelect) {
+			onSelect(area.id);
+		}
+
 		if (context) {
 			await context.getEquipos(area.idTipo);
 		}

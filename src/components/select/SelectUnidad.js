@@ -16,7 +16,7 @@ onSelectionsChange = (data, onChange) => {
 	}
 }
 
-function SelectUnidad({onChange, context}) {
+function SelectUnidad({onSelect, value, context}) {
 	const [unidades, setUnidades] = useState([]);
 	const [selected, setSelected] = useState();
 
@@ -27,14 +27,23 @@ function SelectUnidad({onChange, context}) {
 				return {id: u.IdUnidad, name: u.Numero};
 			});
 			setUnidades(unidadesNew);
+
+			if (value) {
+				setSelected(value);
+			}
+
 		}, [context.unidades])
 	}
 
 	async function selectUnidad(id) {
 		setSelected(id);
 
+		if (onSelect) {
+			onSelect(id);
+		}
+
 		if (context) {
-			await context.getAreas(id);
+			context.getAreas(id);
 		}
 	}
 

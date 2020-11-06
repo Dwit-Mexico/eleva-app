@@ -5,7 +5,7 @@ import { Consumer } from '../../../../context';
 //Componentes
 import SelectProblema from '../../../../components/select/SelectProblema';
 
-function SeleccionarProblema(props) {
+function SeleccionarProblema({problema, setProblema}) {
 	const animatedOpacity = new Animated.Value(0);
 
 	useEffect(() => {
@@ -15,6 +15,12 @@ function SeleccionarProblema(props) {
 			useNativeDriver: true
 		}).start();
 	}, []);
+
+	function onSelect(opcion) {
+		if (setProblema) {
+			setProblema(opcion);
+		}
+	}
 
 	return (
 		<View style={{flex: 1}}>
@@ -27,7 +33,7 @@ function SeleccionarProblema(props) {
 				}}
 			>
 				<Text style={{fontSize: 18, textAlign: 'center', padding: 10}}>¿Cuál es el problema?</Text>
-				<SelectProblema />
+				<SelectProblema onSelect = {onSelect.bind(this)} value = {problema}/>
 			</Animated.View>
 		</View>
 	)

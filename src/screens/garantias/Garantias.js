@@ -1,12 +1,22 @@
-import React from 'react';
-import { View } from 'react-native';
+import React, { useEffect } from 'react';
+import { Consumer } from '../../context';
 
 //Componentes
 import Container from '../../components/container';
 import ListaGarantias from '../../components/lista-garantias-detalle';
 import BotonNuevo from '../../components/boton-nuevo/BotonNuevo';
 
-function Garantias({navigation}) {
+function Garantias({navigation, context}) {
+
+	if (context) {
+		useEffect(() => {
+			console.log('Init APP');
+			if (context.initApp) {
+				context.initApp();
+			}
+		}, []);
+	}
+
 	return (
 		<Container>
 			<ListaGarantias navigation={navigation}/>
@@ -15,4 +25,4 @@ function Garantias({navigation}) {
 	);
 }
 
-export default Garantias;
+export default Consumer(Garantias);

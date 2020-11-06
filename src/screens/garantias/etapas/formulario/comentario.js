@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Animated, Text, TextInput } from 'react-native';
 import { Consumer } from '../../../../context';
 
 //Componentes
 import SelectArea from '../../../../components/select/SelectArea';
+import { onChange } from 'react-native-reanimated';
 
 function Comentarios(props) {
+	const [comentario, setComentario] = useState('');
 	const animatedOpacity = new Animated.Value(0);
 
 	useEffect(() => {
@@ -15,6 +17,13 @@ function Comentarios(props) {
 			useNativeDriver: true
 		}).start();
 	}, []);
+
+	function onChange(text) {
+		setComentario(text);
+		if (props.setComentario) {
+			props.setComentario(text);
+		}
+	}
 
 	return (
 		<View style={{flex: 1}}>
@@ -31,12 +40,13 @@ function Comentarios(props) {
 				<View style={{height: 8}}/>
 
 				<TextInput
-					placeholder="Escriba sus comentarios"
-					style={{borderRadius: 8, borderColor: '#000', borderWidth: 1, paddingVertical: 10, paddingHorizontal: 17, textAlignVertical: "top", fontSize: 14}}
+					value 			= {props.comentario || comentario}
+					placeholder		= "Escriba sus comentarios"
+					style			= {{borderRadius: 8, borderColor: '#000', borderWidth: 1, paddingVertical: 10, paddingHorizontal: 17, textAlignVertical: "top", fontSize: 14}}
 					multiline
-					numberOfLines={6}
-					maxLength={1500}
-					onChangeText = {(text) => setForm({...form, comentarios: text})}/>
+					numberOfLines	= {6}
+					maxLength		= {1500}
+					onChangeText 	= {onChange.bind(this)}/>
 			</Animated.View>
 		</View>
 	)

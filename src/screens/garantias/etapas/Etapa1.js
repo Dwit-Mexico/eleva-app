@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StatusBar, Text, View } from 'react-native';
 import { useRoute, useFocusEffect } from '@react-navigation/native';
 import { Consumer } from '../../../context';
@@ -11,7 +11,7 @@ import BotonEnviar from '../../../components/boton-enviar/BotonEnviar';
 import Wizard from '../../../components/wizard';
 
 //Pages
-import Vivienda from './formulario/vivienda';
+import Unidad from './formulario/unidad';
 import Area from './formulario/area';
 import Equipo from './formulario/equipo';
 import Problema from './formulario/problema';
@@ -25,16 +25,19 @@ import TextStyle from '../../../styles/text';
 import Request from '../../../core/api';
 const request = new Request();
 
-const formValues = { unidad: null, area: null, equipo: null, problema: null, comentarios: null };
-
 function Etapa1({navigation, esDetalle, context}) {
-	const [form, setForm] = useState(formValues);
+	const [unidad, setUnidad] = useState(null);
+	const [area, setArea] = useState(null);
+	const [equipo, setEquipo] = useState(null);
+	const [problema, setProblema] = useState(null);
+	const [comentario, setComentario] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const [imagen1, setImagen1] = useState(null);
 	const [imagen2, setImagen2] = useState(null);
 	const [imagen3, setImagen3] = useState(null);
 	const [paso, setPaso] = useState(1);
 	const route = useRoute();
+	const { params } = route;
 
 	async function _compressImage(imagen, name) {
 		const manipResult = await ImageManipulator.manipulateAsync (
@@ -77,6 +80,91 @@ function Etapa1({navigation, esDetalle, context}) {
 		StatusBar.setBarStyle('dark-content');
 	});
 
+	if (params) {
+		useEffect(() => {
+			if (context) {
+				setUnidad(context.unidad);
+				setArea(context.area);
+				setEquipo(context.equipo);
+				setProblema(context.problema);
+				setComentario(context.comentario);
+				setImagen1(context.imagen1);
+				setImagen2(context.imagen2);
+				setImagen3(context.imagen3);
+			}
+			const { imagen, imagenIndex } = params;
+			switch(imagenIndex) {
+				case 1:
+					context.setImagen1(imagen);
+					setImagen1(imagen);
+					break;
+				case 2:
+					context.setImagen2(imagen);
+					setImagen2(imagen);
+					break;
+				case 3:
+					context.setImagen3(imagen);
+					setImagen3(imagen);
+					break;
+			}
+		}, [params])
+	}
+
+	useEffect(() => {
+		async function setedUnidad() {
+			if (context && unidad) {
+				await context.setUnidad(unidad);
+			}
+		}
+
+		setedUnidad();
+
+	}, [unidad]);
+
+	useEffect(() => {
+		async function setedArea() {
+			if (context && area) {
+				await context.setArea(area);
+			}
+		}
+
+		setedArea();
+
+	}, [area]);
+
+	useEffect(() => {
+		async function setedEquipo() {
+			if (context && equipo) {
+				await context.setEquipo(equipo);
+			}
+		}
+
+		setedEquipo();
+
+	}, [equipo]);
+
+	useEffect(() => {
+		async function setedProblema() {
+			if (context && problema) {
+				await context.setProblema(problema);
+			}
+		}
+
+		setedProblema();
+
+	}, [problema]);
+
+	useEffect(() => {
+		async function setedComentario() {
+			if (context && comentario) {
+				await context.setComentario(comentario);
+			}
+		}
+
+		setedComentario();
+
+	}, [comentario]);
+
 	return (
 		<Container>
 			<View style = {{flex: 1, height: '100%'}}>
@@ -86,12 +174,25 @@ function Etapa1({navigation, esDetalle, context}) {
 
 				<Wizard
 					steps = {[
-					<Vivienda />,
-					<Area />,
-					<Equipo />,
-					<Problema />,
-					<Comentario />,
-					<Fotos navigation = {navigation} esDetalle = {esDetalle}/>
+					<Unidad
+						unidad 			= {unidad}
+						setUnidad 		= {setUnidad}/>,
+					<Area
+						area 			= {area}
+						setArea 		= {setArea}/>,
+					<Equipo
+						equipo 			= {equipo}
+						setEquipo 		= {setEquipo}/>,
+					<Problema
+						problema 		= {problema}
+						setProblema 	= {setProblema}/>,
+					<Comentario
+						comentario 		= {comentario}
+						setComentario 	= {setComentario}/>,
+					<Fotos
+						navigation 	= {navigation}
+						esDetalle 	= {esDetalle}
+						imagenes 	= {{imagen1, imagen2, imagen3}}/>
 				]}/>
 				{/*
 

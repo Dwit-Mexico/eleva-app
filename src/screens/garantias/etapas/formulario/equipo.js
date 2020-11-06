@@ -5,7 +5,7 @@ import { Consumer } from '../../../../context';
 //Componentes
 import SelectEquipo from '../../../../components/select/SelectEquipo';
 
-function SeleccionarEquipo(props) {
+function SeleccionarEquipo({equipo, setEquipo}) {
 	const animatedOpacity = new Animated.Value(0);
 
 	useEffect(() => {
@@ -15,6 +15,12 @@ function SeleccionarEquipo(props) {
 			useNativeDriver: true
 		}).start();
 	}, []);
+
+	function onSelect(opcion) {
+		if (setEquipo) {
+			setEquipo(opcion);
+		}
+	}
 
 	return (
 		<View style={{flex: 1}}>
@@ -27,7 +33,7 @@ function SeleccionarEquipo(props) {
 				}}
 			>
 				<Text style={{fontSize: 18, textAlign: 'center', padding: 10}}>¿Que equipo presenta problemas?</Text>
-				<SelectEquipo />
+				<SelectEquipo onSelect = {onSelect.bind(this)} value={equipo}/>
 			</Animated.View>
 		</View>
 	)

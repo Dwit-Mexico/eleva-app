@@ -16,7 +16,7 @@ onSelectionsChange = (data, onChange) => {
 	}
 }
 
-function SelectProblema({ onChange, context }) {
+function SelectProblema({ onSelect, value, context }) {
 	const [problemas, setProblemas] = useState([]);
 	const [selected, setSelected] = useState();
 
@@ -27,8 +27,22 @@ function SelectProblema({ onChange, context }) {
 				return {id: p.IdProblema, name: p.NombreProblema};
 			});
 			setProblemas(problemasNew);
+
+			if (value) {
+				setSelected(value);
+			}
+
 		}, [context.problemas]);
 	}
+
+	async function selectProblema(id) {
+		setSelected(id)
+
+		if (onSelect) {
+			onSelect(id);
+		}
+	}
+
 
 	return (
 		<ScrollView contentContainerStyle={{width: '100%', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center'}}>
@@ -36,7 +50,7 @@ function SelectProblema({ onChange, context }) {
 				return (
 					<TouchableOpacity
 						key={problema.id}
-						onPress={() => setSelected(problema.id)}
+						onPress={selectProblema.bind(this, problema.id)}
 						style={problema.id == selected ? InputStyles.itemSelected: InputStyles.itemNormal}>
 						<Text style={problema.id == selected ? InputStyles.itemTextSelected: InputStyles.itemTextNormal}>{problema.name}</Text>
 					</TouchableOpacity>

@@ -5,7 +5,9 @@ import { Consumer } from '../../../../context';
 //Componentes
 import SelectArea from '../../../../components/select/SelectArea';
 
-function SeleccionarArea(props) {
+let value;
+
+function SeleccionarArea({setArea, area, context}) {
 	const animatedOpacity = new Animated.Value(0);
 
 	useEffect(() => {
@@ -14,7 +16,25 @@ function SeleccionarArea(props) {
 			duration: 1000,
 			useNativeDriver: true
 		}).start();
+
+		async function init() {
+			if (context) {
+				const form = await context.getForm();
+				if (form.area) {
+					value = form.area;
+				}
+			}
+		}
+
+		init();
+
 	}, []);
+
+	function onSelect(opcion) {
+		if (setArea) {
+			setArea(opcion);
+		}
+	}
 
 	return (
 		<View style={{flex: 1}}>
@@ -27,7 +47,7 @@ function SeleccionarArea(props) {
 				}}
 			>
 				<Text style={{fontSize: 18, textAlign: 'center', padding: 10}}>¿Dónde tienes el problema?</Text>
-				<SelectArea />
+				<SelectArea onSelect = {onSelect.bind(this)} value={area}/>
 			</Animated.View>
 		</View>
 	)

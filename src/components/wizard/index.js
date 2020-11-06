@@ -38,7 +38,7 @@ const Wizard = ({context, steps}) => {
 
 	return (
 		<View style={{flex: 1, flexDirection: 'column', position: 'relative'}}>
-
+			{/*<Text>{page}</Text>*/}
 			{steps[page - 1]}
 
 			<View style={{flex: 1, position: 'absolute', bottom: 10, flexDirection: 'row', justifyContent: 'space-between', width: '100%'}}>

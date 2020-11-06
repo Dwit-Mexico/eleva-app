@@ -8,6 +8,17 @@ import { getAreas } from './catalogos/Areas';
 import { getEquipos } from './catalogos/Equipos';
 import { getProblemas } from './catalogos/Problemas';
 import { setStep } from './catalogos/Wizard';
+import {
+	getForm,
+	setUnidad,
+	setArea,
+	setEquipo,
+	setProblema,
+	setComentario,
+	setImagen1,
+	setImagen2,
+	setImagen3
+} from './form';
 
 const Context = createContext();
 
@@ -15,6 +26,7 @@ class GlobalContext extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			initApp: this.initApp.bind(this),
 			auth: false,
 			login: login.bind(this),
 			logout: logout.bind(this),
@@ -25,7 +37,24 @@ class GlobalContext extends Component {
 			getAreas: getAreas.bind(this),
 			getEquipos: getEquipos.bind(this),
 			step: 1,
-			setStep: setStep.bind(this)
+			setStep: setStep.bind(this),
+			unidad: null,
+			setUnidad: setUnidad.bind(this),
+			area: null,
+			setArea: setArea.bind(this),
+			equipo: null,
+			setEquipo: setEquipo.bind(this),
+			problema: null,
+			setProblema: setProblema.bind(this),
+			comentario: null,
+			setComentario: setComentario.bind(this),
+			imagen1: null,
+			setImagen1: setImagen1.bind(this),
+			imagen2: null,
+			setImagen2: setImagen2.bind(this),
+			imagen3: null,
+			setImagen3: setImagen3.bind(this),
+			getForm: getForm.bind(this)
 		}
 
 		this.initUser();
@@ -67,8 +96,13 @@ class GlobalContext extends Component {
 
 		const unidades = await getUnidades();
 		if (unidades.data) {
+
 			this.setState({unidades: unidades.data});
+
 			if (Array.isArray(unidades.data)) {
+
+				catalogoObj.unidades = unidades.data;
+
 				if (unidades.data.length == 1) {
 					const unidad = unidades.data[0];
 					const areas = await getAreas(unidad.IdUnidad);
