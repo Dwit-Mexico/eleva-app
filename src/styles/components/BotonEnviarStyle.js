@@ -5,13 +5,15 @@ export default StyleSheet.create({
 		backgroundColor: '#B29360',
 		color: '#ffffff',
 		padding: 10,
-		width: 200,
+		width: 150,
 		textAlign: 'center',
-		borderRadius: 5
+		borderRadius: 5,
+		marginHorizontal: 10
 	},
 	text: {
+		fontSize: 19,
 		textAlign: 'center',
-		color: 'white'
+		color: '#fff'
 	},
 	spinner: {
 		color: 'white'

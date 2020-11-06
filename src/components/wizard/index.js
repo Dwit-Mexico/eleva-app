@@ -2,10 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Consumer } from '../../context';
 
-//Styles
+// Componentes
+import BotonEnviar from '../boton-enviar/BotonEnviar';
+
+// Styles
 import WizardStyle from '../../styles/components/WizardStyle';
 
-const Wizard = ({context, steps}) => {
+const Wizard = ({context, steps, ultimo, onSubmit, loading}) => {
 	const [page, setPage] = useState(1);
 	// const [steps, setSteps] = useState([]);
 	const [totalSteps, setTotalSteps] = useState(0);
@@ -38,7 +41,7 @@ const Wizard = ({context, steps}) => {
 
 	return (
 		<View style={{flex: 1, flexDirection: 'column', position: 'relative'}}>
-			{/*<Text>{page}</Text>*/}
+			{/*<Text>{page} {ultimo}</Text>*/}
 			{steps[page - 1]}
 
 			<View style={{flex: 1, position: 'absolute', bottom: 10, flexDirection: 'row', justifyContent: 'space-between', width: '100%'}}>
@@ -47,11 +50,15 @@ const Wizard = ({context, steps}) => {
 					style={WizardStyle.navigationButton}>
 					<Text style={WizardStyle.navigationButtonText}>Anterior</Text>
 				</TouchableOpacity>
-				<TouchableOpacity
-					style={WizardStyle.navigationButton}
-					onPress={nextStep.bind(this)}>
-					<Text style={WizardStyle.navigationButtonText}>Siguiente</Text>
-				</TouchableOpacity>
+				{page == ultimo ?
+					<BotonEnviar onSubmit = {onSubmit} loading = {loading}/>
+					:
+					<TouchableOpacity
+						style={WizardStyle.navigationButton}
+						onPress={nextStep.bind(this)}>
+						<Text style={WizardStyle.navigationButtonText}>Siguiente</Text>
+					</TouchableOpacity>
+				}
 			</View>
 		</View>
 	)

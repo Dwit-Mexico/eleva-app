@@ -53,29 +53,6 @@ function Etapa1({navigation, esDetalle, context}) {
 		}
 	}
 
-	async function _handleSubmit() {
-		setLoading(true);
-		const data = form;
-		let newImagen1, newImagen2, newImagen3;
-		if(imagen1) {
-			newImagen1 = await _compressImage(imagen1, 'imagen1');
-		}
-
-		if(imagen2) {
-			newImagen2 = await _compressImage(imagen2, 'imagen2');
-		}
-
-		if(imagen3) {
-			newImagen3 = await _compressImage(imagen3, 'imagen3');
-		}
-
-		const response = await request.postFile('/app/garantias/crear', [newImagen1, newImagen2, newImagen3], data);
-		if (response.error) {
-			alert(response.message);
-		}
-		setLoading(false);
-	}
-
 	useFocusEffect(() => {
 		StatusBar.setBarStyle('dark-content');
 	});
@@ -165,6 +142,12 @@ function Etapa1({navigation, esDetalle, context}) {
 
 	}, [comentario]);
 
+	async function _handleSubmit() {
+		setLoading(true);
+		console.log('Submit');
+		setLoading(false);
+	}
+
 	return (
 		<Container>
 			<View style = {{flex: 1, height: '100%'}}>
@@ -174,43 +157,29 @@ function Etapa1({navigation, esDetalle, context}) {
 
 				<Wizard
 					steps = {[
-					<Unidad
-						unidad 			= {unidad}
-						setUnidad 		= {setUnidad}/>,
-					<Area
-						area 			= {area}
-						setArea 		= {setArea}/>,
-					<Equipo
-						equipo 			= {equipo}
-						setEquipo 		= {setEquipo}/>,
-					<Problema
-						problema 		= {problema}
-						setProblema 	= {setProblema}/>,
-					<Comentario
-						comentario 		= {comentario}
-						setComentario 	= {setComentario}/>,
-					<Fotos
-						navigation 	= {navigation}
-						esDetalle 	= {esDetalle}
-						imagenes 	= {{imagen1, imagen2, imagen3}}/>
-				]}/>
-				{/*
-
-				<View style={{flexDirection: 'row', justifyContent: 'center', width: '100%'}}>
-					<View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '100%'}}>
-						<ImagenButton index = {1} imagen = {imagen1} navigation = {navigation}/>
-						<ImagenButton index = {2} imagen = {imagen2} navigation = {navigation}/>
-						<ImagenButton index = {3} imagen = {imagen3} navigation = {navigation}/>
-					</View>
-				</View>
-
-				<View style={{height: 32}}/>
-
-				<View style={{flexDirection: 'row', justifyContent: 'center'}}>
-					<BotonEnviar onSubmit = {_handleSubmit.bind(this)} loading = {loading}/>
-				</View>
-				*/}
-
+						<Unidad
+							unidad 			= {unidad}
+							setUnidad 		= {setUnidad}/>,
+						<Area
+							area 			= {area}
+							setArea 		= {setArea}/>,
+						<Equipo
+							equipo 			= {equipo}
+							setEquipo 		= {setEquipo}/>,
+						<Problema
+							problema 		= {problema}
+							setProblema 	= {setProblema}/>,
+						<Comentario
+							comentario 		= {comentario}
+							setComentario 	= {setComentario}/>,
+						<Fotos
+							navigation 	= {navigation}
+							esDetalle 	= {esDetalle}
+							imagenes 	= {{imagen1, imagen2, imagen3}}/>
+					]}
+					ultimo = {6}
+					onSubmit = {_handleSubmit.bind(this)}
+					loading	= {loading}/>
 			</View>
 		</Container>
 	);
