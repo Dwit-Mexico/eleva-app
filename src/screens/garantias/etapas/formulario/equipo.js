@@ -33,7 +33,7 @@ function SeleccionarEquipo({equipo, setEquipo}) {
 				}}
 			>
 				<Text style={{fontSize: 18, textAlign: 'center', padding: 10}}>¿Que equipo presenta problemas?</Text>
-				<SelectEquipo onSelect = {onSelect.bind(this)} value={equipo}/>
+				<SelectEquipo onSelect = {(opcion) => onSelect(opcion)} value={equipo}/>
 			</Animated.View>
 		</View>
 	)

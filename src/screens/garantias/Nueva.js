@@ -8,9 +8,14 @@ import Etapa1 from './etapas/Etapa1';
 import Container from '../../components/container';
 
 function NuevaGarantia({navigation}) {
+
+	const Etapa = () => {
+		return <Etapa1 navigation={navigation} esDetalle={false}/>
+	}
+
 	return (
 		<Container>
-			<Etapa1 navigation={navigation}/>
+			<Etapa />
 		</Container>
 	);
 }

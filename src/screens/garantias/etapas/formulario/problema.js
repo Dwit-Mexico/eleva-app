@@ -33,7 +33,7 @@ function SeleccionarProblema({problema, setProblema}) {
 				}}
 			>
 				<Text style={{fontSize: 18, textAlign: 'center', padding: 10}}>¿Cuál es el problema?</Text>
-				<SelectProblema onSelect = {onSelect.bind(this)} value = {problema}/>
+				<SelectProblema onSelect = {(opcion) => onSelect(opcion)} value = {problema}/>
 			</Animated.View>
 		</View>
 	)
