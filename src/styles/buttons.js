@@ -1,6 +1,13 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
+	button: {
+		backgroundColor: '#B29360',
+		color: '#ffffff',
+		padding: 10,
+		textAlign: 'center',
+		borderRadius: 5
+	},
 	loginButton: {
 		backgroundColor: '#B29360',
 		color: '#ffffff',

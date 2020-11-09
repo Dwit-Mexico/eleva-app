@@ -65,9 +65,11 @@ function SeleccionarFotos({ navigation, esDetalle, imagenes }) {
 		const EmptyImage = require('../../../../../assets/picture_icon.png');
 
 		return (
-			<TouchableOpacity onPress={_openCamara.bind(this, navigation, index, imagen, _borrarImagen)}>
-				<Image source={imagen || EmptyImage} style={{width: 100, height: 80}}/>
-			</TouchableOpacity>
+			<View style={{width: 150, height: 120, padding: 10}}>
+				<TouchableOpacity onPress={_openCamara.bind(this, navigation, index, imagen, _borrarImagen)}>
+					<Image source={imagen || EmptyImage} style={{width: '100%', height: '100%'}} resizeMode='cover'/>
+				</TouchableOpacity>
+			</View>
 		)
 	}
 
@@ -86,7 +88,7 @@ function SeleccionarFotos({ navigation, esDetalle, imagenes }) {
 				<View style={{height: 8}}/>
 
 				<View style={{flexDirection: 'row', justifyContent: 'center', width: '100%'}}>
-					<View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '100%'}}>
+					<View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', width: '100%'}}>
 						<ImagenButton index = {1} imagen = {imagen1} navigation = {navigation}/>
 						<ImagenButton index = {2} imagen = {imagen2} navigation = {navigation}/>
 						<ImagenButton index = {3} imagen = {imagen3} navigation = {navigation}/>

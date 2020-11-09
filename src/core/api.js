@@ -71,7 +71,7 @@ class Request {
 			if (data) {
 				const keys = Object.keys(data);
 				keys.forEach(key => {
-					if (data[key]) {
+					if (data[key] !== undefined) {
 						postRequest.field(key, data[key]);
 					}
 				})

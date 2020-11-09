@@ -8,7 +8,7 @@ import BotonEnviar from '../boton-enviar/BotonEnviar';
 // Styles
 import WizardStyle from '../../styles/components/WizardStyle';
 
-const Wizard = ({context, steps, ultimo, onSubmit, loading}) => {
+const Wizard = ({context, steps, ultimo, onSubmit, loading, terminado}) => {
 	const [page, setPage] = useState(1);
 	// const [steps, setSteps] = useState([]);
 	const [totalSteps, setTotalSteps] = useState(0);
@@ -39,27 +39,39 @@ const Wizard = ({context, steps, ultimo, onSubmit, loading}) => {
 		}, [context.step]);
 	}
 
+	useEffect(() => {
+		if(terminado) {
+			context.setStep(steps.length);
+		}
+	}, [terminado])
+
 	return (
 		<View style={{flex: 1, flexDirection: 'column', position: 'relative'}}>
 			{/*<Text>{page} {ultimo}</Text>*/}
 			{steps[page - 1]}
 
-			<View style={{flex: 1, position: 'absolute', bottom: 10, flexDirection: 'row', justifyContent: 'space-between', width: '100%'}}>
-				<TouchableOpacity
-					onPress={prevStep.bind(this)}
-					style={WizardStyle.navigationButton}>
-					<Text style={WizardStyle.navigationButtonText}>Anterior</Text>
-				</TouchableOpacity>
-				{page == ultimo ?
-					<BotonEnviar onSubmit = {onSubmit} loading = {loading}/>
-					:
+			{console.log(terminado)}
+
+			{!terminado?
+				<View style={{flex: 1, position: 'absolute', bottom: 10, flexDirection: 'row', justifyContent: 'space-between', width: '100%'}}>
 					<TouchableOpacity
-						style={WizardStyle.navigationButton}
-						onPress={nextStep.bind(this)}>
-						<Text style={WizardStyle.navigationButtonText}>Siguiente</Text>
+						onPress={prevStep.bind(this)}
+						style={WizardStyle.navigationButton}>
+						<Text style={WizardStyle.navigationButtonText}>Anterior</Text>
 					</TouchableOpacity>
-				}
-			</View>
+					{page == ultimo ?
+						<BotonEnviar onSubmit = {onSubmit} loading = {loading}/>
+						:
+						<TouchableOpacity
+							style={WizardStyle.navigationButton}
+							onPress={nextStep.bind(this)}>
+							<Text style={WizardStyle.navigationButtonText}>Siguiente</Text>
+						</TouchableOpacity>
+					}
+				</View>
+				:
+				null
+			}
 		</View>
 	)
 }

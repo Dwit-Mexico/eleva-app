@@ -15,6 +15,7 @@ import Equipo from './formulario/equipo';
 import Problema from './formulario/problema';
 import Comentario from './formulario/comentario';
 import Fotos from './formulario/fotos';
+import Finalizar from './formulario/finalizar';
 
 // Styles
 import TextStyle from '../../../styles/text';
@@ -24,6 +25,7 @@ import Request from '../../../core/api';
 const request = new Request();
 
 function Etapa1({navigation, esDetalle, context}) {
+
 	const [unidad, setUnidad] = useState(null);
 	const [area, setArea] = useState(null);
 	const [equipo, setEquipo] = useState(null);
@@ -33,21 +35,23 @@ function Etapa1({navigation, esDetalle, context}) {
 	const [imagen1, setImagen1] = useState(null);
 	const [imagen2, setImagen2] = useState(null);
 	const [imagen3, setImagen3] = useState(null);
-	const [paso, setPaso] = useState(1);
+	const [terminado, setTerminado] = useState(false);
 	const route = useRoute();
 	const { params } = route;
 
 	async function _compressImage(imagen, name) {
-		const manipResult = await ImageManipulator.manipulateAsync (
-			imagen.uri,
-			[],
-			{ compress: 0.5, format: ImageManipulator.SaveFormat.JPEG, base64: false }
-		);
+		if (imagen) {
+			const manipResult = await ImageManipulator.manipulateAsync (
+				imagen.uri,
+				[],
+				{ compress: 0.5, format: ImageManipulator.SaveFormat.JPEG, base64: false }
+			);
 
-		return {
-			uri: manipResult.uri,
-			name: `${name}.jpg`,
-			type: `image/jpg`,
+			return {
+				uri: manipResult.uri,
+				name: `${name}.jpg`,
+				type: `image/jpg`,
+			}
 		}
 	}
 
@@ -147,9 +151,10 @@ function Etapa1({navigation, esDetalle, context}) {
 			IdArea: area,
 			IdEquipo: equipo,
 			IdProblema: problema,
-			Comentarios: comentario,
+			Comentarios: comentario || '',
 			Fecha: "2020-11-06"
 		};
+
 		const file1 = await _compressImage(imagen1, 'imagen1');
 		const file2 = await _compressImage(imagen2, 'imagen2');
 		const file3 = await _compressImage(imagen3, 'imagen3');
@@ -159,8 +164,20 @@ function Etapa1({navigation, esDetalle, context}) {
 		if (response.error) {
 			alert(response.message || 'Error interno');
 		}
+		if (response.upload) {
+			setTerminado(true);
+		}
 
 		setLoading(false);
+	}
+
+	function aceptarAction() {
+		context.setStep(2);
+	}
+
+	function finalizarAction() {
+		context.setStep(1);
+		navigation.goBack();
 	}
 
 	return (
@@ -190,11 +207,15 @@ function Etapa1({navigation, esDetalle, context}) {
 						<Fotos
 							navigation 	= {navigation}
 							esDetalle 	= {esDetalle}
-							imagenes 	= {{imagen1, imagen2, imagen3}}/>
+							imagenes 	= {{imagen1, imagen2, imagen3}}/>,
+						<Finalizar
+							aceptarAction = {()=> aceptarAction()}
+							finalizarAction = {()=> finalizarAction()}/>
 					]}
-					ultimo = {6}
-					onSubmit = {_handleSubmit.bind(this)}
-					loading	= {loading}/>
+					ultimo 		= {6}
+					onSubmit 	= {_handleSubmit.bind(this)}
+					loading		= {loading}
+					terminado 	= {terminado}/>
 			</View>
 		</Container>
 	);
