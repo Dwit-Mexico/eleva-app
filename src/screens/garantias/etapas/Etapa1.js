@@ -3,6 +3,7 @@ import { StatusBar, Text, View } from 'react-native';
 import { useRoute, useFocusEffect } from '@react-navigation/native';
 import { Consumer } from '../../../context';
 import * as ImageManipulator from 'expo-image-manipulator';
+import moment from 'moment-timezone';
 
 // Componentes
 import Container from '../../../components/container';
@@ -152,7 +153,7 @@ function Etapa1({navigation, esDetalle, context}) {
 			IdEquipo: equipo,
 			IdProblema: problema,
 			Comentarios: comentario || '',
-			Fecha: "2020-11-06"
+			Fecha: moment().format()
 		};
 
 		const file1 = await _compressImage(imagen1, 'imagen1');
@@ -171,12 +172,37 @@ function Etapa1({navigation, esDetalle, context}) {
 		setLoading(false);
 	}
 
+	function reinicializar() {
+		context.setEquipo(null);
+		context.setProblema(null);
+		context.setComentario(null);
+		context.setImagen1(null);
+		context.setImagen2(null);
+		context.setImagen3(null);
+
+		setEquipo(null);
+		setProblema(null);
+		setComentario(null);
+		setImagen1(null);
+		setImagen2(null);
+		setImagen3(null);
+	}
+
 	function aceptarAction() {
-		context.setStep(2);
+		setTerminado(false);
+
+		reinicializar();
+
+		context.setStep(3);
 	}
 
 	function finalizarAction() {
+		setTerminado(false);
+
+		reinicializar();
+
 		context.setStep(1);
+
 		navigation.goBack();
 	}
 

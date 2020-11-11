@@ -5,7 +5,6 @@ import { View ,Text, TouchableOpacity } from 'react-native';
 import CardStyles from '../../styles/components/CardGarantiaStyle';
 
 function CardGarantia(props) {
-	console.log('GARANTIA', props)
 	return (
 		<TouchableOpacity onPress={()=> props.navigation? props.navigation.navigate(props.ruta, { garantiaEtapa: props.etapa, detalle: true }) : null}>
 			<View style={CardStyles.card}>

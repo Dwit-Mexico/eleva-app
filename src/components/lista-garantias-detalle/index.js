@@ -1,38 +1,42 @@
-import React from 'react';
-import { ScrollView } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { ScrollView, FlatList } from 'react-native';
+import { Consumer } from '../../context';
 
 //Componentes
 import CardGarantia from './CardDetalleGarantia';
 
-function ListaViviendas({navigation}) {
+function ListaViviendas({ navigation, etapa, context }) {
+	const [lista, setLista] = useState([]);
+
+	if (context) {
+		useEffect(() => {
+			let reportes = context.reportes || [];
+
+			reportes = reportes.filter(repo => repo.IdEstado == etapa);
+
+			setLista(reportes);
+
+		}, [context.reportes])
+	}
+	
 	return (
-		<ScrollView>
-			<CardGarantia
-				etapa = {1}
-				navigation={navigation}
-				proyecto="Demo1"
-				name="Vivienda 1"
-				direccion= "direccion de prueba"
-				area="cocina"
-				fecha="2020/10/21"/>
-			<CardGarantia
-				etapa = {2}
-				navigation={navigation}
-				proyecto="Demo1"
-				name="Vivienda 2"
-				direccion= "direccion de prueba 2"
-				area="comedor"
-				fecha="2020/10/21"/>
-			<CardGarantia
-				etapa = {3}
-				navigation={navigation}
-				proyecto="Demo1"
-				name="Vivienda 3"
-				direccion= "direccion de prueba 3"
-				area="dormitorio"
-				fecha="2020/10/21"/>
-		</ScrollView>
+		<FlatList
+			data 		= {lista}
+			renderItem 	= {(card) =>
+							<CardGarantia
+								key 		=	{card.IdSolicitudDetalle}
+								id 			=	{card.IdSolicitudDetalle}
+								etapa 		=	{etapa}
+								navigation	=	{navigation}
+								proyecto	=	"Demo1"
+								name		=	"Vivienda 1"
+								direccion	=	"direccion de prueba"
+								area		=	"cocina"
+								fecha		=	"2020/10/21"
+								data		=	{card}/>
+							}
+			keyExtractor={(item) => item.id}/>
 	);
 }
 
-export default ListaViviendas;
+export default Consumer(ListaViviendas);

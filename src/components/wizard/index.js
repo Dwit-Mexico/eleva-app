@@ -50,7 +50,7 @@ const Wizard = ({context, steps, ultimo, onSubmit, loading, terminado}) => {
 			{/*<Text>{page} {ultimo}</Text>*/}
 			{steps[page - 1]}
 
-			{console.log(terminado)}
+			{/*console.log(terminado)*/}
 
 			{!terminado?
 				<View style={{flex: 1, position: 'absolute', bottom: 10, flexDirection: 'row', justifyContent: 'space-between', width: '100%'}}>

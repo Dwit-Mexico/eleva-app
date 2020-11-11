@@ -15,7 +15,7 @@ function BottomTabNavigator(props) {
 	return (
 		<Tab.Navigator tabBarOptions = {{activeTintColor: '#B29360'}}>
 			<Tab.Screen
-				name="garantias"
+				name="reportes"
 				component={ GarantiasStack }
 				options={{
 					tabBarLabel: () => null,

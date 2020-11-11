@@ -19,6 +19,7 @@ import {
 	setImagen2,
 	setImagen3
 } from './form';
+import { getReportes } from './reportes';
 
 const Context = createContext();
 
@@ -54,7 +55,8 @@ class GlobalContext extends Component {
 			setImagen2: setImagen2.bind(this),
 			imagen3: null,
 			setImagen3: setImagen3.bind(this),
-			getForm: getForm.bind(this)
+			getForm: getForm.bind(this),
+			getReportes: getReportes.bind(this)
 		}
 
 		this.initUser();
@@ -83,7 +85,8 @@ class GlobalContext extends Component {
 			this.setState({
 				areas: catalogos.areas,
 				objetos: catalogos.objetos,
-				problemas: catalogos.problemas
+				problemas: catalogos.problemas,
+				reportes: catalogos.reportes
 			});
 		}
 
@@ -126,6 +129,11 @@ class GlobalContext extends Component {
 		if (problemas.problemas) {
 			catalogoObj.problemas = problemas.problemas;
 			this.setState({problemas: problemas.problemas});
+		}
+
+		const reportes = await this.state.getReportes();
+		if (reportes.data) {
+			catalogoObj.reportes = reportes.data;
 		}
 
 		AsyncStorage.setItem('Catalogos', JSON.stringify(catalogoObj));
