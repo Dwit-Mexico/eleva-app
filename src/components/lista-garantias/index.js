@@ -12,10 +12,29 @@ function ListaViviendas({navigation, context, etapa}) {
 
 	if (context) {
 		useEffect(() => {
-			let reportes = context.reportes || [];
+			let reportes = [];
 
-			// reportes = reportes.filter(repo => repo.IdEstado == etapa);
-			// console.log(reportes);
+			context.reportes.filter(r => r.IdEstado == 1 || r.IdEstado == 6 ).forEach(rep => {
+				const exist = reportes.find(e => e.IdUnidad == rep.IdUnidad && e.IdArea == rep.IdArea);
+				if(!exist) {
+					reportes.push({
+						id: reportes.length,
+						IdUnidad: rep.IdUnidad,
+						IdArea: rep.IdArea,
+						NombreArea: rep.NombreArea,
+						NombreProyecto: rep.NombreProyecto,
+						Numero: rep.Numero
+					})
+				}
+			});
+
+			reportes = reportes.sort((a, b) => {
+				if (a.IdUnidad > b.IdUnidad)
+					return 1;
+				if (a.IdUnidad < b.IdUnidad)
+					return -1;
+				return 0;
+			})
 
 			setLista(reportes);
 
@@ -24,6 +43,9 @@ function ListaViviendas({navigation, context, etapa}) {
 
 	async function onRefresh() {
 		setRefreshing(true);
+		if (context) {
+			await context.reloadReportes();
+		}
 		setRefreshing(false);
 	}
 
@@ -37,14 +59,14 @@ function ListaViviendas({navigation, context, etapa}) {
 					/>
 			}
 			renderItem 		=	{(card) => <CardGarantia
-										key			=	{card.item.IdGroup}
+										key			=	{card.item.id}
 										etapa 		=	{1}
 										navigation	=	{navigation}
 										item		=	{card.item}
 										icon 		=	{<FontAwesome5 name="book-open" size={24} color="black" />}
 										ruta		=	"ListaDetalleReportes"/>
 								}
-			keyExtractor	=	{(item) => `${item.IdGroup}`}/>
+			keyExtractor	=	{(item) => `${item.id}`}/>
 	);
 }
 

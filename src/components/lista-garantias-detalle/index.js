@@ -13,7 +13,7 @@ function ListaGarantiasDetalle({ navigation, etapa, context, lista }) {
 		useEffect(() => {
 			let reportes = lista || [];
 
-			reportes = reportes.filter(repo => repo.IdEstado == etapa);
+			// reportes = reportes.filter(repo => repo.IdEstado == etapa);
 
 			setList(reportes);
 
@@ -22,6 +22,9 @@ function ListaGarantiasDetalle({ navigation, etapa, context, lista }) {
 
 	async function onRefresh() {
 		setRefreshing(true);
+		if (context) {
+			await context.reloadReportes();
+		}
 		setRefreshing(false);
 	}
 

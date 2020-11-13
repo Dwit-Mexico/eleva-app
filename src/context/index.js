@@ -19,7 +19,7 @@ import {
 	setImagen2,
 	setImagen3
 } from './form';
-import { getReportes } from './reportes';
+import { getReportes, reloadReportes } from './reportes';
 
 const Context = createContext();
 
@@ -56,7 +56,8 @@ class GlobalContext extends Component {
 			imagen3: null,
 			setImagen3: setImagen3.bind(this),
 			getForm: getForm.bind(this),
-			getReportes: getReportes.bind(this)
+			getReportes: getReportes.bind(this),
+			reloadReportes: reloadReportes.bind(this)
 		}
 
 		this.initUser();

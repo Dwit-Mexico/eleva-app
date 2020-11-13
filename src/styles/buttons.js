@@ -6,7 +6,11 @@ export default StyleSheet.create({
 		color: '#ffffff',
 		padding: 10,
 		textAlign: 'center',
-		borderRadius: 5
+		borderRadius: 5,
+		width: '100%',
+		height: 50,
+		justifyContent: 'center',
+		alignItems: 'center'
 	},
 	loginButton: {
 		backgroundColor: '#B29360',
@@ -23,5 +27,8 @@ export default StyleSheet.create({
 		width: 200,
 		textAlign: 'center',
 		borderRadius: 5
+	},
+	spinner: {
+		color: 'white'
 	}
 });

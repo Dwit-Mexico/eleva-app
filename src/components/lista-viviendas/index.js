@@ -10,7 +10,6 @@ function ListaViviendas({context}) {
 
 	if (context) {
 		useEffect(() => {
-			console.log('Unidades', context.unidades);
 			setUnidades(context.unidades || []);
 		}, [context.unidades])
 	}

@@ -1,12 +1,20 @@
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage, Platform } from 'react-native';
 import request from 'superagent';
 import { API_URL } from './url';
+import ExpoInfo from "expo-constants";
+
+let version_app = '1.0.0';
 
 class Request {
 	constructor() {
 		this.setAuth();
 		this.state = {
 			auth: ''
+		}
+
+		if (ExpoInfo.manifest) {
+			const {version} = ExpoInfo.manifest;
+			version_app = version;
 		}
 	}
 
@@ -19,13 +27,15 @@ class Request {
 		}
 	}
 
-	async get(method, data) {
-        const res = await request
+	get(method, data) {
+        const res = request
             .get(`${API_URL}${method}`)
             .query(data)
 			.set('api_key', '87882e138de18177515be74e7e098cd81a79cc44fcfb0097e55230b2280df6b1')
 			.set('auth', 	this.state.auth)
-            .set('Accept', 	'application/json')
+			.set('Accept', 	'application/json')
+			.set("app_platform", Platform.OS)
+			.set("app_version", version_app)
             .then(res => {
                 return res.body || { empty: true };
             })
@@ -38,13 +48,16 @@ class Request {
         return res;
 	}
 
-	async post(method, data) {
-        const res = await request
+	post(method, data) {
+        const res = request
             .post(`${API_URL}${method}`)
-            .send(data)
 			.set('api_key', '87882e138de18177515be74e7e098cd81a79cc44fcfb0097e55230b2280df6b1')
 			.set('auth', 	this.state.auth)
-            .set('Accept', 	'application/json')
+            .set("Accept", "application/json")
+			.set("Content-Type", "application/json")
+			.set("app_platform", Platform.OS)
+			.set("app_version", version_app)
+			.send(data)
             .then(res => {
                 return res.body || { empty: true };
             })
@@ -81,6 +94,8 @@ class Request {
 				.set('api_key', '87882e138de18177515be74e7e098cd81a79cc44fcfb0097e55230b2280df6b1')
 				.set('auth', 	this.state.auth)
 				.set('Accept', 	'application/json')
+				.set("app_platform", Platform.OS)
+				.set("app_version", version_app)
 				.then(resp => {
 					res(resp.body || { error: true, message: 'error indefinido' });
 				})

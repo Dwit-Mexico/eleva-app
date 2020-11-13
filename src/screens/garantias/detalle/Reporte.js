@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
-import { ScrollView, View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, TouchableOpacity, Image, Modal } from 'react-native';
 import { useRoute, useFocusEffect } from '@react-navigation/native';
 import { Consumer } from '../../../context';
 import { FontAwesome5 } from '@expo/vector-icons';
+import ImageZoom from 'react-native-image-zoom-viewer';
+import Request from '../../../core/api';
 
 // Componentes
 import Container from '../../../components/container';
+import Button from '../../../components/boton/BotonAccion';
+
+const request = new Request();
 
 const styles = StyleSheet.create({
 	lista: {
@@ -46,8 +51,18 @@ const styles = StyleSheet.create({
 	}
 })
 
-const DetalleReporte = ({ navigation }) => {
-	const [info, setInfo] = useState({Numero: '', NombreArea: '', NombreEquipo: '', NombreProblema: '', Comentarios: '' });
+const DetalleReporte = ({ navigation, context }) => {
+	const [info, setInfo] = useState({
+		Numero: '',
+		NombreArea: '',
+		NombreEquipo: '',
+		NombreProblema: '',
+		Comentarios: ''
+	});
+	const [imagenIndex, setimagenIndex] = useState(null);
+	const [modalImagen, setModalImagen] = useState(false);
+	const [zoomImagen, setZoomImagen] = useState(null);
+	const [loadingCancel, setLoadingCancel] = useState(false);
 	const route = useRoute();
 
 	useFocusEffect(() => {
@@ -61,7 +76,10 @@ const DetalleReporte = ({ navigation }) => {
 
 	function _openCamara(navigation, index, imagen) {
 		if (imagen) {
-			console.log(imagen)
+			setModalImagen(true);
+			setZoomImagen(imagen);
+			setimagenIndex(index);
+			return;
 		}
 		/* if (navigation) {
 			navigation.navigate('Camara', { imagenIndex: index, esDetalle });
@@ -87,13 +105,31 @@ const DetalleReporte = ({ navigation }) => {
 	const ImagenButton = ({ navigation, index, imagen }) => {
 		const EmptyImage = require('../../../../assets/picture_icon.png');
 
+		//console.log('Imagen', index, imagen);
 		return (
-			<View style={{width: 100, height: 80, padding: 10}}>
+			<View style={{width: 120, height: 100, padding: 5}}>
 				<TouchableOpacity onPress={_openCamara.bind(this, navigation, index, imagen, _borrarImagen)}>
 					<Image source={imagen || EmptyImage} style={{width: '100%', height: '100%'}} resizeMode='cover'/>
 				</TouchableOpacity>
 			</View>
 		)
+	}
+
+	async function _cancelarReporte() {
+		setLoadingCancel(true);
+
+		const response = await request.post('/app/garantias/cancelar', { IdSolicitud: info.IdSolicitud });
+
+		if (response.error) {
+			alert(response.message || 'Error interno');
+		} else if(response.cancelado) {
+			context.reloadReportes();
+			navigation.goBack();
+		} else {
+			alert('No se pudo cancelar el reporte.');
+		}
+
+		setLoadingCancel(false);
 	}
 
 	return (
@@ -124,6 +160,7 @@ const DetalleReporte = ({ navigation }) => {
 					<View style={styles.comentarios}>
 						<Text style={{fontSize: 14}}>&nbsp;{info.Comentarios}</Text>
 					</View>
+					<View style={{height: 16}}/>
 					<View style={{flexDirection: 'row', justifyContent: 'center', width: '100%'}}>
 						<View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', width: '100%'}}>
 							<ImagenButton index = {1} imagen = {info.Img1? {uri: info.Img1} : null} navigation = {navigation}/>
@@ -131,12 +168,36 @@ const DetalleReporte = ({ navigation }) => {
 							<ImagenButton index = {3} imagen = {info.Img3? {uri: info.Img3} : null} navigation = {navigation}/>
 						</View>
 					</View>
-					<TouchableOpacity style={styles.button}>
-						<Text style={styles.buttonText}>Cancelar</Text>
-					</TouchableOpacity>
+					<View style={{height: 16}}/>
+					<View style={{paddingHorizontal: 30, width: '100%'}}>
+						<Button onPress={_cancelarReporte.bind(this)} loading = {loadingCancel}>
+							<Text style={styles.buttonText}>Cancelar</Text>
+						</Button>
+					</View>
 					<View style={{height: 16}}/>
 				</View>
 			</ScrollView>
+			<Modal
+				visible={modalImagen}
+				transparent={true}
+				onBackButtonPress={() => setModalImagen(false)}>
+				<View style={{flex: 1, backgroundColor: '#000'}}>
+					<View style={{flex: 0.1, padding: 10, justifyContent: 'center', alignItems: 'flex-end'}}>
+						<TouchableOpacity onPress={() => setModalImagen(false)}>
+							<FontAwesome5 name="times" size={35} color="#fff" />
+						</TouchableOpacity>
+					</View>
+					<ImageZoom
+						imageUrls = {zoomImagen? [ { url: zoomImagen.uri } ] : []}
+						renderIndicator = {() => null}
+						saveToLocalByLongPress={false}/>
+					{/*<View style={{flexDirection: 'row', padding: 10, justifyContent: 'center', alignItems: 'center'}}>
+						<TouchableOpacity onPress={() => _borrarImagen()}>
+							<FontAwesome5 name="edit" size={35} color="#fff" />
+						</TouchableOpacity>
+					</View>*/}
+				</View>
+			</Modal>
 		</Container>
 	)
 }
