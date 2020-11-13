@@ -36,13 +36,17 @@ function SeleccionarFotos({ aceptarAction, finalizarAction }) {
 				<Text style={{fontSize: 18, textAlign: 'center', padding: 10}}>¿Quieres agregar otro reporte?</Text>
 				<View style={{height: 16}}/>
 				<View style={{flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
-					<TouchableOpacity style={ButtonStyles.button} onPress={aceptarAction.bind(this)}>
-						<Text style={{color: 'white', fontSize: 18}}>Aceptar</Text>
-					</TouchableOpacity>
+					<View>
+						<TouchableOpacity style={ButtonStyles.button} onPress={aceptarAction.bind(this)}>
+							<Text style={{color: 'white', fontSize: 18}}>Aceptar</Text>
+						</TouchableOpacity>
+					</View>
 					<Text>&nbsp;</Text>
-					<TouchableOpacity style={ButtonStyles.button} onPress={finalizarAction.bind(this)}>
-						<Text style={{color: 'white', fontSize: 18}}>Finalizar</Text>
-					</TouchableOpacity>
+					<View>
+						<TouchableOpacity style={ButtonStyles.button} onPress={finalizarAction.bind(this)}>
+							<Text style={{color: 'white', fontSize: 18}}>Finalizar</Text>
+						</TouchableOpacity>
+					</View>
 				</View>
 			</Animated.View>
 		</View>

@@ -57,7 +57,8 @@ const DetalleReporte = ({ navigation, context }) => {
 		NombreArea: '',
 		NombreEquipo: '',
 		NombreProblema: '',
-		Comentarios: ''
+		Comentarios: '',
+		IdEstado: 0
 	});
 	const [imagenIndex, setimagenIndex] = useState(null);
 	const [modalImagen, setModalImagen] = useState(false);
@@ -169,10 +170,16 @@ const DetalleReporte = ({ navigation, context }) => {
 						</View>
 					</View>
 					<View style={{height: 16}}/>
-					<View style={{paddingHorizontal: 30, width: '100%'}}>
-						<Button onPress={_cancelarReporte.bind(this)} loading = {loadingCancel}>
-							<Text style={styles.buttonText}>Cancelar</Text>
-						</Button>
+					<View style={{paddingHorizontal: 30, width: '100%', justifyContent: 'center', alignItems: 'center'}}>
+						{info.IdEstado == 1?
+							<Button onPress={_cancelarReporte.bind(this)} loading = {loadingCancel}>
+								<Text style={styles.buttonText}>Cancelar</Text>
+							</Button>
+							:
+							<View style={{backgroundColor: '#BFACAA', width: '100%', padding: 5, borderRadius: 5}}>
+								<Text style={{textAlign: 'center', fontSize: 14}}>Cancelada</Text>
+							</View>
+						}
 					</View>
 					<View style={{height: 16}}/>
 				</View>

@@ -7,25 +7,28 @@ import CardStyles from '../../styles/components/CardGarantiaDetalleStyle';
 
 function CardGarantia(props) {
 	const [titulo, setTitulo] = useState('');
+	const [screen, setScreen] = useState('');
 
 	useEffect(() => {
 		switch(props.etapa) {
 			case 1:
 				setTitulo('Reporte');
+				setScreen('DetalleReporte');
 				break;
 			case 2:
 				setTitulo('Garantía');
+				setScreen('DetalleGarantia');
 				break;
 			case 3:
 				setTitulo('Valoracion');
+				setScreen('DetalleValoracion');
 				break;
 		}
 	}, [])
 
 	return (
-		<TouchableOpacity onPress={()=> props.navigation? props.navigation.navigate('DetalleReporte', { garantiaEtapa: props.etapa, data: props.data.item }) : null}>
+		<TouchableOpacity onPress={()=> props.navigation? props.navigation.navigate(screen, { data: props.data.item }) : null}>
 			<View style={CardStyles.card}>
-				<Text style={{fontWeight: 'bold', fontSize: 18, marginBottom: 10}}>{titulo}</Text>
 				<View style={{flexDirection: 'row'}}>
 					<View style={{flexDirection:'column', justifyContent:'center', padding: 5}}>
 						<FontAwesome5 name="exclamation-circle" size={30} color="black" />

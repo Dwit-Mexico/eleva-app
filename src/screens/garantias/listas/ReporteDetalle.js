@@ -11,18 +11,10 @@ const ListaDetalleReporte = ({ navigation, context }) => {
 	const [list, setList] = useState([]);
 	const route = useRoute();
 
-	useFocusEffect(() => {
-		const { params } = route;
-
-		if (Array.isArray(params.detalle)) {
-			setList(context.reportes);
-		}
-	});
-
 	if (context) {
 		useEffect(() => {
 			const { params } = route;
-			console.log('PARAMS', params);
+
 			let reportes = context.reportes
 			reportes = reportes.filter(r => r.IdArea == params.IdArea && r.IdUnidad == params.IdUnidad);
 
