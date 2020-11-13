@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 
 //Componentes

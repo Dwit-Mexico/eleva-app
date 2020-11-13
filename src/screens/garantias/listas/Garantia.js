@@ -4,7 +4,6 @@ import { Consumer } from '../../../context';
 // Componentes
 import Container from '../../../components/container';
 import ListaGarantias from '../../../components/lista-garantias-detalle';
-import BotonNuevo from '../../../components/boton-nuevo/BotonNuevo';
 
 const ListaGarantia = ({ navigation }) => {
 	return (

@@ -15,12 +15,19 @@ import Notificaciones from '../screens/notificaciones';
 import GarantiasDetalle from '../screens/garantias/Garantias';
 import NuevaGarantia from '../screens/garantias/Nueva';
 import DetalleGarantia from '../screens/garantias/Detalle';
+
 import ListaReportes from '../screens/garantias/listas/Reporte';
 import ListaGarantias from '../screens/garantias/listas/Garantia';
 import ListaValoraciones from '../screens/garantias/listas/Valoraciones';
+
+import ListaDetalleReportes from '../screens/garantias/listas/ReporteDetalle';
+import ListaDetalleGarantias from '../screens/garantias/listas/GarantiaDetalle';
+import ListaDetalleValoraciones from '../screens/garantias/listas/ValoracionesDetalle';
+
 import DetalleReportes from '../screens/garantias/detalle/Reporte';
 import DetalleGarantias from '../screens/garantias/detalle/Garantia';
 import DetalleValoraciones from '../screens/garantias/detalle/Valoraciones';
+
 import Camara from '../screens/camara';
 
 function getHeaderTitle(route) {
@@ -66,6 +73,7 @@ function AppStack(props) {
 				options={{
 					headerTitle: 'Garantía'
 				}}/>
+
 			<Stack.Screen
 				name="ListaReportes"
 				component={ListaReportes}
@@ -84,6 +92,26 @@ function AppStack(props) {
 				options={{
 					headerTitle: 'Valoraciones'
 				}}/>
+
+			<Stack.Screen
+				name="ListaDetalleReportes"
+				component={ListaDetalleReportes}
+				options={{
+					headerTitle: 'Reportes'
+				}}/>
+			<Stack.Screen
+				name="ListaDetalleGarantias"
+				component={ListaDetalleGarantias}
+				options={{
+					headerTitle: 'Garantías'
+				}}/>
+			<Stack.Screen
+				name="ListaDetalleValoraciones"
+				component={ListaDetalleValoraciones}
+				options={{
+					headerTitle: 'Valoraciones'
+				}}/>
+
 			<Stack.Screen
 				name="DetalleReporte"
 				component={DetalleReportes}

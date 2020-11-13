@@ -23,7 +23,7 @@ function CardGarantia(props) {
 	}, [])
 
 	return (
-		<TouchableOpacity onPress={()=> props.navigation? props.navigation.navigate('DetalleReporte', { garantiaEtapa: props.etapa, data: props.data }) : null}>
+		<TouchableOpacity onPress={()=> props.navigation? props.navigation.navigate('DetalleReporte', { garantiaEtapa: props.etapa, data: props.data.item }) : null}>
 			<View style={CardStyles.card}>
 				<Text style={{fontWeight: 'bold', fontSize: 18, marginBottom: 10}}>{titulo}</Text>
 				<View style={{flexDirection: 'row'}}>

@@ -5,13 +5,12 @@ import Colores from '../colores';
 
 export default StyleSheet.create({
 	card: {
-		flex: 1,
+		flex: 12,
 		borderColor: '#aaa',
 		borderTopColor: '#D4B467',
 		borderWidth: 0,
 		borderTopWidth: 8,
 		flexDirection: 'column',
-		margin: 20,
 		padding: 25,
 		backgroundColor: Colores.CardViviendaBG,
 		borderRadius: 5,
@@ -23,6 +22,6 @@ export default StyleSheet.create({
 		shadowOpacity: 0.25,
 		shadowRadius: 3.84,
 		elevation: 5,
-		alignItems: 'center'
+		margin: 20
 	}
 });

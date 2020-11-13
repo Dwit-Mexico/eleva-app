@@ -2,9 +2,9 @@ import React from 'react';
 import { View ,Text, TouchableOpacity } from 'react-native';
 
 //Styles
-import CardStyles from '../../styles/components/CardGarantiaStyle';
+import CardStyles from '../../styles/components/CardEtapaStyle';
 
-function CardGarantia(props) {
+function CardEtapa(props) {
 	return (
 		<TouchableOpacity onPress={()=> props.navigation? props.navigation.navigate(props.ruta, { garantiaEtapa: props.etapa, detalle: true }) : null}>
 			<View style={CardStyles.card}>
@@ -21,4 +21,4 @@ function CardGarantia(props) {
 	);
 }
 
-export default CardGarantia;
+export default CardEtapa;

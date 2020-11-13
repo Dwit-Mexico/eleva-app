@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, RefreshControl } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Consumer } from '../../context';
 
@@ -8,6 +8,7 @@ import CardGarantia from './CardGarantia';
 
 function ListaViviendas({navigation, context, etapa}) {
 	const [lista, setLista] = useState([]);
+	const [isRefreshing, setRefreshing] = useState(false);
 
 	if (context) {
 		useEffect(() => {
@@ -21,19 +22,29 @@ function ListaViviendas({navigation, context, etapa}) {
 		}, [context.reportes])
 	}
 
+	async function onRefresh() {
+		setRefreshing(true);
+		setRefreshing(false);
+	}
+
 	return (
 		<FlatList
-			data 		= {lista}
-			renderItem 	= {(card) =>
-								<CardGarantia
-									key			=	{card.IdUnidad + card.IdArea}
-									etapa 		=	{1}
-									navigation	=	{navigation}
-									titulo		=	{card.Numero}
-									icon 		=	{<FontAwesome5 name="book-open" size={24} color="black" />}
-									ruta		=	"ListaReportes"/>
-							}
-			keyExtractor={(item) => item.IdUnidad + item.IdArea}/>
+			data 			=	{lista}
+			refreshControl	=	{
+				<RefreshControl
+					refreshing={isRefreshing}
+					onRefresh={onRefresh.bind(this)}
+					/>
+			}
+			renderItem 		=	{(card) => <CardGarantia
+										key			=	{card.item.IdGroup}
+										etapa 		=	{1}
+										navigation	=	{navigation}
+										item		=	{card.item}
+										icon 		=	{<FontAwesome5 name="book-open" size={24} color="black" />}
+										ruta		=	"ListaDetalleReportes"/>
+								}
+			keyExtractor	=	{(item) => `${item.IdGroup}`}/>
 	);
 }
 
