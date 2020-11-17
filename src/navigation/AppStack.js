@@ -37,7 +37,7 @@ function getHeaderTitle(route) {
 		case 'perfil':
 			return 'Perfil';
 		case 'reportes':
-			return 'Reportes';
+			return 'Customer Service';
 		case 'galeria':
 			return 'Galería';
 	}
@@ -97,7 +97,7 @@ function AppStack(props) {
 				name="ListaDetalleReportes"
 				component={ListaDetalleReportes}
 				options={{
-					headerTitle: 'Reportes'
+					headerTitle: 'Detalle Reporte'
 				}}/>
 			<Stack.Screen
 				name="ListaDetalleGarantias"

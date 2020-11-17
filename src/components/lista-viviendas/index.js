@@ -22,7 +22,6 @@ function ListaViviendas({context}) {
 			}>
 			{
 				unidades.map((unidad) => {
-					console.log(unidad);
 					return (
 						<CardVivienda
 							key			=	{unidad.IdUnidad}

@@ -26,6 +26,28 @@ function CardGarantia(props) {
 		}
 	}, [])
 
+	if (props.reporte) {
+		return (
+			<TouchableOpacity onPress={()=> props.navigation? props.navigation.navigate(screen, { data: props.data.item }) : null}>
+				<View style={CardStyles.card}>
+					<View style={{flexDirection: 'row'}}>
+						<View style={{flexDirection:'column', justifyContent:'center', padding: 5}}>
+							<FontAwesome5 name="exclamation-circle" size={30} color="black" />
+						</View>
+						<View style={{paddingLeft: 15}}>
+							<Text>Problema:</Text>
+							<Text>{props.problema}</Text>
+						</View>
+					</View>
+					<View style={{marginTop: 5}}>
+						<Text>{props.area}</Text>
+						<Text style={{textAlign: 'right', fontWeight: 'bold'}}>{props.fecha}</Text>
+					</View>
+				</View>
+			</TouchableOpacity>
+		);
+	}
+
 	return (
 		<TouchableOpacity onPress={()=> props.navigation? props.navigation.navigate(screen, { data: props.data.item }) : null}>
 			<View style={CardStyles.card}>
@@ -35,7 +57,7 @@ function CardGarantia(props) {
 					</View>
 					<View style={{paddingLeft: 15}}>
 						<Text>{props.proyecto}</Text>
-						<Text>{props.name}</Text>
+						<Text>{props.unidad}</Text>
 					</View>
 				</View>
 				<View style={{marginTop: 5}}>

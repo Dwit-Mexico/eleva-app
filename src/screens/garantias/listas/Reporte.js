@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { View, Text } from 'react-native';
 import { Consumer } from '../../../context';
 
 // Componentes
@@ -12,8 +13,15 @@ const ListaReporte = ({ navigation, context }) => {
 	if (context) {
 		useEffect(() => {
 			let reportes = [];
+			let rptTemp = context.reportes.sort((a, b) => {
+				if (a.Fecha > b.Fecha)
+					return -1;
+				if (a.Fecha < b.Fecha)
+					return 1;
+				return 0;
+			});
 
-			context.reportes.filter(r => r.IdEstado == 1 || r.IdEstado == 6 ).forEach(rep => {
+			rptTemp.filter(r => r.IdEstado == 1 ).forEach(rep => {
 				const exist = reportes.find(e => e.IdUnidad == rep.IdUnidad && e.IdArea == rep.IdArea);
 				if(!exist) {
 					reportes.push({
@@ -22,7 +30,8 @@ const ListaReporte = ({ navigation, context }) => {
 						IdArea: rep.IdArea,
 						NombreArea: rep.NombreArea,
 						NombreProyecto: rep.NombreProyecto,
-						Numero: rep.Numero
+						Numero: rep.Numero,
+						Fecha: rep.Fecha
 					})
 				}
 			});
@@ -42,8 +51,15 @@ const ListaReporte = ({ navigation, context }) => {
 
 	return (
 		<Container>
-			<ListaGarantias navigation={navigation} lista = {lista}/>
-			<BotonNuevo navigation={navigation} screen={'NuevaGarantia'}/>
+			<View style={{flex: 1}}>
+				<ListaGarantias navigation={navigation} lista = {lista}/>
+			</View>
+			<View style={{flex: 0.1, flexDirection: 'row', position: 'relative', justifyContent: 'center', alignItems: 'center'}}>
+				<View style={{maxWidth: 260}}>
+					<Text>¿Tienes alguna inconformidad con tu vivienda? Reportanos</Text>
+				</View>
+				<BotonNuevo navigation={navigation} screen={'NuevaGarantia'}/>
+			</View>
 		</Container>
 	)
 }

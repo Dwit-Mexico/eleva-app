@@ -7,7 +7,7 @@ import CardStyles from '../../styles/components/CardEtapaStyle';
 function CardEtapa(props) {
 	return (
 		<TouchableOpacity onPress={()=> props.navigation? props.navigation.navigate(props.ruta, { garantiaEtapa: props.etapa, detalle: true }) : null}>
-			<View style={CardStyles.card}>
+			<View style={{...CardStyles.card, backgroundColor: props.background}}>
 				<View style={{flex: 1, alignItems: 'center'}}>
 					<View style={{flexDirection:'column', justifyContent:'center', padding: 5}}>
 						{props.icon}

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { FlatList, RefreshControl } from 'react-native';
 import { Consumer } from '../../context';
+import moment from 'moment-timezone';
 
 //Componentes
 import CardGarantia from './CardDetalleGarantia';
 
-function ListaGarantiasDetalle({ navigation, etapa, context, lista }) {
+function ListaGarantiasDetalle({ navigation, etapa, context, lista, reporte }) {
 	const [list, setList] = useState([]);
 	const [isRefreshing, setRefreshing] = useState(false);
 
@@ -39,16 +40,18 @@ function ListaGarantiasDetalle({ navigation, etapa, context, lista }) {
 			}
 			renderItem 		=	{(card) =>
 									<CardGarantia
-										key 		=	{card.IdSolicitud}
-										id 			=	{card.IdSolicitud}
+										key 		=	{card.item.IdSolicitud}
+										id 			=	{card.item.IdSolicitud}
 										etapa 		=	{etapa}
 										navigation	=	{navigation}
-										proyecto	=	"Demo1"
-										name		=	"Vivienda 1"
+										proyecto	=	{card.item.NombreProyecto}
+										unidad		=	{card.item.Numero}
+										problema	=	{card.item.NombreProblema}
 										direccion	=	"direccion de prueba"
-										area		=	"cocina"
-										fecha		=	"2020/10/21"
-										data		=	{card}/>
+										area		=	{card.item.NombreArea}
+										fecha		=	{moment(card.item.Fecha).format('DD/MM/YYYY')}
+										data		=	{card}
+										reporte		=	{reporte}/>
 									}
 			keyExtractor	=	{(item) => `${item.IdSolicitud}`}/>
 	);
