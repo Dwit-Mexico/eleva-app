@@ -21,7 +21,7 @@ const ListaReporte = ({ navigation, context }) => {
 				return 0;
 			});
 
-			rptTemp.filter(r => r.IdEstado == 1 ).forEach(rep => {
+			rptTemp.filter(r => r.IdEstado != 6 ).forEach(rep => {
 				const exist = reportes.find(e => e.IdUnidad == rep.IdUnidad && e.IdArea == rep.IdArea);
 				if(!exist) {
 					reportes.push({

@@ -6,8 +6,10 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import CardStyles from '../../styles/components/CardGarantiaDetalleStyle';
 
 function CardGarantia(props) {
+	const [item, setItem] = useState({});
 	const [titulo, setTitulo] = useState('');
 	const [screen, setScreen] = useState('');
+	const [estado, setEstado] = useState({ color: '#fff', text: ''});
 
 	useEffect(() => {
 		switch(props.etapa) {
@@ -24,7 +26,49 @@ function CardGarantia(props) {
 				setScreen('DetalleValoracion');
 				break;
 		}
-	}, [])
+	}, []);
+
+	useEffect(() => {
+
+		if (props.data.item) {
+			setItem(props.data.item);
+		}
+
+	}, [props.data]);
+
+	useEffect(() => {
+		let color, text;
+
+		switch(item.IdEstado) {
+			case 1:
+				text = 'Pendiente';
+				color = '#000';
+				break;
+			case 2:
+				text = 'Aplica Garantía';
+				color = 'green';
+				break;
+			case 3:
+				text = 'No Aplica Garantía';
+				color = 'red';
+				break;
+			case 4:
+				text = 'Por Agendar';
+				color = '#000';
+				break;
+			case 5:
+				text = 'Agendada';
+				color = 'green';
+				break;
+			case 6:
+				text = 'Cancelada';
+				color = '#000';
+				break;
+		}
+		setEstado({color, text});
+	}, [item]);
+
+
 
 	if (props.reporte) {
 		return (
@@ -40,7 +84,8 @@ function CardGarantia(props) {
 						</View>
 					</View>
 					<View style={{marginTop: 5}}>
-						<Text>{props.area}</Text>
+						<Text>&nbsp;</Text>
+						<Text style={{textAlign: 'right', fontWeight: 'bold', marginBottom: 5, color: estado.color}}>{estado.text}</Text>
 						<Text style={{textAlign: 'right', fontWeight: 'bold'}}>{props.fecha}</Text>
 					</View>
 				</View>
@@ -62,6 +107,7 @@ function CardGarantia(props) {
 				</View>
 				<View style={{marginTop: 5}}>
 					<Text>{props.area}</Text>
+					<Text style={{textAlign: 'right', fontWeight: 'bold', marginBottom: 5, color: estado.color}}>{estado.text}</Text>
 					<Text style={{textAlign: 'right', fontWeight: 'bold'}}>{props.fecha}</Text>
 				</View>
 			</View>
