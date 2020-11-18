@@ -209,8 +209,6 @@ function Etapa1({navigation, esDetalle, context}) {
 	return (
 		<Container>
 			<View style = {{flex: 1, height: '100%'}}>
-				<Text style={TextStyle.EtapaTitulo}>Etapa 1</Text>
-
 				<View style={{height: 8}}/>
 
 				<Wizard

@@ -68,7 +68,7 @@ const DetalleReporte = ({ navigation, context }) => {
 
 	useFocusEffect(() => {
 		const params = route.params;
-		console.log(params.data);
+
 		if (params.data) {
 			const info = params.data;
 			setInfo(info || {});
@@ -176,9 +176,7 @@ const DetalleReporte = ({ navigation, context }) => {
 								<Text style={styles.buttonText}>Cancelar</Text>
 							</Button>
 							:
-							<View style={{backgroundColor: '#BFACAA', width: '100%', padding: 5, borderRadius: 5}}>
-								<Text style={{textAlign: 'center', fontSize: 14}}>Cancelada</Text>
-							</View>
+							null
 						}
 					</View>
 					<View style={{height: 16}}/>

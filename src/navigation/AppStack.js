@@ -38,6 +38,8 @@ function getHeaderTitle(route) {
 			return 'Perfil';
 		case 'reportes':
 			return 'Customer Service';
+		case 'documentos':
+			return 'Documentos';
 		case 'galeria':
 			return 'Galería';
 	}

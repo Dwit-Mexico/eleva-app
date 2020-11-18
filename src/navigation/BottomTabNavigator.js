@@ -7,6 +7,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import PerfilStack from './PerfilStack';
 import GarantiasStack from './GarantiasStack';
 import GaleriaStack from './GaleriaStack';
+import DocumentosStack from './DocumentosStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -24,12 +25,12 @@ function BottomTabNavigator(props) {
 					)
 				}}/>
 			<Tab.Screen
-				name="galeria"
-				component={ GaleriaStack }
+				name="documentos"
+				component={ DocumentosStack }
 				options={{
 					tabBarLabel: () => null,
 					tabBarIcon: ({ color, size }) => (
-						<FontAwesome5 name="images" size={size} color = {color}/>
+						<FontAwesome5 name="file-pdf" size={size} color = {color}/>
 					)
 				}}/>
 			<Tab.Screen

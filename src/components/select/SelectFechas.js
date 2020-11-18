@@ -9,13 +9,13 @@ import InputStyles from '../../styles/inputs';
 // Colores
 import Colores from '../../styles/colores';
 
-onSelectionsChange = (data, onChange) => {
-	if (onChange) {
-		onChange(data[0]);
+function SelectArea({fechas, value, onChange}) {
+	function onSelectionsChange(data) {
+		if (onChange) {
+			onChange(data[0]);
+		}
 	}
-}
 
-function SelectArea({viviendas, onChange}) {
 	return (
 		<View style={InputStyles.Select}>
 			<Select2
@@ -28,8 +28,8 @@ function SelectArea({viviendas, onChange}) {
 				cancelButtonText="Cancelar"
 				selectButtonText="Aceptar"
 				listEmptyTitle="No se encontraron fechas diponibles"
-				data={[{id: 1, name: '31 octubre 2020'}, {id: 2, name: '1 Noviembre 2020'}]}
-				onSelect={data => onSelectionsChange(data, onChange)}
+				data={fechas || []}
+				onSelect={data => onSelectionsChange(data)}
 				onRemoveItem={data => onSelectionsChange(data)}
 			/>
 			<AntDesign style={{ right: 25 }} name="caretdown" color="grey" size={10} />

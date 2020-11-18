@@ -13,7 +13,6 @@ const Etapa2 = ({navigate}) => {
 	return (
 		<Container>
 			<ScrollView style = {{flex: 1}}>
-				<Text style={TextStyle.EtapaTitulo}>Etapa 2</Text>
 
 				<View style={{height: 8}}/>
 

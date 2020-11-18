@@ -15,8 +15,6 @@ const Etapa3 = ({navigate}) => {
 		<Container>
 			<ScrollView style={{flex: 1}}>
 
-				<Text style={TextStyle.EtapaTitulo}>Etapa 3</Text>
-
 				<Text style={{textAlign: 'justify', color: '#000'}}>
 					SI la respuesta es SI, por favor valore nuestro servicio de atención al cliente.
 					En caso de que No, por favor indíquenos el motivo y agendaremos otra cita.

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { ScrollView, View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { ScrollView, View, Text, TextInput, Button } from 'react-native';
+import { Rating, AirbnbRating } from 'react-native-ratings';
 
 // Componentes
 import Container from '../../../components/container';
@@ -11,11 +12,13 @@ import TextStyle from '../../../styles/text';
 const DetalleValoracion = () => {
 	const [respuesta, setRespuesta] = useState(null);
 
+	function ratingCompleted(rating) {
+		console.log("Rating is: " + rating)
+	}
+
 	return (
 		<Container>
 			<ScrollView style={{flex: 1}}>
-
-				<Text style={TextStyle.EtapaTitulo}>Etapa 3</Text>
 
 				<Text style={{textAlign: 'justify', color: '#000'}}>
 					SI la respuesta es SI, por favor valore nuestro servicio de atención al cliente.
@@ -41,6 +44,17 @@ const DetalleValoracion = () => {
 					multiline
 					numberOfLines={6}
 					maxLength={1500}/>
+
+				<View style={{height: 32}}/>
+
+				<AirbnbRating
+					reviewSize={18}
+					count={5}
+					reviews={["Muy mala", "Mala", "Regular", "Buena", "Muy buena"]}
+					defaultRating={5}
+					showRating={true}
+					size={30}
+					onFinishRating={ratingCompleted}/>
 
 				<View style={{height: 32}}/>
 
