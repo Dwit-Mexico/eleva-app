@@ -57,7 +57,7 @@ function CardGarantia(props) {
 				color = '#000';
 				break;
 			case 5:
-				text = 'Agendada';
+				text = 'Programada';
 				color = 'green';
 				break;
 			case 6:
@@ -107,6 +107,7 @@ function CardGarantia(props) {
 				</View>
 				<View style={{marginTop: 5}}>
 					<Text>{props.area}</Text>
+					<Text style={{textAlign: 'right', fontSize: 12, color: '#C1C1BF'}}>&nbsp;{item.IdEstado == 2 ? 'Agende la fecha de reparación' : null}</Text>
 					<Text style={{textAlign: 'right', fontWeight: 'bold', marginBottom: 5, color: estado.color}}>{estado.text}</Text>
 					<Text style={{textAlign: 'right', fontWeight: 'bold'}}>{props.fecha}</Text>
 				</View>

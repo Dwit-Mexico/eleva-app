@@ -108,7 +108,7 @@ const DetalleReporte = ({ navigation, context }) => {
 
 		//console.log('Imagen', index, imagen);
 		return (
-			<View style={{width: 120, height: 100, padding: 5}}>
+			<View style={{width: 100, height: 80, padding: 5}}>
 				<TouchableOpacity onPress={_openCamara.bind(this, navigation, index, imagen, _borrarImagen)}>
 					<Image source={imagen || EmptyImage} style={{width: '100%', height: '100%'}} resizeMode='cover'/>
 				</TouchableOpacity>
@@ -163,7 +163,7 @@ const DetalleReporte = ({ navigation, context }) => {
 					</View>
 					<View style={{height: 16}}/>
 					<View style={{flexDirection: 'row', justifyContent: 'center', width: '100%'}}>
-						<View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', width: '100%'}}>
+						<View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '100%'}}>
 							<ImagenButton index = {1} imagen = {info.Img1? {uri: info.Img1} : null} navigation = {navigation}/>
 							<ImagenButton index = {2} imagen = {info.Img2? {uri: info.Img2} : null} navigation = {navigation}/>
 							<ImagenButton index = {3} imagen = {info.Img3? {uri: info.Img3} : null} navigation = {navigation}/>

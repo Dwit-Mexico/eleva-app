@@ -11,7 +11,7 @@ const ListaGarantia = ({ navigation, context }) => {
 	if (context) {
 		useEffect(() => {
 			let reportes = context.reportes
-			reportes = reportes.filter(r => r.IdEstado == 2 || r.IdEstado == 3 || r.IdEstado == 4);
+			reportes = reportes.filter(r => r.IdEstado == 2 || r.IdEstado == 3 || r.IdEstado == 4 || r.IdEstado == 5);
 
 			if (Array.isArray(reportes)) {
 				setLista(reportes);

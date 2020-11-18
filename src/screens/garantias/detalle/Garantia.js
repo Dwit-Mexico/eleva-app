@@ -80,6 +80,19 @@ const DetalleGarantia = ({ navigation }) => {
 
 				<Text style={{textAlign: 'center', color: '#000', fontSize: 18, fontWeight: 'bold'}}>No Aplica Garantía</Text>
 
+				<Text style={{fontSize: 16, padding: 5}}>
+					Unidad: {info.Numero}
+				</Text>
+				<Text style={{fontSize: 16, padding: 5}}>
+					Area: {info.NombreArea}
+				</Text>
+				<Text style={{fontSize: 16, padding: 5}}>
+					Equipo: {info.NombreEquipo}
+				</Text>
+				<Text style={{fontSize: 16, padding: 5}}>
+					Problema: {info.NombreProblema}
+				</Text>
+
 				<View style={{height: 16}}/>
 
 				<View style={{minHeight: 120, borderRadius: 8, borderColor: '#000', borderWidth: 1, paddingVertical: 10, paddingHorizontal: 17, textAlignVertical: "top"}}>
@@ -87,6 +100,36 @@ const DetalleGarantia = ({ navigation }) => {
 						{info.ComentariosAplica}
 					</Text>
 				</View>
+				<View style={{height: 32}}/>
+			</Container>
+		)
+	}
+
+	if (info.IdEstado == 5) {
+		return (
+			<Container>
+				<View style={{height: 8}}/>
+
+				<Text style={{textAlign: 'center', color: '#000', fontSize: 18, fontWeight: 'bold'}}>Programada</Text>
+
+				<View style={{height: 16}}/>
+
+				<Text style={{fontSize: 16, padding: 5}}>
+					Unidad: {info.Numero}
+				</Text>
+				<Text style={{fontSize: 16, padding: 5}}>
+					Area: {info.NombreArea}
+				</Text>
+				<Text style={{fontSize: 16, padding: 5}}>
+					Equipo: {info.NombreEquipo}
+				</Text>
+				<Text style={{fontSize: 16, padding: 5}}>
+					Problema: {info.NombreProblema}
+				</Text>
+				<Text style={{fontSize: 16, padding: 5}}>
+					Fecha Visita: {moment(info.FechaAplica).format('DD/MM/YYYY HH:mm:ss')}
+				</Text>
+
 				<View style={{height: 32}}/>
 			</Container>
 		)
