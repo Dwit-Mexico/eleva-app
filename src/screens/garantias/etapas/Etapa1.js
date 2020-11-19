@@ -37,6 +37,8 @@ function Etapa1({navigation, esDetalle, context}) {
 	const [imagen2, setImagen2] = useState(null);
 	const [imagen3, setImagen3] = useState(null);
 	const [terminado, setTerminado] = useState(false);
+	const [loadingAceptar, setLoadingAceptar] = useState(false);
+	const [loadingFinalizar, setLoadingFinalizar] = useState(false);
 	const route = useRoute();
 	const { params } = route;
 
@@ -188,15 +190,25 @@ function Etapa1({navigation, esDetalle, context}) {
 		setImagen3(null);
 	}
 
-	function aceptarAction() {
+	async function aceptarAction() {
+		setLoadingAceptar(true);
+
+		await context.reloadReportes();
+
 		setTerminado(false);
 
 		reinicializar();
 
 		context.setStep(3);
+
+		setLoadingAceptar(false);
 	}
 
-	function finalizarAction() {
+	async function finalizarAction() {
+		setLoadingFinalizar(true);
+
+		await context.reloadReportes();
+
 		setTerminado(false);
 
 		reinicializar();
@@ -204,6 +216,8 @@ function Etapa1({navigation, esDetalle, context}) {
 		context.setStep(1);
 
 		navigation.goBack();
+
+		setLoadingFinalizar(false);
 	}
 
 	return (
@@ -234,7 +248,9 @@ function Etapa1({navigation, esDetalle, context}) {
 							imagenes 	= {{imagen1, imagen2, imagen3}}/>,
 						<Finalizar
 							aceptarAction = {()=> aceptarAction()}
-							finalizarAction = {()=> finalizarAction()}/>
+							finalizarAction = {()=> finalizarAction()}
+							loadingAceptar = {loadingAceptar}
+							loadingFinalizar = {loadingFinalizar}/>
 					]}
 					ultimo 		= {6}
 					onSubmit 	= {_handleSubmit.bind(this)}

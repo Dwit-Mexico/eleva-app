@@ -19,6 +19,9 @@ const DetalleValoracion = () => {
 	return (
 		<Container>
 			<ScrollView style={{flex: 1}}>
+				<Text style={{fontSize: 18, fontWeight: 'bold', textAlign: 'center'}}>¿Quedó satisfecho con la reparación?</Text>
+
+				<View style={{height: 16}}/>
 
 				<Text style={{textAlign: 'justify', color: '#000'}}>
 					SI la respuesta es SI, por favor valore nuestro servicio de atención al cliente.

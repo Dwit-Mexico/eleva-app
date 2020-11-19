@@ -16,7 +16,7 @@ import inputs from '../../../styles/inputs';
 
 const request = new Request();
 
-const DetalleGarantia = ({ navigation }) => {
+const DetalleGarantia = ({ navigation, context }) => {
 	const [info, setInfo] = useState({});
 	const [fechas, setFechas] = useState([]);
 	const [fecha, setFecha] = useState('');
@@ -67,6 +67,7 @@ const DetalleGarantia = ({ navigation }) => {
 			alert(response.message || 'Error interno');
 		}
 		if (response.agendado) {
+			await context.reloadReportes();
 			navigation.goBack();
 		}
 

@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { View, Animated, Text, TouchableOpacity, Modal, Image } from 'react-native';
+import { View, Animated, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { Consumer } from '../../../../context';
 import { FontAwesome5 } from '@expo/vector-icons';
 import ImageZoom from 'react-native-image-zoom-viewer';
 import { useFocusEffect, useRoute } from '@react-navigation/native';
 
+// Componentes
+import BotonWizard from '../../../../components/boton/BotonWizard';
+
 // Styles
 import ButtonStyles from '../../../../styles/buttons';
+import { Props } from 'react-native-image-zoom-viewer/built/image-viewer.type';
 
-function SeleccionarFotos({ aceptarAction, finalizarAction }) {
+function SeleccionarFotos({ aceptarAction, finalizarAction, loadingAceptar, loadingFinalizar }) {
 	let animatedOpacity = new Animated.Value(0);
 
 	function initOpactity() {
@@ -37,15 +41,15 @@ function SeleccionarFotos({ aceptarAction, finalizarAction }) {
 				<View style={{height: 16}}/>
 				<View style={{flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
 					<View>
-						<TouchableOpacity style={ButtonStyles.button} onPress={aceptarAction.bind(this)}>
+						<BotonWizard style={ButtonStyles.button} onPress={finalizarAction.bind(this)} loading={loadingAceptar}>
 							<Text style={{color: 'white', fontSize: 18}}>Aceptar</Text>
-						</TouchableOpacity>
+						</BotonWizard>
 					</View>
 					<Text>&nbsp;</Text>
 					<View>
-						<TouchableOpacity style={ButtonStyles.button} onPress={finalizarAction.bind(this)}>
+						<BotonWizard style={ButtonStyles.button} onPress={finalizarAction.bind(this)} loading={loadingFinalizar}>
 							<Text style={{color: 'white', fontSize: 18}}>Finalizar</Text>
-						</TouchableOpacity>
+						</BotonWizard>
 					</View>
 				</View>
 			</Animated.View>

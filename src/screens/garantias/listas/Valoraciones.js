@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { View, Text } from 'react-native';
 import { Consumer } from '../../../context';
 
 // Componentes
@@ -22,6 +23,11 @@ const ListaValoraciones = ({navigation, context}) => {
 
 	return (
 		<Container>
+			<View style={{width: '100%'}}>
+				<View style={{height: 8}}/>
+				<Text style={{fontSize: 18}}>Su opinion nos interesa. Ayúdenos a valorar nuestro servicio.</Text>
+				<Text style={{fontSize: 18}}>Muchas Gracias</Text>
+			</View>
 			<ListaGarantias navigation={navigation} lista = {lista} etapa = {3}/>
 		</Container>
 	)

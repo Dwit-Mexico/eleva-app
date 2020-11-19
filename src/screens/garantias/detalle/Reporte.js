@@ -124,7 +124,7 @@ const DetalleReporte = ({ navigation, context }) => {
 		if (response.error) {
 			alert(response.message || 'Error interno');
 		} else if(response.cancelado) {
-			context.reloadReportes();
+			await context.reloadReportes();
 			navigation.goBack();
 		} else {
 			alert('No se pudo cancelar el reporte.');
