@@ -41,7 +41,7 @@ function SeleccionarFotos({ aceptarAction, finalizarAction, loadingAceptar, load
 				<View style={{height: 16}}/>
 				<View style={{flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
 					<View>
-						<BotonWizard style={ButtonStyles.button} onPress={finalizarAction.bind(this)} loading={loadingAceptar}>
+						<BotonWizard style={ButtonStyles.button} onPress={aceptarAction.bind(this)} loading={loadingAceptar}>
 							<Text style={{color: 'white', fontSize: 18}}>Aceptar</Text>
 						</BotonWizard>
 					</View>

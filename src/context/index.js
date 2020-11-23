@@ -65,7 +65,7 @@ class GlobalContext extends Component {
 
 	async componentDidMount() {
 		await this.initUser();
-		await this.initApp();
+		// await this.initApp();
 	}
 
 	async initUser() {

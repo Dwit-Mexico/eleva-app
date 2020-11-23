@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text } from 'react-native';
 import { Consumer } from '../../../context';
+import moment from 'moment-timezone';
 
 // Componentes
 import Container from '../../../components/container';
@@ -31,8 +32,9 @@ const ListaReporte = ({ navigation, context }) => {
 						NombreArea: rep.NombreArea,
 						NombreProyecto: rep.NombreProyecto,
 						Numero: rep.Numero,
-						Fecha: rep.Fecha
-					})
+						Fecha: moment(rep.Fecha).format(),
+						NoSolicitud: rep.NoSolicitud
+					});
 				}
 			});
 
@@ -56,7 +58,7 @@ const ListaReporte = ({ navigation, context }) => {
 			</View>
 			<View style={{flex: 0.1, flexDirection: 'row', position: 'relative', justifyContent: 'center', alignItems: 'center'}}>
 				<View style={{maxWidth: 260}}>
-					<Text>¿Tienes alguna inconformidad con tu vivienda? Reportanos</Text>
+					<Text>Reporta aqui tu detalle</Text>
 				</View>
 				<BotonNuevo navigation={navigation} screen={'NuevaGarantia'}/>
 			</View>

@@ -13,6 +13,7 @@ import { Consumer } from '../../context';
 
 //Components
 import Container from '../../components/container';
+import Boton from '../../components/boton/BotonAccion';
 
 //Styles
 import LoginStyle from '../../styles/screens/LoginStyle';
@@ -25,13 +26,15 @@ class LoginScreen extends Component {
 		super(props);
 		this.state = {
 			usuario: '',
-			password: ''
+			password: '',
+			loading: false
 		}
 		this.inputUsername = null;
 		this.inputPassword = null;
 	}
 
 	async _handleSubmit() {
+		this.setState({loading: true});
 		const { usuario, password } = this.state;
 		if (!usuario) {
 			alert('Debe proporcionar un usuario válido.')
@@ -45,6 +48,7 @@ class LoginScreen extends Component {
 		if (context) {
 			await context.login(usuario, password);
 		}
+		this.setState({loading: false});
 	}
 
 	render () {
@@ -78,9 +82,11 @@ class LoginScreen extends Component {
 								onSubmitEditing={this._handleSubmit.bind(this)}
 								onChangeText={text => this.setState({password: text})}/>
 							<View style={{height: 32}} />
-							<TouchableOpacity style={ButtonStyles.loginButton} onPress={this._handleSubmit.bind(this)}>
-								<Text style={TextStyle.loginButton}>Iniciar</Text>
-							</TouchableOpacity>
+							<View style={{width: 200}}>
+								<Boton onPress = {this._handleSubmit.bind(this)} loading = {this.state.loading}>
+									<Text style={TextStyle.loginButton}>Iniciar</Text>
+								</Boton>
+							</View>
 						</View>
 					</Container>
 				</View>

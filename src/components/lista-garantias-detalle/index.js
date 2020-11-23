@@ -38,21 +38,25 @@ function ListaGarantiasDetalle({ navigation, etapa, context, lista, reporte }) {
 					onRefresh={onRefresh.bind(this)}
 					/>
 			}
-			renderItem 		=	{(card) =>
-									<CardGarantia
-										key 		=	{card.item.IdSolicitud}
-										id 			=	{card.item.IdSolicitud}
-										etapa 		=	{etapa}
-										navigation	=	{navigation}
-										proyecto	=	{card.item.NombreProyecto}
-										unidad		=	{card.item.Numero}
-										problema	=	{card.item.NombreProblema}
-										direccion	=	"direccion de prueba"
-										area		=	{card.item.NombreArea}
-										fecha		=	{moment(card.item.Fecha).format('DD/MM/YYYY')}
-										data		=	{card}
-										reporte		=	{reporte}/>
+			renderItem 		=	{(card) => {
+									const {item} = card;
+									return (
+										<CardGarantia
+											key 		=	{item.IdSolicitud}
+											id 			=	{item.IdSolicitud}
+											etapa 		=	{etapa}
+											navigation	=	{navigation}
+											proyecto	=	{item.NombreProyecto}
+											unidad		=	{item.Numero}
+											problema	=	{item.NombreProblema}
+											direccion	=	"direccion de prueba"
+											area		=	{item.NombreArea}
+											fecha		=	{moment(item.Fecha).format('DD/MM/YYYY')}
+											data		=	{card}
+											reporte		=	{reporte}/>
+										)
 									}
+								}
 			keyExtractor	=	{(item) => `${item.IdSolicitud}`}/>
 	);
 }

@@ -35,7 +35,7 @@ function Comentarios(props) {
 					// backgroundColor: 'lightgray',
 				}}
 			>
-				<Text style={{fontSize: 18, textAlign: 'center', padding: 10}}>¿Tienes algún comentario?</Text>
+				<Text style={{fontSize: 18, textAlign: 'center', padding: 10}}>Describe tu detalle</Text>
 
 				<View style={{height: 8}}/>
 

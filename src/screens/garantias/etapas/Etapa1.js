@@ -199,7 +199,8 @@ function Etapa1({navigation, esDetalle, context}) {
 
 		reinicializar();
 
-		context.setStep(3);
+		//Coloca el paso en el wozard a donde redirecciona el boton Aceptar
+		context.setStep(2);
 
 		setLoadingAceptar(false);
 	}

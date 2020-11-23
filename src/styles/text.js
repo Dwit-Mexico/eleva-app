@@ -10,7 +10,8 @@ export default StyleSheet.create({
 	},
 	loginButton: {
 		color: Colores.loginButtonText,
-		textAlign: 'center'
+		textAlign: 'center',
+		fontSize: 18
 	},
 	logoutButton: {
 		color: Colores.logoutButtonText,

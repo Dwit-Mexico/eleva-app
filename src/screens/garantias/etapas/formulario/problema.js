@@ -32,7 +32,7 @@ function SeleccionarProblema({problema, setProblema}) {
 					// backgroundColor: 'lightgray',
 				}}
 			>
-				<Text style={{fontSize: 18, textAlign: 'center', padding: 10}}>¿Cuál es el problema?</Text>
+				<Text style={{fontSize: 18, textAlign: 'center', padding: 10}}>¿Cuál es tu detalle?</Text>
 				<SelectProblema onSelect = {(opcion) => onSelect(opcion)} value = {problema}/>
 			</Animated.View>
 		</View>
