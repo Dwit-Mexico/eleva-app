@@ -1,22 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text } from 'react-native';
-import PDFReader from 'rn-pdf-reader-js'
+import React, { useState } from 'react';
 
 // Componentes
 import Container from '../../components/container';
-import Carpetas from '../../components/documentos/Carpetas';
+import Lista from '../../components/documentos/Lista';
 
-function Documentos({ navigation }) {
+function ListaDocumentos({ navigation }) {
 	const [loading, setLoading] = useState(true);
 	const [url, setUrl] = useState('http://www.africau.edu/images/default/sample.pdf');
 
 	return (
 		<Container>
-			<Carpetas
+			<Lista
 				navigation 	= {navigation}
 				lista 		= {[{id: 1, name: "Test" }, { id:2, name: "Test1"}]}/>
 		</Container>
 	);
 }
 
-export default Documentos;
+export default ListaDocumentos;

@@ -8,9 +8,6 @@ export async function login(usuario, password) {
 	if (result.token) {
 		await AsyncStorage.setItem('LoginUser', JSON.stringify(result));
 		this.setState({auth: true, token: result.token});
-
-		this.initApp();
-
 	} else {
 		alert(result.message || 'No se pudo iniciar sesión.');
 	}

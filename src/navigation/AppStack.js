@@ -28,6 +28,9 @@ import DetalleReportes from '../screens/garantias/detalle/Reporte';
 import DetalleGarantias from '../screens/garantias/detalle/Garantia';
 import DetalleValoraciones from '../screens/garantias/detalle/Valoraciones';
 
+import ListaDocumentos from '../screens/documentos/ListaDocumentos';
+import VistaDocumento from '../screens/documentos/documento';
+
 import Camara from '../screens/camara';
 
 function getHeaderTitle(route) {
@@ -66,9 +69,11 @@ function AppStack(props) {
 					headerTitle: getHeaderTitle(route),
 					headerRight: () => <BotonNotificaciones navigation={navigation}/> 
 				})}/>
+
 			<Stack.Screen
 				name="Notificaciones"
 				component={Notificaciones}/>
+
 			<Stack.Screen
 				name="GarantiasDetalle"
 				component={GarantiasDetalle}
@@ -144,6 +149,13 @@ function AppStack(props) {
 				options={{
 					header: () => null
 				}}/>
+
+			<Stack.Screen
+				name="ListaDocumentos"
+				component={ListaDocumentos}/>
+			<Stack.Screen
+				name="VistaDocumento"
+				component={VistaDocumento}/>
 		</Stack.Navigator>
 	);
 }

@@ -29,6 +29,7 @@ class GlobalContext extends Component {
 		this.state = {
 			initApp: this.initApp.bind(this),
 			auth: false,
+			token: null,
 			login: login.bind(this),
 			logout: logout.bind(this),
 			unidades: [],
@@ -68,6 +69,12 @@ class GlobalContext extends Component {
 		// await this.initApp();
 	}
 
+	async componentDidUpdate(prevProps, prevState) {
+		if (this.state.token !== prevState.token) {
+			this.initApp();
+		}
+	}
+
 	async initUser() {
 		//Comprobar si el usuario inició sesión
 		let loginUser = await AsyncStorage.getItem('LoginUser');
@@ -75,6 +82,7 @@ class GlobalContext extends Component {
 			loginUser = JSON.parse(loginUser);
 			if (loginUser.token) {
 				this.setState({auth: true, token: loginUser.token});
+				this.initApp();
 			}
 		}
 	}
