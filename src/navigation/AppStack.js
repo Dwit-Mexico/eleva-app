@@ -22,7 +22,6 @@ import ListaValoraciones from '../screens/garantias/listas/Valoraciones';
 
 import ListaDetalleReportes from '../screens/garantias/listas/ReporteDetalle';
 import ListaDetalleGarantias from '../screens/garantias/listas/GarantiaDetalle';
-import ListaDetalleValoraciones from '../screens/garantias/listas/ValoracionesDetalle';
 
 import DetalleReportes from '../screens/garantias/detalle/Reporte';
 import DetalleGarantias from '../screens/garantias/detalle/Garantia';
@@ -111,12 +110,6 @@ function AppStack(props) {
 				component={ListaDetalleGarantias}
 				options={{
 					headerTitle: 'Garantías'
-				}}/>
-			<Stack.Screen
-				name="ListaDetalleValoraciones"
-				component={ListaDetalleValoraciones}
-				options={{
-					headerTitle: 'Valoraciones'
 				}}/>
 
 			<Stack.Screen
