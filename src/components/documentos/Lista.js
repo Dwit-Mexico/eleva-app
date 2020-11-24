@@ -8,13 +8,13 @@ import CardLista from './CardLista';
 //Styles
 import Colores from '../../styles/colores';
 
-function ListaDocumentos({ navigation, lista }) {
+function ListaDocumentos({ navigation, lista, reload }) {
 	const [isRefreshing, setRefreshing] = useState(false);
 
 	async function onRefresh() {
 		setRefreshing(true);
-		if (context) {
-			await context.reloadReportes();
+		if (reload) {
+			await reload();
 		}
 		setRefreshing(false);
 	}
@@ -30,12 +30,9 @@ function ListaDocumentos({ navigation, lista }) {
 			}
 			renderItem 		=	{(card) => 	<CardLista
 									navigation	=	{navigation}
-									titulo		=	"Carpetas"
-									icon 		=	{<FontAwesome5 name="book-open" size={24} color="black" />}
-									ruta		=	"ListaReportes"
-									background	=	{Colores.bgReportes}/>
+									item		=	{card.item}/>
 								}
-			keyExtractor	=	{(item) => `${item.id}`}/>
+			keyExtractor	=	{(item) => `${item.IdDocumento}`}/>
 	);
 }
 

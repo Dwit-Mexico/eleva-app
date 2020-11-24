@@ -1,12 +1,23 @@
 import React, { useState, useEffect } from 'react';
+import { useRoute } from '@react-navigation/native';
 import { View, Text } from 'react-native';
-import PDFReader from 'rn-pdf-reader-js'
+import PDFReader from 'rn-pdf-reader-js';
 
 // Componentes
 
 function Documento() {
 	const [loading, setLoading] = useState(true);
-	const [url, setUrl] = useState('http://www.africau.edu/images/default/sample.pdf');
+	const [url, setUrl] = useState('');
+	const route = useRoute();
+
+	if(route.params) {
+		useEffect(() => {
+			const { data } = route.params;
+			if(data) {
+				setUrl(data.path);
+			}
+		}, [route.params]);
+	}
 
 	return (
 		<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -20,7 +31,7 @@ function Documento() {
 				<View style={{height: loading? '80%': '100%', width: '100%'}}>
 					<PDFReader
 						source={{
-							uri: url || '',
+							uri: url,
 						}}
 						withPinchZoom	=	{true}
 						onLoadEnd = {(event) => setLoading(false)}

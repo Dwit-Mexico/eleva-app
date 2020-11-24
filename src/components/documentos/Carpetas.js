@@ -8,13 +8,13 @@ import CardCarpeta from './CardCarpeta';
 //Styles
 import Colores from '../../styles/colores';
 
-function CarpetasDocumentos({ navigation, lista }) {
+function CarpetasDocumentos({ navigation, lista, reload }) {
 	const [isRefreshing, setRefreshing] = useState(false);
 
 	async function onRefresh() {
 		setRefreshing(true);
-		if (context) {
-			await context.reloadReportes();
+		if (reload) {
+			await reload();
 		}
 		setRefreshing(false);
 	}
@@ -26,16 +26,13 @@ function CarpetasDocumentos({ navigation, lista }) {
 				<RefreshControl
 					refreshing={isRefreshing}
 					onRefresh={onRefresh.bind(this)}
-					/>
+				/>
 			}
 			renderItem 		=	{(card) => 	<CardCarpeta
-									navigation	=	{navigation}
-									titulo		=	"Carpetas"
-									icon 		=	{<FontAwesome5 name="book-open" size={24} color="black" />}
-									ruta		=	"ListaReportes"
-									background	=	{Colores.bgReportes}/>
+									navigation		=	{navigation}
+									item			=	{card.item}/>
 								}
-			keyExtractor	=	{(item) => `${item.id}`}/>
+			keyExtractor	=	{(item) => `${item.IdFolder}`}/>
 	);
 }
 
