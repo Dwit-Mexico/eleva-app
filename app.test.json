@@ -29,7 +29,8 @@
       "favicon": "./assets/favicon.png"
     },
     "android": {
-      "package": "com.dwitmexico.elevaapp"
+	  "package": "com.dwitmexico.elevaapp",
+	  "googleServicesFile": "./google-services.json"
 	}
   }
 }

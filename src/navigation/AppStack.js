@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { StatusBar } from 'react-native';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Consumer } from '../context';
+import Constants from 'expo-constants';
+import * as Notifications from 'expo-notifications';
+import * as Permissions from 'expo-permissions';
+import Request from '../core/api';
 
 //Componentes
 import BotonNotificaciones from '../components/boton-notificaciones/BotonNotificaciones';
@@ -32,6 +36,16 @@ import VistaDocumento from '../screens/documentos/documento';
 
 import Camara from '../screens/camara';
 
+const request = new Request();
+
+Notifications.setNotificationHandler({
+	handleNotification: async () => ({
+		shouldShowAlert: true,
+		shouldPlaySound: false,
+		shouldSetBadge: false,
+	}),
+});
+
 function getHeaderTitle(route) {
 	const routeName = getFocusedRouteNameFromRoute(route) ?? 'reportes';
 
@@ -47,17 +61,73 @@ function getHeaderTitle(route) {
 	}
 }
 
+async function registerForPushNotificationsAsync() {
+	let token;
+	if (Constants.isDevice) {
+		const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+		let finalStatus = existingStatus;
+		if (existingStatus !== 'granted') {
+			const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+			finalStatus = status;
+		}
+		if (finalStatus !== 'granted') {
+			alert('Failed to get push token for push notification!');
+			return;
+		}
+		token = (await Notifications.getExpoPushTokenAsync()).data;
+	} else {
+		alert('Must use physical device for Push Notifications');
+	}
+
+	if (Platform.OS === 'android') {
+		Notifications.setNotificationChannelAsync('default', {
+			name: 'default',
+			importance: Notifications.AndroidImportance.MAX,
+			vibrationPattern: [0, 250, 250, 250],
+			lightColor: '#FF231F7C',
+		});
+	}
+
+	return token;
+}
+
 const Stack = createStackNavigator();
 
 function AppStack(props) {
+	const [expoPushToken, setExpoPushToken] = useState('');
+	const [notification, setNotification] = useState(false);
+	const notificationListener = useRef();
+	const responseListener = useRef();
+
+	useEffect(() => {
+		registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+	
+		notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+			setNotification(notification);
+		});
+	
+		responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+			console.log(response);
+		});
+	
+		return () => {
+			Notifications.removeNotificationSubscription(notificationListener);
+			Notifications.removeNotificationSubscription(responseListener);
+		};
+	}, []);
+
+	useEffect(() => {
+		async function setToken(token) {
+			const response = await request.post('/aplicacion/notificaciones/set', { token });
+			console.log('PUSH TOKEN', response);
+		}
+
+		if (expoPushToken) {
+			setToken(expoPushToken);
+		}
+	}, [expoPushToken])
 
 	StatusBar.setBarStyle('dark-content');
-
-	const { context } = props;
-	let auth = false;
-	if (context) {
-		auth = context.auth;
-	}
 
 	return (
 		<Stack.Navigator mode="modal">

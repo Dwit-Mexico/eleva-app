@@ -5,7 +5,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 //Styles
 import Style from '../../styles/components/CardCarpetaStyle';
 
-function ListaViviendas({ navigation, item }) {
+function ListaDocumentos({ navigation, item }) {
 	return (
 		<TouchableOpacity style={Style.card} onPress={() => navigation.navigate('VistaDocumento', { data: item })}>
 			<FontAwesome5 name="file-pdf" size={40}/>
@@ -14,5 +14,5 @@ function ListaViviendas({ navigation, item }) {
 	);
 }
 
-export default ListaViviendas;
+export default ListaDocumentos;
 
