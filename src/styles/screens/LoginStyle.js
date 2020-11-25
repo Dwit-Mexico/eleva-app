@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
 	backGround: {
 		flex: 1,
-		backgroundColor: '#4A4A4A',
+		backgroundColor: '#000000A1',
 	},
 	loginView: {
 		flex: 1,

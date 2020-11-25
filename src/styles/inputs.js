@@ -4,15 +4,14 @@ import { StyleSheet } from 'react-native';
 import Colores from './colores';
 
 const input = {
-	borderColor: '#ffffff',
-	borderWidth: 1,
+	borderBottomColor: '#ffffff',
+	borderBottomWidth: 1,
 	borderRadius: 5,
-	width: 200,
+	width: 300,
 	padding: 5,
 	marginBottom: 5,
 	marginTop: 5,
-	color: Colores.inputs,
-	backgroundColor: '#fff'
+	color: Colores.inputs
 }
 
 const alignCenter = {
@@ -35,6 +34,14 @@ export default StyleSheet.create({
 		borderWidth: 1,
 		borderColor: '#555',
 		borderRadius: 8
+	},
+	inputNormal: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		padding: 10,
+		backgroundColor: '#eaeaea',
+		marginHorizontal: 2,
+		marginVertical: 2
 	},
 	itemNormal: {
 		flexDirection: 'row',

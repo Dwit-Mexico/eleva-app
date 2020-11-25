@@ -5,7 +5,8 @@ import { Consumer } from '../../context';
 //Componentes
 import CardVivienda from './CardVivienda';
 
-function ListaViviendas({context}) {
+function ListaViviendas({context, lista}) {
+	const [loading, setLoading] = useState(false);
 	const [unidades, setUnidades] = useState([]);
 
 	if (context) {
@@ -14,14 +15,22 @@ function ListaViviendas({context}) {
 		}, [context.unidades])
 	}
 
+	async function reload() {
+		setLoading(true);
+		if (context) {
+			await context.initApp();
+		}
+		setLoading(false);
+	}
+
 	return (
 		<ScrollView
 			style = {{height: '50%'}}
 			refreshControl = {
-				<RefreshControl refreshing={false} onRefresh={() => console.log('on refresh')} />
+				<RefreshControl refreshing={loading} onRefresh={() => reload()} />
 			}>
 			{
-				unidades.map((unidad) => {
+				lista.map((unidad) => {
 					return (
 						<CardVivienda
 							key			=	{unidad.IdUnidad}

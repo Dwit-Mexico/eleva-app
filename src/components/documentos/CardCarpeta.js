@@ -8,7 +8,7 @@ import Colores from '../../styles/colores';
 
 function ListaViviendas({ navigation, item }) {
 	return (
-		<TouchableOpacity style={Style.card} onPress={() => navigation.navigate('ListaDocumentos', { data: item })}>
+		<TouchableOpacity style={Style.card} onPress={() => navigation.navigate('ListaDocumentos', { data: item, title: item.NombreFolder })}>
 			<FontAwesome5 name="folder" size={40}/>
 			<Text style={{marginLeft: 25, fontSize: 18}}>{item.NombreFolder}</Text>
 		</TouchableOpacity>

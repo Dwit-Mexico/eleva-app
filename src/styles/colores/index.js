@@ -2,7 +2,7 @@
 const colores = {
 	tituloLogin: '#ffffff',
 	titulos: '#000002',
-	inputs: '#000002',
+	inputs: '#fff',
 	loginButtonText: '#ffffff',
 	logoutButtonText: '#ffffff',
 	CardViviendaBG: '#fff',

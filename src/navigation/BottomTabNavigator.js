@@ -40,7 +40,7 @@ function BottomTabNavigator(props) {
 					tabBarLabel: () => null,
 					tabBarIcon: ({ color, size }) => (
 						<FontAwesome5 name="id-card" size={size} color = {color}/>
-					)
+					),
 				}}/>
 		</Tab.Navigator>
 	);

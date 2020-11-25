@@ -11,8 +11,7 @@ function PerfilStack({navigation}) {
 		<Stack.Navigator>
 			<Stack.Screen
 				name="Perfil"
-				component={Perfil}
-				options={{ tabBarLabel: 'Home!' }}/>
+				component={Perfil}/>
 		</Stack.Navigator>
 	);
 }

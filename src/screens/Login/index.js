@@ -7,7 +7,8 @@ import {
 	TouchableWithoutFeedback,
 	Keyboard,
 	Image,
-	StatusBar
+	StatusBar,
+	ImageBackground
 } from 'react-native';
 import { Consumer } from '../../context';
 
@@ -37,16 +38,23 @@ class LoginScreen extends Component {
 		this.setState({loading: true});
 		const { usuario, password } = this.state;
 		if (!usuario) {
-			alert('Debe proporcionar un usuario válido.')
+			alert('Debe proporcionar un usuario válido.');
+			this.setState({loading: false});
 			return;
 		}
 		if (!password) {
-			alert('Debe proporcionar una contraseña válida.')
+			alert('Debe proporcionar una contraseña válida.');
+			this.setState({loading: false});
 			return;
 		}
 		const { context } = this.props;
 		if (context) {
-			await context.login(usuario, password);
+			const validar = await context.validar(usuario, password);
+			if (validar.activar) {
+				this.props.navigation.navigate('ActualizarPassword', { username: usuario });
+				return;
+			}
+			await context.login(usuario, password)
 		}
 		this.setState({loading: false});
 	}
@@ -55,41 +63,49 @@ class LoginScreen extends Component {
 		StatusBar.setBarStyle('light-content');
 		return (
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-				<View style={LoginStyle.backGround}>
-					<Container>
-						<View style={LoginStyle.loginView}>
-							<Image source={require('../../../assets/logo.png')} style={{width: 300, height: 300}}/>
-							<Text style={TextStyle.LoginTitle}>
-								Desarrollos Urbanísticos
-							</Text>
-							<View style={{height: 16}} />
-							<TextInput
-								placeholder="correo@dominio.com"
-								placeholderTextColor="#757575"
-								style={InputStyles.LoginUsername}
-								onSubmitEditing={() => this.inputPassword.focus()}
-								ref={(input) => this.inputUsername = input}
-								returnKeyType="next"
-								onChangeText={text => this.setState({usuario: text})}/>
-							<View style={{height: 8}} />
-							<TextInput
-								placeholder="Contraseña"
-								placeholderTextColor="#757575"
-								style={InputStyles.LoginPassword}
-								secureTextEntry={true}
-								ref={(input) => this.inputPassword = input}
-								returnKeyType="go"
-								onSubmitEditing={this._handleSubmit.bind(this)}
-								onChangeText={text => this.setState({password: text})}/>
-							<View style={{height: 32}} />
-							<View style={{width: 200}}>
-								<Boton onPress = {this._handleSubmit.bind(this)} loading = {this.state.loading}>
-									<Text style={TextStyle.loginButton}>Iniciar</Text>
-								</Boton>
+				<ImageBackground source={require('../../../assets/background.jpg')} style={{flex: 1, resizeMode: "cover", justifyContent: "center"}}>
+					<View style={LoginStyle.backGround}>
+						<Container>
+							<View style={LoginStyle.loginView}>
+								<Image source={require('../../../assets/logo.png')} style={{width: 300, height: 300}}/>
+								<Text style={TextStyle.LoginTitle}>
+									DESARROLLOS URBANÍSTICOS
+								</Text>
+								<View style={{height: 16}} />
+								<TextInput
+									placeholder="CORREO ELECTRONICO"
+									placeholderTextColor="#eaeaea"
+									style={InputStyles.LoginUsername}
+									onSubmitEditing={() => this.inputPassword.focus()}
+									ref={(input) => this.inputUsername = input}
+									returnKeyType="next"
+									onChangeText={text => this.setState({usuario: text})}/>
+								<View style={{height: 8}} />
+								<TextInput
+									placeholder="CONTRASEÑA"
+									placeholderTextColor="#eaeaea"
+									style={InputStyles.LoginPassword}
+									secureTextEntry={true}
+									ref={(input) => this.inputPassword = input}
+									returnKeyType="go"
+									onSubmitEditing={this._handleSubmit.bind(this)}
+									onChangeText={text => this.setState({password: text})}/>
+								<View style={{height: 32}} />
+								<View style={{width: 300}}>
+									<Boton onPress = {this._handleSubmit.bind(this)} loading = {this.state.loading}>
+										<Text style={TextStyle.loginButton}>Iniciar</Text>
+									</Boton>
+								</View>
+								<View style={{height: 16}} />
+								<View style={{width: 300}}>
+									<TouchableOpacity onPress={() => this.props.navigation.navigate('RcuperarPassword', { usuario: this.state.usuario })}>
+										<Text style={{fontSize: 12, color: 'white', textAlign: 'center'}}>Olvidaste tu contraseña</Text>
+									</TouchableOpacity>
+								</View>
 							</View>
-						</View>
-					</Container>
-				</View>
+						</Container>
+					</View>
+				</ImageBackground>
 			</TouchableWithoutFeedback>
 		);
 	}

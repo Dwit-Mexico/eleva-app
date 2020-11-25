@@ -34,6 +34,8 @@ import DetalleValoraciones from '../screens/garantias/detalle/Valoraciones';
 import ListaDocumentos from '../screens/documentos/ListaDocumentos';
 import VistaDocumento from '../screens/documentos/documento';
 
+import AgregarUsuario from '../screens/perfil/AgregarUsuario';
+
 import Camara from '../screens/camara';
 
 const request = new Request();
@@ -125,18 +127,23 @@ function AppStack(props) {
 		if (expoPushToken) {
 			setToken(expoPushToken);
 		}
-	}, [expoPushToken])
+	}, [expoPushToken]);
 
-	StatusBar.setBarStyle('dark-content');
+	StatusBar.setBarStyle('light-content');
 
 	return (
 		<Stack.Navigator mode="modal">
 			<Stack.Screen
 				name="Main"
 				component={BottomNavigator}
-				options={({ navigation, route }) => ({ 
+				options={({ navigation, route }) => ({
+					// header: () => null,
 					headerTitle: getHeaderTitle(route),
-					headerRight: () => <BotonNotificaciones navigation={navigation}/> 
+					headerRight: () => <BotonNotificaciones navigation={navigation}/>,
+					headerStyle: {
+						backgroundColor: '#4C4C4C'
+					},
+					headerTintColor: '#B29360'
 				})}/>
 
 			<Stack.Screen
@@ -215,10 +222,17 @@ function AppStack(props) {
 
 			<Stack.Screen
 				name="ListaDocumentos"
-				component={ListaDocumentos}/>
+				component={ListaDocumentos}
+				options={({ route }) => ({ headerTitle: route.params.title || '' })}/>
 			<Stack.Screen
 				name="VistaDocumento"
-				component={VistaDocumento}/>
+				component={VistaDocumento}
+				options={({ route }) => ({ headerTitle: route.params.title || '' })}/>
+
+			<Stack.Screen
+				name="AgregarUsuario"
+				component={AgregarUsuario}/>
+
 		</Stack.Navigator>
 	);
 }

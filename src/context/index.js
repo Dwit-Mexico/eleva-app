@@ -2,7 +2,7 @@ import React, { Component, createContext } from 'react';
 import { AsyncStorage } from 'react-native';
 
 //Funciones
-import { login, logout } from './user';
+import { login, logout, validar } from './user';
 import { getUnidades } from './catalogos/Unidades';
 import { getAreas } from './catalogos/Areas';
 import { getEquipos } from './catalogos/Equipos';
@@ -29,8 +29,10 @@ class GlobalContext extends Component {
 		this.state = {
 			initApp: this.initApp.bind(this),
 			auth: false,
+			user: null,
 			token: null,
 			login: login.bind(this),
+			validar: validar.bind(this),
 			logout: logout.bind(this),
 			unidades: [],
 			areas: [],
@@ -82,7 +84,6 @@ class GlobalContext extends Component {
 			loginUser = JSON.parse(loginUser);
 			if (loginUser.token) {
 				this.setState({auth: true, token: loginUser.token});
-				this.initApp();
 			}
 		}
 	}

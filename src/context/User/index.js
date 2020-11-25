@@ -3,6 +3,16 @@ import Request from '../../core/api';
 
 const request = new Request();
 
+export async function validar(usuario, password) {
+	const result = await request.post('/app/users/validar', { usuario, password });
+
+	if (!result.valido && result.token) {
+		return { activar: true, usuario };
+	} else {
+		return { activar: false, usuario };
+	}
+}
+
 export async function login(usuario, password) {
 	const result = await request.post('/app/users/login', { usuario, password });
 	if (result.token) {
