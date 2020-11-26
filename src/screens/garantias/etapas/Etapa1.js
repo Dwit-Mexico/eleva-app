@@ -58,10 +58,6 @@ function Etapa1({navigation, esDetalle, context}) {
 		}
 	}
 
-	useFocusEffect(() => {
-		StatusBar.setBarStyle('dark-content');
-	});
-
 	if (params) {
 		useEffect(() => {
 			if (context) {

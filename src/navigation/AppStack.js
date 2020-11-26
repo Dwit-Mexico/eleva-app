@@ -102,6 +102,8 @@ function AppStack(props) {
 	const responseListener = useRef();
 
 	useEffect(() => {
+		StatusBar.setBarStyle('light-content');
+
 		registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
 	
 		notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
@@ -128,8 +130,6 @@ function AppStack(props) {
 			setToken(expoPushToken);
 		}
 	}, [expoPushToken]);
-
-	StatusBar.setBarStyle('light-content');
 
 	return (
 		<Stack.Navigator mode="modal">

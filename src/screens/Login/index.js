@@ -60,7 +60,6 @@ class LoginScreen extends Component {
 	}
 
 	render () {
-		StatusBar.setBarStyle('light-content');
 		return (
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
 				<ImageBackground source={require('../../../assets/background.jpg')} style={{flex: 1, resizeMode: "cover", justifyContent: "center"}}>

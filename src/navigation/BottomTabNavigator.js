@@ -12,7 +12,6 @@ import DocumentosStack from './DocumentosStack';
 const Tab = createBottomTabNavigator();
 
 function BottomTabNavigator(props) {
-	StatusBar.setBarStyle('dark-content');
 	return (
 		<Tab.Navigator tabBarOptions = {{activeTintColor: '#B29360'}}>
 			<Tab.Screen

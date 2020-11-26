@@ -118,22 +118,9 @@ class GlobalContext extends Component {
 
 				if (unidades.data.length == 1) {
 					const unidad = unidades.data[0];
-					const areas = await getAreas(unidad.IdUnidad);
 				}
 			}
 		}
-
-		/*const areas = await getAreas();
-		if (areas.areas) {
-			catalogoObj.areas = areas.areas;
-			this.setState({areas: areas.areas});
-		}
-
-		const equipos = await getEquipos();
-		if (equipos.equipos) {
-			catalogoObj.equipos = equipos.equipos;
-			this.setState({equipos: equipos.equipos});
-		}*/
 
 		const problemas = await getProblemas();
 		if (problemas.problemas) {

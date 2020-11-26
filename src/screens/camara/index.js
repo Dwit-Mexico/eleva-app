@@ -15,8 +15,6 @@ import Container from '../../components/container';
 let camara = null;
 
 const Camara = () => {
-	StatusBar.setBarStyle('light-content');
-
 	const navigation = useNavigation();
 	const [hasPermission, setHasPermission] = useState(null);
 	const [type, setType] = useState(Camera.Constants.Type.back);

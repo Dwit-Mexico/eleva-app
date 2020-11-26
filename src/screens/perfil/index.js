@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, ImageBackground } from 'react-native';
+import { View, Text, TouchableOpacity, ImageBackground, ActivityIndicator } from 'react-native';
 import { Consumer } from '../../context';
 import Request from '../../core/api';
 
@@ -12,7 +12,7 @@ import BotonAccion from '../../components/boton/BotonAccion';
 import Styles from '../../styles/screens/PerfilStyle';
 import StylesButtons from '../../styles/buttons';
 import StylesTexts from '../../styles/text';
-import { cos } from 'react-native-reanimated';
+import Colores from '../../styles/colores';
 
 function _logOut(context) {
 	if (context) {
@@ -40,6 +40,7 @@ const styleUserData = {
 }
 
 function Perfil({ navigation, context }) {
+	const [loading, setLoading] = useState(true);
 	const [user, setUser] = useState({ Nombre: '' });
 	const [unidades, setUnidades] = useState([]);
 
@@ -54,6 +55,8 @@ function Perfil({ navigation, context }) {
 				setUnidades(response.data);
 			}
 		}
+
+		setLoading(false);
 	}
 
 	useEffect(() => {
@@ -76,13 +79,20 @@ function Perfil({ navigation, context }) {
 					<Container>
 						<View style={{height: 50}}/>
 						<View style={{flex: 1, width: '100%'}}>
-							<ListaViviendas lista = { unidades }/>
+							{loading ?
+								<ActivityIndicator size={30} color={Colores.spinnerColor}/>
+								:
+								<ListaViviendas lista = { unidades }/>
+							}
+
 							<View style={Styles.logoutButtonView}>
-								<View style={{marginBottom: 10, width: 200}}>
-									<BotonAccion onPress={() => navigation.navigate('AgregarUsuario', { unidades })}>
-										<Text style={StylesTexts.logoutButton}>Agregar usuario</Text>
-									</BotonAccion>
-								</View>
+								{user.Propietario &&
+									<View style={{marginBottom: 10, width: 200}}>
+										<BotonAccion onPress={() => navigation.navigate('AgregarUsuario', { unidades })}>
+											<Text style={StylesTexts.logoutButton}>Agregar usuario</Text>
+										</BotonAccion>
+									</View>
+								}
 								<TouchableOpacity onPress={_logOut.bind(this, context)} style={StylesButtons.logoutButton}>
 									<Text style={StylesTexts.logoutButton}>Cerrar sesión</Text>
 								</TouchableOpacity>

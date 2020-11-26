@@ -77,6 +77,14 @@ class Request {
 	}
 
 	async postFile(method, files, data) {
+		let auth = '';
+		let loginUser = await AsyncStorage.getItem('LoginUser');
+
+		if (loginUser) {
+			loginUser = JSON.parse(loginUser);
+			auth = loginUser.token;
+		}
+
 		const response = await new Promise(res => {
 			const postRequest = request.post(`${API_URL}${method}`);
 
@@ -98,8 +106,8 @@ class Request {
 
 			postRequest
 				.set('api_key', '87882e138de18177515be74e7e098cd81a79cc44fcfb0097e55230b2280df6b1')
-				.set('auth', 	this.state.auth)
-				.set('Accept', 	'application/json')
+				.set('auth', auth)
+				.set('Accept', 'application/json')
 				.set("app_platform", Platform.OS)
 				.set("app_version", version_app)
 				.then(resp => {
