@@ -31,13 +31,18 @@ function RecuperarPassword({navigation}) {
 			Email: correo
 		}
 
-		const response = await request.post('', data);
+		const response = await request.post('/app/users/recuperar/password', data);
 
 		if (response.error) {
 			Alert.alert(null, response.message || 'No se pudo enviar la información, intente nuevamente.');
 		}
 
-		console.log(response);
+		if (response.sended) {
+			Alert.alert(null, response.message || 'Correo enviado.');
+			navigation.goBack();
+		} else {
+			Alert.alert(null, response.message || 'No se pudo enviar la información, intente nuevamente.');
+		}
 
 		setLoading(false);
 	}
