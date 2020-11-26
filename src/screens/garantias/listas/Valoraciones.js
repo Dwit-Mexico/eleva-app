@@ -11,10 +11,10 @@ const ListaValoraciones = ({navigation, context}) => {
 
 	if (context) {
 		useEffect(() => {
-			let reportes = context.reportes
-			reportes = reportes.filter(r => r.IdEstado == 7);
+			let reportes = context.reportes;
 
 			if (Array.isArray(reportes)) {
+				reportes = reportes.filter(r => r.IdEstado == 7);
 				setLista(reportes);
 			}
 

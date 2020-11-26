@@ -19,10 +19,10 @@ const ListaDetalleReporte = ({ navigation, context }) => {
 		useEffect(() => {
 			const { params } = route;
 
-			let reportes = context.reportes
-			reportes = reportes.filter(r => r.IdArea == params.IdArea && r.IdUnidad == params.IdUnidad && r.IdEstado != 6);
+			let reportes = context.reportes;
 
 			if (Array.isArray(reportes)) {
+				reportes = reportes.filter(r => r.IdArea == params.IdArea && r.IdUnidad == params.IdUnidad && r.IdEstado != 6);
 				setList(reportes);
 			}
 

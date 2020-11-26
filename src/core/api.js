@@ -7,7 +7,6 @@ let version_app = '1.0.0';
 
 class Request {
 	constructor() {
-		this.setAuth();
 		this.state = {
 			auth: ''
 		}
@@ -18,21 +17,20 @@ class Request {
 		}
 	}
 
-	async setAuth() {
+	async get(method, data) {
+		let auth = '';
 		let loginUser = await AsyncStorage.getItem('LoginUser');
 
 		if (loginUser) {
 			loginUser = JSON.parse(loginUser);
-			this.state.auth = loginUser.token;
+			auth = loginUser.token;
 		}
-	}
 
-	get(method, data) {
         const res = request
             .get(`${API_URL}${method}`)
             .query(data)
 			.set('api_key', '87882e138de18177515be74e7e098cd81a79cc44fcfb0097e55230b2280df6b1')
-			.set('auth', 	this.state.auth)
+			.set('auth', 	auth)
 			.set('Accept', 	'application/json')
 			.set("app_platform", Platform.OS)
 			.set("app_version", version_app)
@@ -48,11 +46,19 @@ class Request {
         return res;
 	}
 
-	post(method, data) {
+	async post(method, data) {
+		let auth = '';
+		let loginUser = await AsyncStorage.getItem('LoginUser');
+
+		if (loginUser) {
+			loginUser = JSON.parse(loginUser);
+			auth = loginUser.token;
+		}
+
         const res = request
             .post(`${API_URL}${method}`)
 			.set('api_key', '87882e138de18177515be74e7e098cd81a79cc44fcfb0097e55230b2280df6b1')
-			.set('auth', 	this.state.auth)
+			.set('auth', auth)
             .set("Accept", "application/json")
 			.set("Content-Type", "application/json")
 			.set("app_platform", Platform.OS)
