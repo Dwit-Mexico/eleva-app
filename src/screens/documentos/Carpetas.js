@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, ImageBackground } from 'react-native';
+import { Alert, View, ImageBackground, ActivityIndicator } from 'react-native';
 import Request from '../../core/api';
 
 // Componentes
@@ -8,22 +8,26 @@ import Carpetas from '../../components/documentos/Carpetas';
 
 // Styles
 import Styles from '../../styles/screens/DocumentosStyle';
+import Colores from '../../styles/colores';
 
 const request = new Request();
 
 function Documentos({ navigation }) {
+	const [loading, setLoading] = useState(true);
 	const [lista, setLista] = useState([]);
 
 	async function getCarpetas() {
 		const response = await request.get('/app/documentos/get/folders');
 
 		if (response.error) {
-			alert(response.message || 'No se pudieron obtener las carpetas');
+			Alert.alert(null, response.message || 'No se pudieron obtener las carpetas');
 		}
 
 		if (Array.isArray(response.data)) {
 			setLista(response.data)
 		}
+
+		setLoading(false);
 	}
 
 	useEffect(() => {
@@ -38,10 +42,18 @@ function Documentos({ navigation }) {
 		<ImageBackground source={require('../../../assets/background.jpg')} style={{flex: 1, height: '100%'}}>
 			<View style={Styles.backGround}>
 				<Container>
-					<Carpetas
-						navigation 	= {navigation}
-						lista 		= {lista}
-						reload		= {reload.bind(this)}/>
+					<View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+						{loading ? 
+							<ActivityIndicator color={Colores.spinnerColor} size={30}/>
+							:
+							<View style={{width: '100%', height: '100%'}}>
+								<Carpetas
+									navigation 	= {navigation}
+									lista 		= {lista}
+									reload		= {reload.bind(this)}/>
+							</View>
+						}
+					</View>
 				</Container>
 			</View>
 		</ImageBackground>

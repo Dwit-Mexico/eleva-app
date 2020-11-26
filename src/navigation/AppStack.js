@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { StatusBar } from 'react-native';
+import { Alert, StatusBar } from 'react-native';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Consumer } from '../context';
@@ -73,12 +73,12 @@ async function registerForPushNotificationsAsync() {
 			finalStatus = status;
 		}
 		if (finalStatus !== 'granted') {
-			alert('Failed to get push token for push notification!');
+			Alert.alert(null, 'Failed to get push token for push notification!');
 			return;
 		}
 		token = (await Notifications.getExpoPushTokenAsync()).data;
 	} else {
-		alert('Must use physical device for Push Notifications');
+		Alert.alert(null, 'Must use physical device for Push Notifications');
 	}
 
 	if (Platform.OS === 'android') {

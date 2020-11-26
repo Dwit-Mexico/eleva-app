@@ -1,4 +1,5 @@
 import { AsyncStorage } from 'react-native';
+import { Alert } from 'react-native';
 import Request from '../../core/api';
 
 const request = new Request();
@@ -19,7 +20,7 @@ export async function login(usuario, password) {
 		await AsyncStorage.setItem('LoginUser', JSON.stringify(result));
 		this.setState({auth: true, token: result.token});
 	} else {
-		alert(result.message || 'No se pudo iniciar sesión.');
+		Alert.alert(null, result.message || 'No se pudo iniciar sesión.');
 	}
 }
 

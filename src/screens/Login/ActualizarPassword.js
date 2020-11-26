@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, ImageBackground, Text, TextInput, TouchableWithoutFeedback, Keyboard, Image } from 'react-native';
+import { Alert, View, ImageBackground, Text, TextInput, TouchableWithoutFeedback, Keyboard, Image } from 'react-native';
 import { Consumer } from '../../context';
 import { useRoute } from '@react-navigation/native';
 import Request from '../../core/api';
@@ -38,11 +38,11 @@ function ActualizarPassword({ context }) {
 
 	function validarPassword() {
 		if (!password) {
-			alert('Proporcione una contraseña válida');
+			Alert.alert(null, 'Proporcione una contraseña válida');
 			return false;
 		}
 		if (password !== repassword) {
-			alert('Las contraseñas no coinciden.');
+			Alert.alert(null, 'Las contraseñas no coinciden.');
 			return false;
 		}
 		return true;
@@ -64,7 +64,7 @@ function ActualizarPassword({ context }) {
 		const response = await request.post('/app/users/activar/cuenta', data);
 
 		if (response.error) {
-			alert(response.message || 'No se pudo actualizar la contraseña.');
+			Alert.alert(null, response.message || 'No se pudo actualizar la contraseña.');
 		}
 
 		if (response.updated) {

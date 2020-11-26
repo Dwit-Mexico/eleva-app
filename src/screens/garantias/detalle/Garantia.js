@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, View, Text, TextInput } from 'react-native';
+import { Alert, ScrollView, View, Text, TextInput } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { Consumer } from '../../../context';
 import moment from 'moment-timezone';
@@ -49,7 +49,7 @@ const DetalleGarantia = ({ navigation, context }) => {
 
 	async function handleSubmit() {
 		if (!moment(fecha).isValid()) {
-			alert('Debe seleccionar una fecha.')
+			Alert.alert(null, 'Debe seleccionar una fecha.')
 			return;
 		}
 
@@ -64,7 +64,7 @@ const DetalleGarantia = ({ navigation, context }) => {
 		const response = await request.post('/app/garantias/update/fecha/visita', data);
 
 		if (response.error) {
-			alert(response.message || 'Error interno');
+			Alert.alert(null, response.message || 'Error interno');
 		}
 		if (response.agendado) {
 			await context.reloadReportes();

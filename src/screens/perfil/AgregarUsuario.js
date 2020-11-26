@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ScrollView, View, Text, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { Alert, ScrollView, View, Text, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { Consumer } from '../../context';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import Request from '../../core/api';
@@ -33,7 +33,7 @@ function AgregarUsuario() {
 
 	function validarCampo(campo, mensaje) {
 		if (!campo) {
-			alert(mensaje);
+			Alert.alert('', mensaje);
 			setLoading(false);
 			return false;
 		}
@@ -67,14 +67,14 @@ function AgregarUsuario() {
 		const response = await request.post('/app/users/create', data);
 
 		if (response.error) {
-			alert(response.message || 'No se pudo agregar al usuario.');
+			Alert.alert(null, response.message || 'No se pudo agregar al usuario.');
 		}
 
 		if (response.created) {
-			alert('Usuario agregado correctamente');
+			Alert.alert(null, 'Usuario agregado correctamente');
 			navigation.goBack();
 		} else {
-			alert(response.message || 'No se pudo agregar al usuario.');
+			Alert.alert(null, response.message || 'No se pudo agregar al usuario.');
 		}
 
 		setLoading(false);

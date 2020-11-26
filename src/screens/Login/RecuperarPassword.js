@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { View, ImageBackground, Text, TextInput, TouchableWithoutFeedback, Keyboard, Image } from 'react-native';
+import { Alert, View, ImageBackground, Text, TextInput, TouchableWithoutFeedback, Keyboard, Image } from 'react-native';
 import Request from '../../core/api';
 
 // Componentes
@@ -22,7 +22,7 @@ function RecuperarPassword({navigation}) {
 		setLoading(true);
 
 		if (!correo) {
-			alert('Proporcione un correo válido.');
+			Alert.alert(null, 'Proporcione un correo válido.');
 			setLoading(false);
 			return;
 		}
@@ -34,7 +34,7 @@ function RecuperarPassword({navigation}) {
 		const response = await request.post('', data);
 
 		if (response.error) {
-			alert(response.message || 'No se pudo enviar la información, intente nuevamente.');
+			Alert.alert(null, response.message || 'No se pudo enviar la información, intente nuevamente.');
 		}
 
 		console.log(response);
@@ -60,7 +60,7 @@ function RecuperarPassword({navigation}) {
 								onChangeText={text => setCorreo(text)}/>
 							<View style={{height: 16}} />
 							<View style={{width: 300}}>
-								<BotonAccion onPress={recuperarPassword.bind(this)}>
+								<BotonAccion onPress={recuperarPassword.bind(this)} loading = {loading}>
 									<Text style={{fontSize: 18, color: 'white'}}>Enviar</Text>
 								</BotonAccion>
 							</View>

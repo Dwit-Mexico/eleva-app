@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, View, Text, TextInput, Button } from 'react-native';
+import { Alert, ScrollView, View, Text, TextInput, Button } from 'react-native';
 import { AirbnbRating } from 'react-native-ratings';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { Consumer } from '../../../context';
@@ -41,7 +41,7 @@ const DetalleValoracion = ({ context }) => {
 
 		if (respuesta == null) {
 			setLoading(false);
-			alert('Por favor elija una respuesta válida.')
+			Alert.alert(null, 'Por favor elija una respuesta válida.')
 			return;
 		}
 
@@ -55,12 +55,12 @@ const DetalleValoracion = ({ context }) => {
 		const response = await request.post('/app/garantias/update/valoracion', data);
 
 		if (response.error) {
-			alert(response.message || 'No se pudo enviar la valoración.');
+			Alert.alert(null, response.message || 'No se pudo enviar la valoración.');
 		}
 
 		if (response.guardado) {
 			await context.reloadReportes();
-			alert('Gracias por su valoración.');
+			Alert.alert(null, 'Gracias por su valoración.');
 			navigation.goBack();
 		}
 

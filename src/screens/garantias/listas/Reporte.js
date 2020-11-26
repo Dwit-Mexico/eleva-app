@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ImageBackground } from 'react-native';
 import { Consumer } from '../../../context';
+import { useFocusEffect } from '@react-navigation/native';
 import moment from 'moment-timezone';
 
 // Componentes

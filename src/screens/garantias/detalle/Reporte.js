@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView, View, Text, StyleSheet, TouchableOpacity, Image, Modal } from 'react-native';
+import { Alert, ScrollView, View, Text, StyleSheet, TouchableOpacity, Image, Modal } from 'react-native';
 import { useRoute, useFocusEffect } from '@react-navigation/native';
 import { Consumer } from '../../../context';
 import { FontAwesome5 } from '@expo/vector-icons';
@@ -122,12 +122,12 @@ const DetalleReporte = ({ navigation, context }) => {
 		const response = await request.post('/app/garantias/cancelar', { IdSolicitud: info.IdSolicitud });
 
 		if (response.error) {
-			alert(response.message || 'Error interno');
+			Alert.alert(null, response.message || 'Error interno');
 		} else if(response.cancelado) {
 			await context.reloadReportes();
 			navigation.goBack();
 		} else {
-			alert('No se pudo cancelar el reporte.');
+			Alert.alert(null, 'No se pudo cancelar el reporte.');
 		}
 
 		setLoadingCancel(false);

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+	Alert,
 	View,
 	Text,
 	TextInput,
@@ -38,12 +39,12 @@ class LoginScreen extends Component {
 		this.setState({loading: true});
 		const { usuario, password } = this.state;
 		if (!usuario) {
-			alert('Debe proporcionar un usuario válido.');
+			Alert.alert(null, 'Debe proporcionar un usuario válido.');
 			this.setState({loading: false});
 			return;
 		}
 		if (!password) {
-			alert('Debe proporcionar una contraseña válida.');
+			Alert.alert(null, 'Debe proporcionar una contraseña válida.');
 			this.setState({loading: false});
 			return;
 		}

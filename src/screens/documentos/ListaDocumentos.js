@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, ImageBackground } from 'react-native';
+import { Alert, View, ImageBackground } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import Request from '../../core/api';
 
@@ -20,7 +20,7 @@ function ListaDocumentos({ navigation }) {
 		const { data } = route.params;
 
 		if(!data) {
-			alert('No se obtuvo informacion de carpeta');
+			Alert.alert(null, 'No se obtuvo informacion de carpeta');
 			navigation.goBack();
 			return;
 		}
@@ -28,7 +28,7 @@ function ListaDocumentos({ navigation }) {
 		const response = await request.get('/app/documentos/get', { IdFolder: data.IdFolder });
 
 		if (response.error) {
-			alert(response.message || 'No se pudieron obtener las carpetas');
+			Alert.alert(null, response.message || 'No se pudieron obtener las carpetas');
 		}
 
 		if (Array.isArray(response.data)) {
