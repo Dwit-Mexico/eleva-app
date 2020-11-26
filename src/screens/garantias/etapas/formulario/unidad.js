@@ -6,7 +6,7 @@ import { Consumer } from '../../../../context';
 import SelectUnidad from '../../../../components/select/SelectUnidad';
 
 function SeleccionarUnidad({unidad, setUnidad}) {
-	const animatedOpacity = new Animated.Value(0);
+	const animatedOpacity = new Animated.Value(1);
 
 	useEffect(() => {
 		Animated.timing(animatedOpacity, {

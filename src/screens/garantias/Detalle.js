@@ -2,10 +2,8 @@ import React, { useState } from 'react';
 import { Text } from 'react-native';
 import { useFocusEffect, useRoute } from '@react-navigation/native';
 
-//Etapas
-import Etapa1 from './etapas/Etapa1';
-import Etapa2 from './etapas/Etapa2';
-import Etapa3 from './etapas/Etapa3';
+//Wizard
+import Wizard from './etapas/Wizard';
 
 //Componentes
 import Container from '../../components/container';
@@ -26,12 +24,7 @@ function DetalleGarantia({navigation}) {
 	})
 
 	const Etapa = ({ etapaIndex, navigation }) => {
-		switch(etapaIndex) {
-			case 1: return <Etapa1 navigation = {navigation} esDetalle = {esDetalle}/>
-			case 2: return <Etapa2 navigation = {navigation}/>
-			case 3: return <Etapa3 navigation = {navigation}/>
-			default: return null
-		}
+		return <Wizard navigation = {navigation} esDetalle = {esDetalle}/>
 	}
 
 	return (

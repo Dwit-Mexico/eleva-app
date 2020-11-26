@@ -10,7 +10,6 @@ import BotonWizard from '../../../../components/boton/BotonWizard';
 
 // Styles
 import ButtonStyles from '../../../../styles/buttons';
-import { Props } from 'react-native-image-zoom-viewer/built/image-viewer.type';
 
 function SeleccionarFotos({ aceptarAction, finalizarAction, loadingAceptar, loadingFinalizar }) {
 	let animatedOpacity = new Animated.Value(0);

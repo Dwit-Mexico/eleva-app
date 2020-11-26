@@ -2,7 +2,7 @@ import React from 'react';
 import { Text } from 'react-native';
 
 //Etapas
-import Etapa1 from './etapas/Etapa1';
+import Wizard from './etapas/Wizard';
 
 //Componentes
 import Container from '../../components/container';
@@ -10,7 +10,7 @@ import Container from '../../components/container';
 function NuevaGarantia({navigation}) {
 
 	const Etapa = () => {
-		return <Etapa1 navigation={navigation} esDetalle={false}/>
+		return <Wizard navigation={navigation} esDetalle={false}/>
 	}
 
 	return (

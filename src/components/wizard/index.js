@@ -20,6 +20,25 @@ const Wizard = ({context, steps, ultimo, onSubmit, loading, terminado}) => {
 	}
 
 	function nextStep() {
+		// Validar Seleccion
+		if (page == 1 && !context.unidad) {
+			alert('Selecciona una Unidad');
+			return;
+		}
+		if (page == 2 && !context.area) {
+			alert('Selecciona una Área');
+			return;
+		}
+		if (page == 3 && !context.equipo) {
+			alert('Selecciona un Equipo');
+			return;
+		}
+		if (page == 4 && !context.problema) {
+			alert('Selecciona un Detalle');
+			return;
+		}
+
+		// Continuar a la siguiente pantalla
 		if (page < totalSteps && context) {
 			context.setStep(page + 1);
 		}

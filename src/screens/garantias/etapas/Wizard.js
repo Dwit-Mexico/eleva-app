@@ -58,6 +58,20 @@ function Etapa1({navigation, esDetalle, context}) {
 		}
 	}
 
+	// Reinicializa los valores al salir y entrar en el wizard
+	useEffect(() => {
+		console.log('reinicializar');
+		context.setStep(1);
+		context.setUnidad(null);
+		context.setArea(null);
+		context.setEquipo(null);
+		context.setProblema(null);
+		context.setComentario(null);
+		context.setImagen1(null);
+		context.setImagen2(null);
+		context.setImagen3(null);
+	}, [])
+
 	if (params) {
 		useEffect(() => {
 			if (context) {
@@ -208,6 +222,9 @@ function Etapa1({navigation, esDetalle, context}) {
 
 		setTerminado(false);
 
+		context.setUnidad(null);
+		context.setArea(null);
+
 		reinicializar();
 
 		context.setStep(1);
@@ -252,7 +269,9 @@ function Etapa1({navigation, esDetalle, context}) {
 					ultimo 		= {6}
 					onSubmit 	= {_handleSubmit.bind(this)}
 					loading		= {loading}
-					terminado 	= {terminado}/>
+					terminado 	= {terminado}
+					unidad		= {unidad}
+					area		= {area}/>
 			</View>
 		</Container>
 	);
