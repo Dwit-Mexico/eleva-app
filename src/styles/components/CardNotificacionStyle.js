@@ -10,7 +10,7 @@ export default StyleSheet.create({
 		alignItems: 'center',
 		width: '100%',
 		borderBottomWidth: 1,
-		borderBottomColor: Colores.loadingLoginScreenSpinner,
+		borderBottomColor: '#fff',
 		marginTop: 5,
 		padding: 10
 	}

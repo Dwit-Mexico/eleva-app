@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text } from 'react-native';
+import { View, ImageBackground, ActivityIndicator } from 'react-native';
 import Request from '../../core/api';
 
 // Componentes
 import Container from '../../components/container';
 import ListaNotificaciones from '../../components/notificaciones/Lista';
 
+// Styles
+import Styles from '../../styles/screens/DocumentosStyle';
+import Colores from '../../styles/colores';
+
 const request = new Request();
 
 function Notificaciones() {
+	const [loading, setLoading] = useState(true);
 	const [lista, setLista] = useState([]);
 
 	async function getNotificaciones() {
@@ -21,6 +26,8 @@ function Notificaciones() {
 		if (Array.isArray(response.data)) {
 			setLista(response.data)
 		}
+
+		setLoading(false);
 	}
 
 	useEffect(() => {
@@ -32,11 +39,23 @@ function Notificaciones() {
 	}
 
 	return (
-		<Container>
-			<ListaNotificaciones
-				lista 	=	{lista}
-				reload 	=	{reload.bind(this)}/>
-		</Container>
+		<ImageBackground source={require('../../../assets/background.jpg')} style={{flex: 1}}>
+			<View style={Styles.backGround}>
+				<Container>
+					<View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+						{loading ? 
+							<ActivityIndicator color={Colores.spinnerColor} size={30}/>
+							:
+							<View style={{width: '100%', height: '100%'}}>
+								<ListaNotificaciones
+									lista 	=	{lista}
+									reload 	=	{reload.bind(this)}/>
+							</View>
+						}
+					</View>
+				</Container>
+			</View>
+		</ImageBackground>
 	);
 }
 

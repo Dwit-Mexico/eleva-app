@@ -14,7 +14,9 @@ const colores = {
 	bgValoraciones: '#F3E7D6',
 	spinnerColor: '#B29360',
 	CardEtapaColor: '#ffffff',
-	CardCarpetaColor: '#ffffff'
+	CardCarpetaColor: '#ffffff',
+	CardNotificacionColor: '#ffffff',
+	ValoracionesTitulo: '#ffffff'
 }
 
 export default colores;
