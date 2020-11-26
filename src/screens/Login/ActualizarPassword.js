@@ -18,6 +18,7 @@ function ActualizarPassword({ context }) {
 	const [loading, setLoading] = useState(false);
 	const [password, setPassword] = useState('');
 	const [usuario, setUsuario] = useState('');
+	const [id, setIdPersona] = useState(null);
 	const [repassword, setRePassword] = useState('');
 
 	const route = useRoute();
@@ -26,9 +27,12 @@ function ActualizarPassword({ context }) {
 	let inputRetypePassword = useRef();
 
 	useEffect(() => {
-		const { username } = route.params;
+		const { username, IdPersona } = route.params;
 		if (username) {
 			setUsuario(username);
+		}
+		if (IdPersona) {
+			setIdPersona(IdPersona);
 		}
 	}, [route.params])
 
@@ -53,7 +57,7 @@ function ActualizarPassword({ context }) {
 		}
 
 		const data = {
-			IdPersona: 5,
+			IdPersona: id,
 			Password: password
 		}
 

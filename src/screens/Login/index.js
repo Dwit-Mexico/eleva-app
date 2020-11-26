@@ -51,7 +51,7 @@ class LoginScreen extends Component {
 		if (context) {
 			const validar = await context.validar(usuario, password);
 			if (validar.activar) {
-				this.props.navigation.navigate('ActualizarPassword', { username: usuario });
+				this.props.navigation.navigate('ActualizarPassword', { username: usuario, IdPersona: validar.IdPersona });
 				return;
 			}
 			await context.login(usuario, password)

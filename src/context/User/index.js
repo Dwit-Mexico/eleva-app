@@ -6,8 +6,8 @@ const request = new Request();
 export async function validar(usuario, password) {
 	const result = await request.post('/app/users/validar', { usuario, password });
 
-	if (!result.valido && result.token) {
-		return { activar: true, usuario };
+	if (!result.valido && result.IdPersona) {
+		return { activar: true, IdPersona: result.IdPersona };
 	} else {
 		return { activar: false, usuario };
 	}
