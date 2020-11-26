@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StatusBar, Text, View } from 'react-native';
+import { Alert, View } from 'react-native';
 import { useRoute, useFocusEffect } from '@react-navigation/native';
 import { Consumer } from '../../../context';
 import * as ImageManipulator from 'expo-image-manipulator';
@@ -175,7 +175,7 @@ function Etapa1({navigation, esDetalle, context}) {
 		const response = await request.postFile('/app/garantias/crear', [file1, file2, file3], data);
 
 		if (response.error) {
-			alert(response.message || 'Error interno');
+			Alert.alert(null, response.message || 'Error interno');
 		}
 		if (response.upload) {
 			setTerminado(true);

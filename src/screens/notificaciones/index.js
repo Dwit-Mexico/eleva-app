@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, ImageBackground, ActivityIndicator } from 'react-native';
+import { View, ImageBackground, ActivityIndicator, Alert } from 'react-native';
 import Request from '../../core/api';
 
 // Componentes
@@ -20,7 +20,7 @@ function Notificaciones() {
 		const response = await request.get('/aplicacion/notificaciones/get');
 
 		if (response.error) {
-			alert(response.message || 'No se pudieron obtener notificaciones');
+			Alert.alert('No se pudieron obtener notificaciones');
 		}
 
 		if (Array.isArray(response.data)) {

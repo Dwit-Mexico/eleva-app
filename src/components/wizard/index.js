@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { Alert, View, Text, TouchableOpacity } from 'react-native';
 import { Consumer } from '../../context';
 
 // Componentes
@@ -22,19 +22,19 @@ const Wizard = ({context, steps, ultimo, onSubmit, loading, terminado}) => {
 	function nextStep() {
 		// Validar Seleccion
 		if (page == 1 && !context.unidad) {
-			alert('Selecciona una Unidad');
+			Alert.alert(null, 'Selecciona una Unidad');
 			return;
 		}
 		if (page == 2 && !context.area) {
-			alert('Selecciona una Área');
+			Alert.alert(null, 'Selecciona una Área');
 			return;
 		}
 		if (page == 3 && !context.equipo) {
-			alert('Selecciona un Equipo');
+			Alert.alert(null, 'Selecciona un Equipo');
 			return;
 		}
 		if (page == 4 && !context.problema) {
-			alert('Selecciona un Detalle');
+			Alert.alert(null, 'Selecciona un Detalle');
 			return;
 		}
 
