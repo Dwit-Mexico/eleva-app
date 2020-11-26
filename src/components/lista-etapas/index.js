@@ -14,24 +14,21 @@ function ListaViviendas({navigation}) {
 			<CardEtapa
 				etapa 		=	{1}
 				navigation	=	{navigation}
-				titulo		=	"Reportes"
-				icon 		=	{<FontAwesome5 name="book-open" size={24} color="black" />}
-				ruta		=	"ListaReportes"
-				background	=	{Colores.bgReportes}/>
+				titulo		=	"REPORTES"
+				icon 		=	{<FontAwesome5 name="book-open" size={32} color={Colores.CardEtapaColor} />}
+				ruta		=	"ListaReportes"/>
 			<CardEtapa
 				etapa 		=	{2}
 				navigation	=	{navigation}
-				titulo		=	"Garantías"
-				icon 		=	{<FontAwesome5 name="book-reader" size={24} color="black" />}
-				ruta		=	"ListaGarantias"
-				background	=	{Colores.bgGarantias}/>
+				titulo		=	"GARANTÍAS"
+				icon 		=	{<FontAwesome5 name="book-reader" size={32} color={Colores.CardEtapaColor} />}
+				ruta		=	"ListaGarantias"/>
 			<CardEtapa
 				etapa 		=	{3}
 				navigation	=	{navigation}
-				titulo		=	"Valoraciones"
-				icon 		=	{<FontAwesome5 name="award" size={24} color="black" />}
-				ruta		=	"ListaValoraciones"
-				background	=	{Colores.bgValoraciones}/>
+				titulo		=	"VALORACIONES"
+				icon 		=	{<FontAwesome5 name="award" size={32} color={Colores.CardEtapaColor} />}
+				ruta		=	"ListaValoraciones"/>
 		</ScrollView>
 	);
 }

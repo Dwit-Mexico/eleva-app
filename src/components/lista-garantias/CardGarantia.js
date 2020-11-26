@@ -14,7 +14,9 @@ function CardGarantia(props) {
 	}, [props.item]);
 
 	return (
-		<TouchableOpacity onPress={()=> props.navigation? props.navigation.navigate(props.ruta, { garantiaEtapa: props.etapa, IdUnidad: info.IdUnidad,  IdArea: info.IdArea, info: info}) : null}>
+		<TouchableOpacity
+			style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}
+			onPress={()=> props.navigation? props.navigation.navigate(props.ruta, { garantiaEtapa: props.etapa, IdUnidad: info.IdUnidad,  IdArea: info.IdArea, info: info}) : null}>
 			<View style={CardStyles.card}>
 				<View style={{alignItems: 'flex-start', width: '100%'}}>
 					<View style={{flexDirection: 'row', flex: 1, alignItems: 'center', justifyContent: 'flex-start'}}>

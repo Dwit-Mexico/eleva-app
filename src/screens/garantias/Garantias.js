@@ -10,7 +10,6 @@ function Garantias({navigation, context}) {
 
 	if (context) {
 		useEffect(() => {
-			console.log('Init APP');
 			if (context.initApp) {
 				context.initApp();
 			}

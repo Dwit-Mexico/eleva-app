@@ -12,7 +12,9 @@ const colores = {
 	bgReportes: '#DFBF84',
 	bgGarantias: '#E4CFA2',
 	bgValoraciones: '#F3E7D6',
-	spinnerColor: '#B29360'
+	spinnerColor: '#B29360',
+	CardEtapaColor: '#ffffff',
+	CardCarpetaColor: '#ffffff'
 }
 
 export default colores;

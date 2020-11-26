@@ -5,23 +5,17 @@ import Colores from '../colores';
 
 export default StyleSheet.create({
 	card: {
-		flex: 12,
-		borderColor: '#aaa',
-		borderTopColor: '#D4B467',
+		flex: 1,
 		borderWidth: 0,
-		borderTopWidth: 8,
 		flexDirection: 'column',
 		padding: 25,
-		backgroundColor: Colores.CardViviendaBG,
-		borderRadius: 5,
-		shadowColor: "#000",
-		shadowOffset: {
-			width: 0,
-			height: 2,
-		},
-		shadowOpacity: 0.25,
-		shadowRadius: 3.84,
-		elevation: 5,
 		margin: 20
+	},
+	titulo: {
+		padding: 5,
+		fontSize: 20,
+		textAlign: 'center',
+		fontSize: 25,
+		color: Colores.CardEtapaColor
 	}
 });

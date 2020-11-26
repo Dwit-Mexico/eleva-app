@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { View, ImageBackground } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import Request from '../../core/api';
 
 // Componentes
 import Container from '../../components/container';
 import Lista from '../../components/documentos/Lista';
+
+// Styles
+import Styles from '../../styles/screens/DocumentosStyle';
 
 const request = new Request();
 
@@ -41,12 +45,16 @@ function ListaDocumentos({ navigation }) {
 	}
 
 	return (
-		<Container>
-			<Lista
-				navigation 	= 	{navigation}
-				lista 		= 	{lista}
-				reload		=	{reload.bind(this)}/>
-		</Container>
+		<ImageBackground source={require('../../../assets/background.jpg')} style={{flex: 1, height: '100%'}}>
+			<View style={Styles.backGround}>
+				<Container>
+					<Lista
+						navigation 	= 	{navigation}
+						lista 		= 	{lista}
+						reload		=	{reload.bind(this)}/>
+				</Container>
+			</View>
+		</ImageBackground>
 	);
 }
 

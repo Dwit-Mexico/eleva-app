@@ -5,9 +5,6 @@ import { FontAwesome5 } from '@expo/vector-icons';
 //Componentes
 import CardLista from './CardLista';
 
-//Styles
-import Colores from '../../styles/colores';
-
 function ListaDocumentos({ navigation, lista, reload }) {
 	const [isRefreshing, setRefreshing] = useState(false);
 

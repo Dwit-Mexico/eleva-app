@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, ImageBackground } from 'react-native';
 import { Consumer } from '../../../context';
 import moment from 'moment-timezone';
 
@@ -7,6 +7,9 @@ import moment from 'moment-timezone';
 import Container from '../../../components/container';
 import ListaGarantias from '../../../components/lista-garantias';
 import BotonNuevo from '../../../components/boton-nuevo/BotonNuevo';
+
+// Styles
+import Styles from '../../../styles/screens/GarantiasStyle';
 
 const ListaReporte = ({ navigation, context }) => {
 	const [lista, setLista] = useState([]);
@@ -54,17 +57,23 @@ const ListaReporte = ({ navigation, context }) => {
 	}
 
 	return (
-		<Container>
-			<View style={{flex: 1}}>
-				<ListaGarantias navigation={navigation} lista = {lista}/>
+		<ImageBackground source={require('../../../../assets/background2.jpg')} style={{flex: 1, height: '100%'}}>
+			<View style={Styles.backGround}>
+				<Container>
+					<View style={{flex: 1}}>
+						<ListaGarantias navigation={navigation} lista = {lista}/>
+					</View>
+					<View style={{flex: 0.1, flexDirection: 'row', position: 'relative', justifyContent: 'center', alignItems: 'center'}}>
+						<View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '100%'}}>
+							<View style={{maxWidth: 260}}>
+								<Text style={{color: '#ffffff', fontSize: 18}}>Reporta aqui tu detalle</Text>
+							</View>
+							<BotonNuevo navigation={navigation} screen={'NuevaGarantia'}/>
+						</View>
+					</View>
+				</Container>
 			</View>
-			<View style={{flex: 0.1, flexDirection: 'row', position: 'relative', justifyContent: 'center', alignItems: 'center'}}>
-				<View style={{maxWidth: 260}}>
-					<Text>Reporta aqui tu detalle</Text>
-				</View>
-				<BotonNuevo navigation={navigation} screen={'NuevaGarantia'}/>
-			</View>
-		</Container>
+		</ImageBackground>
 	)
 }
 

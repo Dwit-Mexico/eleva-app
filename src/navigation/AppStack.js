@@ -25,7 +25,7 @@ import ListaGarantias from '../screens/garantias/listas/Garantia';
 import ListaValoraciones from '../screens/garantias/listas/Valoraciones';
 
 import ListaDetalleReportes from '../screens/garantias/listas/ReporteDetalle';
-import ListaDetalleGarantias from '../screens/garantias/listas/GarantiaDetalle';
+// import ListaDetalleGarantias from '../screens/garantias/listas/GarantiaDetalle';
 
 import DetalleReportes from '../screens/garantias/detalle/Reporte';
 import DetalleGarantias from '../screens/garantias/detalle/Garantia';
@@ -148,70 +148,107 @@ function AppStack(props) {
 
 			<Stack.Screen
 				name="Notificaciones"
-				component={Notificaciones}/>
+				component={Notificaciones}
+				options={{
+					headerTitle: 'Garantía',
+					headerStyle: {
+						backgroundColor: '#4C4C4C'
+					},
+					headerTintColor: '#B29360'
+				}}/>
 
 			<Stack.Screen
 				name="GarantiasDetalle"
 				component={GarantiasDetalle}
 				options={{
-					headerTitle: 'Garantía'
+					headerTitle: 'Garantía',
+					headerStyle: {
+						backgroundColor: '#4C4C4C'
+					},
+					headerTintColor: '#B29360'
 				}}/>
 
 			<Stack.Screen
 				name="ListaReportes"
 				component={ListaReportes}
 				options={{
-					headerTitle: 'Reportes'
+					headerTitle: 'Reportes',
+					headerStyle: {
+						backgroundColor: '#4C4C4C'
+					},
+					headerTintColor: '#B29360'
 				}}/>
 			<Stack.Screen
 				name="ListaGarantias"
 				component={ListaGarantias}
 				options={{
-					headerTitle: 'Garantías'
+					headerTitle: 'Garantías',
+					headerStyle: {
+						backgroundColor: '#4C4C4C'
+					},
+					headerTintColor: '#B29360'
 				}}/>
 			<Stack.Screen
 				name="ListaValoraciones"
 				component={ListaValoraciones}
 				options={{
-					headerTitle: 'Valoraciones'
+					headerTitle: 'Valoraciones',
+					headerStyle: {
+						backgroundColor: '#4C4C4C'
+					},
+					headerTintColor: '#B29360'
 				}}/>
 
 			<Stack.Screen
 				name="ListaDetalleReportes"
 				component={ListaDetalleReportes}
 				options={{
-					headerTitle: 'Detalle Reporte'
-				}}/>
-			<Stack.Screen
-				name="ListaDetalleGarantias"
-				component={ListaDetalleGarantias}
-				options={{
-					headerTitle: 'Garantías'
+					headerTitle: 'Detalle Reporte',
+					headerStyle: {
+						backgroundColor: '#4C4C4C'
+					},
+					headerTintColor: '#B29360'
 				}}/>
 
 			<Stack.Screen
 				name="DetalleReporte"
 				component={DetalleReportes}
 				options={{
-					headerTitle: 'Reporte'
+					headerTitle: 'Reporte',
+					headerStyle: {
+						backgroundColor: '#4C4C4C'
+					},
+					headerTintColor: '#B29360'
 				}}/>
 			<Stack.Screen
 				name="DetalleGarantia"
 				component={DetalleGarantias}
 				options={{
-					headerTitle: 'Garantía'
+					headerTitle: 'Garantía',
+					headerStyle: {
+						backgroundColor: '#4C4C4C'
+					},
+					headerTintColor: '#B29360'
 				}}/>
 			<Stack.Screen
 				name="DetalleValoracion"
 				component={DetalleValoraciones}
 				options={{
-					headerTitle: 'Valoración'
+					headerTitle: 'Valoración',
+					headerStyle: {
+						backgroundColor: '#4C4C4C'
+					},
+					headerTintColor: '#B29360'
 				}}/>
 			<Stack.Screen
 				name="NuevaGarantia"
 				component={NuevaGarantia}
 				options={{
-					headerTitle: 'Nueva Garantía'
+					headerTitle: 'Nueva Garantía',
+					headerStyle: {
+						backgroundColor: '#4C4C4C'
+					},
+					headerTintColor: '#B29360'
 				}}/>
 			<Stack.Screen
 				name="Camara"
@@ -223,15 +260,34 @@ function AppStack(props) {
 			<Stack.Screen
 				name="ListaDocumentos"
 				component={ListaDocumentos}
-				options={({ route }) => ({ headerTitle: route.params.title || '' })}/>
+				options={({ route }) => ({
+					headerTitle: route.params.title.toUpperCase() || '',
+					headerStyle: {
+						backgroundColor: '#4C4C4C'
+					},
+					headerTintColor: '#B29360'
+				})}/>
 			<Stack.Screen
 				name="VistaDocumento"
 				component={VistaDocumento}
-				options={({ route }) => ({ headerTitle: route.params.title || '' })}/>
+				options={({ route }) => ({
+					headerTitle: route.params.title || '',
+					headerStyle: {
+						backgroundColor: '#4C4C4C'
+					},
+					headerTintColor: '#B29360'
+				})}/>
 
 			<Stack.Screen
 				name="AgregarUsuario"
-				component={AgregarUsuario}/>
+				component={AgregarUsuario}
+				options={{
+					headerTitle: 'Agregar Inquilino',
+					headerStyle: {
+						backgroundColor: '#4C4C4C'
+					},
+					headerTintColor: '#B29360'
+				}}/>
 
 		</Stack.Navigator>
 	);

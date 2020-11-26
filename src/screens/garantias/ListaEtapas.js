@@ -1,16 +1,23 @@
 import React, { useEffect } from 'react';
-import { Animated } from 'react-native';
+import { View, ImageBackground } from 'react-native';
 
 // Componentes
 import Container from '../../components/container';
 import ListaEtapas from '../../components/lista-etapas';
 
-function Garantias({navigation}) {
+// Styles
+import Styles from '../../styles/screens/GarantiasStyle';
+
+function Etapas({navigation}) {
 	return (
-		<Container>
-			<ListaEtapas navigation={navigation}/>
-		</Container>
+		<ImageBackground source={require('../../../assets/background.jpg')} style={{flex: 1}}>
+			<View style={Styles.backGround}>
+				<Container>
+					<ListaEtapas navigation={navigation}/>
+				</Container>
+			</View>
+		</ImageBackground>
 	);
 }
 
-export default Garantias;
+export default Etapas;

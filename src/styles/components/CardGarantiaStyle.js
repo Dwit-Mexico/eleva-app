@@ -6,6 +6,7 @@ import Colores from '../colores';
 export default StyleSheet.create({
 	card: {
 		flex: 1,
+		width: '100%',
 		borderColor: '#aaa',
 		borderTopColor: '#D4B467',
 		borderWidth: 0,

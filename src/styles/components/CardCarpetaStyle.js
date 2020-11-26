@@ -1,5 +1,8 @@
 import { StyleSheet } from 'react-native';
 
+// Colores
+import Colores from '../colores';
+
 export default StyleSheet.create({
 	card: {
 		flexDirection: 'row',
@@ -7,7 +10,8 @@ export default StyleSheet.create({
 		alignItems: 'center',
 		borderBottomWidth: 2,
 		borderBottomColor: '#eaeaea',
-		padding: 10
+		paddingVertical: 30,
+		paddingLeft: 20
 	},
 	cardLista: {
 		flexDirection: 'row',
@@ -16,5 +20,11 @@ export default StyleSheet.create({
 		borderBottomWidth: 2,
 		borderBottomColor: '#eaeaea',
 		padding: 10
+	},
+	text: {
+		marginLeft: 25,
+		fontSize: 18,
+		color: Colores.CardCarpetaColor,
+		fontWeight: 'bold'
 	}
 });
