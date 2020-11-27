@@ -14,6 +14,14 @@ const BotonAccion = (props) => {
 		)
 	}
 
+	if (props.disabled) {
+		return (
+			<TouchableOpacity>
+				{props.children}
+			</TouchableOpacity>
+		)
+	}
+
 	return (
 		<TouchableOpacity onPress={() => props.onPress()} style={BotonStyles.button}>
 			{props.children}

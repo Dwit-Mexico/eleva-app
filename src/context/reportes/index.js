@@ -16,7 +16,7 @@ export async function getReportes() {
 };
 
 export async function reloadReportes() {
-	console.log('Reload Reportes');
+
 	this.setState({loading_reportes: true});
 
 	const response = await request.get('/app/garantias/get/single', {});

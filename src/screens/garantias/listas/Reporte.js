@@ -64,7 +64,7 @@ const ListaReporte = ({ navigation, context }) => {
 					<View style={{flex: 1}}>
 						<ListaGarantias navigation={navigation} lista = {lista}/>
 					</View>
-					<View style={{flex: 0.1, flexDirection: 'row', position: 'relative', justifyContent: 'center', alignItems: 'center'}}>
+					<View style={{flex: 0.1, flexDirection: 'row', position: 'relative', justifyContent: 'center', alignItems: 'center', paddingHorizontal: 20}}>
 						<View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '100%'}}>
 							<View style={{maxWidth: 260}}>
 								<Text style={{color: '#ffffff', fontSize: 18}}>Reporta aqui tu detalle</Text>

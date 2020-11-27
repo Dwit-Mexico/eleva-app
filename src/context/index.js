@@ -3,7 +3,7 @@ import { AsyncStorage } from 'react-native';
 
 //Funciones
 import { login, logout, validar } from './user';
-import { getUnidades } from './catalogos/Unidades';
+import { getUnidades, getSetUnidades } from './catalogos/Unidades';
 import { getAreas } from './catalogos/Areas';
 import { getEquipos } from './catalogos/Equipos';
 import { getProblemas } from './catalogos/Problemas';
@@ -38,6 +38,7 @@ class GlobalContext extends Component {
 			areas: [],
 			equipos: [],
 			problemas: [],
+			getSetUnidades: getSetUnidades.bind(this),
 			getAreas: getAreas.bind(this),
 			getEquipos: getEquipos.bind(this),
 			step: 1,

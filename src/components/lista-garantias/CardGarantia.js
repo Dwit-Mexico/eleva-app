@@ -15,7 +15,7 @@ function CardGarantia(props) {
 
 	return (
 		<TouchableOpacity
-			style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}
+			style={{flex: 1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 20}}
 			onPress={()=> props.navigation? props.navigation.navigate(props.ruta, { garantiaEtapa: props.etapa, IdUnidad: info.IdUnidad,  IdArea: info.IdArea, info: info}) : null}>
 			<View style={CardStyles.card}>
 				<View style={{alignItems: 'flex-start', width: '100%'}}>

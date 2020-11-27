@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, ImageBackground, ActivityIndicator } from 'react-native';
+import React, { useEffect, useState, useCallback } from 'react';
+import { Alert, View, Text, TouchableOpacity, ImageBackground, ActivityIndicator } from 'react-native';
 import { Consumer } from '../../context';
+import { useFocusEffect } from '@react-navigation/native';
 import Request from '../../core/api';
 
 // Componentes
@@ -43,6 +44,7 @@ function Perfil({ navigation, context }) {
 	const [loading, setLoading] = useState(true);
 	const [user, setUser] = useState({ Nombre: '' });
 	const [unidades, setUnidades] = useState([]);
+	const [error, setError] = useState(false);
 
 	async function getUsuarioInfo() {
 		if (context) {
@@ -51,8 +53,14 @@ function Perfil({ navigation, context }) {
 
 			const response = await request.get('/app/unidades/get/unidades');
 
+			if (response.error) {
+				Alert.alert(null, response.message || 'No se pudo obtener la información del usuario.');
+				setError(true);
+			}
+
 			if (response.data) {
 				setUnidades(response.data);
+				setError(false);
 			}
 		}
 
@@ -62,6 +70,14 @@ function Perfil({ navigation, context }) {
 	useEffect(() => {
 		getUsuarioInfo();
 	}, []);
+
+	useFocusEffect(
+		useCallback(() => {
+			if (error) {
+				getUsuarioInfo();
+			}
+		}, [error])
+	)
 
 	return (
 		<>
@@ -75,7 +91,7 @@ function Perfil({ navigation, context }) {
 					<View style={{height: 8}}/>
 					<Text>{user.Direccion}</Text>
 				</View>
-				<View style={{flex: 1, width: '100%'}}>
+				<View style={{flex: 1, width: '100%', backgroundColor: '#fff'}}>
 					<Container>
 						<View style={{height: 50}}/>
 						<View style={{flex: 1, width: '100%'}}>
@@ -88,7 +104,7 @@ function Perfil({ navigation, context }) {
 							<View style={Styles.logoutButtonView}>
 								{user.Propietario &&
 									<View style={{marginBottom: 10, width: 200}}>
-										<BotonAccion onPress={() => navigation.navigate('AgregarUsuario', { unidades })}>
+										<BotonAccion onPress = {() => navigation.navigate('AgregarUsuario', { unidades })} disabled = {loading}>
 											<Text style={StylesTexts.logoutButton}>Agregar usuario</Text>
 										</BotonAccion>
 									</View>

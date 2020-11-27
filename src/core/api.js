@@ -41,7 +41,17 @@ class Request {
 				if (err.status === 403) {
 					err.message = 'Error de permisos.';
 				}
-                return { error: true, message: err.message};
+				if (err.message) {
+					if (err.message.indexOf("Access-Control-Allow-Origin") !== -1)
+						return {
+							error: true,
+							timeout: true,
+							message: "Ups! Parace que no hay conexión con el servidor, compruebe que este conectado a internet y pruebe nuevamente.",
+						};
+					else
+						return { error: true, message: err.message };
+				} else 
+					return { error: true, message: "Error de conexión" };
             });
         return res;
 	}
@@ -71,8 +81,18 @@ class Request {
 				if (err.status === 403) {
 					err.message = 'Error de permisos.';
 				}
-                return { error: true, message: err.message};
-            });
+				if (err.message) {
+					if (err.message.indexOf("Access-Control-Allow-Origin") !== -1)
+						return {
+							error: true,
+							timeout: true,
+							message: "Ups! Parace que no hay conexión con el servidor, compruebe que este conectado a internet y pruebe nuevamente.",
+						};
+					else
+						return { error: true, message: err.message };
+				} else 
+					return { error: true, message: "Error de conexión" };
+			});
         return res;
 	}
 
@@ -113,8 +133,21 @@ class Request {
 				.then(resp => {
 					res(resp.body || { error: true, message: 'error indefinido' });
 				})
-				.catch(error => {
-					res(error);
+				.catch(err => {
+					if (err.status === 403) {
+						err.message = 'Error de permisos.';
+					}
+					if (err.message) {
+						if (err.message.indexOf("Access-Control-Allow-Origin") !== -1)
+							res( {
+								error: true,
+								timeout: true,
+								message: "Ups! Parace que no hay conexión con el servidor, compruebe que este conectado a internet y pruebe nuevamente.",
+							} );
+						else
+							res( { error: true, message: err.message } );
+					} else 
+						res( { error: true, message: "Error de conexión" } );
 				});
 		});
 

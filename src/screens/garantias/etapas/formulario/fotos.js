@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { View, Animated, Text, TouchableOpacity, Modal, Image } from 'react-native';
 import { Consumer } from '../../../../context';
 import { FontAwesome5 } from '@expo/vector-icons';
@@ -10,7 +10,7 @@ import { useFocusEffect, useRoute } from '@react-navigation/native';
 // import SelectArea from '../../../../components/select/SelectArea';
 
 function SeleccionarFotos({ navigation, esDetalle, imagenes }) {
-	let animatedOpacity = new Animated.Value(0);
+	let animatedOpacity = useRef(new Animated.Value(0)).current;
 	const [imagen1, setImagen1] = useState(imagenes.imagen1 || null);
 	const [imagen2, setImagen2] = useState(imagenes.imagen2 || null);
 	const [imagen3, setImagen3] = useState(imagenes.imagen3 || null);
@@ -29,9 +29,12 @@ function SeleccionarFotos({ navigation, esDetalle, imagenes }) {
 		}).start();
 	}
 
-	useFocusEffect(() => {
-		initOpactity();
-	}, []);
+	useFocusEffect(
+		useCallback(() => {
+			console.log('opacity');
+			initOpactity();
+		}, [imagenIndex])
+	)
 
 	function _borrarImagen() {
 		switch(imagenIndex) {

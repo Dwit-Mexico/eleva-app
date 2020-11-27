@@ -4,11 +4,11 @@ export default StyleSheet.create({
 	boton: {
 		backgroundColor: '#B29360',
 		color: '#ffffff',
-		padding: 10,
-		width: 150,
+		padding: 8,
+		width: 120,
 		textAlign: 'center',
 		borderRadius: 5,
-		marginHorizontal: 10
+		marginHorizontal: 8
 	},
 	text: {
 		fontSize: 19,

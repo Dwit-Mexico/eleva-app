@@ -5,7 +5,7 @@ const colores = {
 	inputs: '#fff',
 	loginButtonText: '#ffffff',
 	logoutButtonText: '#ffffff',
-	CardViviendaBG: '#fff',
+	CardViviendaBG: '#ffffffd0',
 	loadingLoginScreenBG: '#18191A',
 	loadingLoginScreenSpinner: '#B29360',
 	selectTheme:'#B29360',

@@ -11,7 +11,7 @@ import BotonWizard from '../../../../components/boton/BotonWizard';
 // Styles
 import ButtonStyles from '../../../../styles/buttons';
 
-function SeleccionarFotos({ aceptarAction, finalizarAction, loadingAceptar, loadingFinalizar }) {
+function Finalizar({ aceptarAction, finalizarAction, loadingAceptar, loadingFinalizar }) {
 	let animatedOpacity = new Animated.Value(0);
 
 	function initOpactity() {
@@ -22,7 +22,7 @@ function SeleccionarFotos({ aceptarAction, finalizarAction, loadingAceptar, load
 		}).start();
 	}
 
-	useFocusEffect(() => {
+	useEffect(() => {
 		initOpactity();
 	}, []);
 
@@ -39,13 +39,13 @@ function SeleccionarFotos({ aceptarAction, finalizarAction, loadingAceptar, load
 				<Text style={{fontSize: 18, textAlign: 'center', padding: 10}}>¿Quieres agregar otro reporte?</Text>
 				<View style={{height: 16}}/>
 				<View style={{flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
-					<View>
+					<View style={{width: 150}}>
 						<BotonWizard style={ButtonStyles.button} onPress={aceptarAction.bind(this)} loading={loadingAceptar}>
 							<Text style={{color: 'white', fontSize: 18}}>Aceptar</Text>
 						</BotonWizard>
 					</View>
 					<Text>&nbsp;</Text>
-					<View>
+					<View style={{width: 150}}>
 						<BotonWizard style={ButtonStyles.button} onPress={finalizarAction.bind(this)} loading={loadingFinalizar}>
 							<Text style={{color: 'white', fontSize: 18}}>Finalizar</Text>
 						</BotonWizard>
@@ -56,4 +56,4 @@ function SeleccionarFotos({ aceptarAction, finalizarAction, loadingAceptar, load
 	)
 }
 
-export default Consumer(SeleccionarFotos);
+export default Consumer(Finalizar);

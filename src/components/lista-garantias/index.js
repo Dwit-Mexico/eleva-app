@@ -12,6 +12,7 @@ function ListaViviendas({navigation, context, lista}) {
 	async function onRefresh() {
 		setRefreshing(true);
 		if (context) {
+			await context.getSetUnidades();
 			await context.reloadReportes();
 		}
 		setRefreshing(false);

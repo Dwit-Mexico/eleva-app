@@ -79,7 +79,7 @@ function CardGarantia(props) {
 							<FontAwesome5 name="exclamation-circle" size={30} color="black" />
 						</View>
 						<View style={{paddingLeft: 15}}>
-							<Text>Problema:</Text>
+							<Text>Detalle:</Text>
 							<Text>{props.problema}</Text>
 						</View>
 					</View>
