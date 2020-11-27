@@ -12,6 +12,7 @@ import ListaGarantiasDetalle from '../../../components/lista-garantias-detalle';
 
 // Styles
 import Styles from '../../../styles/screens/GarantiasStyle';
+import Colores from '../../../styles/colores';
 
 const ListaDetalleReporte = ({ navigation, context }) => {
 	const [list, setList] = useState([]);
@@ -44,14 +45,14 @@ const ListaDetalleReporte = ({ navigation, context }) => {
 		<ImageBackground source={require('../../../../assets/background2.jpg')} style={{flex: 1, height: '100%'}}>
 			<View style={Styles.backGround}>
 				<Container>
-					<View style={{flex: 0.2, flexDirection: 'row', width: '100%', backgroundColor: '#C5C1C5', justifyContent: 'center', alignItems: 'center', padding: 5}}>
+					<View style={{flex: 0.2, flexDirection: 'row', width: '100%', backgroundColor: '#00000099', justifyContent: 'center', alignItems: 'center', padding: 5}}>
 						<View style={{flexDirection: "row", width: '50%', alignItems: 'center',  justifyContent: 'flex-start'}}>
-							<FontAwesome5 name="map-marker-alt"/>
-							<Text style={{fontSize: 19}}>&nbsp; {info.NombreArea}</Text>
+							<FontAwesome5 name="map-marker-alt" color={Colores.CardGarantiaTitulo}/>
+							<Text style={{fontSize: 19, fontWeight: 'bold', color: Colores.CardGarantiaTitulo}}>&nbsp; {info.NombreArea}</Text>
 						</View>
 						<View style={{flexDirection: "column", width: '50%', alignItems: 'flex-end', justifyContent: 'center'}}>
-							<Text style={{fontSize: 15, fontWeight: 'bold'}}>{moment(info.Fecha).format('DD/MM/YYYY')}</Text>
-							<Text style={{fontSize: 15}}>101-001</Text>
+							<Text style={{fontSize: 15, fontWeight: 'bold', color: Colores.CardGarantiaColor}}>{moment(info.Fecha).format('DD/MM/YYYY')}</Text>
+							<Text style={{fontSize: 15, fontWeight: 'bold', color: Colores.CardGarantiaColor}}>{info.NoSolicitud}</Text>
 						</View>
 					</View>
 					<View style={{flex: 1}}>

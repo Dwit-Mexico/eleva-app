@@ -4,6 +4,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 
 //Styles
 import CardStyles from '../../styles/components/CardGarantiaDetalleStyle';
+import Colores from '../../styles/colores';
 
 function CardGarantia(props) {
 	const [item, setItem] = useState({});
@@ -42,7 +43,7 @@ function CardGarantia(props) {
 		switch(item.IdEstado) {
 			case 1:
 				text = 'Pendiente';
-				color = '#000';
+				color = '#fff';
 				break;
 			case 2:
 				text = 'Aplica Garantía';
@@ -54,7 +55,7 @@ function CardGarantia(props) {
 				break;
 			case 4:
 				text = 'Por Agendar';
-				color = '#000';
+				color = '#fff';
 				break;
 			case 5:
 				text = 'Programada';
@@ -76,17 +77,17 @@ function CardGarantia(props) {
 				<View style={CardStyles.card}>
 					<View style={{flexDirection: 'row'}}>
 						<View style={{flexDirection:'column', justifyContent:'center', padding: 5}}>
-							<FontAwesome5 name="exclamation-circle" size={30} color="black" />
+							<FontAwesome5 name="exclamation-circle" size={30} color={Colores.CardGarantiaTitulo} />
 						</View>
 						<View style={{paddingLeft: 15}}>
-							<Text>Detalle:</Text>
-							<Text>{props.problema}</Text>
+							<Text style={{color: Colores.CardGarantiaColor}}>Detalle:</Text>
+							<Text style={{color: Colores.CardGarantiaColor}}>{props.problema}</Text>
 						</View>
 					</View>
 					<View style={{marginTop: 5}}>
 						<Text>&nbsp;</Text>
 						<Text style={{textAlign: 'right', fontWeight: 'bold', marginBottom: 5, color: estado.color}}>{estado.text}</Text>
-						<Text style={{textAlign: 'right', fontWeight: 'bold'}}>{props.fecha}</Text>
+						<Text style={{textAlign: 'right', fontWeight: 'bold', color: Colores.CardGarantiaColor}}>{props.fecha}</Text>
 					</View>
 				</View>
 			</TouchableOpacity>
@@ -98,18 +99,18 @@ function CardGarantia(props) {
 			<View style={CardStyles.card}>
 				<View style={{flexDirection: 'row'}}>
 					<View style={{flexDirection:'column', justifyContent:'center', padding: 5}}>
-						<FontAwesome5 name="exclamation-circle" size={30} color="black" />
+						<FontAwesome5 name="exclamation-circle" size={30} color={Colores.CardGarantiaTitulo} />
 					</View>
 					<View style={{paddingLeft: 15}}>
-						<Text>{props.proyecto}</Text>
-						<Text>{props.unidad}</Text>
+						<Text style={{fontSize: 18, fontWeight: 'bold', color: Colores.CardGarantiaTitulo}}>{props.proyecto}</Text>
+						<Text style={{color: Colores.CardGarantiaColor}}>{props.unidad}</Text>
 					</View>
 				</View>
 				<View style={{marginTop: 5}}>
-					<Text>{props.area}</Text>
-					<Text style={{textAlign: 'right', fontSize: 12, color: '#C1C1BF'}}>&nbsp;{item.IdEstado == 2 ? 'Agende la fecha de reparación' : null}</Text>
-					<Text style={{textAlign: 'right', fontWeight: 'bold', marginBottom: 5, color: estado.color}}>{estado.text}</Text>
-					<Text style={{textAlign: 'right', fontWeight: 'bold'}}>{props.fecha}</Text>
+					<Text style={{color: Colores.CardGarantiaColor}}>{props.area}</Text>
+					<Text style={{textAlign: 'right', fontSize: 12, color: Colores.CardGarantiaColor}}>&nbsp;{item.IdEstado == 2 ? 'Agende la fecha de reparación' : null}</Text>
+					<Text style={{textAlign: 'right', fontWeight: 'bold', color: Colores.CardGarantiaColor, marginBottom: 5, color: estado.color}}>{estado.text}</Text>
+					<Text style={{textAlign: 'right', fontWeight: 'bold', color: Colores.CardGarantiaColor}}>{props.fecha}</Text>
 				</View>
 			</View>
 		</TouchableOpacity>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { View, Animated, Text, TextInput, TouchableWithoutFeedback } from 'react-native';
+import { View, Animated, Text, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { Consumer } from '../../../../context';
 
 //Componentes
@@ -44,7 +44,7 @@ function Comentarios(props) {
 					<TextInput
 						value 			= {props.comentario || comentario}
 						placeholder		= "Escriba sus comentarios"
-						style			= {{borderRadius: 8, borderColor: '#000', borderWidth: 1, paddingVertical: 10, paddingHorizontal: 17, textAlignVertical: "top", fontSize: 14, minHeight: 400}}
+						style			= {{borderRadius: 8, borderColor: '#000', borderWidth: 1, paddingVertical: 10, paddingHorizontal: 17, textAlignVertical: "top", fontSize: 14, minHeight: 100}}
 						multiline
 						numberOfLines	= {6}
 						maxLength		= {1500}

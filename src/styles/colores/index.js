@@ -18,7 +18,10 @@ const colores = {
 	CardEtapaColor: '#ffffff',
 	CardCarpetaColor: '#ffffff',
 	CardNotificacionColor: '#ffffff',
-	ValoracionesTitulo: '#ffffff'
+	ValoracionesTitulo: '#ffffff',
+	DetalleText: '#fff',
+	borderGold: '#B29360',
+	ratingColor: '#B29360'
 }
 
 export default colores;

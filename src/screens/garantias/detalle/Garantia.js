@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Alert, ScrollView, View, Text, TextInput } from 'react-native';
+import { Alert, ScrollView, View, Text, TextInput, ImageBackground } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { Consumer } from '../../../context';
 import moment from 'moment-timezone';
@@ -11,8 +11,8 @@ import SelectFechas from '../../../components/select/SelectFechas';
 import BotonAccion from '../../../components/boton/BotonAccion';
 
 // Styles
-import TextStyle from '../../../styles/text';
-import inputs from '../../../styles/inputs';
+import Styles from '../../../styles/screens/DetalleStyle';
+import Colores from '../../../styles/colores';
 
 const request = new Request();
 
@@ -76,100 +76,112 @@ const DetalleGarantia = ({ navigation, context }) => {
 
 	if (info.IdEstado == 3) {
 		return (
-			<Container>
-				<View style={{height: 8}}/>
+			<ImageBackground source={require('../../../../assets/background.jpg')} style={{flex: 1, height: '100%'}}>
+				<View style={Styles.backGround}>
+					<Container>
+						<View style={{height: 8}}/>
 
-				<Text style={{textAlign: 'center', color: '#000', fontSize: 18, fontWeight: 'bold'}}>No Aplica Garantía</Text>
+						<Text style={{textAlign: 'center', color: Colores.DetalleText, fontSize: 18, fontWeight: 'bold'}}>No Aplica Garantía</Text>
 
-				<Text style={{fontSize: 16, padding: 5}}>
-					Unidad: {info.Numero}
-				</Text>
-				<Text style={{fontSize: 16, padding: 5}}>
-					Area: {info.NombreArea}
-				</Text>
-				<Text style={{fontSize: 16, padding: 5}}>
-					Equipo: {info.NombreEquipo}
-				</Text>
-				<Text style={{fontSize: 16, padding: 5}}>
-					Problema: {info.NombreProblema}
-				</Text>
+						<Text style={{fontSize: 16, padding: 5, color: Colores.DetalleText}}>
+							Unidad: {info.Numero}
+						</Text>
+						<Text style={{fontSize: 16, padding: 5, color: Colores.DetalleText}}>
+							Area: {info.NombreArea}
+						</Text>
+						<Text style={{fontSize: 16, padding: 5, color: Colores.DetalleText}}>
+							Equipo: {info.NombreEquipo}
+						</Text>
+						<Text style={{fontSize: 16, padding: 5, color: Colores.DetalleText}}>
+							Problema: {info.NombreProblema}
+						</Text>
 
-				<View style={{height: 16}}/>
+						<View style={{height: 16}}/>
 
-				<View style={{minHeight: 120, borderRadius: 8, borderColor: '#000', borderWidth: 1, paddingVertical: 10, paddingHorizontal: 17, textAlignVertical: "top"}}>
-					<Text style={{fontSize: 16}}>
-						{info.ComentariosAplica}
-					</Text>
+						<View style={Styles.comentarios}>
+							<Text style={{fontSize: 16, color: '#000'}}>
+								{info.ComentariosAplica}
+							</Text>
+						</View>
+						<View style={{height: 32}}/>
+					</Container>
 				</View>
-				<View style={{height: 32}}/>
-			</Container>
+			</ImageBackground>
 		)
 	}
 
 	if (info.IdEstado == 5) {
 		return (
-			<Container>
-				<View style={{height: 8}}/>
+			<ImageBackground source={require('../../../../assets/background.jpg')} style={{flex: 1, height: '100%'}}>
+				<View style={Styles.backGround}>
+					<Container>
+						<View style={{height: 8}}/>
 
-				<Text style={{textAlign: 'center', color: '#000', fontSize: 18, fontWeight: 'bold'}}>Programada</Text>
+						<Text style={{textAlign: 'center', color: '#000', fontSize: 18, fontWeight: 'bold', color: Colores.DetalleText}}>Programada</Text>
 
-				<View style={{height: 16}}/>
+						<View style={{height: 16}}/>
 
-				<Text style={{fontSize: 16, padding: 5}}>
-					Unidad: {info.Numero}
-				</Text>
-				<Text style={{fontSize: 16, padding: 5}}>
-					Area: {info.NombreArea}
-				</Text>
-				<Text style={{fontSize: 16, padding: 5}}>
-					Equipo: {info.NombreEquipo}
-				</Text>
-				<Text style={{fontSize: 16, padding: 5}}>
-					Problema: {info.NombreProblema}
-				</Text>
-				<Text style={{fontSize: 16, padding: 5}}>
-					Fecha Visita: {moment(info.FechaAplica).format('DD/MM/YYYY HH:mm:ss')}
-				</Text>
+						<Text style={{fontSize: 16, padding: 5, color: Colores.DetalleText}}>
+							Unidad: {info.Numero}
+						</Text>
+						<Text style={{fontSize: 16, padding: 5, color: Colores.DetalleText}}>
+							Area: {info.NombreArea}
+						</Text>
+						<Text style={{fontSize: 16, padding: 5, color: Colores.DetalleText}}>
+							Equipo: {info.NombreEquipo}
+						</Text>
+						<Text style={{fontSize: 16, padding: 5, color: Colores.DetalleText}}>
+							Problema: {info.NombreProblema}
+						</Text>
+						<Text style={{fontSize: 16, padding: 5, color: Colores.DetalleText}}>
+							Fecha Visita: {moment(info.FechaAplica).format('DD/MM/YYYY HH:mm:ss')}
+						</Text>
 
-				<View style={{height: 32}}/>
-			</Container>
+						<View style={{height: 32}}/>
+					</Container>
+				</View>
+			</ImageBackground>
 		)
 	}
 
 	return (
-		<Container>
-			<ScrollView style = {{flex: 1}}>
+		<ImageBackground source={require('../../../../assets/background.jpg')} style={{flex: 1, height: '100%'}}>
+			<View style={Styles.backGround}>
+				<Container>
+					<ScrollView style = {{flex: 1}}>
 
-				<View style={{height: 8}}/>
+						<View style={{height: 8}}/>
 
-				<Text style={{textAlign: 'center', color: '#000'}}>Seleccione la fecha para la reparación</Text>
+						<Text style={{textAlign: 'center', color: Colores.DetalleText}}>Seleccione la fecha para la reparación</Text>
 
-				<View style={{height: 8}}/>
+						<View style={{height: 8}}/>
 
-				<SelectFechas fechas = {fechas} onChange = {(data) => setFecha(data)}/>
+						<SelectFechas fechas = {fechas} onChange = {(data) => setFecha(data)}/>
 
-				<View style={{height: 8}}/>
+						<View style={{height: 8}}/>
 
-				<TextInput
-					onChangeText={(text) => setComentarios(text)}
-					placeholder="Escriba sus comentarios"
-					style={{borderRadius: 8, borderColor: '#000', borderWidth: 1, paddingVertical: 10, paddingHorizontal: 17, textAlignVertical: "top", fontSize: 16}}
-					multiline
-					numberOfLines={6}
-					maxLength={1500}/>
+						<TextInput
+							onChangeText={(text) => setComentarios(text)}
+							placeholder="Escriba sus comentarios"
+							style={Styles.comentarios}
+							multiline
+							numberOfLines={6}
+							maxLength={1500}/>
 
-				<View style={{height: 32}}/>
+						<View style={{height: 32}}/>
 
-				<View style={{alignItems: 'center'}}>
-					<View style={{flexDirection: 'row', justifyContent: 'center', width: 200}}>
-						<BotonAccion onPress = {handleSubmit.bind(this)} loading = {loading}>
-							<Text style={{fontSize: 18, color: 'white'}}>Enviar</Text>
-						</BotonAccion>
-					</View>
-				</View>
+						<View style={{alignItems: 'center'}}>
+							<View style={{flexDirection: 'row', justifyContent: 'center', width: 200}}>
+								<BotonAccion onPress = {handleSubmit.bind(this)} loading = {loading}>
+									<Text style={{fontSize: 18, color: 'white'}}>Enviar</Text>
+								</BotonAccion>
+							</View>
+						</View>
 
-			</ScrollView>
-		</Container>
+					</ScrollView>
+				</Container>
+			</View>
+		</ImageBackground>
 	)
 }
 

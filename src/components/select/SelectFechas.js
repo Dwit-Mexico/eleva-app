@@ -20,7 +20,7 @@ function SelectArea({fechas, value, onChange}) {
 		<View style={InputStyles.Select}>
 			<Select2
 				isSelectSingle={true}
-				style={{ borderWidth: 0 }}
+				style={{ backgroundColor: '#fff', borderWidth: 0, borderRadius: 8}}
 				colorTheme={Colores.selectTheme}
 				popupTitle={`Seleccionar fecha`}
 				title="Seleccione fecha"
@@ -31,6 +31,7 @@ function SelectArea({fechas, value, onChange}) {
 				data={fechas || []}
 				onSelect={data => onSelectionsChange(data)}
 				onRemoveItem={data => onSelectionsChange(data)}
+				showSearchBox={false}
 			/>
 			<AntDesign style={{ right: 25 }} name="caretdown" color="grey" size={10} />
 		</View>

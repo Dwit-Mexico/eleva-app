@@ -1,5 +1,14 @@
 import React, { useState } from 'react';
-import { Alert, ScrollView, View, Text, StyleSheet, TouchableOpacity, Image, Modal } from 'react-native';
+import {
+	Alert,
+	ScrollView,
+	View,
+	Text,
+	TouchableOpacity,
+	Image,
+	Modal,
+	ImageBackground
+} from 'react-native';
 import { useRoute, useFocusEffect } from '@react-navigation/native';
 import { Consumer } from '../../../context';
 import { FontAwesome5 } from '@expo/vector-icons';
@@ -10,46 +19,11 @@ import Request from '../../../core/api';
 import Container from '../../../components/container';
 import Button from '../../../components/boton/BotonAccion';
 
-const request = new Request();
+// Styles
+import Styles from '../../../styles/screens/DetalleStyle';
+import Colores from '../../../styles/colores';
 
-const styles = StyleSheet.create({
-	lista: {
-		margin: 5,
-		padding: 5,
-		flexDirection: 'row',
-		alignItems: 'flex-start',
-		justifyContent: 'flex-start',
-		width: '100%'
-	},
-	listaText: {
-		fontSize: 20
-	},
-	button: {
-		backgroundColor: '#B29360',
-		color: '#ffffff',
-		padding: 10,
-		width: 150,
-		textAlign: 'center',
-		borderRadius: 5,
-		marginHorizontal: 10
-	},
-	buttonText: {
-		fontSize: 19,
-		textAlign: 'center',
-		color: '#fff'
-	},
-	comentarios: {
-		width: '100%',
-		borderRadius: 8,
-		borderColor: '#000',
-		borderWidth: 1,
-		paddingVertical: 10,
-		paddingHorizontal: 17,
-		textAlignVertical: "top",
-		fontSize: 14,
-		minHeight: 100
-	}
-})
+const request = new Request();
 
 const DetalleReporte = ({ navigation, context }) => {
 	const [info, setInfo] = useState({
@@ -134,76 +108,75 @@ const DetalleReporte = ({ navigation, context }) => {
 	}
 
 	return (
-		<Container>
-			<ScrollView>
-				<View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-					<View style={styles.lista}>
-						<FontAwesome5 name="map-marked-alt" size={20}/>
-						<Text style={styles.listaText}>&nbsp;{info.NombreProyecto}</Text>
-					</View>
-					<View style={styles.lista}>
-						<FontAwesome5 name="home" size={20}/>
-						<Text style={styles.listaText}>&nbsp;{info.Numero}</Text>
-					</View>
-					<View style={styles.lista}>
-						<FontAwesome5 name="map-marker-alt" size={20}/>
-						<Text style={styles.listaText}>&nbsp;{info.NombreArea}</Text>
-					</View>
-					<View style={styles.lista}>
-						<FontAwesome5 name="tools" size={20}/>
-						<Text style={styles.listaText}>&nbsp;{info.NombreEquipo}</Text>
-					</View>
-					<View style={styles.lista}>
-						<FontAwesome5 name="house-damage" size={20}/>
-						<Text style={styles.listaText}>&nbsp;{info.NombreProblema}</Text>
-					</View>
-					<View style={{height: 16}}/>
-					<View style={styles.comentarios}>
-						<Text style={{fontSize: 14}}>&nbsp;{info.Comentarios}</Text>
-					</View>
-					<View style={{height: 16}}/>
-					<View style={{flexDirection: 'row', justifyContent: 'center', width: '100%'}}>
-						<View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '100%'}}>
-							<ImagenButton index = {1} imagen = {info.Img1? {uri: info.Img1} : null} navigation = {navigation}/>
-							<ImagenButton index = {2} imagen = {info.Img2? {uri: info.Img2} : null} navigation = {navigation}/>
-							<ImagenButton index = {3} imagen = {info.Img3? {uri: info.Img3} : null} navigation = {navigation}/>
+		<ImageBackground source={require('../../../../assets/background.jpg')} style={{flex: 1, height: '100%'}}>
+			<View style={Styles.backGround}>
+				<Container>
+					<ScrollView>
+						<View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+							<View style={Styles.lista}>
+								<FontAwesome5 name="map-marked-alt" size={20} color = {Colores.DetalleText}/>
+								<Text style={Styles.listaText}>&nbsp;{info.NombreProyecto}</Text>
+							</View>
+							<View style={Styles.lista}>
+								<FontAwesome5 name="home" size={20} color = {Colores.DetalleText}/>
+								<Text style={Styles.listaText}>&nbsp;{info.Numero}</Text>
+							</View>
+							<View style={Styles.lista}>
+								<FontAwesome5 name="map-marker-alt" size={20} color = {Colores.DetalleText}/>
+								<Text style={Styles.listaText}>&nbsp;{info.NombreArea}</Text>
+							</View>
+							<View style={Styles.lista}>
+								<FontAwesome5 name="tools" size={20} color = {Colores.DetalleText}/>
+								<Text style={Styles.listaText}>&nbsp;{info.NombreEquipo}</Text>
+							</View>
+							<View style={Styles.lista}>
+								<FontAwesome5 name="house-damage" size={20} color = {Colores.DetalleText}/>
+								<Text style={Styles.listaText}>&nbsp;{info.NombreProblema}</Text>
+							</View>
+							<View style={{height: 16}}/>
+							<View style={Styles.comentarios}>
+								<Text style={{fontSize: 14}}>&nbsp;{info.Comentarios}</Text>
+							</View>
+							<View style={{height: 16}}/>
+							<View style={{flexDirection: 'row', justifyContent: 'center', width: '100%'}}>
+								<View style={Styles.imagenesContent}>
+									<ImagenButton index = {1} imagen = {info.Img1? {uri: info.Img1} : null} navigation = {navigation}/>
+									<ImagenButton index = {2} imagen = {info.Img2? {uri: info.Img2} : null} navigation = {navigation}/>
+									<ImagenButton index = {3} imagen = {info.Img3? {uri: info.Img3} : null} navigation = {navigation}/>
+								</View>
+							</View>
+							<View style={{height: 16}}/>
+							<View style={{paddingHorizontal: 30, width: '100%', justifyContent: 'center', alignItems: 'center'}}>
+								{info.IdEstado == 1?
+									<Button onPress={_cancelarReporte.bind(this)} loading = {loadingCancel}>
+										<Text style={Styles.buttonText}>Cancelar Reporte</Text>
+									</Button>
+									:
+									null
+								}
+							</View>
+							<View style={{height: 16}}/>
 						</View>
-					</View>
-					<View style={{height: 16}}/>
-					<View style={{paddingHorizontal: 30, width: '100%', justifyContent: 'center', alignItems: 'center'}}>
-						{info.IdEstado == 1?
-							<Button onPress={_cancelarReporte.bind(this)} loading = {loadingCancel}>
-								<Text style={styles.buttonText}>Cancelar</Text>
-							</Button>
-							:
-							null
-						}
-					</View>
-					<View style={{height: 16}}/>
-				</View>
-			</ScrollView>
-			<Modal
-				visible={modalImagen}
-				transparent={true}
-				onBackButtonPress={() => setModalImagen(false)}>
-				<View style={{flex: 1, backgroundColor: '#000'}}>
-					<View style={{flex: 0.1, padding: 10, justifyContent: 'center', alignItems: 'flex-end'}}>
-						<TouchableOpacity onPress={() => setModalImagen(false)}>
-							<FontAwesome5 name="times" size={35} color="#fff" />
-						</TouchableOpacity>
-					</View>
-					<ImageZoom
-						imageUrls = {zoomImagen? [ { url: zoomImagen.uri } ] : []}
-						renderIndicator = {() => null}
-						saveToLocalByLongPress={false}/>
-					{/*<View style={{flexDirection: 'row', padding: 10, justifyContent: 'center', alignItems: 'center'}}>
-						<TouchableOpacity onPress={() => _borrarImagen()}>
-							<FontAwesome5 name="edit" size={35} color="#fff" />
-						</TouchableOpacity>
-					</View>*/}
-				</View>
-			</Modal>
-		</Container>
+					</ScrollView>
+					<Modal
+						visible={modalImagen}
+						transparent={true}
+						onBackButtonPress={() => setModalImagen(false)}>
+						<View style={{flex: 1, backgroundColor: '#000'}}>
+							<View style={{flex: 0.1, padding: 10, justifyContent: 'center', alignItems: 'flex-end'}}>
+								<TouchableOpacity onPress={() => setModalImagen(false)}>
+									<FontAwesome5 name="times" size={35} color="#fff" />
+								</TouchableOpacity>
+							</View>
+							<ImageZoom
+								imageUrls = {zoomImagen? [ { url: zoomImagen.uri } ] : []}
+								renderIndicator = {() => null}
+								saveToLocalByLongPress={false}/>
+						</View>
+					</Modal>
+				</Container>
+			</View>
+		</ImageBackground>
 	)
 }
 
