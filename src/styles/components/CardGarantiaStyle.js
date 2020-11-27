@@ -8,22 +8,15 @@ export default StyleSheet.create({
 		flex: 1,
 		width: '100%',
 		borderColor: '#aaa',
-		borderTopColor: '#D4B467',
+		borderBottomColor: Colores.CardGarantiaTitulo,
 		borderWidth: 0,
-		borderTopWidth: 8,
-		flexDirection: 'column',
-		margin: 10,
+		borderBottomWidth: 5,
+		backgroundColor: '#00000082',
+		flexDirection: 'row',
+		marginBottom: 30,
 		padding: 10,
-		backgroundColor: Colores.CardViviendaBG,
-		borderRadius: 5,
-		shadowColor: "#000",
-		shadowOffset: {
-			width: 0,
-			height: 2,
-		},
-		shadowOpacity: 0.25,
-		shadowRadius: 3.84,
-		elevation: 5,
-		alignItems: 'center'
+		paddingBottom: 10,
+		alignItems: 'center',
+		justifyContent: 'space-between'
 	}
 });

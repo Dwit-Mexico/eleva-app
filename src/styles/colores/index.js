@@ -13,6 +13,8 @@ const colores = {
 	bgGarantias: '#E4CFA2',
 	bgValoraciones: '#F3E7D6',
 	spinnerColor: '#B29360',
+	CardGarantiaColor: '#ffffff',
+	CardGarantiaTitulo: '#B29360',
 	CardEtapaColor: '#ffffff',
 	CardCarpetaColor: '#ffffff',
 	CardNotificacionColor: '#ffffff',
