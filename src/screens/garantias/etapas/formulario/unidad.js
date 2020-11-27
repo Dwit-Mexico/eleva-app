@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { View, Animated, Text } from 'react-native';
 import { Consumer } from '../../../../context';
 
@@ -6,7 +6,7 @@ import { Consumer } from '../../../../context';
 import SelectUnidad from '../../../../components/select/SelectUnidad';
 
 function SeleccionarUnidad({unidad, setUnidad}) {
-	const animatedOpacity = new Animated.Value(1);
+	const animatedOpacity = useRef(new Animated.Value(0)).current;
 
 	useEffect(() => {
 		Animated.timing(animatedOpacity, {

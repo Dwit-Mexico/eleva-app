@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { View, Animated, Text } from 'react-native';
 import { Consumer } from '../../../../context';
 
@@ -6,7 +6,7 @@ import { Consumer } from '../../../../context';
 import SelectProblema from '../../../../components/select/SelectProblema';
 
 function SeleccionarProblema({problema, setProblema}) {
-	const animatedOpacity = new Animated.Value(0);
+	const animatedOpacity = useRef(new Animated.Value(0)).current;
 
 	useEffect(() => {
 		Animated.timing(animatedOpacity, {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { View, Animated, Text, TextInput } from 'react-native';
 import { Consumer } from '../../../../context';
 
@@ -7,8 +7,9 @@ import SelectArea from '../../../../components/select/SelectArea';
 import { onChange } from 'react-native-reanimated';
 
 function Comentarios(props) {
+	const animatedOpacity = useRef(new Animated.Value(0)).current;
+
 	const [comentario, setComentario] = useState('');
-	const animatedOpacity = new Animated.Value(0);
 
 	useEffect(() => {
 		Animated.timing(animatedOpacity, {

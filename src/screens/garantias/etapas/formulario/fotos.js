@@ -11,6 +11,7 @@ import { useFocusEffect, useRoute } from '@react-navigation/native';
 
 function SeleccionarFotos({ navigation, esDetalle, imagenes }) {
 	let animatedOpacity = useRef(new Animated.Value(0)).current;
+
 	const [imagen1, setImagen1] = useState(imagenes.imagen1 || null);
 	const [imagen2, setImagen2] = useState(imagenes.imagen2 || null);
 	const [imagen3, setImagen3] = useState(imagenes.imagen3 || null);
