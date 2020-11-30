@@ -18,7 +18,6 @@ import BottomNavigator from './BottomTabNavigator';
 import Notificaciones from '../screens/notificaciones';
 import GarantiasDetalle from '../screens/garantias/Garantias';
 import NuevaGarantia from '../screens/garantias/Nueva';
-import DetalleGarantia from '../screens/garantias/Detalle';
 
 import ListaReportes from '../screens/garantias/listas/Reporte';
 import ListaGarantias from '../screens/garantias/listas/Garantia';

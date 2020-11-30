@@ -9,6 +9,9 @@ import { useFocusEffect, useRoute } from '@react-navigation/native';
 //Componentes
 // import SelectArea from '../../../../components/select/SelectArea';
 
+// Styles
+import Styles from '../../../../styles/components/WizardStyle';
+
 function SeleccionarFotos({ navigation, esDetalle, imagenes }) {
 	let animatedOpacity = useRef(new Animated.Value(0)).current;
 
@@ -69,7 +72,7 @@ function SeleccionarFotos({ navigation, esDetalle, imagenes }) {
 		const EmptyImage = require('../../../../../assets/picture_icon.png');
 
 		return (
-			<View style={{width: 150, height: 120, padding: 10}}>
+			<View style={{width: 170, height: 140, padding: 10}}>
 				<TouchableOpacity onPress={_openCamara.bind(this, navigation, index, imagen, _borrarImagen)}>
 					<Image source={imagen || EmptyImage} style={{width: '100%', height: '100%'}} resizeMode='cover'/>
 				</TouchableOpacity>
@@ -87,12 +90,12 @@ function SeleccionarFotos({ navigation, esDetalle, imagenes }) {
 					// backgroundColor: 'lightgray',
 				}}
 			>
-				<Text style={{fontSize: 18, textAlign: 'center', padding: 10}}>¿Tienes fotos del problema?</Text>
+				<Text style={Styles.titleStyle}>¿Tienes fotos del problema?</Text>
 
 				<View style={{height: 8}}/>
 
 				<View style={{flexDirection: 'row', justifyContent: 'center', width: '100%'}}>
-					<View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', width: '100%'}}>
+					<View style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '100%'}}>
 						<ImagenButton index = {1} imagen = {imagen1} navigation = {navigation}/>
 						<ImagenButton index = {2} imagen = {imagen2} navigation = {navigation}/>
 						<ImagenButton index = {3} imagen = {imagen3} navigation = {navigation}/>

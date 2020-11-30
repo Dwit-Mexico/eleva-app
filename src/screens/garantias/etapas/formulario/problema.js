@@ -5,6 +5,9 @@ import { Consumer } from '../../../../context';
 //Componentes
 import SelectProblema from '../../../../components/select/SelectProblema';
 
+// Styles
+import Styles from '../../../../styles/components/WizardStyle';
+
 function SeleccionarProblema({problema, setProblema}) {
 	const animatedOpacity = useRef(new Animated.Value(0)).current;
 
@@ -32,7 +35,7 @@ function SeleccionarProblema({problema, setProblema}) {
 					// backgroundColor: 'lightgray',
 				}}
 			>
-				<Text style={{fontSize: 18, textAlign: 'center', padding: 10}}>¿Cuál es tu detalle?</Text>
+				<Text style={Styles.titleStyle}>¿Cuál es tu detalle?</Text>
 				<SelectProblema onSelect = {(opcion) => onSelect(opcion)} value = {problema}/>
 			</Animated.View>
 		</View>

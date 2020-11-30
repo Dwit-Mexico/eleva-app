@@ -6,6 +6,10 @@ import { Consumer } from '../../../../context';
 import SelectArea from '../../../../components/select/SelectArea';
 import { onChange } from 'react-native-reanimated';
 
+// Styles
+import Styles from '../../../../styles/components/WizardStyle';
+import Colores from '../../../../styles/colores';
+
 function Comentarios(props) {
 	const animatedOpacity = useRef(new Animated.Value(0)).current;
 
@@ -37,14 +41,14 @@ function Comentarios(props) {
 						// backgroundColor: 'lightgray',
 					}}
 				>
-					<Text style={{fontSize: 18, textAlign: 'center', padding: 10}}>Describe tu detalle</Text>
+					<Text style={{fontSize: 18, textAlign: 'center', padding: 10, color: Colores.WizardTitle}}>Describe tu detalle</Text>
 
 					<View style={{height: 8}}/>
 
 					<TextInput
 						value 			= {props.comentario || comentario}
 						placeholder		= "Escriba sus comentarios"
-						style			= {{borderRadius: 8, borderColor: '#000', borderWidth: 1, paddingVertical: 10, paddingHorizontal: 17, textAlignVertical: "top", fontSize: 14, minHeight: 100}}
+						style			= {Styles.comentarios}
 						multiline
 						numberOfLines	= {6}
 						maxLength		= {1500}

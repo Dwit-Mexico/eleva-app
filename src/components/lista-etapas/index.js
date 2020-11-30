@@ -29,6 +29,12 @@ function ListaViviendas({navigation}) {
 				titulo		=	"VALORACIONES"
 				icon 		=	{<FontAwesome5 name="award" size={32} color={Colores.CardEtapaColor} />}
 				ruta		=	"ListaValoraciones"/>
+			<CardEtapa
+				etapa 		=	{4}
+				navigation	=	{navigation}
+				titulo		=	"HISTORIAL"
+				icon 		=	{<FontAwesome5 name="history" size={32} color={Colores.CardEtapaColor} />}
+				ruta		=	"ListaValoraciones"/>
 		</ScrollView>
 	);
 }

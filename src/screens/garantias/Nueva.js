@@ -1,11 +1,14 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { View, ImageBackground } from 'react-native';
 
-//Etapas
+//Wizard
 import Wizard from './etapas/Wizard';
 
 //Componentes
 import Container from '../../components/container';
+
+//Styles
+import Styles from '../../styles/screens/GarantiasStyle';
 
 function NuevaGarantia({navigation}) {
 
@@ -14,9 +17,13 @@ function NuevaGarantia({navigation}) {
 	}
 
 	return (
-		<Container>
-			<Etapa />
-		</Container>
+		<ImageBackground source={require('../../../assets/background.jpg')} style={{flex: 1}}>
+			<View style={Styles.backGround}>
+				<Container>
+					<Etapa />
+				</Container>
+			</View>
+		</ImageBackground>
 	);
 }
 

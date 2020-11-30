@@ -21,7 +21,8 @@ const colores = {
 	ValoracionesTitulo: '#ffffff',
 	DetalleText: '#fff',
 	borderGold: '#B29360',
-	ratingColor: '#B29360'
+	ratingColor: '#B29360',
+	WizardTitle: '#fff'
 }
 
 export default colores;

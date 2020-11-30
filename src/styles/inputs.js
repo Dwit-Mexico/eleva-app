@@ -47,12 +47,14 @@ export default StyleSheet.create({
 		flexDirection: 'row',
 		alignItems: 'center',
 		padding: 10,
-		backgroundColor: '#eaeaea',
+		borderColor: '#B29330',
+		borderWidth: 2,
 		marginHorizontal: 2,
-		marginVertical: 2
+		marginVertical: 2,
+		borderRadius: 2
 	},
 	itemTextNormal: {
-		color: '#B29330',
+		color: '#fff',
 		fontWeight: 'bold',
 		fontSize: 18
 	},
@@ -60,7 +62,9 @@ export default StyleSheet.create({
 		flexDirection: 'row',
 		alignItems: 'center',
 		padding: 10,
+		borderColor: '#B29330',
 		backgroundColor: '#B29330',
+		borderWidth: 2,
 		marginHorizontal: 2,
 		marginVertical: 2
 	},

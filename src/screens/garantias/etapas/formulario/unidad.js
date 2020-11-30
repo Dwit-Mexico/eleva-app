@@ -2,8 +2,11 @@ import React, { useEffect, useRef } from 'react';
 import { View, Animated, Text } from 'react-native';
 import { Consumer } from '../../../../context';
 
-//Componentes
+// Componentes
 import SelectUnidad from '../../../../components/select/SelectUnidad';
+
+// Styles
+import Styles from '../../../../styles/components/WizardStyle';
 
 function SeleccionarUnidad({unidad, setUnidad}) {
 	const animatedOpacity = useRef(new Animated.Value(0)).current;
@@ -32,7 +35,7 @@ function SeleccionarUnidad({unidad, setUnidad}) {
 					// backgroundColor: 'lightgray',
 				}}
 			>
-				<Text style={{fontSize: 18, textAlign: 'center', padding: 10}}>¿En donde ocurrió el problema?</Text>
+				<Text style={Styles.titleStyle}>¿En donde ocurrió el problema?</Text>
 				<SelectUnidad onSelect = {onSelect.bind(this)} value = {unidad}/>
 			</Animated.View>
 		</View>

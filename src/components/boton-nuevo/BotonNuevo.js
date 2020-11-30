@@ -6,8 +6,6 @@ import { Consumer } from '../../context';
 function BotonNuevo({navigation, screen, context}) {
 
 	function nuevoReporte() {
-		// Reinicializa los valores al salir y entrar en el wizard
-		console.log('reinicializar');
 		if(context) {
 			context.setStep(1);
 			context.setUnidad(null);

@@ -5,6 +5,9 @@ import { Consumer } from '../../../../context';
 //Componentes
 import SelectEquipo from '../../../../components/select/SelectEquipo';
 
+// Styles
+import Styles from '../../../../styles/components/WizardStyle';
+
 function SeleccionarEquipo({equipo, setEquipo}) {
 	const animatedOpacity = useRef(new Animated.Value(0)).current;
 
@@ -32,7 +35,7 @@ function SeleccionarEquipo({equipo, setEquipo}) {
 					// backgroundColor: 'lightgray',
 				}}
 			>
-				<Text style={{fontSize: 18, textAlign: 'center', padding: 10}}>¿Que equipo presenta problemas?</Text>
+				<Text style={Styles.titleStyle}>¿Que equipo presenta problemas?</Text>
 				<SelectEquipo onSelect = {(opcion) => onSelect(opcion)} value={equipo}/>
 			</Animated.View>
 		</View>

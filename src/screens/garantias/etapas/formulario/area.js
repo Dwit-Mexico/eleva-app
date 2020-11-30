@@ -5,6 +5,9 @@ import { Consumer } from '../../../../context';
 //Componentes
 import SelectArea from '../../../../components/select/SelectArea';
 
+// Styles
+import Styles from '../../../../styles/components/WizardStyle';
+
 let value;
 
 function SeleccionarArea({setArea, area, context}) {
@@ -46,7 +49,7 @@ function SeleccionarArea({setArea, area, context}) {
 					// backgroundColor: 'lightgray',
 				}}
 			>
-				<Text style={{fontSize: 18, textAlign: 'center', padding: 10}}>¿Dónde tienes el problema?</Text>
+				<Text style={Styles.titleStyle}>¿Dónde tienes el problema?</Text>
 				<SelectArea onSelect = {onSelect.bind(this)} value={area}/>
 			</Animated.View>
 		</View>

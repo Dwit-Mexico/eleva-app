@@ -9,6 +9,7 @@ import { useFocusEffect, useRoute } from '@react-navigation/native';
 import BotonWizard from '../../../../components/boton/BotonWizard';
 
 // Styles
+import Styles from '../../../../styles/components/WizardStyle';
 import ButtonStyles from '../../../../styles/buttons';
 
 function Finalizar({ aceptarAction, finalizarAction, loadingAceptar, loadingFinalizar }) {
@@ -36,7 +37,7 @@ function Finalizar({ aceptarAction, finalizarAction, loadingAceptar, loadingFina
 					// backgroundColor: 'lightgray',
 				}}
 			>
-				<Text style={{fontSize: 18, textAlign: 'center', padding: 10}}>¿Quieres agregar otro reporte?</Text>
+				<Text style={Styles.titleStyle}>¿Quieres agregar otro reporte?</Text>
 				<View style={{height: 16}}/>
 				<View style={{flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
 					<View style={{width: 150}}>
