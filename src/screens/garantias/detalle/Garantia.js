@@ -19,7 +19,7 @@ const request = new Request();
 const DetalleGarantia = ({ navigation, context }) => {
 	const [info, setInfo] = useState({});
 	const [fechas, setFechas] = useState([]);
-	const [fecha, setFecha] = useState('');
+	const [fecha, setFecha] = useState(null);
 	const [comentarios, setComentarios] = useState('');
 	const [loading, setLoading] = useState(false);
 	const route = useRoute();
@@ -34,14 +34,15 @@ const DetalleGarantia = ({ navigation, context }) => {
 	}
 
 	useEffect(() => {
+		console.log('INFO', info);
 		let Fechas = [];
-		if (info.Fecha1) {
+		if (moment(info.Fecha1).isAfter(moment())) {
 			Fechas[0] = {id: info.Fecha1, name: moment(info.Fecha1).format('DD/MM/YYYY HH:mm:ss')}
 		}
-		if (info.Fecha2) {
+		if (moment(info.Fecha2).isAfter(moment())) {
 			Fechas[1] = {id: info.Fecha2, name: moment(info.Fecha2).format('DD/MM/YYYY HH:mm:ss')}
 		}
-		if (info.Fecha3) {
+		if (moment(info.Fecha3).isAfter(moment())) {
 			Fechas[2] = {id: info.Fecha3, name: moment(info.Fecha3).format('DD/MM/YYYY HH:mm:ss')}
 		}
 		setFechas(Fechas);
