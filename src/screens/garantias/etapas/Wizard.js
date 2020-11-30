@@ -58,35 +58,15 @@ function Etapa1({navigation, esDetalle, context}) {
 		}
 	}
 
-	if (params) {
-		useEffect(() => {
-			if (context) {
-				setUnidad(context.unidad);
-				setArea(context.area);
-				setEquipo(context.equipo);
-				setProblema(context.problema);
-				setComentario(context.comentario);
-				setImagen1(context.imagen1);
-				setImagen2(context.imagen2);
-				setImagen3(context.imagen3);
-			}
-			const { imagen, imagenIndex } = params;
-			switch(imagenIndex) {
-				case 1:
-					context.setImagen1(imagen);
-					setImagen1(imagen);
-					break;
-				case 2:
-					context.setImagen2(imagen);
-					setImagen2(imagen);
-					break;
-				case 3:
-					context.setImagen3(imagen);
-					setImagen3(imagen);
-					break;
-			}
-		}, [params])
-	}
+	useEffect(() => {
+		if (context) {
+			setUnidad(context.unidad);
+			setArea(context.area);
+			setEquipo(context.equipo);
+			setProblema(context.problema);
+			setComentario(context.comentario);
+		}
+	}, [])
 
 	useEffect(() => {
 		async function setedUnidad() {
@@ -154,9 +134,9 @@ function Etapa1({navigation, esDetalle, context}) {
 			Fecha: moment().format()
 		};
 
-		const file1 = await _compressImage(imagen1, 'imagen1');
-		const file2 = await _compressImage(imagen2, 'imagen2');
-		const file3 = await _compressImage(imagen3, 'imagen3');
+		const file1 = await _compressImage(context.imagen1, 'imagen1');
+		const file2 = await _compressImage(context.imagen2, 'imagen2');
+		const file3 = await _compressImage(context.imagen3, 'imagen3');
 
 		const response = await request.postFile('/app/garantias/crear', [file1, file2, file3], data);
 

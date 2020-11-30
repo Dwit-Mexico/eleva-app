@@ -20,6 +20,7 @@ const colores = {
 	CardNotificacionColor: '#ffffff',
 	ValoracionesTitulo: '#ffffff',
 	DetalleText: '#fff',
+	DetalleTitulo: '#B29360',
 	borderGold: '#B29360',
 	ratingColor: '#B29360',
 	WizardTitle: '#fff'

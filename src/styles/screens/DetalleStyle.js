@@ -15,6 +15,10 @@ export default StyleSheet.create({
 		justifyContent: 'flex-start',
 		width: '100%'
 	},
+	tituloText: {
+		fontSize: 20,
+		color: Colores.DetalleTitulo
+	},
 	listaText: {
 		fontSize: 20,
 		color: Colores.DetalleText

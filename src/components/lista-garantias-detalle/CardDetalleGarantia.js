@@ -26,6 +26,10 @@ function CardGarantia(props) {
 				setTitulo('Valoracion');
 				setScreen('DetalleValoracion');
 				break;
+			case 4:
+				setTitulo('Historial');
+				setScreen('DetalleHistorico');
+				break;
 		}
 	}, []);
 
@@ -63,7 +67,15 @@ function CardGarantia(props) {
 				break;
 			case 6:
 				text = 'Cancelada';
-				color = '#000';
+				color = '#fff';
+				break;
+			case 7:
+				text = 'Por Valorar';
+				color = '#fff';
+				break;
+			case 8:
+				text = 'Finalizada';
+				color = '#fff';
 				break;
 		}
 		setEstado({color, text});

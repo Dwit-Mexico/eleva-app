@@ -133,7 +133,8 @@ const DetalleGarantia = ({ navigation, context }) => {
 						<Text style={{fontSize: 16, padding: 5, color: Colores.DetalleText}}>
 							Problema: {info.NombreProblema}
 						</Text>
-						<Text style={{fontSize: 16, padding: 5, color: Colores.DetalleText}}>
+						<View style={{height: 24}}/>
+						<Text style={{textAlign: 'center', fontSize: 32, padding: 5, color: Colores.DetalleText}}>
 							Fecha Visita: {moment(info.FechaAplica).format('DD/MM/YYYY HH:mm:ss')}
 						</Text>
 

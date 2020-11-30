@@ -40,10 +40,21 @@ function AgregarUsuario() {
 		return true;
 	}
 
+	function validarEmail(email) {
+		let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ ;
+		if(reg.test(email) === false) {
+			Alert.alert(null, "Se debe proporcinar un correo válido");
+			setLoading(false);
+			return false;
+		} else {
+			return true;
+		}
+	}
+
 	async function agregarUsuario() {
 		setLoading(true);
 
-		if (!validarCampo(unidad, 'se debe proporcinar una unidad válida.')) {
+		if (!validarCampo(unidad, 'Se debe proporcinar una unidad válida.')) {
 			return;
 		}
 		if (!validarCampo(nombre, 'se debe proporcinar un nombre válido.')) {
@@ -52,7 +63,7 @@ function AgregarUsuario() {
 		if (!validarCampo(apellidos, 'se debe proporcinar un apellido válido.')) {
 			return;
 		}
-		if (!validarCampo(correo, 'se debe proporcinar un correo válido.')) {
+		if (!validarEmail(correo,)) {
 			return;
 		}
 
@@ -123,7 +134,7 @@ function AgregarUsuario() {
 								onSubmitEditing	=	{() => inputCorreo.focus()}/>
 						</View>
 						<View>
-							<Text>Correo</Text>
+							<Text>Correo (usuario)</Text>
 							<TextInput
 								value			=	{correo}
 								style			=	{StylesInputs.inputNormal}

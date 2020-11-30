@@ -51,7 +51,7 @@ function ListaGarantiasDetalle({ navigation, etapa, context, lista, reporte }) {
 											problema	=	{item.NombreProblema}
 											direccion	=	"direccion de prueba"
 											area		=	{item.NombreArea}
-											fecha		=	{moment(item.Fecha).format('DD/MM/YYYY')}
+											fecha		=	{moment(item.Fecha).tz('GMT').format('DD/MM/YYYY')}
 											data		=	{card}
 											reporte		=	{reporte}/>
 										)

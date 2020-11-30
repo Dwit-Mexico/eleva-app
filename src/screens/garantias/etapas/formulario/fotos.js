@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
-import { View, Animated, Text, TouchableOpacity, Modal, Image } from 'react-native';
+import { Alert, View, Animated, Text, TouchableOpacity, Modal, Image } from 'react-native';
 import { Consumer } from '../../../../context';
 import { FontAwesome5 } from '@expo/vector-icons';
 import ImageZoom from 'react-native-image-zoom-viewer';
 import { useFocusEffect, useRoute } from '@react-navigation/native';
-
+import * as ImagePicker from 'expo-image-picker';
 
 //Componentes
 // import SelectArea from '../../../../components/select/SelectArea';
@@ -12,7 +12,7 @@ import { useFocusEffect, useRoute } from '@react-navigation/native';
 // Styles
 import Styles from '../../../../styles/components/WizardStyle';
 
-function SeleccionarFotos({ navigation, esDetalle, imagenes }) {
+function SeleccionarFotos({ navigation, imagenes, context }) {
 	let animatedOpacity = useRef(new Animated.Value(0)).current;
 
 	const [imagen1, setImagen1] = useState(imagenes.imagen1 || null);
@@ -35,45 +35,80 @@ function SeleccionarFotos({ navigation, esDetalle, imagenes }) {
 
 	useFocusEffect(
 		useCallback(() => {
-			console.log('opacity');
 			initOpactity();
-		}, [imagenIndex])
+			if (context.imagen1) {
+				setImagen1(context.imagen1);
+			}
+			if (context.imagen2) {
+				setImagen2(context.imagen2);
+			}
+			if (context.imagen3) {
+				setImagen3(context.imagen3);
+			}
+		}, [])
 	)
+
+	async function usarCamara(index) {
+		let result = await ImagePicker.launchCameraAsync({
+			mediaTypes: ImagePicker.MediaTypeOptions.All,
+			aspect: [4, 3],
+			quality: 1,
+		});
+
+		if (!result.cancelled) {
+			if (index == 1) {
+				context.setImagen1(result);
+				setImagen1(result);
+			}
+			if (index == 2) {
+				context.setImagen2(result);
+				setImagen2(result);
+			}
+			if (index == 3) {
+				context.setImagen3(result);
+				setImagen3(result);
+			}
+		}
+	}
 
 	function _borrarImagen() {
 		switch(imagenIndex) {
 			case 1: 
 				setImagen1(null);
+				context.setImagen1(null);
 				break;
 			case 2: 
 				setImagen2(null);
+				context.setImagen2(null);
 				break;
 			case 3: 
 				setImagen3(null);
+				context.setImagen2(null);
 				break;
 		}
 		setModalImagen(false);
-		navigation.navigate('Camara', { imagenIndex });
+
+		usarCamara(imagenIndex)
 	}
 
-	function _openCamara(navigation, index, imagen) {
+	async function _openCamara(index, imagen) {
+
 		if (imagen) {
 			setModalImagen(true);
 			setZoomImagen(imagen);
 			setimagenIndex(index);
 			return;
 		}
-		if (navigation) {
-			navigation.navigate('Camara', { imagenIndex: index, esDetalle });
-		}
+
+		usarCamara(index);
 	}
 
-	const ImagenButton = ({ navigation, index, imagen }) => {
+	const ImagenButton = ({ index, imagen }) => {
 		const EmptyImage = require('../../../../../assets/picture_icon.png');
 
 		return (
 			<View style={{width: 170, height: 140, padding: 10}}>
-				<TouchableOpacity onPress={_openCamara.bind(this, navigation, index, imagen, _borrarImagen)}>
+				<TouchableOpacity onPress={_openCamara.bind(this, index, imagen, _borrarImagen)}>
 					<Image source={imagen || EmptyImage} style={{width: '100%', height: '100%'}} resizeMode='cover'/>
 				</TouchableOpacity>
 			</View>
