@@ -34,12 +34,9 @@ const DetalleGarantia = ({ navigation, context }) => {
 	}
 
 	useEffect(() => {
-		console.log('INFO', info);
+		console.log(info.IdSolicitud);
 		let Fechas = [];
-		Fechas[0] = {id: 1, name: moment(info.Fecha1).format('DD/MM/YYYY HH:mm')}
-		Fechas[1] = {id: 2, name: moment(info.Fecha2).format('DD/MM/YYYY HH:mm')}
-		Fechas[2] = {id: 3, name: moment(info.Fecha3).format('DD/MM/YYYY HH:mm')}
-		/*if (moment(info.Fecha1).isAfter(moment())) {
+		if (moment(info.Fecha1).isAfter(moment())) {
 			Fechas[0] = {id: 1, name: moment(info.Fecha1).format('DD/MM/YYYY HH:mm')}
 		}
 		if (moment(info.Fecha2).isAfter(moment())) {
@@ -47,25 +44,17 @@ const DetalleGarantia = ({ navigation, context }) => {
 		}
 		if (moment(info.Fecha3).isAfter(moment())) {
 			Fechas[2] = {id: 3, name: moment(info.Fecha3).format('DD/MM/YYYY HH:mm')}
-		}*/
+		}
 		setFechas(Fechas);
 	}, [info])
 
 	async function handleSubmit() {
-		console.log(fecha);
-
-		if (fecha) {
-			Alert.alert(null, 'Debe seleccionar una fecha.')
-			return;
-		}
-
-		const FechaVisita = fecha == 1 ? moment(info.Fecha1).format('DD/MM/YYYY HH:mm')
-								: fecha == 2 ? moment(info.Fecha2).format('DD/MM/YYYY HH:mm')
-									: fecha == 3 ? moment(info.Fecha3).format('DD/MM/YYYY HH:mm')
+		const FechaVisita = fecha == 1 ? moment(info.Fecha1).format()
+								: fecha == 2 ? moment(info.Fecha2).format()
+									: fecha == 3 ? moment(info.Fecha3).format()
 										: null;
-		console.log(FechaVisita);
 
-		if (FechaVisita) {
+		if (!FechaVisita) {
 			Alert.alert(null, 'Debe seleccionar una fecha.')
 			return;
 		}
@@ -78,10 +67,7 @@ const DetalleGarantia = ({ navigation, context }) => {
 			IdSolicitud: info.IdSolicitud
 		}
 
-		console.log(data);
-		setLoading(false);
-		return;
-		//const response = await request.post('/app/garantias/update/fecha/visita', data);
+		const response = await request.post('/app/garantias/update/fecha/visita', data);
 
 		if (response.error) {
 			Alert.alert(null, response.message || 'Error interno');
@@ -155,7 +141,7 @@ const DetalleGarantia = ({ navigation, context }) => {
 						</Text>
 						<View style={{height: 24}}/>
 						<Text style={{textAlign: 'center', fontSize: 32, padding: 5, color: Colores.DetalleText}}>
-							Fecha Visita: {moment(info.FechaAplica).format('DD/MM/YYYY HH:mm')}
+							Fecha Visita: {moment(info.FechaVisita).format('DD/MM/YYYY HH:mm')}
 						</Text>
 
 						<View style={{height: 32}}/>

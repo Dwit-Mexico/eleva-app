@@ -98,7 +98,7 @@ function CardGarantia(props) {
 							<Text style={{color: Colores.CardGarantiaColor}}>{props.problema}</Text>
 						</View>
 					</View>
-					<View style={{marginTop: 5}}>
+					<View style={{marginTop: 20}}>
 						<Text>&nbsp;</Text>
 						<Text style={{textAlign: 'right', fontWeight: 'bold', marginBottom: 5, color: estado.color}}>{estado.text}</Text>
 						<Text style={{textAlign: 'right', fontWeight: 'bold', color: Colores.CardGarantiaColor}}>{props.fecha}</Text>
@@ -123,8 +123,7 @@ function CardGarantia(props) {
 						<Text style={{color: Colores.CardGarantiaColor}}>{props.area}</Text>
 					</View>
 				</View>
-				<View style={{marginTop: 5}}>
-					<Text style={{textAlign: 'right', fontSize: 12, color: Colores.CardGarantiaColor}}>&nbsp;{item.IdEstado == 2 ? 'Agende la fecha de reparación' : null}</Text>
+				<View style={{marginTop: 20}}>
 					<Text style={{textAlign: 'right', fontWeight: 'bold', color: Colores.CardGarantiaColor, marginBottom: 5, color: estado.color}}>{estado.text}</Text>
 					<Text style={{textAlign: 'right', fontWeight: 'bold', color: Colores.CardGarantiaColor}}>{props.fecha}</Text>
 				</View>

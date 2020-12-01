@@ -26,7 +26,7 @@ const ListaDetalleReporte = ({ navigation, context }) => {
 			let reportes = context.reportes;
 
 			if (Array.isArray(reportes)) {
-				reportes = reportes.filter(r => r.IdArea == params.IdArea && r.IdUnidad == params.IdUnidad && r.IdEstado != 6);
+				reportes = reportes.filter(r => r.IdArea == params.IdArea && r.IdUnidad == params.IdUnidad && r.IdEstado == 1);
 				setList(reportes);
 			}
 
@@ -45,16 +45,19 @@ const ListaDetalleReporte = ({ navigation, context }) => {
 		<ImageBackground source={require('../../../../assets/background2.jpg')} style={{flex: 1, height: '100%'}}>
 			<View style={Styles.backGround}>
 				<Container>
-					<View style={{flex: 0.2, flexDirection: 'row', width: '100%', backgroundColor: '#00000099', justifyContent: 'center', alignItems: 'center', padding: 5}}>
-						<View style={{flexDirection: "row", width: '50%', alignItems: 'center',  justifyContent: 'flex-start'}}>
-							<FontAwesome5 name="map-marker-alt" color={Colores.CardGarantiaTitulo}/>
-							<Text style={{fontSize: 19, fontWeight: 'bold', color: Colores.CardGarantiaTitulo}}>&nbsp; {info.NombreArea}</Text>
-						</View>
-						<View style={{flexDirection: "column", width: '50%', alignItems: 'flex-end', justifyContent: 'center'}}>
-							<Text style={{fontSize: 15, fontWeight: 'bold', color: Colores.CardGarantiaColor}}>{moment(info.Fecha).tz('GMT').format('DD/MM/YYYY')}</Text>
-							<Text style={{fontSize: 15, fontWeight: 'bold', color: Colores.CardGarantiaColor}}>{info.NoSolicitud}</Text>
+					<View style={{paddingHorizontal: 10, flex: 0.2}}>
+						<View style={{flex: 1, flexDirection: 'row', width: '100%', backgroundColor: '#00000099', paddingHorizontal: 10}}>
+							<View style={{flexDirection: "row", width: '50%', alignItems: 'center',  justifyContent: 'flex-start'}}>
+								<FontAwesome5 name="map-marker-alt" color={Colores.CardGarantiaTitulo}/>
+								<Text style={{fontSize: 19, fontWeight: 'bold', color: Colores.CardGarantiaTitulo}}>&nbsp; {info.NombreArea}</Text>
+							</View>
+							<View style={{flexDirection: "column", width: '50%', alignItems: 'flex-end', justifyContent: 'center'}}>
+								<Text style={{fontSize: 15, fontWeight: 'bold', color: Colores.CardGarantiaColor}}>{moment(info.Fecha).tz('GMT').format('DD/MM/YYYY')}</Text>
+								<Text style={{fontSize: 15, fontWeight: 'bold', color: Colores.CardGarantiaColor}}>{info.NoSolicitud}</Text>
+							</View>
 						</View>
 					</View>
+					<View style={{height: 8}}/>
 					<View style={{flex: 1}}>
 						<ListaGarantiasDetalle navigation={navigation} etapa = {1} lista={list} reporte={true}/>
 					</View>
