@@ -89,17 +89,17 @@ function CardGarantia(props) {
 				style={{flex: 1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 10}}
 				onPress={()=> props.navigation? props.navigation.navigate(screen, { data: props.data.item }) : null}>
 				<View style={CardStyles.card}>
-					<View style={{flexDirection: 'row'}}>
+					<View style={{flexDirection: 'row', width: '60%'}}>
 						<View style={{flexDirection:'column', justifyContent:'center', padding: 2}}>
 							<FontAwesome5 name="exclamation-circle" size={30} color={Colores.CardGarantiaTitulo} />
 						</View>
 						<View style={{paddingLeft: 15}}>
-							<Text allowFontScaling={false} style={{color: Colores.CardGarantiaColor}}>Detalle:</Text>
-							<Text allowFontScaling={false} style={{color: Colores.CardGarantiaColor}}>{props.problema}</Text>
+							<Text style={{color: Colores.CardGarantiaColor}}>Detalle:</Text>
+							<Text style={{color: Colores.CardGarantiaColor}}>{props.problema}</Text>
 						</View>
 					</View>
-					<View style={{marginTop: 20}}>
-						<Text allowFontScaling={false} style={{textAlign: 'right', fontWeight: 'bold', marginBottom: 5, color: estado.color}}>{estado.text}</Text>
+					<View style={{marginTop: 20, width: '40%', alignItems: 'flex-end'}}>
+						<Text style={{textAlign: 'right', fontWeight: 'bold', marginBottom: 5, color: estado.color}}>{estado.text}</Text>
 						<Text allowFontScaling={false} style={{textAlign: 'right', fontWeight: 'bold', color: Colores.CardGarantiaColor}}>{props.fecha}</Text>
 					</View>
 				</View>
@@ -117,7 +117,7 @@ function CardGarantia(props) {
 						<FontAwesome5 name="exclamation-circle" size={30} color={Colores.CardGarantiaTitulo} />
 					</View>
 					<View style={{paddingLeft: 15}}>
-						<Text style={{fontSize: 18, fontWeight: 'bold', color: Colores.CardGarantiaTitulo}}>{props.proyecto}</Text>
+						<Text allowFontScaling={false} style={{fontSize: 18, fontWeight: 'bold', color: Colores.CardGarantiaTitulo}}>{props.proyecto}</Text>
 						<Text style={{color: Colores.CardGarantiaColor}}>{props.unidad}</Text>
 						<Text style={{color: Colores.CardGarantiaColor}}>{props.area}</Text>
 					</View>
