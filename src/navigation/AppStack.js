@@ -35,6 +35,8 @@ import DetalleHistorico from '../screens/garantias/detalle/Historico';
 import ListaDocumentos from '../screens/documentos/ListaDocumentos';
 import VistaDocumento from '../screens/documentos/documento';
 
+//Usuarios
+import Usuarios from '../screens/perfil/Usuarios';
 import AgregarUsuario from '../screens/perfil/AgregarUsuario';
 
 import Camara from '../screens/camara';
@@ -151,7 +153,7 @@ function AppStack(props) {
 				name="Notificaciones"
 				component={Notificaciones}
 				options={{
-					headerTitle: 'Garantía',
+					headerTitle: 'Notificaciones',
 					headerStyle: {
 						backgroundColor: '#4C4C4C'
 					},
@@ -299,6 +301,17 @@ function AppStack(props) {
 					},
 					headerTintColor: '#B29360'
 				})}/>
+
+			<Stack.Screen
+				name="Usuarios"
+				component={Usuarios}
+				options={{
+					headerTitle: 'Usuarios',
+					headerStyle: {
+						backgroundColor: '#4C4C4C'
+					},
+					headerTintColor: '#B29360'
+				}}/>
 
 			<Stack.Screen
 				name="AgregarUsuario"

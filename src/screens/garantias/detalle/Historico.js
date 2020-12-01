@@ -69,98 +69,37 @@ const Historico = ({ context }) => {
 		setLoading(false);
 	}
 
-	if (info.IdEstado == 3) {
-		return (
-			<ImageBackground source={require('../../../../assets/background.jpg')} style={{flex: 1, height: '100%'}}>
-				<View style={Styles.backGround}>
-					<Container>
-						<View style={{height: 8}}/>
-
-						<Text style={{textAlign: 'center', color: Colores.DetalleText, fontSize: 18, fontWeight: 'bold'}}>No Aplica Garantía</Text>
-
-						<Text style={{fontSize: 16, padding: 5, color: Colores.DetalleText}}>
-							Unidad: {info.Numero}
-						</Text>
-						<Text style={{fontSize: 16, padding: 5, color: Colores.DetalleText}}>
-							Area: {info.NombreArea}
-						</Text>
-						<Text style={{fontSize: 16, padding: 5, color: Colores.DetalleText}}>
-							Equipo: {info.NombreEquipo}
-						</Text>
-						<Text style={{fontSize: 16, padding: 5, color: Colores.DetalleText}}>
-							Problema: {info.NombreProblema}
-						</Text>
-
-						<View style={{height: 16}}/>
-
-						<View style={Styles.comentarios}>
-							<Text style={{fontSize: 16, color: '#000'}}>
-								{info.ComentariosAplica}
-							</Text>
-						</View>
-						<View style={{height: 32}}/>
-					</Container>
-				</View>
-			</ImageBackground>
-		)
-	}
-
 	return (
 		<ImageBackground source={require('../../../../assets/background.jpg')} style={{flex: 1, height: '100%'}}>
 			<View style={Styles.backGround}>
 				<Container>
-					<ScrollView style={{flex: 1}}>
-						<Text style={{fontSize: 18, fontWeight: 'bold', textAlign: 'center', color: Colores.DetalleText}}>¿Quedó satisfecho con la reparación?</Text>
+					<View style={{height: 8}}/>
 
-						<View style={{height: 16}}/>
+					<Text style={{textAlign: 'center', color: Colores.DetalleText, fontSize: 18, fontWeight: 'bold'}}>
+						{info.Estado}
+					</Text>
 
-						<View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-							<View style={{width: 100, padding: 5}}>
-								<Button title = "Si" color = {respuesta == true? '#B29360' : '#BFBFBF'}/>
-							</View>
-							<View style={{width: 100, padding: 5}}>
-								<Button title = "No" color = {respuesta == false? '#B29360' : '#BFBFBF'}/>
-							</View>
-						</View>
+					<Text style={{fontSize: 16, padding: 5, color: Colores.DetalleText}}>
+						Unidad: {info.Numero}
+					</Text>
+					<Text style={{fontSize: 16, padding: 5, color: Colores.DetalleText}}>
+						Area: {info.NombreArea}
+					</Text>
+					<Text style={{fontSize: 16, padding: 5, color: Colores.DetalleText}}>
+						Equipo: {info.NombreEquipo}
+					</Text>
+					<Text style={{fontSize: 16, padding: 5, color: Colores.DetalleText}}>
+						Problema: {info.NombreProblema}
+					</Text>
 
-						<View style={{height: 8}}/>
+					<View style={{height: 16}}/>
 
-						<AirbnbRating
-							reviewSize={18}
-							count={5}
-							reviews={["Muy mala", "Mala", "Regular", "Buena", "Muy buena"]}
-							defaultRating={5}
-							showRating={true}
-							size={30}
-							onFinishRating={ratingCompleted}
-							reviewColor={Colores.ratingColor}
-							selectedColor={Colores.ratingColor}/>
-
-						<View style={{height: 32}}/>
-
-						<Text style={{fontSize: 16, padding: 5, color: Colores.DetalleText}}>
-							Unidad: {info.Numero}
+					<View style={Styles.comentarios}>
+						<Text style={{fontSize: 16, color: '#000'}}>
+							{info.ComentariosAplica}
 						</Text>
-						<Text style={{fontSize: 16, padding: 5, color: Colores.DetalleText}}>
-							Area: {info.NombreArea}
-						</Text>
-						<Text style={{fontSize: 16, padding: 5, color: Colores.DetalleText}}>
-							Equipo: {info.NombreEquipo}
-						</Text>
-						<Text style={{fontSize: 16, padding: 5, color: Colores.DetalleText}}>
-							Problema: {info.NombreProblema}
-						</Text>
-
-						<View style={{height: 16}}/>
-
-						<View style={Styles.comentarios}>
-							<Text style={{fontSize: 16, color: '#000'}}>
-								{info.Comentarios}
-							</Text>
-						</View>
-						<View style={{height: 32}}/>
-
-					</ScrollView>
+					</View>
+					<View style={{height: 32}}/>
 				</Container>
 			</View>
 		</ImageBackground>

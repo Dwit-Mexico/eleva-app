@@ -7,6 +7,7 @@ export default StyleSheet.create({
 	card: {
 		flex: 1,
 		width: '100%',
+		minWidth: 300,
 		borderColor: '#aaa',
 		borderBottomColor: Colores.CardGarantiaTitulo,
 		borderWidth: 0,

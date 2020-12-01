@@ -95,24 +95,26 @@ function Perfil({ navigation, context }) {
 					<Container>
 						<View style={{height: 50}}/>
 						<View style={{flex: 1, width: '100%'}}>
-							{loading ?
-								<ActivityIndicator size={30} color={Colores.spinnerColor}/>
-								:
-								<ListaViviendas lista = { unidades }/>
-							}
-
+							<View style={{flex: 0.8}}>
+								{loading ?
+									<ActivityIndicator size={30} color={Colores.spinnerColor}/>
+									:
+									<ListaViviendas lista = { unidades }/>
+								}
+							</View>
 							<View style={Styles.logoutButtonView}>
 								{user.Propietario &&
-									<View style={{marginBottom: 10, width: 200}}>
-										<BotonAccion onPress = {() => navigation.navigate('AgregarUsuario', { unidades })} disabled = {loading}>
-											<Text style={StylesTexts.logoutButton}>Agregar usuario</Text>
+									<View style={{width: 130}}>
+										<BotonAccion onPress = {() => navigation.navigate('Usuarios', { unidades })} disabled = {loading}>
+											<Text style={StylesTexts.logoutButton}>Usuarios</Text>
 										</BotonAccion>
 									</View>
 								}
-								<TouchableOpacity onPress={_logOut.bind(this, context)} style={StylesButtons.logoutButton}>
-									<Text style={StylesTexts.logoutButton}>Cerrar sesión</Text>
-								</TouchableOpacity>
-								<View style={{height: 50}}/>
+								<View style={{width: 130}}>
+									<TouchableOpacity onPress={_logOut.bind(this, context)} style={StylesButtons.logoutButton}>
+										<Text style={StylesTexts.logoutButton}>Cerrar sesión</Text>
+									</TouchableOpacity>
+								</View>
 							</View>
 						</View>
 					</Container>

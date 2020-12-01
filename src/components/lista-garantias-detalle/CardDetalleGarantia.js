@@ -85,7 +85,9 @@ function CardGarantia(props) {
 
 	if (props.reporte) {
 		return (
-			<TouchableOpacity onPress={()=> props.navigation? props.navigation.navigate(screen, { data: props.data.item }) : null}>
+			<TouchableOpacity
+				style={{flex: 1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 10}}
+				onPress={()=> props.navigation? props.navigation.navigate(screen, { data: props.data.item }) : null}>
 				<View style={CardStyles.card}>
 					<View style={{flexDirection: 'row'}}>
 						<View style={{flexDirection:'column', justifyContent:'center', padding: 5}}>
@@ -107,7 +109,9 @@ function CardGarantia(props) {
 	}
 
 	return (
-		<TouchableOpacity onPress={()=> props.navigation? props.navigation.navigate(screen, { data: props.data.item }) : null}>
+		<TouchableOpacity
+			style={{flex: 1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 10}}
+			onPress={()=> props.navigation? props.navigation.navigate(screen, { data: props.data.item }) : null}>
 			<View style={CardStyles.card}>
 				<View style={{flexDirection: 'row'}}>
 					<View style={{flexDirection:'column', justifyContent:'center', padding: 5}}>
@@ -116,10 +120,10 @@ function CardGarantia(props) {
 					<View style={{paddingLeft: 15}}>
 						<Text style={{fontSize: 18, fontWeight: 'bold', color: Colores.CardGarantiaTitulo}}>{props.proyecto}</Text>
 						<Text style={{color: Colores.CardGarantiaColor}}>{props.unidad}</Text>
+						<Text style={{color: Colores.CardGarantiaColor}}>{props.area}</Text>
 					</View>
 				</View>
 				<View style={{marginTop: 5}}>
-					<Text style={{color: Colores.CardGarantiaColor}}>{props.area}</Text>
 					<Text style={{textAlign: 'right', fontSize: 12, color: Colores.CardGarantiaColor}}>&nbsp;{item.IdEstado == 2 ? 'Agende la fecha de reparación' : null}</Text>
 					<Text style={{textAlign: 'right', fontWeight: 'bold', color: Colores.CardGarantiaColor, marginBottom: 5, color: estado.color}}>{estado.text}</Text>
 					<Text style={{textAlign: 'right', fontWeight: 'bold', color: Colores.CardGarantiaColor}}>{props.fecha}</Text>

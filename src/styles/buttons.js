@@ -24,9 +24,12 @@ export default StyleSheet.create({
 		backgroundColor: '#B29360',
 		color: '#ffffff',
 		padding: 10,
-		width: 200,
 		textAlign: 'center',
-		borderRadius: 5
+		borderRadius: 5,
+		width: '100%',
+		height: 50,
+		justifyContent: 'center',
+		alignItems: 'center'
 	},
 	spinner: {
 		color: 'white'
