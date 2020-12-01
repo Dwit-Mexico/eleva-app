@@ -1,11 +1,17 @@
-import React from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import React, { useState } from 'react';
+import { Alert, TouchableOpacity, View, ActivityIndicator } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Consumer } from '../../context';
+import Request from '../../core/api';
+
+const request = new Request();
 
 function BotonNuevo({navigation, screen, context}) {
+	const [loading, setLoading] = useState(false);
 
-	function nuevoReporte() {
+	async function nuevoReporte() {
+		setLoading(true)
+
 		if(context) {
 			context.setStep(1);
 			context.setUnidad(null);
@@ -18,13 +24,31 @@ function BotonNuevo({navigation, screen, context}) {
 			context.setImagen3(null);
 		}
 
-		navigation.navigate(screen);
+		const response = await request.post('/app/users/vigencia/garantia');
+
+		if (response.error) {
+			Alert.alert(null, response.message || 'No se pudo validar la vigencia.');
+		}
+
+		if (response.valido) {
+			navigation.navigate(screen);
+		} else {
+			Alert.alert(null, response.message || 'La vigencia no válida.');
+		}
+
+		setLoading(false);
 	}
 
 	return (
 		<View style={{}}>
-			<TouchableOpacity onPress={nuevoReporte.bind(this)} style={{backgroundColor: '#B29360', borderRadius: 50, paddingTop: 8, padding: 10, paddingBottom: 8}}>
-				<FontAwesome5 name="plus" size={20} color={"#fff"}/>
+			<TouchableOpacity onPress={() => loading ? null : nuevoReporte(this)} style={{backgroundColor: '#B29360', borderRadius: 50, paddingHorizontal: 10, paddingVertical: 8}}>
+				<View style={{width: '100%', height: 20, justifyContent: 'center', alignItems: 'center'}}>
+					{loading ?
+						<ActivityIndicator size={17} color={"#fff"}/>
+						:
+						<FontAwesome5 name="plus" size={20} color={"#fff"}/>
+					}
+				</View>
 			</TouchableOpacity>
 		</View>
 	);
