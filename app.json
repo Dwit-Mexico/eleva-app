@@ -24,7 +24,9 @@
       "favicon": "./assets/favicon.png"
     },
     "android": {
-      "package": "com.marte1309.eleva_app"
+	  "package": "com.marte1309.eleva_app",
+	  "googleServicesFile": "./google-services.json",
+	  "useNextNotificationsApi": true
 	}
   }
 }

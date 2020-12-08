@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Alert, StatusBar } from 'react-native';
-import { getFocusedRouteNameFromRoute, useNavigation } from '@react-navigation/native';
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Consumer } from '../context';
 import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
-import { Notifications as Notifications2 } from 'expo';
 import * as Permissions from 'expo-permissions';
 import Request from '../core/api';
 
@@ -106,7 +105,6 @@ function AppStack(props) {
 		StatusBar.setBarStyle('light-content');
 
 		registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
-
 	}, []);
 
 	useEffect(() => {
