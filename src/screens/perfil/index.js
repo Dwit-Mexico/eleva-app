@@ -30,14 +30,15 @@ const styleUserData = {
 	top: -30,
 	borderRadius: 5,
 	padding: 5,
-	shadowColor: "#000",
+	zIndex: 2,
+	shadowColor: "#000000",
 	shadowOffset: {
 		width: 0,
 		height: 2,
 	},
 	shadowOpacity: 0.25,
 	shadowRadius: 3.84,
-	elevation: 5
+	elevation: 6
 }
 
 function Perfil({ navigation, context }) {
