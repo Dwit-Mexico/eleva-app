@@ -28,7 +28,7 @@ function ListaNotificaciones({ navigation, lista, reload }) {
 									navigation	=	{navigation}
 									item		=	{card.item}/>
 								}
-			keyExtractor	=	{(item) => `${item.IdNotificacion}`}/>
+			keyExtractor	=	{(item) => `${item.IdLog}`}/>
 	);
 }
 

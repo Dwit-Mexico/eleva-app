@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Alert, StatusBar } from 'react-native';
-import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
+import { getFocusedRouteNameFromRoute, useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Consumer } from '../context';
 import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
+import { Notifications as Notifications2 } from 'expo';
 import * as Permissions from 'expo-permissions';
 import Request from '../core/api';
 
@@ -100,33 +101,18 @@ const Stack = createStackNavigator();
 
 function AppStack(props) {
 	const [expoPushToken, setExpoPushToken] = useState('');
-	const [notification, setNotification] = useState(false);
-	const notificationListener = useRef();
-	const responseListener = useRef();
 
 	useEffect(() => {
 		StatusBar.setBarStyle('light-content');
 
 		registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
-	
-		notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-			setNotification(notification);
-		});
-	
-		responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-			console.log(response);
-		});
-	
-		return () => {
-			Notifications.removeNotificationSubscription(notificationListener);
-			Notifications.removeNotificationSubscription(responseListener);
-		};
+
 	}, []);
 
 	useEffect(() => {
 		async function setToken(token) {
 			const response = await request.post('/aplicacion/notificaciones/set', { token });
-			console.log('PUSH TOKEN', response);
+			// console.log('PUSH TOKEN', response);
 		}
 
 		if (expoPushToken) {
