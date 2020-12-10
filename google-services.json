@@ -1,34 +1,33 @@
 {
   "project_info": {
-    "project_number": "581400817885",
-    "firebase_url": "https://eleva-test-75bf3.firebaseio.com",
-    "project_id": "eleva-test-75bf3",
-    "storage_bucket": "eleva-test-75bf3.appspot.com"
+    "project_number": "545970155438",
+    "project_id": "eleva-54c99",
+    "storage_bucket": "eleva-54c99.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:581400817885:android:fc1afe04115044c0cb6b34",
+        "mobilesdk_app_id": "1:545970155438:android:165569135600f4e0aaa23f",
         "android_client_info": {
-          "package_name": "com.dwitmexico.elevaapp"
+          "package_name": "com.elevacap.customerservice"
         }
       },
       "oauth_client": [
         {
-          "client_id": "581400817885-f08vb5bi1l0fifuckvuebfl8o3k18arh.apps.googleusercontent.com",
+          "client_id": "545970155438-p9l1m3ag9nu1stvcamup2css84inq6lk.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAUw1Nj_hLhYR-TybEXMZkRF5tG95cNANM"
+          "current_key": "AIzaSyBBlYE72iKbS_NM-g5GyyXwVlBLBwzdku8"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "581400817885-f08vb5bi1l0fifuckvuebfl8o3k18arh.apps.googleusercontent.com",
+              "client_id": "545970155438-p9l1m3ag9nu1stvcamup2css84inq6lk.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

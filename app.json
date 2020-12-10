@@ -2,7 +2,7 @@
   "expo": {
     "name": "eleva_app",
     "slug": "eleva_app",
-    "version": "1.0.2",
+    "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -17,14 +17,14 @@
       "**/*"
     ],
     "ios": {
-		"bundleIdentifier": "com.dwitmexico.elevaapp",
+		"bundleIdentifier": "com.elevacap.customerservice",
 		"supportsTablet": true
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "android": {
-	  "package": "com.marte1309.eleva_app",
+	  "package": "com.elevacap.customerservice",
 	  "googleServicesFile": "./google-services.json",
 	  "useNextNotificationsApi": true
 	}

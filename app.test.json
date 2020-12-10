@@ -30,7 +30,7 @@
     },
     "android": {
 	  "package": "com.dwitmexico.elevaapp",
-	  "googleServicesFile": "./google-services.json",
+	  "googleServicesFile": "./google-services-test.json",
 	  "useNextNotificationsApi": true
 	}
   }
