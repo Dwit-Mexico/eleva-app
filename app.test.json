@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "eleva_app",
-    "slug": "eleva_app",
+    "name": "ElevaTest",
+    "slug": "elevaApp",
     "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
