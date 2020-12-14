@@ -14,6 +14,7 @@ function ListaViviendas({navigation, context, lista}) {
 		if (context) {
 			await context.getSetUnidades();
 			await context.reloadReportes();
+			await context.reloadReportesAgrupados();
 		}
 		setRefreshing(false);
 	}
@@ -28,14 +29,14 @@ function ListaViviendas({navigation, context, lista}) {
 					/>
 			}
 			renderItem 		=	{(card) => <CardGarantia
-										key			=	{card.item.id}
+										key			=	{card.item.IdGroup}
 										etapa 		=	{1}
 										navigation	=	{navigation}
 										item		=	{card.item}
 										icon 		=	{<FontAwesome5 name="book-open" size={24} color="black" />}
 										ruta		=	"ListaDetalleReportes"/>
 								}
-			keyExtractor	=	{(item) => `${item.id}`}/>
+			keyExtractor	=	{(item) => `${item.IdGroup}`}/>
 	);
 }
 

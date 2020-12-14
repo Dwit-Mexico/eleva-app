@@ -53,7 +53,8 @@ function ListaGarantiasDetalle({ navigation, etapa, context, lista, reporte }) {
 											area		=	{item.NombreArea}
 											fecha		=	{moment(item.Fecha).tz('GMT').format('DD/MM/YYYY')}
 											data		=	{card}
-											reporte		=	{reporte}/>
+											reporte		=	{reporte}
+											NoSolicitud	=	{item.NoSolicitud}/>
 										)
 									}
 								}

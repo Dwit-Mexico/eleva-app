@@ -19,7 +19,7 @@ import {
 	setImagen2,
 	setImagen3
 } from './form';
-import { getReportes, reloadReportes } from './reportes';
+import { getReportes, reloadReportes, getReportesAgrupados, reloadReportesAgrupados } from './reportes';
 
 const Context = createContext();
 
@@ -60,8 +60,12 @@ class GlobalContext extends Component {
 			imagen3: null,
 			setImagen3: setImagen3.bind(this),
 			getForm: getForm.bind(this),
+			reportes: [],
+			reportesAgrupados: [],
 			getReportes: getReportes.bind(this),
-			reloadReportes: reloadReportes.bind(this)
+			reloadReportes: reloadReportes.bind(this),
+			getReportesAgrupados: getReportesAgrupados.bind(this),
+			reloadReportesAgrupados: reloadReportesAgrupados.bind(this)
 		}
 
 		this.initUser();
@@ -132,6 +136,11 @@ class GlobalContext extends Component {
 		const reportes = await this.state.getReportes();
 		if (reportes.data) {
 			catalogoObj.reportes = reportes.data;
+		}
+
+		const reportesAgrupados = await this.state.getReportesAgrupados();
+		if (reportesAgrupados.data) {
+			catalogoObj.reportesAgrupados = reportesAgrupados.data;
 		}
 
 		AsyncStorage.setItem('Catalogos', JSON.stringify(catalogoObj));

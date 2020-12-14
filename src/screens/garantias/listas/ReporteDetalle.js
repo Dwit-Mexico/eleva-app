@@ -19,19 +19,15 @@ const ListaDetalleReporte = ({ navigation, context }) => {
 	const [info, setInfo] = useState({});
 	const route = useRoute();
 
+	useEffect(() => {
+		const { info } = route.params;
+		if (info) {
+			const array = Array.isArray(info.Detalle) ? info.Detalle : [];
+			setList(array);
+		}
+	}, []);
+
 	if (context) {
-		useEffect(() => {
-			const { params } = route;
-
-			let reportes = context.reportes;
-
-			if (Array.isArray(reportes)) {
-				reportes = reportes.filter(r => r.IdArea == params.IdArea && r.IdUnidad == params.IdUnidad && r.IdEstado == 1);
-				setList(reportes);
-			}
-
-		},[context.reportes]);
-
 		useEffect(() => {
 			const { params } = route;
 

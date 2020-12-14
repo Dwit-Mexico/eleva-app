@@ -17,44 +17,18 @@ const ListaReporte = ({ navigation, context }) => {
 
 	if (context) {
 		useEffect(() => {
-			let reportes = [];
-			if (Array.isArray(context.reportes)) {
-				let rptTemp = context.reportes.sort((a, b) => {
-					if (a.Fecha > b.Fecha)
+			if (Array.isArray(context.reportesAgrupados)) {
+				const array = context.reportesAgrupados.sort((a, b) => {
+					if (moment(a.Fecha).isAfter(moment(b.Fecha)))
 						return -1;
-					if (a.Fecha < b.Fecha)
+					if (moment(a.Fecha).isBefore(moment(b.Fecha)))
 						return 1;
 					return 0;
 				});
-
-				rptTemp.filter(r => r.IdEstado != 6 ).forEach(rep => {
-					const exist = reportes.find(e => e.IdUnidad == rep.IdUnidad && e.IdArea == rep.IdArea);
-					if(!exist) {
-						reportes.push({
-							id: reportes.length,
-							IdUnidad: rep.IdUnidad,
-							IdArea: rep.IdArea,
-							NombreArea: rep.NombreArea,
-							NombreProyecto: rep.NombreProyecto,
-							Numero: rep.Numero,
-							Fecha: moment(rep.Fecha).format(),
-							NoSolicitud: rep.NoSolicitud
-						});
-					}
-				});
-
-				reportes = reportes.sort((a, b) => {
-					if (a.IdUnidad > b.IdUnidad)
-						return 1;
-					if (a.IdUnidad < b.IdUnidad)
-						return -1;
-					return 0;
-				});
-
-				setLista(reportes);
+				setLista(array);
 			}
 
-		}, [context.reportes])
+		}, [context.reportesAgrupados])
 	}
 
 	return (
