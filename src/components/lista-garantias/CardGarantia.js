@@ -24,12 +24,12 @@ function CardGarantia(props) {
 						<Text allowFontScaling={false} style={{ padding: 2, fontSize: 20, fontWeight: 'bold', textAlign: 'center', color: Colores.CardGarantiaTitulo }}>{info.NombreProyecto}</Text>
 					</View>
 					<View style={{flexDirection: 'row', flex: 1, alignItems: 'center', justifyContent: 'flex-start'}}>
-						<FontAwesome5 name="home" color={Colores.CardGarantiaColor}/>
-						<Text allowFontScaling={false} style={{ padding: 2, fontSize: 19, fontWeight: 'bold', textAlign: 'center', color: Colores.CardGarantiaColor }}>{info.Numero}</Text>
+						<FontAwesome5 name="home" color={Colores.CardGarantiaColor} size={20}/>
+						<Text allowFontScaling={false} style={{ padding: 2, fontSize: 19, textAlign: 'center', color: Colores.CardGarantiaColor }}>{info.Numero}</Text>
 					</View>
 					<View style={{flexDirection: 'row', flex: 1, alignItems: 'center', justifyContent: 'flex-start'}}>
-						<FontAwesome5 name="map-marker-alt" color={Colores.CardGarantiaColor}/>
-						<Text allowFontScaling={false} style={{ padding: 2, fontSize: 19, fontWeight: 'bold', textAlign: 'center', color: Colores.CardGarantiaColor }}>{info.NombreArea}</Text>
+						<FontAwesome5 name="map-marker-alt" color={Colores.CardGarantiaColor} size={20}/>
+						<Text allowFontScaling={false} style={{ padding: 2, fontSize: 19, textAlign: 'center', color: Colores.CardGarantiaColor }}>{info.NombreArea}</Text>
 					</View>
 				</View>
 				<View style={{flexDirection: 'column', justifyContent: 'flex-end', alignItems: 'flex-end'}}>

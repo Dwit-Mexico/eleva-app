@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Alert, ScrollView, View, Text, TextInput, ImageBackground } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { Consumer } from '../../../context';
+import { FontAwesome5 } from '@expo/vector-icons';
 import moment from 'moment-timezone';
 import Request from '../../../core/api';
 
@@ -89,18 +90,30 @@ const DetalleGarantia = ({ navigation, context }) => {
 
 						<Text style={{textAlign: 'center', color: Colores.DetalleText, fontSize: 18, fontWeight: 'bold'}}>No Aplica Garantía</Text>
 
-						<Text style={{fontSize: 16, padding: 5, color: Colores.DetalleText}}>
-							Unidad: {info.Numero}
-						</Text>
-						<Text style={{fontSize: 16, padding: 5, color: Colores.DetalleText}}>
-							Area: {info.NombreArea}
-						</Text>
-						<Text style={{fontSize: 16, padding: 5, color: Colores.DetalleText}}>
-							Equipo: {info.NombreEquipo}
-						</Text>
-						<Text style={{fontSize: 16, padding: 5, color: Colores.DetalleText}}>
-							Problema: {info.NombreProblema}
-						</Text>
+						<View style={Styles.lista}>
+							<FontAwesome5 name="map-marked-alt" size={20} color = {Colores.DetalleText}/>
+							<Text style={Styles.listaText}>&nbsp;{info.NombreProyecto}</Text>
+						</View>
+						<View style={Styles.lista}>
+							<FontAwesome5 name="home" size={20} color = {Colores.DetalleText}/>
+							<Text style={Styles.listaText}>&nbsp;{info.Numero}</Text>
+						</View>
+						<View style={Styles.lista}>
+							<FontAwesome5 name="map-marker-alt" size={20} color = {Colores.DetalleText}/>
+							<Text style={Styles.listaText}>&nbsp;{info.NombreArea}</Text>
+						</View>
+						<View style={Styles.lista}>
+							<FontAwesome5 name="tools" size={20} color = {Colores.DetalleText}/>
+							<Text style={Styles.listaText}>&nbsp;{info.NombreEquipo}</Text>
+						</View>
+						<View style={Styles.lista}>
+							<FontAwesome5 name="house-damage" size={20} color = {Colores.DetalleText}/>
+							<Text style={Styles.listaText}>&nbsp;{info.NombreProblema}</Text>
+						</View>
+						<View style={Styles.lista}>
+							<FontAwesome5 name="hashtag" size={20} color = {Colores.DetalleText}/>
+							<Text style={Styles.listaText}>&nbsp;{info.NoSolicitud}</Text>
+						</View>
 
 						<View style={{height: 16}}/>
 
@@ -127,18 +140,31 @@ const DetalleGarantia = ({ navigation, context }) => {
 
 						<View style={{height: 16}}/>
 
-						<Text style={{fontSize: 16, padding: 5, color: Colores.DetalleText}}>
-							Unidad: {info.Numero}
-						</Text>
-						<Text style={{fontSize: 16, padding: 5, color: Colores.DetalleText}}>
-							Area: {info.NombreArea}
-						</Text>
-						<Text style={{fontSize: 16, padding: 5, color: Colores.DetalleText}}>
-							Equipo: {info.NombreEquipo}
-						</Text>
-						<Text style={{fontSize: 16, padding: 5, color: Colores.DetalleText}}>
-							Problema: {info.NombreProblema}
-						</Text>
+						<View style={Styles.lista}>
+							<FontAwesome5 name="map-marked-alt" size={20} color = {Colores.DetalleText}/>
+							<Text style={Styles.listaText}>&nbsp;{info.NombreProyecto}</Text>
+						</View>
+						<View style={Styles.lista}>
+							<FontAwesome5 name="home" size={20} color = {Colores.DetalleText}/>
+							<Text style={Styles.listaText}>&nbsp;{info.Numero}</Text>
+						</View>
+						<View style={Styles.lista}>
+							<FontAwesome5 name="map-marker-alt" size={20} color = {Colores.DetalleText}/>
+							<Text style={Styles.listaText}>&nbsp;{info.NombreArea}</Text>
+						</View>
+						<View style={Styles.lista}>
+							<FontAwesome5 name="tools" size={20} color = {Colores.DetalleText}/>
+							<Text style={Styles.listaText}>&nbsp;{info.NombreEquipo}</Text>
+						</View>
+						<View style={Styles.lista}>
+							<FontAwesome5 name="house-damage" size={20} color = {Colores.DetalleText}/>
+							<Text style={Styles.listaText}>&nbsp;{info.NombreProblema}</Text>
+						</View>
+						<View style={Styles.lista}>
+							<FontAwesome5 name="hashtag" size={20} color = {Colores.DetalleText}/>
+							<Text style={Styles.listaText}>&nbsp;{info.NoSolicitud}</Text>
+						</View>
+
 						<View style={{height: 24}}/>
 						<Text style={{textAlign: 'center', fontSize: 32, padding: 5, color: Colores.DetalleText}}>
 							Fecha Visita: {moment(info.FechaVisita).format('DD/MM/YYYY HH:mm')}

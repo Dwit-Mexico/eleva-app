@@ -133,6 +133,10 @@ const DetalleReporte = ({ navigation, context }) => {
 								<FontAwesome5 name="house-damage" size={20} color = {Colores.DetalleText}/>
 								<Text style={Styles.listaText}>&nbsp;{info.NombreProblema}</Text>
 							</View>
+							<View style={Styles.lista}>
+								<FontAwesome5 name="hashtag" size={20} color = {Colores.DetalleText}/>
+								<Text style={Styles.listaText}>&nbsp;{info.NoSolicitud}</Text>
+							</View>
 							<View style={{height: 16}}/>
 							<View style={Styles.comentarios}>
 								<Text style={{fontSize: 14}}>&nbsp;{info.Comentarios}</Text>
