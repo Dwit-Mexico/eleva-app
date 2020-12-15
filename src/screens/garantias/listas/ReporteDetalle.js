@@ -44,7 +44,7 @@ const ListaDetalleReporte = ({ navigation, context }) => {
 					<View style={{paddingHorizontal: 10, flex: 0.2}}>
 						<View style={{flex: 1, flexDirection: 'row', width: '100%', backgroundColor: '#00000099', paddingHorizontal: 10}}>
 							<View style={{flexDirection: "row", width: '50%', alignItems: 'center',  justifyContent: 'flex-start'}}>
-								<FontAwesome5 name="map-marker-alt" color={Colores.CardGarantiaTitulo}/>
+								<FontAwesome5 name="map-marker-alt" color={Colores.CardGarantiaTitulo} size={20}/>
 								<Text style={{fontSize: 19, fontWeight: 'bold', color: Colores.CardGarantiaTitulo}}>&nbsp; {info.NombreArea}</Text>
 							</View>
 							<View style={{flexDirection: "column", width: '50%', alignItems: 'flex-end', justifyContent: 'center'}}>

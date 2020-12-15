@@ -6,9 +6,9 @@ import {
 	TextInput,
 	TouchableOpacity,
 	TouchableWithoutFeedback,
+	ScrollView,
 	Keyboard,
 	Image,
-	StatusBar,
 	ImageBackground
 } from 'react-native';
 import { Consumer } from '../../context';
@@ -62,9 +62,9 @@ class LoginScreen extends Component {
 
 	render () {
 		return (
-			<TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-				<ImageBackground source={require('../../../assets/background.jpg')} style={{flex: 1, resizeMode: "cover", justifyContent: "center"}}>
-					<View style={LoginStyle.backGround}>
+			<ImageBackground source={require('../../../assets/background.jpg')} style={{flex: 1, resizeMode: "cover", justifyContent: "center"}}>
+				<View style={LoginStyle.backGround}>
+					<ScrollView keyboardDismissMode="on-drag" style={{height: '100%', width: '100%'}} keyboardShouldPersistTaps="handled">
 						<Container>
 							<View style={LoginStyle.loginView}>
 								<Image source={require('../../../assets/logo.png')} style={{width: 300, height: 300}}/>
@@ -104,9 +104,9 @@ class LoginScreen extends Component {
 								</View>
 							</View>
 						</Container>
-					</View>
-				</ImageBackground>
-			</TouchableWithoutFeedback>
+					</ScrollView>
+				</View>
+			</ImageBackground>
 		);
 	}
 }

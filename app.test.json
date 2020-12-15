@@ -20,18 +20,27 @@
     	"**/*"
     ],
     "ios": {
-	  "supportsTablet": false,
-	  "buildNumber": "4",
-	  "bundleIdentifier": "com.dwitmexico.elevaapp",
-	  "requireFullScreen": true
+		"supportsTablet": false,
+		"buildNumber": "5",
+		"bundleIdentifier": "com.dwitmexico.elevaapp",
+		"requireFullScreen": true,
+		"infoPlist": {
+			"NSNotificationDescription": "Eleva requiere permiso para recibir notificaciones",
+			"NSCameraUsageDescription": "Eleva requiere acceso a la cámara, para poder tomar fotos y enviarlo como evidencia de los reportes.",
+			"NSPhotoLibraryUsageDescription": "Eleva requiere permiso para usar la galeria de la cámara, para poder enviar evidencia de los reportes.",
+			"NSLocationWhenInUseUsageDescription": "Eleva necesito permisos de localizacion para informar a adminstración en caso de una emergencia",
+			"NSLocationAlwaysUsageDescription": "Eleva necesito permisos de localizacion para informar a adminstración en caso de una emergencia",
+			"NSLocationUsageDescription": "Eleva necesito permisos de localizacion para informar a adminstración en caso de una emergencia",
+			"LSApplicationQueriesSchemes": ["whatsapp"]
+		}
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+		"favicon": "./assets/favicon.png"
     },
     "android": {
-	  "package": "com.dwitmexico.elevaapp",
-	  "googleServicesFile": "./google-services-test.json",
-	  "useNextNotificationsApi": true
+		"package": "com.dwitmexico.elevaapp",
+		"googleServicesFile": "./google-services-test.json",
+		"useNextNotificationsApi": true
 	}
   }
 }

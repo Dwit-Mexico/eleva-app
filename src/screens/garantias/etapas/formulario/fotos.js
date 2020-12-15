@@ -1,10 +1,11 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
-import { Alert, View, Animated, Text, TouchableOpacity, Modal, Image } from 'react-native';
+import { Alert, View, Animated, Text, TouchableOpacity, Modal, Image, Platform, Linking } from 'react-native';
 import { Consumer } from '../../../../context';
 import { FontAwesome5 } from '@expo/vector-icons';
 import ImageZoom from 'react-native-image-zoom-viewer';
 import { useFocusEffect, useRoute } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
+import * as Permissions from 'expo-permissions';
 
 //Componentes
 // import SelectArea from '../../../../components/select/SelectArea';
@@ -49,6 +50,34 @@ function SeleccionarFotos({ navigation, imagenes, context }) {
 	)
 
 	async function usarCamara(index) {
+		let resultPermissions = null
+
+		resultPermissions = await Permissions.askAsync(Permissions.CAMERA);
+
+		if (resultPermissions.status === "denied") {
+
+			if (resultPermissions.canAskAgain) {
+				Alert.alert('Permisos', "Para tomar fotos, permite que Eleva pueda usar la cámara.");
+			} else {
+				if (Platform.OS == 'ios') {
+					Alert.alert(
+						'Permisos',
+						'Para tomar fotos, permite que Eleva pueda usar la cámara, tienes que ir a ajustes y activarlos manualmente el permiso.',
+						[
+							{
+								text: "ir a configuración",
+								onPress: () => Linking.openURL('app-settings:')
+							},
+							{ text: "OK" }
+						],
+					)
+				} else
+					Alert.alert('Permisos', "Para tomar fotos, permite que Eleva pueda usar la cámara, tienes que ir a ajustes y activarlos manualmente el permiso.");
+			}
+
+			return;
+		}
+
 		let result = await ImagePicker.launchCameraAsync({
 			mediaTypes: ImagePicker.MediaTypeOptions.All,
 			aspect: [4, 3],
