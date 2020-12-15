@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Alert, View, ImageBackground, Text, TextInput, TouchableWithoutFeedback, Keyboard, Image } from 'react-native';
+import { Alert, View, ScrollView, ImageBackground, Text, TextInput, TouchableWithoutFeedback, Keyboard, Image } from 'react-native';
 import Request from '../../core/api';
 
 // Componentes
@@ -48,9 +48,9 @@ function RecuperarPassword({navigation}) {
 	}
 
 	return (
-		<TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-			<ImageBackground source={require('../../../assets/background.jpg')} style={{flex: 1, resizeMode: "contain", justifyContent: "center"}}>
-				<View style={LoginStyle.backGround}>
+		<ImageBackground source={require('../../../assets/background.jpg')} style={{flex: 1, resizeMode: "contain", justifyContent: "center"}}>
+			<View style={LoginStyle.backGround}>
+				<ScrollView keyboardDismissMode="on-drag" style={{height: '100%', width: '100%'}} keyboardShouldPersistTaps="handled">
 					<Container>
 						<View style={LoginStyle.loginView}>
 							<Image source={require('../../../assets/logo.png')} style={{width: 300, height: 300}}/>
@@ -77,9 +77,9 @@ function RecuperarPassword({navigation}) {
 							</View>
 						</View>
 					</Container>
-				</View>
-			</ImageBackground>
-		</TouchableWithoutFeedback>
+				</ScrollView>
+			</View>
+		</ImageBackground>
 	)
 }
 

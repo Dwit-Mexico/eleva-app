@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Alert, StatusBar } from 'react-native';
+import { Alert, StatusBar, Platform, Linking } from 'react-native';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Consumer } from '../context';
@@ -76,12 +76,25 @@ async function registerForPushNotificationsAsync() {
 			finalStatus = status;
 		}
 		if (finalStatus !== 'granted') {
-			Alert.alert(null, 'Failed to get push token for push notification!');
+			if (Platform.OS == 'ios') {
+				Alert.alert(
+					'Permisos',
+					'Eleva requiere permisos para recibir notificaciones!',
+					[
+						{
+							text: "ir a configuración",
+							onPress: () => Linking.openURL('app-settings:')
+						}
+					],
+				)
+			} else {
+				Alert.alert(null, 'Eleva requiere permisos para recibir notificaciones!');
+			}
 			return;
 		}
 		token = (await Notifications.getExpoPushTokenAsync()).data;
 	} else {
-		Alert.alert(null, 'Must use physical device for Push Notifications');
+		Alert.alert(null, 'Solo dispositivos fisicos pueden recibir notificaciones');
 	}
 
 	if (Platform.OS === 'android') {

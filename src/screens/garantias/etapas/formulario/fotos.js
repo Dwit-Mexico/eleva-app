@@ -49,6 +49,20 @@ function SeleccionarFotos({ navigation, imagenes, context }) {
 		}, [])
 	)
 
+	useEffect(() => {
+		async function permisoCamara() {
+			const { status: existingStatus } = await Permissions.getAsync(Permissions.CAMERA);
+			let finalStatus = existingStatus;
+			if (existingStatus !== 'granted') {
+				const { status } = await Permissions.askAsync(Permissions.CAMERA);
+				finalStatus = status;
+			}
+		}
+
+		permisoCamara();
+
+	}, [])
+
 	async function usarCamara(index) {
 		let resultPermissions = null
 
@@ -67,8 +81,7 @@ function SeleccionarFotos({ navigation, imagenes, context }) {
 							{
 								text: "ir a configuración",
 								onPress: () => Linking.openURL('app-settings:')
-							},
-							{ text: "OK" }
+							}
 						],
 					)
 				} else
