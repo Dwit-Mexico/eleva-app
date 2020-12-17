@@ -92,7 +92,7 @@ function SeleccionarFotos({ navigation, imagenes, context }) {
 		}
 
 		let result = await ImagePicker.launchCameraAsync({
-			mediaTypes: ImagePicker.MediaTypeOptions.All,
+			mediaTypes: ImagePicker.MediaTypeOptions.Images,
 			aspect: [4, 3],
 			quality: 1,
 		});
