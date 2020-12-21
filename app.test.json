@@ -27,15 +27,11 @@
 			"infoPlist": {
 				"NSNotificationDescription": "Eleva requiere permiso para recibir notificaciones",
 				"NSCameraUsageDescription": "Eleva requiere acceso a la cámara, para poder tomar fotos y enviarlo como evidencia de los reportes.",
-				"NSPhotoLibraryUsageDescription": "Eleva requiere permiso para usar la galeria de la cámara, para poder enviar evidencia de los reportes.",
-				"NSLocationWhenInUseUsageDescription": "Eleva necesito permisos de localizacion para informar a adminstración en caso de una emergencia",
-				"NSLocationAlwaysUsageDescription": "Eleva necesito permisos de localizacion para informar a adminstración en caso de una emergencia",
-				"NSLocationUsageDescription": "Eleva necesito permisos de localizacion para informar a adminstración en caso de una emergencia",
-				"LSApplicationQueriesSchemes": ["whatsapp"]
+				"NSPhotoLibraryUsageDescription": "Eleva requiere permiso para usar la galeria de la cámara, para poder enviar evidencia de los reportes."
 			}
 		},
 		"web": {
-			"favicon": "./assets/favicon.png"
+			"favicon": "./assets/icon.png"
 		},
 		"android": {
 			"package": "com.dwitmexico.elevaapp",
@@ -46,8 +42,6 @@
 				"CAMERA",
 				"READ_CONTACTS",
 				"NOTIFICATIONS",
-				"ACCESS_COARSE_LOCATION",
-				"ACCESS_FINE_LOCATION",
 				"ACCESS_NETWORK_STATE",
 				"READ_EXTERNAL_STORAGE",
 				"WRITE_EXTERNAL_STORAGE"

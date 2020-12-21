@@ -75,7 +75,7 @@ async function registerForPushNotificationsAsync() {
 			const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
 			finalStatus = status;
 		}
-		if (finalStatus !== 'granted') {
+		/* if (finalStatus !== 'granted') {
 			if (Platform.OS == 'ios') {
 				Alert.alert(
 					'Permisos',
@@ -84,6 +84,9 @@ async function registerForPushNotificationsAsync() {
 						{
 							text: "ir a configuración",
 							onPress: () => Linking.openURL('app-settings:')
+						},
+						{
+							text: "Cerrar",
 						}
 					],
 				)
@@ -91,7 +94,7 @@ async function registerForPushNotificationsAsync() {
 				Alert.alert(null, 'Eleva requiere permisos para recibir notificaciones!');
 			}
 			return;
-		}
+		} */
 		token = (await Notifications.getExpoPushTokenAsync()).data;
 	} else {
 		Alert.alert(null, 'Solo dispositivos fisicos pueden recibir notificaciones');
