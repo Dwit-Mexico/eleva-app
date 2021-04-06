@@ -35,7 +35,7 @@ function SeleccionarEquipo({equipo, setEquipo}) {
 					// backgroundColor: 'lightgray',
 				}}
 			>
-				<Text style={Styles.titleStyle}>¿Que equipo presenta problemas?</Text>
+				<Text style={Styles.titleStyle}>¿Que equipo presenta detalle?</Text>
 				<SelectEquipo onSelect = {(opcion) => onSelect(opcion)} value={equipo}/>
 			</Animated.View>
 		</View>

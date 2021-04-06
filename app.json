@@ -2,7 +2,7 @@
 	"expo": {
 		"name": "Eleva",
 		"slug": "elevaApp",
-		"version": "1.0.2",
+		"version": "1.0.3",
 		"orientation": "portrait",
 		"icon": "./assets/icon.png",
 		"splash": {
@@ -21,13 +21,13 @@
 		],
 		"ios": {
 			"supportsTablet": false,
-			"buildNumber": "2",
+			"buildNumber": "1",
 			"bundleIdentifier": "com.elevacap.customerservice",
 			"requireFullScreen": true,
 			"infoPlist": {
 				"NSNotificationDescription": "Eleva requiere permiso para recibir notificaciones",
 				"NSCameraUsageDescription": "Eleva requiere acceso a la cámara, para poder tomar fotos y enviarlo como evidencia de los reportes.",
-				"NSPhotoLibraryUsageDescription": "Eleva requiere permiso para usar la galeria de la cámara, para poder enviar evidencia de los reportes.",
+				"NSPhotoLibraryUsageDescription": "Eleva requiere permiso para usar la galeria de la cámara, para poder enviar evidencia de los reportes."
 			}
 		},
 		"web": {
@@ -46,7 +46,7 @@
 				"READ_EXTERNAL_STORAGE",
 				"WRITE_EXTERNAL_STORAGE"
 			],
-			"versionCode": 3
+			"versionCode": 4
 		}
   	}
 }

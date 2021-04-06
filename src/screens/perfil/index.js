@@ -88,9 +88,9 @@ function Perfil({ navigation, context }) {
 			</View>
 			<View style={{flex: 1, borderTopColor: '#B29360', borderTopWidth: 5, position: 'relative', alignItems: 'center'}}>
 				<View style={styleUserData}>
-					<Text style={{fontSize: 18, color: '#B29360', fontWeight: 'bold'}}>{user.Nombre}</Text>
+					<Text allowFontScaling={false} style={{fontSize: 18, color: '#B29360', fontWeight: 'bold'}}>{user.Nombre}</Text>
 					<View style={{height: 8}}/>
-					<Text>{user.Direccion}</Text>
+					<Text allowFontScaling={false}  style={{fontSize: 18, color: '#000'}}>{user.Direccion}</Text>
 				</View>
 				<View style={{flex: 1, width: '100%', backgroundColor: '#fff'}}>
 					<Container>
@@ -107,13 +107,21 @@ function Perfil({ navigation, context }) {
 								{user.Propietario &&
 									<View style={{width: 130}}>
 										<BotonAccion onPress = {() => navigation.navigate('Usuarios', { unidades })} disabled = {loading}>
-											<Text style={StylesTexts.logoutButton}>Usuarios</Text>
+											<Text
+												allowFontScaling={false}
+												style={StylesTexts.logoutButton}>
+												Usuarios
+											</Text>
 										</BotonAccion>
 									</View>
 								}
 								<View style={{width: 130}}>
 									<TouchableOpacity onPress={_logOut.bind(this, context)} style={StylesButtons.logoutButton}>
-										<Text style={StylesTexts.logoutButton}>Cerrar sesión</Text>
+										<Text
+											allowFontScaling={false}
+											style={StylesTexts.logoutButton}>
+											Cerrar sesión
+										</Text>
 									</TouchableOpacity>
 								</View>
 							</View>

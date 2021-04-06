@@ -21,7 +21,11 @@ const BotonEnviar = (props) => {
 	}
 	return (
 		<TouchableOpacity style={Styles.boton} onPress={_onSubmit.bind(this, onSubmit)}>
-			<Text style={Styles.text}>Enviar</Text>
+			<Text
+				allowFontScaling={false}
+				style={Styles.text}>
+				Enviar
+			</Text>
 		</TouchableOpacity>
 	)
 }

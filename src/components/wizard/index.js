@@ -76,7 +76,11 @@ const Wizard = ({context, steps, ultimo, onSubmit, loading, terminado}) => {
 					<TouchableOpacity
 						onPress={prevStep.bind(this)}
 						style={WizardStyle.navigationButton}>
-						<Text style={WizardStyle.navigationButtonText}>Anterior</Text>
+						<Text
+							allowFontScaling={false}
+							style={WizardStyle.navigationButtonText}>
+								Anterior
+						</Text>
 					</TouchableOpacity>
 					{page == ultimo ?
 						<BotonEnviar onSubmit = {onSubmit} loading = {loading}/>
@@ -84,7 +88,11 @@ const Wizard = ({context, steps, ultimo, onSubmit, loading, terminado}) => {
 						<TouchableOpacity
 							style={WizardStyle.navigationButton}
 							onPress={nextStep.bind(this)}>
-							<Text style={WizardStyle.navigationButtonText}>Siguiente</Text>
+							<Text
+								allowFontScaling={false}
+								style={WizardStyle.navigationButtonText}>
+									Siguiente
+							</Text>
 						</TouchableOpacity>
 					}
 				</View>

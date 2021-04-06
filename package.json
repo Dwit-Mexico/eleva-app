@@ -6,9 +6,9 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-	"eject": "expo eject",
-	"build:android": "expo build:android --config app.json --release-channel prod-v1.0.2",
-	"build:ios": "expo build:ios --config app.json --release-channel prod-v1.0.2",
+    "eject": "expo eject",
+    "build:android": "expo build:android --config app.json --release-channel prod-v1.0.3",
+    "build:ios": "expo build:ios --config app.json --release-channel prod-v1.0.3",
     "build:test": "expo build:android --config app.test.json --release-channel test-v1.0.3",
     "build:test_ios": "expo build:ios --config app.test.json --release-channel test-v1.0.3"
   },

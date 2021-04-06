@@ -49,7 +49,7 @@ function SeleccionarArea({setArea, area, context}) {
 					// backgroundColor: 'lightgray',
 				}}
 			>
-				<Text style={Styles.titleStyle}>¿Dónde tienes el problema?</Text>
+				<Text style={Styles.titleStyle}>¿Dónde tienes el detalle?</Text>
 				<SelectArea onSelect = {onSelect.bind(this)} value={area}/>
 			</Animated.View>
 		</View>

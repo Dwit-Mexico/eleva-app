@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 /** SCREENS */
 import LoginScreen from '../screens/login';
-import RcuperarPassword from '../screens/login/RecuperarPassword';
+import RecuperarPassword from '../screens/login/RecuperarPassword';
 import ActualizarPassword from '../screens/login/ActualizarPassword';
 
 const Stack = createStackNavigator();
@@ -21,8 +21,8 @@ function AuthStack() {
 				options={{
 					header: () => null
 				}}
-				name="RcuperarPassword"
-				component={ RcuperarPassword } />
+				name="RecuperarPassword"
+				component={ RecuperarPassword } />
 			<Stack.Screen
 				options={{
 					header: () => null
