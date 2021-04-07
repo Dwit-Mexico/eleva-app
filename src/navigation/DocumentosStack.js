@@ -9,7 +9,10 @@ const Stack = createStackNavigator();
 function DocumentosStack() {
 	return (
 		<Stack.Navigator>
-			<Stack.Screen name="Documentos" component={Documentos}/>
+			<Stack.Screen
+				options={{header: () => null}}
+				name="Documentos"
+				component={Documentos}/>
 		</Stack.Navigator>
 	);
 }

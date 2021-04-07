@@ -10,6 +10,7 @@ function PerfilStack({navigation}) {
 	return (
 		<Stack.Navigator>
 			<Stack.Screen
+				options={{header: () => null}}
 				name="Perfil"
 				component={Perfil}/>
 		</Stack.Navigator>
