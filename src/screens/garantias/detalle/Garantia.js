@@ -167,7 +167,7 @@ const DetalleGarantia = ({ navigation, context }) => {
 
 						<View style={{height: 24}}/>
 						<Text style={{textAlign: 'center', fontSize: 32, padding: 5, color: Colores.DetalleText}}>
-							Fecha Visita: {moment(info.FechaVisita).format('DD/MM/YYYY HH:mm')}
+							Fecha Visita: { info.FechaVisita ? moment(info.FechaVisita).format('DD/MM/YYYY HH:mm') : 'Sin fecha asignada'}
 						</Text>
 
 						<View style={{height: 32}}/>
