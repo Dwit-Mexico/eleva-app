@@ -93,7 +93,9 @@ class LoginScreen extends Component {
 								<View style={{height: 32}} />
 								<View style={{width: 300}}>
 									<Boton onPress = {this._handleSubmit.bind(this)} loading = {this.state.loading}>
-										<Text style={TextStyle.loginButton}>Iniciar</Text>
+										<Text
+											allowFontScaling={false}
+											style={TextStyle.loginButton}>Iniciar</Text>
 									</Boton>
 								</View>
 								<View style={{height: 16}} />

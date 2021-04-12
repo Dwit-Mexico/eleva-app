@@ -42,13 +42,17 @@ function Finalizar({ aceptarAction, finalizarAction, loadingAceptar, loadingFina
 				<View style={{flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
 					<View style={{width: 150}}>
 						<BotonWizard style={ButtonStyles.button} onPress={aceptarAction.bind(this)} loading={loadingAceptar}>
-							<Text style={{color: 'white', fontSize: 18}}>Aceptar</Text>
+							<Text
+								allowFontScaling={false}
+								style={{color: 'white', fontSize: 18}}>Aceptar</Text>
 						</BotonWizard>
 					</View>
 					<Text>&nbsp;</Text>
 					<View style={{width: 150}}>
 						<BotonWizard style={ButtonStyles.button} onPress={finalizarAction.bind(this)} loading={loadingFinalizar}>
-							<Text style={{color: 'white', fontSize: 18}}>Finalizar</Text>
+							<Text
+								allowFontScaling={false}
+								style={{color: 'white', fontSize: 18}}>Finalizar</Text>
 						</BotonWizard>
 					</View>
 				</View>

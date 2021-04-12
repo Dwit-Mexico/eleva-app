@@ -99,8 +99,12 @@ function CardGarantia(props) {
 						</View>
 					</View>
 					<View style={{marginTop: 20, width: '40%', alignItems: 'flex-end'}}>
-						<Text style={{textAlign: 'right', fontWeight: 'bold', marginBottom: 5, color: estado.color}}>{estado.text}</Text>
-						<Text allowFontScaling={false} style={{textAlign: 'right', fontWeight: 'bold', color: Colores.CardGarantiaColor}}>{props.fecha}</Text>
+						<Text
+							allowFontScaling={false}
+							style={{textAlign: 'right', fontWeight: 'bold', marginBottom: 5, color: estado.color}}>{estado.text}</Text>
+						<Text
+							allowFontScaling={false}
+							style={{textAlign: 'right', fontWeight: 'bold', color: Colores.CardGarantiaColor}}>{props.fecha}</Text>
 					</View>
 				</View>
 			</TouchableOpacity>
@@ -123,8 +127,12 @@ function CardGarantia(props) {
 					</View>
 				</View>
 				<View style={{marginTop: 20, width: '40%'}}>
-					<Text style={{fontSize: 12, textAlign: 'right', fontWeight: 'bold', color: Colores.CardGarantiaColor, marginBottom: 5, color: estado.color}}>{estado.text}</Text>
-					<Text style={{fontSize: 12, textAlign: 'right', fontWeight: 'bold', color: Colores.CardGarantiaColor}}>{props.fecha}</Text>
+					<Text
+						allowFontScaling={false}
+						style={{fontSize: 12, textAlign: 'right', fontWeight: 'bold', color: Colores.CardGarantiaColor, marginBottom: 5, color: estado.color}}>{estado.text}</Text>
+					<Text
+						allowFontScaling={false}
+						style={{fontSize: 12, textAlign: 'right', fontWeight: 'bold', color: Colores.CardGarantiaColor}}>{props.fecha}</Text>
 					<Text style={{fontSize: 12, textAlign: 'right', fontWeight: 'bold', color: Colores.CardGarantiaColor }}>{props.NoSolicitud}</Text>
 				</View>
 			</View>

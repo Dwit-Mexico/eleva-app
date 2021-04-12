@@ -60,7 +60,9 @@ function Usuarios({navigation}) {
 				<Container>
 					<View>
 						<BotonAccion onPress={() => navigation.navigate('AgregarUsuario', { unidades })}>
-							<Text style={Styles.ButtonText}>Agregar Usuario</Text>
+							<Text
+								allowFontScaling={false}
+								style={Styles.ButtonText}>Agregar Usuario</Text>
 						</BotonAccion>
 					</View>
 					<View style={{height: 24}}/>

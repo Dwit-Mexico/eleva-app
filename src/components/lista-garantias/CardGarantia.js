@@ -33,7 +33,11 @@ function CardGarantia(props) {
 					</View>
 				</View>
 				<View style={{flexDirection: 'column', justifyContent: 'flex-end', alignItems: 'flex-end'}}>
-					<Text style={{ padding: 2, fontSize: 15, fontWeight: 'bold', textAlign: 'center', color: Colores.CardGarantiaColor }}>{moment(info.Fecha).tz('GMT').format('DD/MM/YYYY')}</Text>
+					<Text
+						allowFontScaling={true}
+						style={{ padding: 2, fontSize: 15, fontWeight: 'bold', textAlign: 'center', color: Colores.CardGarantiaColor }}>
+						{moment(info.Fecha).tz('GMT').format('DD/MM/YYYY')}
+					</Text>
 					<Text style={{ padding: 2, fontSize: 16, textAlign: 'center', color: Colores.CardGarantiaColor }}>{info.NoSolicitud}</Text>
 				</View>
 			</View>

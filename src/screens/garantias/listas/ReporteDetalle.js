@@ -48,7 +48,9 @@ const ListaDetalleReporte = ({ navigation, context }) => {
 								<Text style={{fontSize: 19, fontWeight: 'bold', color: Colores.CardGarantiaTitulo}}>&nbsp; {info.NombreArea}</Text>
 							</View>
 							<View style={{flexDirection: "column", width: '50%', alignItems: 'flex-end', justifyContent: 'center'}}>
-								<Text style={{fontSize: 15, fontWeight: 'bold', color: Colores.CardGarantiaColor}}>{moment(info.Fecha).tz('GMT').format('DD/MM/YYYY')}</Text>
+								<Text
+									allowFontScaling={false}
+									style={{fontSize: 15, fontWeight: 'bold', color: Colores.CardGarantiaColor}}>{moment(info.Fecha).tz('GMT').format('DD/MM/YYYY')}</Text>
 								<Text style={{fontSize: 15, fontWeight: 'bold', color: Colores.CardGarantiaColor}}>{info.NoSolicitud}</Text>
 							</View>
 						</View>

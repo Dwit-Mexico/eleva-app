@@ -153,7 +153,9 @@ const DetalleReporte = ({ navigation, context }) => {
 							<View style={{paddingHorizontal: 30, width: '100%', justifyContent: 'center', alignItems: 'center'}}>
 								{info.IdEstado == 1?
 									<Button onPress={_cancelarReporte.bind(this)} loading = {loadingCancel}>
-										<Text style={Styles.buttonText}>Cancelar Reporte</Text>
+										<Text
+											allowFontScaling={false}
+											style={Styles.buttonText}>Cancelar Reporte</Text>
 									</Button>
 									:
 									null

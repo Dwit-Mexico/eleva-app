@@ -156,7 +156,9 @@ function AgregarUsuario() {
 						</View>
 						<View style={{height: 8}}/>
 						<BotonAccion onPress={agregarUsuario.bind(this)} loading = {loading}>
-							<Text style={{fontSize: 18, color: 'white', fontWeight: 'bold'}}>Agregar</Text>
+							<Text
+								allowFontScaling={false}
+								style={{fontSize: 18, color: 'white', fontWeight: 'bold'}}>Agregar</Text>
 						</BotonAccion>
 					</ScrollView>
 				</Container>
