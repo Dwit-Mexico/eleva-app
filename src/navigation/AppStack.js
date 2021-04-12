@@ -16,6 +16,8 @@ import BottomNavigator from './BottomTabNavigator';
 
 //Screens
 import Notificaciones from '../screens/notificaciones';
+import NotificacionesDetalle from '../screens/notificaciones/detalle';
+
 import GarantiasDetalle from '../screens/garantias/Garantias';
 import NuevaGarantia from '../screens/garantias/Nueva';
 
@@ -152,6 +154,17 @@ function AppStack(props) {
 			<Stack.Screen
 				name="Notificaciones"
 				component={Notificaciones}
+				options={{
+					headerTitle: 'Notificaciones',
+					headerStyle: {
+						backgroundColor: '#4C4C4C'
+					},
+					headerTintColor: '#B29360'
+				}}/>
+
+			<Stack.Screen
+				name="NotificacionDetalle"
+				component={NotificacionesDetalle}
 				options={{
 					headerTitle: 'Notificaciones',
 					headerStyle: {

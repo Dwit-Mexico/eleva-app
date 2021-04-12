@@ -10,5 +10,9 @@ export default StyleSheet.create({
 	},
 	inputs: {
 		color: '#fff'
+	},
+	detalle: {
+		color: '#fff',
+		fontSize: 18
 	}
 });

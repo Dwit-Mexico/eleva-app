@@ -12,7 +12,7 @@ import Colores from '../../styles/colores';
 
 const request = new Request();
 
-function Notificaciones() {
+function Notificaciones({navigation}) {
 	const [loading, setLoading] = useState(true);
 	const [lista, setLista] = useState([]);
 
@@ -48,6 +48,7 @@ function Notificaciones() {
 							:
 							<View style={{width: '100%', height: '100%'}}>
 								<ListaNotificaciones
+									navigation = {navigation}
 									lista 	=	{lista}
 									reload 	=	{reload.bind(this)}/>
 							</View>

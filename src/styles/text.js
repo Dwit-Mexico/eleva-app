@@ -6,7 +6,8 @@ import Colores from './colores';
 export default StyleSheet.create({
 	LoginTitle: {
 		fontSize: 18,
-		color: Colores.tituloLogin
+		color: Colores.tituloLogin,
+		textAlign: 'center'
 	},
 	loginButton: {
 		color: Colores.loginButtonText,

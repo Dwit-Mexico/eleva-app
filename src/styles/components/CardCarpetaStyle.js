@@ -11,7 +11,7 @@ export default StyleSheet.create({
 		borderBottomWidth: 2,
 		borderBottomColor: '#eaeaea',
 		paddingVertical: 30,
-		paddingLeft: 20
+		paddingHorizontal: 10
 	},
 	cardLista: {
 		flexDirection: 'row',
@@ -22,7 +22,7 @@ export default StyleSheet.create({
 		padding: 10
 	},
 	text: {
-		marginLeft: 25,
+		flex: 1,
 		fontSize: 18,
 		color: Colores.CardCarpetaColor,
 		fontWeight: 'bold'

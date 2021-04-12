@@ -8,9 +8,12 @@ import Colores from '../../styles/colores';
 
 function ListaViviendas({ navigation, item }) {
 	return (
-		<TouchableOpacity style={Style.card} onPress={() => navigation.navigate('ListaDocumentos', { data: item, title: item.NombreFolder })}>
-			<FontAwesome5 name="folder" size={40} color={Colores.CardCarpetaColor}/>
-			<Text style={Style.text}>{item.NombreFolder.toUpperCase()}</Text>
+		<TouchableOpacity onPress={() => navigation.navigate('ListaDocumentos', { data: item, title: item.NombreFolder })}>
+			<View style={Style.card}>
+				<FontAwesome5 name="folder" size={40} color={Colores.CardCarpetaColor}/>
+				<View style={{width: 20}}></View>
+				<Text style={Style.text}>{item.NombreFolder.toUpperCase()}</Text>
+			</View>
 		</TouchableOpacity>
 	);
 }

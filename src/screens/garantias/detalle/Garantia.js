@@ -86,43 +86,45 @@ const DetalleGarantia = ({ navigation, context }) => {
 			<ImageBackground source={require('../../../../assets/background.jpg')} style={{flex: 1, height: '100%'}}>
 				<View style={Styles.backGround}>
 					<Container>
-						<View style={{height: 8}}/>
+						<ScrollView>
+							<View style={{height: 8}}/>
 
-						<Text style={{textAlign: 'center', color: Colores.DetalleText, fontSize: 18, fontWeight: 'bold'}}>No Aplica Garantía</Text>
+							<Text style={{textAlign: 'center', color: Colores.DetalleText, fontSize: 18, fontWeight: 'bold'}}>No Aplica Garantía</Text>
 
-						<View style={Styles.lista}>
-							<FontAwesome5 name="map-marked-alt" size={20} color = {Colores.DetalleText}/>
-							<Text style={Styles.listaText}>&nbsp;{info.NombreProyecto}</Text>
-						</View>
-						<View style={Styles.lista}>
-							<FontAwesome5 name="home" size={20} color = {Colores.DetalleText}/>
-							<Text style={Styles.listaText}>&nbsp;{info.Numero}</Text>
-						</View>
-						<View style={Styles.lista}>
-							<FontAwesome5 name="map-marker-alt" size={20} color = {Colores.DetalleText}/>
-							<Text style={Styles.listaText}>&nbsp;{info.NombreArea}</Text>
-						</View>
-						<View style={Styles.lista}>
-							<FontAwesome5 name="tools" size={20} color = {Colores.DetalleText}/>
-							<Text style={Styles.listaText}>&nbsp;{info.NombreEquipo}</Text>
-						</View>
-						<View style={Styles.lista}>
-							<FontAwesome5 name="house-damage" size={20} color = {Colores.DetalleText}/>
-							<Text style={Styles.listaText}>&nbsp;{info.NombreProblema}</Text>
-						</View>
-						<View style={Styles.lista}>
-							<FontAwesome5 name="hashtag" size={20} color = {Colores.DetalleText}/>
-							<Text style={Styles.listaText}>&nbsp;{info.NoSolicitud}</Text>
-						</View>
+							<View style={Styles.lista}>
+								<FontAwesome5 name="map-marked-alt" size={20} color = {Colores.DetalleText}/>
+								<Text style={Styles.listaText}>&nbsp;{info.NombreProyecto}</Text>
+							</View>
+							<View style={Styles.lista}>
+								<FontAwesome5 name="home" size={20} color = {Colores.DetalleText}/>
+								<Text style={Styles.listaText}>&nbsp;{info.Numero}</Text>
+							</View>
+							<View style={Styles.lista}>
+								<FontAwesome5 name="map-marker-alt" size={20} color = {Colores.DetalleText}/>
+								<Text style={Styles.listaText}>&nbsp;{info.NombreArea}</Text>
+							</View>
+							<View style={Styles.lista}>
+								<FontAwesome5 name="tools" size={20} color = {Colores.DetalleText}/>
+								<Text style={Styles.listaText}>&nbsp;{info.NombreEquipo}</Text>
+							</View>
+							<View style={Styles.lista}>
+								<FontAwesome5 name="house-damage" size={20} color = {Colores.DetalleText}/>
+								<Text style={Styles.listaText}>&nbsp;{info.NombreProblema}</Text>
+							</View>
+							<View style={Styles.lista}>
+								<FontAwesome5 name="hashtag" size={20} color = {Colores.DetalleText}/>
+								<Text style={Styles.listaText}>&nbsp;{info.NoSolicitud}</Text>
+							</View>
 
-						<View style={{height: 16}}/>
+							<View style={{height: 16}}/>
 
-						<View style={Styles.comentarios}>
-							<Text style={{fontSize: 16, color: '#000'}}>
-								{info.ComentariosAplica}
-							</Text>
-						</View>
-						<View style={{height: 32}}/>
+							<View style={Styles.comentarios}>
+								<Text style={{fontSize: 16, color: '#000'}}>
+									{info.ComentariosAplica}
+								</Text>
+							</View>
+							<View style={{height: 32}}/>
+						</ScrollView>
 					</Container>
 				</View>
 			</ImageBackground>
@@ -134,43 +136,47 @@ const DetalleGarantia = ({ navigation, context }) => {
 			<ImageBackground source={require('../../../../assets/background.jpg')} style={{flex: 1, height: '100%'}}>
 				<View style={Styles.backGround}>
 					<Container>
-						<View style={{height: 8}}/>
+						<ScrollView>
+							<View style={{height: 8}}/>
 
-						<Text style={{textAlign: 'center', color: '#000', fontSize: 18, fontWeight: 'bold', color: Colores.DetalleText}}>Programada</Text>
+							<Text style={{textAlign: 'center', color: '#000', fontSize: 18, fontWeight: 'bold', color: Colores.DetalleText}}>Programada</Text>
 
-						<View style={{height: 16}}/>
+							<View style={{height: 16}}/>
 
-						<View style={Styles.lista}>
-							<FontAwesome5 name="map-marked-alt" size={20} color = {Colores.DetalleText}/>
-							<Text style={Styles.listaText}>&nbsp;{info.NombreProyecto}</Text>
-						</View>
-						<View style={Styles.lista}>
-							<FontAwesome5 name="home" size={20} color = {Colores.DetalleText}/>
-							<Text style={Styles.listaText}>&nbsp;{info.Numero}</Text>
-						</View>
-						<View style={Styles.lista}>
-							<FontAwesome5 name="map-marker-alt" size={20} color = {Colores.DetalleText}/>
-							<Text style={Styles.listaText}>&nbsp;{info.NombreArea}</Text>
-						</View>
-						<View style={Styles.lista}>
-							<FontAwesome5 name="tools" size={20} color = {Colores.DetalleText}/>
-							<Text style={Styles.listaText}>&nbsp;{info.NombreEquipo}</Text>
-						</View>
-						<View style={Styles.lista}>
-							<FontAwesome5 name="house-damage" size={20} color = {Colores.DetalleText}/>
-							<Text style={Styles.listaText}>&nbsp;{info.NombreProblema}</Text>
-						</View>
-						<View style={Styles.lista}>
-							<FontAwesome5 name="hashtag" size={20} color = {Colores.DetalleText}/>
-							<Text style={Styles.listaText}>&nbsp;{info.NoSolicitud}</Text>
-						</View>
+							<View style={Styles.lista}>
+								<FontAwesome5 name="map-marked-alt" size={20} color = {Colores.DetalleText}/>
+								<Text style={Styles.listaText}>&nbsp;{info.NombreProyecto}</Text>
+							</View>
+							<View style={Styles.lista}>
+								<FontAwesome5 name="home" size={20} color = {Colores.DetalleText}/>
+								<Text style={Styles.listaText}>&nbsp;{info.Numero}</Text>
+							</View>
+							<View style={Styles.lista}>
+								<FontAwesome5 name="map-marker-alt" size={20} color = {Colores.DetalleText}/>
+								<Text style={Styles.listaText}>&nbsp;{info.NombreArea}</Text>
+							</View>
+							<View style={Styles.lista}>
+								<FontAwesome5 name="tools" size={20} color = {Colores.DetalleText}/>
+								<Text style={Styles.listaText}>&nbsp;{info.NombreEquipo}</Text>
+							</View>
+							<View style={Styles.lista}>
+								<FontAwesome5 name="house-damage" size={20} color = {Colores.DetalleText}/>
+								<Text style={Styles.listaText}>&nbsp;{info.NombreProblema}</Text>
+							</View>
+							<View style={Styles.lista}>
+								<FontAwesome5 name="hashtag" size={20} color = {Colores.DetalleText}/>
+								<Text style={Styles.listaText}>&nbsp;{info.NoSolicitud}</Text>
+							</View>
 
-						<View style={{height: 24}}/>
-						<Text style={{textAlign: 'center', fontSize: 32, padding: 5, color: Colores.DetalleText}}>
-							Fecha Visita: { info.FechaVisita ? moment(info.FechaVisita).format('DD/MM/YYYY HH:mm') : 'Sin fecha asignada'}
-						</Text>
+							<View style={{height: 24}}/>
+							<Text
+								allowFontScaling={false}
+								style={{textAlign: 'center', fontSize: 25, padding: 5, color: Colores.DetalleText}}>
+									Fecha Visita: { info.FechaVisita ? moment(info.FechaVisita).format('DD/MM/YYYY HH:mm') : 'Sin fecha asignada'}
+							</Text>
 
-						<View style={{height: 32}}/>
+							<View style={{height: 32}}/>
+						</ScrollView>
 					</Container>
 				</View>
 			</ImageBackground>
