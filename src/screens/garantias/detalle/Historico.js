@@ -84,8 +84,8 @@ const Historico = ({ context }) => {
 						<View style={{flexDirection: 'row', justifyContent: 'center', width: '100%'}}>
 							<View style={Styles.imagenesContent}>
 								<ImagenButton index = {1} imagen = {info.ImgEvidencia1? {uri: info.ImgEvidencia1} : null} navigation = {navigation}/>
-								<ImagenButton index = {2} imagen = {info.ImgEvidencia1? {uri: info.ImgEvidencia1} : null} navigation = {navigation}/>
-								<ImagenButton index = {3} imagen = {info.ImgEvidencia1? {uri: info.ImgEvidencia1} : null} navigation = {navigation}/>
+								<ImagenButton index = {2} imagen = {info.ImgEvidencia2? {uri: info.ImgEvidencia2} : null} navigation = {navigation}/>
+								<ImagenButton index = {3} imagen = {info.ImgEvidencia3? {uri: info.ImgEvidencia3} : null} navigation = {navigation}/>
 							</View>
 						</View>
 
