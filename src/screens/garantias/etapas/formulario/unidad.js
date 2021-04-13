@@ -35,7 +35,7 @@ function SeleccionarUnidad({unidad, setUnidad}) {
 					// backgroundColor: 'lightgray',
 				}}
 			>
-				<Text style={Styles.titleStyle}>¿En donde ocurrió el problema?</Text>
+				<Text style={Styles.titleStyle}>¿En donde ocurrió el detalle?</Text>
 				<SelectUnidad onSelect = {onSelect.bind(this)} value = {unidad}/>
 			</Animated.View>
 		</View>

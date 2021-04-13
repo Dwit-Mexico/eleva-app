@@ -167,7 +167,7 @@ function SeleccionarFotos({ navigation, imagenes, context }) {
 					// backgroundColor: 'lightgray',
 				}}
 			>
-				<Text style={Styles.titleStyle}>¿Tienes fotos del problema?</Text>
+				<Text style={Styles.titleStyle}>¿Tienes fotos del detalle?</Text>
 
 				<View style={{height: 8}}/>
 
