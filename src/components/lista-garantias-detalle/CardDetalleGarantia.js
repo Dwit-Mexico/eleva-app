@@ -70,10 +70,14 @@ function CardGarantia(props) {
 				color = '#fff';
 				break;
 			case 7:
+				text = 'Realizado';
+				color = 'yellow';
+				break;
+			case 8:
 				text = 'Por Valorar';
 				color = '#fff';
 				break;
-			case 8:
+			case 9:
 				text = 'Finalizada';
 				color = '#fff';
 				break;

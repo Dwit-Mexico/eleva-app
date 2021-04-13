@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Alert, ScrollView, View, Text, TextInput, ImageBackground, TouchableOpacity, Image, Button } from 'react-native';
+import { Alert, ScrollView, View, Text, TextInput, ImageBackground } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { Consumer } from '../../../context';
 import { FontAwesome5 } from '@expo/vector-icons';
@@ -23,7 +23,6 @@ const DetalleGarantia = ({ navigation, context }) => {
 	const [fecha, setFecha] = useState(null);
 	const [comentarios, setComentarios] = useState('');
 	const [loading, setLoading] = useState(false);
-	const [respuesta, setRespuesta] = useState(false);
 	const route = useRoute();
 
 	if(route.params) {
@@ -80,10 +79,6 @@ const DetalleGarantia = ({ navigation, context }) => {
 		}
 
 		setLoading(false);
-	}
-
-	async function aceptarRealizado() {
-		Alert.alert(null, response.message || 'Error interno');
 	}
 
 	if (info.IdEstado == 3) {
@@ -179,105 +174,6 @@ const DetalleGarantia = ({ navigation, context }) => {
 								style={{textAlign: 'center', fontSize: 25, padding: 5, color: Colores.DetalleText}}>
 									Fecha Visita: { info.FechaVisita ? moment(info.FechaVisita).format('DD/MM/YYYY HH:mm') : 'Sin fecha asignada'}
 							</Text>
-
-							<View style={{height: 32}}/>
-						</ScrollView>
-					</Container>
-				</View>
-			</ImageBackground>
-		)
-	}
-
-	const ImagenButton = ({ navigation, index, imagen }) => {
-		const EmptyImage = require('../../../../assets/picture_icon.png');
-
-		//console.log('Imagen', index, imagen);
-		return (
-			<View style={{width: 100, height: 80, padding: 5}}>
-				<TouchableOpacity onPress={() =>  console.log(navigation, index, imagen, _borrarImagen)}>
-					<Image source={imagen || EmptyImage} style={{width: '100%', height: '100%'}} resizeMode='cover'/>
-				</TouchableOpacity>
-			</View>
-		)
-	}
-
-	if (info.IdEstado == 7) {
-		return (
-			<ImageBackground source={require('../../../../assets/background.jpg')} style={{flex: 1, height: '100%'}}>
-				<View style={Styles.backGround}>
-					<Container>
-						<ScrollView>
-							<View style={{height: 8}}/>
-
-							<Text style={{textAlign: 'center', color: '#000', fontSize: 18, fontWeight: 'bold', color: Colores.DetalleText}}>
-								Realizada
-							</Text>
-
-							<View style={{height: 16}}/>
-
-							<View style={Styles.lista}>
-								<FontAwesome5 name="map-marked-alt" size={20} color = {Colores.DetalleText}/>
-								<Text style={Styles.listaText}>&nbsp;{info.NombreProyecto}</Text>
-							</View>
-							<View style={Styles.lista}>
-								<FontAwesome5 name="home" size={20} color = {Colores.DetalleText}/>
-								<Text style={Styles.listaText}>&nbsp;{info.Numero}</Text>
-							</View>
-							<View style={Styles.lista}>
-								<FontAwesome5 name="map-marker-alt" size={20} color = {Colores.DetalleText}/>
-								<Text style={Styles.listaText}>&nbsp;{info.NombreArea}</Text>
-							</View>
-							<View style={Styles.lista}>
-								<FontAwesome5 name="tools" size={20} color = {Colores.DetalleText}/>
-								<Text style={Styles.listaText}>&nbsp;{info.NombreEquipo}</Text>
-							</View>
-							<View style={Styles.lista}>
-								<FontAwesome5 name="house-damage" size={20} color = {Colores.DetalleText}/>
-								<Text style={Styles.listaText}>&nbsp;{info.NombreProblema}</Text>
-							</View>
-							<View style={Styles.lista}>
-								<FontAwesome5 name="hashtag" size={20} color = {Colores.DetalleText}/>
-								<Text style={Styles.listaText}>&nbsp;{info.NoSolicitud}</Text>
-							</View>
-							<View style={Styles.lista}>
-								<FontAwesome5 name="calendar" size={20} color = {Colores.DetalleText}/>
-								<Text style={Styles.listaText}>&nbsp;{ info.FechaVisita ? moment(info.FechaVisita).format('DD/MM/YYYY HH:mm') : 'Sin fecha asignada'}</Text>
-							</View>
-
-							<View style={{height: 16}}/>
-
-							<View style={{flexDirection: 'row', justifyContent: 'center', width: '100%'}}>
-								<View style={Styles.imagenesContent}>
-									<ImagenButton index = {1} imagen = {info.ImgEvidencia1? {uri: info.ImgEvidencia1} : null} navigation = {navigation}/>
-									<ImagenButton index = {2} imagen = {info.ImgEvidencia2? {uri: info.ImgEvidencia2} : null} navigation = {navigation}/>
-									<ImagenButton index = {3} imagen = {info.ImgEvidencia3? {uri: info.ImgEvidencia3} : null} navigation = {navigation}/>
-								</View>
-							</View>
-
-							<View style={{height: 16}}/>
-
-							<View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-								<Text style={{textAlign: 'justify', color: Colores.DetalleText}}>
-									¿El trabajo fue realizado?
-								</Text>
-							</View>
-
-							<View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-								<View style={{width: 100, padding: 5}}>
-									<Button title = "Si" color = {respuesta == true? '#B29360' : '#BFBFBF'} onPress = {() => setRespuesta(true)}/>
-								</View>
-								<View style={{width: 100, padding: 5}}>
-									<Button title = "No" color = {respuesta == false? '#B29360' : '#BFBFBF'} onPress = {() => setRespuesta(false)}/>
-								</View>
-							</View>
-
-							<View style={{height: 16}}/>
-
-							<View style={{flexDirection: 'row', justifyContent: 'center'}}>
-								<BotonAccion onPress = {aceptarRealizado.bind(this)} loading = {loading}>
-									<Text style={{fontSize: 18, color: 'white'}}>Enviar</Text>
-								</BotonAccion>
-							</View>
 
 							<View style={{height: 32}}/>
 						</ScrollView>

@@ -17,7 +17,7 @@ const ListaGarantia = ({ navigation, context }) => {
 			let reportes = context.reportes;
 
 			if (Array.isArray(reportes)) {
-				reportes = reportes.filter(r => r.IdEstado == 2 || r.IdEstado == 3 || r.IdEstado == 4 || r.IdEstado == 5);
+				reportes = reportes.filter(r => r.IdEstado == 2 || r.IdEstado == 3 || r.IdEstado == 4 || r.IdEstado == 5 || r.IdEstado == 7);
 				setLista(reportes);
 			}
 

@@ -31,6 +31,7 @@ import ListaDetalleReportes from '../screens/garantias/listas/ReporteDetalle';
 
 import DetalleReportes from '../screens/garantias/detalle/Reporte';
 import DetalleGarantias from '../screens/garantias/detalle/Garantia';
+import DetalleRealizado from '../screens/garantias/detalle/Realizado';
 import DetalleValoraciones from '../screens/garantias/detalle/Valoraciones';
 import DetalleHistorico from '../screens/garantias/detalle/Historico';
 
@@ -251,6 +252,16 @@ function AppStack(props) {
 				component={DetalleGarantias}
 				options={{
 					headerTitle: 'Garantía',
+					headerStyle: {
+						backgroundColor: '#4C4C4C'
+					},
+					headerTintColor: '#B29360'
+				}}/>
+			<Stack.Screen
+				name="DetalleRealizado"
+				component={DetalleRealizado}
+				options={{
+					headerTitle: 'Realizado',
 					headerStyle: {
 						backgroundColor: '#4C4C4C'
 					},
