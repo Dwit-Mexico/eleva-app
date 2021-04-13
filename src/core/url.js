@@ -7,6 +7,6 @@ if(process.env.NODE_ENV !== 'production') {
 	//API_URL	=	"https://eleva-cap.herokuapp.com";
 } else {
 	//API_URL 	= 	"https://eleva-test.herokuapp.com";
-	//API_URL		=	"https://elevatest.herokuapp.com";
-	API_URL		=	"https://eleva-cap.herokuapp.com";
+	API_URL		=	"https://elevatest.herokuapp.com";
+	//API_URL		=	"https://eleva-cap.herokuapp.com";
 }

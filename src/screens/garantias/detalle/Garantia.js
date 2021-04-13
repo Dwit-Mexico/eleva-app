@@ -1,5 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Alert, ScrollView, View, Text, TextInput, ImageBackground, TouchableOpacity, Image, Button } from 'react-native';
+import {
+	Alert,
+	ScrollView,
+	View,
+	Text,
+	TextInput,
+	ImageBackground,
+	TouchableOpacity,
+	Image,
+	Button,
+	Modal
+} from 'react-native';
+import ImageZoom from 'react-native-image-zoom-viewer';
 import { useRoute } from '@react-navigation/native';
 import { Consumer } from '../../../context';
 import { FontAwesome5 } from '@expo/vector-icons';
@@ -23,7 +35,9 @@ const DetalleGarantia = ({ navigation, context }) => {
 	const [fecha, setFecha] = useState(null);
 	const [comentarios, setComentarios] = useState('');
 	const [loading, setLoading] = useState(false);
-	const [respuesta, setRespuesta] = useState(false);
+	const [respuesta, setRespuesta] = useState(null);
+	const [modalImagen, setModalImagen] = useState(false);
+	const [zoomImagen, setZoomImagen] = useState(null);
 	const route = useRoute();
 
 	if(route.params) {
@@ -80,10 +94,6 @@ const DetalleGarantia = ({ navigation, context }) => {
 		}
 
 		setLoading(false);
-	}
-
-	async function aceptarRealizado() {
-		Alert.alert(null, response.message || 'Error interno');
 	}
 
 	if (info.IdEstado == 3) {
@@ -194,11 +204,46 @@ const DetalleGarantia = ({ navigation, context }) => {
 		//console.log('Imagen', index, imagen);
 		return (
 			<View style={{width: 100, height: 80, padding: 5}}>
-				<TouchableOpacity onPress={() =>  console.log(navigation, index, imagen, _borrarImagen)}>
+				<TouchableOpacity onPress={() =>  _openCamara(navigation, index, imagen)}>
 					<Image source={imagen || EmptyImage} style={{width: '100%', height: '100%'}} resizeMode='cover'/>
 				</TouchableOpacity>
 			</View>
 		)
+	}
+
+	function _openCamara(navigation, index, imagen) {
+		if (imagen) {
+			setModalImagen(true);
+			setZoomImagen(imagen);
+			return;
+		}
+	}
+
+	async function aceptarRealizado() {
+
+		if (respuesta == null) {
+			Alert.alert(null, 'Debe seleccionar una respuesta.')
+			return;
+		}
+
+		setLoading(true);
+
+		const data = {
+			respuesta,
+			IdSolicitud: info.IdSolicitud
+		}
+
+		const response = await request.post('/app/garantias/update/realizado', data);
+
+		if (response.error) {
+			Alert.alert(null, response.message || 'Error interno');
+		}
+		if (response.actualizado) {
+			await context.reloadReportes();
+			navigation.goBack();
+		}
+
+		setLoading(false);
 	}
 
 	if (info.IdEstado == 7) {
@@ -247,6 +292,7 @@ const DetalleGarantia = ({ navigation, context }) => {
 							<View style={{height: 16}}/>
 
 							<View style={{flexDirection: 'row', justifyContent: 'center', width: '100%'}}>
+								{console.log(info.ImgEvidencia1)}
 								<View style={Styles.imagenesContent}>
 									<ImagenButton index = {1} imagen = {info.ImgEvidencia1? {uri: info.ImgEvidencia1} : null} navigation = {navigation}/>
 									<ImagenButton index = {2} imagen = {info.ImgEvidencia2? {uri: info.ImgEvidencia2} : null} navigation = {navigation}/>
@@ -281,6 +327,22 @@ const DetalleGarantia = ({ navigation, context }) => {
 
 							<View style={{height: 32}}/>
 						</ScrollView>
+						<Modal
+							visible={modalImagen}
+							transparent={true}
+							onBackButtonPress={() => setModalImagen(false)}>
+							<View style={{flex: 1, backgroundColor: '#000'}}>
+								<View style={{flex: 0.1, padding: 10, justifyContent: 'center', alignItems: 'flex-end'}}>
+									<TouchableOpacity onPress={() => setModalImagen(false)}>
+										<FontAwesome5 name="times" size={35} color="#fff" />
+									</TouchableOpacity>
+								</View>
+								<ImageZoom
+									imageUrls = {zoomImagen? [ { url: zoomImagen.uri } ] : []}
+									renderIndicator = {() => null}
+									saveToLocalByLongPress={false}/>
+							</View>
+						</Modal>
 					</Container>
 				</View>
 			</ImageBackground>
