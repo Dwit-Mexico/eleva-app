@@ -18,7 +18,7 @@ const ListaValoraciones = ({navigation, context}) => {
 			let reportes = context.reportes;
 
 			if (Array.isArray(reportes)) {
-				reportes = reportes.filter(r => r.IdEstado == 7);
+				reportes = reportes.filter(r => r.IdEstado == 8);
 				setLista(reportes);
 			}
 

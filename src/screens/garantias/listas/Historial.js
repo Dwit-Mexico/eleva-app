@@ -18,7 +18,7 @@ const Historial = ({navigation, context}) => {
 			let reportes = context.reportes;
 
 			if (Array.isArray(reportes)) {
-				reportes = reportes.filter(r => r.IdEstado == 8 || r.IdEstado == 3);
+				reportes = reportes.filter(r => r.IdEstado == 9 || r.IdEstado == 3);
 				setLista(reportes);
 			}
 

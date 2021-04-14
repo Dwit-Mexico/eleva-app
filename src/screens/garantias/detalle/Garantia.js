@@ -229,7 +229,7 @@ const DetalleGarantia = ({ navigation, context }) => {
 		setLoading(true);
 
 		const data = {
-			respuesta,
+			Respuesta: respuesta,
 			IdSolicitud: info.IdSolicitud
 		}
 
