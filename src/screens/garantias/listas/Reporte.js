@@ -15,6 +15,17 @@ import Styles from '../../../styles/screens/GarantiasStyle';
 const ListaReporte = ({ navigation, context }) => {
 	const [lista, setLista] = useState([]);
 
+	useEffect(() => {
+		onRefresh();
+	}, [])
+
+	async function onRefresh() {
+		if (context) {
+			await context.reloadReportes();
+			await context.reloadReportesAgrupados();
+		}
+	}
+
 	if (context) {
 		useEffect(() => {
 			if (Array.isArray(context.reportesAgrupados)) {

@@ -12,6 +12,17 @@ import Styles from '../../../styles/screens/GarantiasStyle';
 const ListaGarantia = ({ navigation, context }) => {
 	const [lista, setLista] = useState([]);
 
+	useEffect(() => {
+		onRefresh();
+	}, [])
+
+	async function onRefresh() {
+		if (context) {
+			await context.reloadReportes();
+			await context.reloadReportesAgrupados();
+		}
+	}
+
 	if (context) {
 		useEffect(() => {
 			let reportes = context.reportes;

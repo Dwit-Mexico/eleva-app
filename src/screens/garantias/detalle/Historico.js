@@ -1,8 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Alert, ScrollView, View, Text, TouchableOpacity, ImageBackground, Image } from 'react-native';
-import { AirbnbRating } from 'react-native-ratings';
+import {
+	Alert,
+	ScrollView,
+	View,
+	Text,
+	TouchableOpacity,
+	ImageBackground,
+	Image,
+	Button,
+	Modal } from 'react-native';
+import ImageZoom from 'react-native-image-zoom-viewer';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { Consumer } from '../../../context';
+import { FontAwesome5 } from '@expo/vector-icons';
 import Request from '../../../core/api';
 
 // Componentes
@@ -21,6 +31,8 @@ const Historico = ({ context }) => {
 	const [comentario, setComentario] = useState('');
 	const [valoracion, setValoracion] = useState(5);
 	const [loading, setLoading] = useState(false);
+	const [modalImagen, setModalImagen] = useState(false);
+	const [zoomImagen, setZoomImagen] = useState(null);
 
 	const route = useRoute();
 	const navigation = useNavigation();
@@ -40,11 +52,19 @@ const Historico = ({ context }) => {
 
 		return (
 			<View style={{width: 100, height: 80, padding: 5}}>
-				<TouchableOpacity>
+				<TouchableOpacity onPress={() => _openCamara(navigation, index, imagen)}>
 					<Image source={imagen || EmptyImage} style={{width: '100%', height: '100%'}} resizeMode='cover'/>
 				</TouchableOpacity>
 			</View>
 		)
+	}
+
+	function _openCamara(navigation, index, imagen) {
+		if (imagen) {
+			setModalImagen(true);
+			setZoomImagen(imagen);
+			return;
+		}
 	}
 
 	return (
@@ -92,6 +112,22 @@ const Historico = ({ context }) => {
 						<View style={{height: 32}}/>
 
 					</ScrollView>
+					<Modal
+						visible={modalImagen}
+						transparent={true}
+						onBackButtonPress={() => setModalImagen(false)}>
+						<View style={{flex: 1, backgroundColor: '#000'}}>
+							<View style={{flex: 0.1, padding: 10, justifyContent: 'center', alignItems: 'flex-end'}}>
+								<TouchableOpacity onPress={() => setModalImagen(false)}>
+									<FontAwesome5 name="times" size={35} color="#fff" />
+								</TouchableOpacity>
+							</View>
+							<ImageZoom
+								imageUrls = {zoomImagen? [ { url: zoomImagen.uri } ] : []}
+								renderIndicator = {() => null}
+								saveToLocalByLongPress={false}/>
+						</View>
+					</Modal>
 				</Container>
 			</View>
 		</ImageBackground>
