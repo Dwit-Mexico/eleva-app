@@ -100,7 +100,7 @@ class LoginScreen extends Component {
 								</View>
 								<View style={{height: 16}} />
 								<View style={{width: 300}}>
-									<TouchableOpacity onPress={() => this.props.navigation.navigate('RcuperarPassword', { usuario: this.state.usuario })}>
+									<TouchableOpacity onPress={() => this.props.navigation.navigate('RecuperarPassword', { usuario: this.state.usuario })}>
 										<Text style={{fontSize: 12, color: 'white', textAlign: 'center'}}>Olvidaste tu contraseña</Text>
 									</TouchableOpacity>
 								</View>

@@ -21,7 +21,7 @@
 		],
 		"ios": {
 			"supportsTablet": false,
-			"buildNumber": "1",
+			"buildNumber": "2",
 			"bundleIdentifier": "com.elevacap.customerservice",
 			"requireFullScreen": true,
 			"infoPlist": {
@@ -46,7 +46,7 @@
 				"READ_EXTERNAL_STORAGE",
 				"WRITE_EXTERNAL_STORAGE"
 			],
-			"versionCode": 6
+			"versionCode": 7
 		}
   	}
 }
