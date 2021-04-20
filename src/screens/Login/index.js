@@ -69,7 +69,7 @@ class LoginScreen extends Component {
 							<View style={LoginStyle.loginView}>
 								<Image source={require('../../../assets/logo.png')} style={{width: 300, height: 300}}/>
 								<Text style={TextStyle.LoginTitle}>
-									DESARROLLOS URBANÍSTICOS
+									DESARROLLOS URBANOS
 								</Text>
 								<View style={{height: 16}} />
 								<TextInput
