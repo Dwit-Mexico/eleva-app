@@ -37,7 +37,7 @@ function ListaViviendas({context, lista}) {
 							proyecto 	= 	{unidad.Nombre}
 							nombre 		= 	{unidad.Numero}
 							direccion 	= 	{unidad.Direccion}
-							fecha		=	"2020/10/21"/>
+							fecha		=	{unidad.FechaVencimiento}/>
 					)
 				})
 			}
