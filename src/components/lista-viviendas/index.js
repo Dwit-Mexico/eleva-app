@@ -37,7 +37,7 @@ function ListaViviendas({context, lista}) {
 							proyecto 	= 	{unidad.Nombre}
 							nombre 		= 	{unidad.Numero}
 							direccion 	= 	{unidad.Direccion}
-							fecha		=	{unidad.FechaVencimiento}/>
+							fecha		=	{unidad.FechaVencimiento ? moment(unidad.FechaVencimiento).format('DD/MM/YYYY') : ''}/>
 					)
 				})
 			}
