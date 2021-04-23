@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ScrollView, RefreshControl } from 'react-native';
 import { Consumer } from '../../context';
+import moment from 'moment-timezone';
 
 //Componentes
 import CardVivienda from './CardVivienda';
