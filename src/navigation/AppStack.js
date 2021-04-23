@@ -178,7 +178,7 @@ function AppStack(props) {
 				name="GarantiasDetalle"
 				component={GarantiasDetalle}
 				options={{
-					headerTitle: 'Garantía',
+					headerTitle: 'Status',
 					headerStyle: {
 						backgroundColor: '#4C4C4C'
 					},
@@ -199,7 +199,7 @@ function AppStack(props) {
 				name="ListaGarantias"
 				component={ListaGarantias}
 				options={{
-					headerTitle: 'Garantías',
+					headerTitle: 'Status',
 					headerStyle: {
 						backgroundColor: '#4C4C4C'
 					},
@@ -251,7 +251,7 @@ function AppStack(props) {
 				name="DetalleGarantia"
 				component={DetalleGarantias}
 				options={{
-					headerTitle: 'Garantía',
+					headerTitle: 'Status',
 					headerStyle: {
 						backgroundColor: '#4C4C4C'
 					},
@@ -292,7 +292,7 @@ function AppStack(props) {
 				name="NuevaGarantia"
 				component={NuevaGarantia}
 				options={{
-					headerTitle: 'Nueva Garantía',
+					headerTitle: 'Nuevo Reporte',
 					headerStyle: {
 						backgroundColor: '#4C4C4C'
 					},
