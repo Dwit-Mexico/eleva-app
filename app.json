@@ -2,7 +2,7 @@
 	"expo": {
 		"name": "Eleva",
 		"slug": "elevaApp",
-		"version": "1.0.6",
+		"version": "1.0.7",
 		"orientation": "portrait",
 		"icon": "./assets/icon.png",
 		"splash": {
@@ -46,7 +46,7 @@
 				"READ_EXTERNAL_STORAGE",
 				"WRITE_EXTERNAL_STORAGE"
 			],
-			"versionCode": 9
+			"versionCode": 10
 		}
   	}
 }
