@@ -21,18 +21,18 @@ function CarpetasDocumentos({ navigation, lista, reload }) {
 
 	return (
 		<FlatList
-			data 			=	{lista}
-			refreshControl	=	{
+			data={lista}
+			refreshControl={
 				<RefreshControl
 					refreshing={isRefreshing}
 					onRefresh={onRefresh.bind(this)}
 				/>
 			}
-			renderItem 		=	{(card) => 	<CardCarpeta
-									navigation		=	{navigation}
-									item			=	{card.item}/>
-								}
-			keyExtractor	=	{(item) => `${item.IdFolder}`}/>
+			renderItem={(card) => <CardCarpeta
+				navigation={navigation}
+				item={card.item} />
+			}
+			keyExtractor={(item) => `${item.IdFolder}`} />
 	);
 }
 

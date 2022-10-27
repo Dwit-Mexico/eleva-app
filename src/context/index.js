@@ -2,7 +2,7 @@ import React, { Component, createContext } from 'react';
 import { AsyncStorage } from 'react-native';
 
 //Funciones
-import { login, logout, validar } from './user';
+import { login, logout, validar } from './User';
 import { getUnidades, getSetUnidades } from './catalogos/Unidades';
 import { getAreas } from './catalogos/Areas';
 import { getEquipos } from './catalogos/Equipos';
@@ -17,7 +17,8 @@ import {
 	setComentario,
 	setImagen1,
 	setImagen2,
-	setImagen3
+	setImagen3,
+	setVideo1
 } from './form';
 import { getReportes, reloadReportes, getReportesAgrupados, reloadReportesAgrupados } from './reportes';
 
@@ -59,6 +60,8 @@ class GlobalContext extends Component {
 			setImagen2: setImagen2.bind(this),
 			imagen3: null,
 			setImagen3: setImagen3.bind(this),
+			video1: null,
+			setVideo1: setVideo1.bind(this),
 			getForm: getForm.bind(this),
 			reportes: [],
 			reportesAgrupados: [],

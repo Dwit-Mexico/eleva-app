@@ -32,6 +32,10 @@ export async function setImagen3(imagen3) {
 	this.setState({imagen3});
 }
 
+export async function setVideo1(video1) {
+	this.setState({video1});
+}
+
 export async function getForm() {
 	const unidad = this.state.unidad;
 	const area = this.state.area;

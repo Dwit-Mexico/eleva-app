@@ -25,7 +25,7 @@ import TextStyle from '../../../styles/text';
 import Request from '../../../core/api';
 const request = new Request();
 
-function Etapa1({navigation, esDetalle, context}) {
+function Etapa1({ navigation, esDetalle, context }) {
 
 	const [unidad, setUnidad] = useState(null);
 	const [area, setArea] = useState(null);
@@ -36,6 +36,7 @@ function Etapa1({navigation, esDetalle, context}) {
 	const [imagen1, setImagen1] = useState(null);
 	const [imagen2, setImagen2] = useState(null);
 	const [imagen3, setImagen3] = useState(null);
+	const [video1, setVideo1] = useState(null);
 	const [terminado, setTerminado] = useState(false);
 	const [loadingAceptar, setLoadingAceptar] = useState(false);
 	const [loadingFinalizar, setLoadingFinalizar] = useState(false);
@@ -43,8 +44,10 @@ function Etapa1({navigation, esDetalle, context}) {
 	const { params } = route;
 
 	async function _compressImage(imagen, name) {
+
 		if (imagen) {
-			const manipResult = await ImageManipulator.manipulateAsync (
+
+			const manipResult = await ImageManipulator.manipulateAsync(
 				imagen.uri,
 				[],
 				{ compress: 0.5, format: ImageManipulator.SaveFormat.JPEG, base64: false }
@@ -54,6 +57,18 @@ function Etapa1({navigation, esDetalle, context}) {
 				uri: manipResult.uri,
 				name: `${name}.jpg`,
 				type: `image/jpg`,
+			}
+		}
+	}
+
+	async function _compressVideo(video, name) {
+
+		if (video) {
+
+			return {
+				uri: video.uri,
+				name: `${name}.mp4`,
+				type: `video/mp4`,
 			}
 		}
 	}
@@ -137,8 +152,9 @@ function Etapa1({navigation, esDetalle, context}) {
 		const file1 = await _compressImage(context.imagen1, 'imagen1');
 		const file2 = await _compressImage(context.imagen2, 'imagen2');
 		const file3 = await _compressImage(context.imagen3, 'imagen3');
+		const file4 = await _compressVideo(context.video1, 'video1');	
 
-		const response = await request.postFile('/app/garantias/crear', [file1, file2, file3], data);
+		const response = await request.postFile('/app/garantias/crear', [file1, file2, file3, file4], data);
 
 		if (response.error) {
 			Alert.alert(null, response.message || 'Error interno');
@@ -157,6 +173,7 @@ function Etapa1({navigation, esDetalle, context}) {
 		context.setImagen1(null);
 		context.setImagen2(null);
 		context.setImagen3(null);
+		context.setVideo1(null);
 
 		setEquipo(null);
 		setProblema(null);
@@ -164,6 +181,7 @@ function Etapa1({navigation, esDetalle, context}) {
 		setImagen1(null);
 		setImagen2(null);
 		setImagen3(null);
+		setVideo1(null);
 	}
 
 	async function aceptarAction() {
@@ -204,42 +222,44 @@ function Etapa1({navigation, esDetalle, context}) {
 
 	return (
 		<Container>
-			<View style = {{flex: 1, height: '100%'}}>
-				<View style={{height: 8}}/>
+			<View style={{ flex: 1, height: '100%' }}>
+				<View style={{ height: 8 }} />
 
 				<Wizard
-					steps = {[
+					steps={[
 						<Unidad
-							unidad 			= {unidad}
-							setUnidad 		= {setUnidad}/>,
+							unidad={unidad}
+							setUnidad={setUnidad} />,
 						<Area
-							area 			= {area}
-							setArea 		= {setArea}/>,
+							area={area}
+							setArea={setArea} />,
 						<Equipo
-							equipo 			= {equipo}
-							setEquipo 		= {setEquipo}/>,
+							equipo={equipo}
+							setEquipo={setEquipo} />,
 						<Problema
-							problema 		= {problema}
-							setProblema 	= {setProblema}/>,
+							problema={problema}
+							setProblema={setProblema} />,
 						<Comentario
-							comentario 		= {comentario}
-							setComentario 	= {setComentario}/>,
+							comentario={comentario}
+							setComentario={setComentario} />,
 						<Fotos
-							navigation 	= {navigation}
-							esDetalle 	= {esDetalle}
-							imagenes 	= {{imagen1, imagen2, imagen3}}/>,
+							navigation={navigation}
+							esDetalle={esDetalle}
+							imagenes={{ imagen1, imagen2, imagen3 }}
+							videos={{ video1 }}
+						/>,
 						<Finalizar
-							aceptarAction = {()=> aceptarAction()}
-							finalizarAction = {()=> finalizarAction()}
-							loadingAceptar = {loadingAceptar}
-							loadingFinalizar = {loadingFinalizar}/>
+							aceptarAction={() => aceptarAction()}
+							finalizarAction={() => finalizarAction()}
+							loadingAceptar={loadingAceptar}
+							loadingFinalizar={loadingFinalizar} />
 					]}
-					ultimo 		= {6}
-					onSubmit 	= {_handleSubmit.bind(this)}
-					loading		= {loading}
-					terminado 	= {terminado}
-					unidad		= {unidad}
-					area		= {area}/>
+					ultimo={6}
+					onSubmit={_handleSubmit.bind(this)}
+					loading={loading}
+					terminado={terminado}
+					unidad={unidad}
+					area={area} />
 			</View>
 		</Container>
 	);
