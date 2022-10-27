@@ -10,14 +10,14 @@ import { Video } from 'expo-av';
 
 import Styles from '../../../../styles/components/WizardStyle';
 
-function SeleccionarFotos({ navigation, imagenes, context }) {
+function SeleccionarFotos({ navigation, imagenes, videos, context }) {
 
 	let animatedOpacity = useRef(new Animated.Value(0)).current;
 
 	const [imagen1, setImagen1] = useState(imagenes.imagen1 || null);
 	const [imagen2, setImagen2] = useState(imagenes.imagen2 || null);
 	const [imagen3, setImagen3] = useState(imagenes.imagen3 || null);
-	const [video1, setVideo1] = useState(null);
+	const [video1, setVideo1] = useState(videos.video1 || null);
 	const [imagenIndex, setimagenIndex] = useState(null);
 	const [videoIndex, setVideoIndex] = useState(null);
 	const [modalImagen, setModalImagen] = useState(false);
@@ -117,8 +117,9 @@ function SeleccionarFotos({ navigation, imagenes, context }) {
 			let result = await ImagePicker.launchCameraAsync({
 				mediaTypes: ImagePicker.MediaTypeOptions.Videos,
 				aspect: [4, 3],
-				quality: 1,
-				videoMaxDuration: 30
+				quality: 0.5,
+				videoMaxDuration: 30,
+				videoQuality: ImagePicker.UIImagePickerControllerQualityType.Low
 			});
 
 			if (!result.cancelled) {
@@ -305,10 +306,9 @@ function SeleccionarFotos({ navigation, imagenes, context }) {
 							<FontAwesome5 name="times" size={35} color="#fff" />
 						</TouchableOpacity>
 					</View>
-					<Video						
+					<Video
 						style={{ flex: 1 }}
 						source={video1}
-						useNativeControls
 						resizeMode="cover"
 						onPlaybackStatusUpdate={status => status.didJustFinish ? setModalVideo(false) : null}
 						shouldPlay

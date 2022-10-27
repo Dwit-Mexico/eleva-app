@@ -22,6 +22,7 @@ function BotonNuevo({navigation, screen, context}) {
 			context.setImagen1(null);
 			context.setImagen2(null);
 			context.setImagen3(null);
+			context.setVideo1(null);
 		}
 
 		const response = await request.post('/app/users/vigencia/garantia');

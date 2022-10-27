@@ -18,9 +18,6 @@ import Comentario from './formulario/comentario';
 import Fotos from './formulario/fotos';
 import Finalizar from './formulario/finalizar';
 
-// Styles
-import TextStyle from '../../../styles/text';
-
 // API
 import Request from '../../../core/api';
 const request = new Request();
@@ -40,8 +37,6 @@ function Etapa1({ navigation, esDetalle, context }) {
 	const [terminado, setTerminado] = useState(false);
 	const [loadingAceptar, setLoadingAceptar] = useState(false);
 	const [loadingFinalizar, setLoadingFinalizar] = useState(false);
-	const route = useRoute();
-	const { params } = route;
 
 	async function _compressImage(imagen, name) {
 
@@ -61,12 +56,12 @@ function Etapa1({ navigation, esDetalle, context }) {
 		}
 	}
 
-	async function _compressVideo(video, name) {
+	async function _compressVideo(videoFile, name) {
 
-		if (video) {
+		if (videoFile) {
 
 			return {
-				uri: video.uri,
+				uri: videoFile.uri,
 				name: `${name}.mp4`,
 				type: `video/mp4`,
 			}
@@ -152,7 +147,10 @@ function Etapa1({ navigation, esDetalle, context }) {
 		const file1 = await _compressImage(context.imagen1, 'imagen1');
 		const file2 = await _compressImage(context.imagen2, 'imagen2');
 		const file3 = await _compressImage(context.imagen3, 'imagen3');
-		const file4 = await _compressVideo(context.video1, 'video1');	
+		const file4 = await _compressVideo(context.video1, 'video1');
+
+		setLoading(false);
+		return
 
 		const response = await request.postFile('/app/garantias/crear', [file1, file2, file3, file4], data);
 

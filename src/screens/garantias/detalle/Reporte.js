@@ -101,10 +101,16 @@ const DetalleReporte = ({ navigation, context }) => {
 		return (
 			<View style={{ width: 100, height: 80, padding: 5 }}>
 				<TouchableOpacity onPress={_openCamara.bind(this, index, null, video)}>
-					<Image
+					{/* <Image
 						source={video || EmptyImage}
 						style={{ width: '100%', height: '100%' }}
 						resizeMode='cover'
+					/> */}
+					<Video
+						style={{ width: '100%', height: '100%' }}
+						posterSource={video}
+						posterStyle={{ width: '100%', height: '100%' }}
+						resizeMode="cover"
 					/>
 					{video &&
 						<View style={{ position: 'absolute', width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center' }}>
@@ -207,7 +213,8 @@ const DetalleReporte = ({ navigation, context }) => {
 							<ImageZoom
 								imageUrls={zoomImagen ? [{ url: zoomImagen.uri }] : []}
 								renderIndicator={() => null}
-								saveToLocalByLongPress={false} />
+								saveToLocalByLongPress={false}
+							/>
 						</View>
 					</Modal>
 					<Modal
@@ -233,9 +240,13 @@ const DetalleReporte = ({ navigation, context }) => {
 								style={{ flex: 1 }}
 								source={playVideo}
 								shouldPlay
-								useNativeControls
 								resizeMode="cover"
-								onPlaybackStatusUpdate={status => status.didJustFinish ? setModalVideo(false) : status ? setIsPreloading(false) : null}
+								onPlaybackStatusUpdate={status =>
+									status.didJustFinish
+										? [setModalVideo(false), setIsPreloading(true)]
+										: status ? setIsPreloading(false)
+											: null
+								}
 							/>
 						</View>
 					</Modal>
