@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
-import { Alert, View, Animated, Text, TouchableOpacity, Modal, Image, Platform, Linking, Button } from 'react-native';
+import { Alert, View, Animated, Text, TouchableOpacity, Modal, Image, Platform, Linking } from 'react-native';
 import { Consumer } from '../../../../context';
 import { FontAwesome5 } from '@expo/vector-icons';
 import ImageZoom from 'react-native-image-zoom-viewer';
@@ -227,7 +227,7 @@ function SeleccionarFotos({ navigation, imagenes, videos, context }) {
 
 	const VideoButton = ({ index, video }) => {
 
-		const EmptyImage = require('../../../../../assets/video1.png');
+		const EmptyImage = require('../../../../../assets/video1.jpeg');
 
 		return (
 			<View style={{ width: 170, height: 140, padding: 10 }}>
@@ -263,13 +263,11 @@ function SeleccionarFotos({ navigation, imagenes, videos, context }) {
 
 				<View style={{ height: 8 }} />
 
-				<View style={{ flexDirection: 'row', justifyContent: 'center', width: '100%' }}>
-					<View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
-						<ImagenButton index={1} imagen={imagen1} navigation={navigation} />
-						<ImagenButton index={2} imagen={imagen2} navigation={navigation} />
-						<ImagenButton index={3} imagen={imagen3} navigation={navigation} />
-						<VideoButton index={4} video={video1} navigation={navigation} />
-					</View>
+				<View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
+					<ImagenButton index={1} imagen={imagen1} navigation={navigation} />
+					<ImagenButton index={2} imagen={imagen2} navigation={navigation} />
+					<ImagenButton index={3} imagen={imagen3} navigation={navigation} />
+					<VideoButton index={4} video={video1} navigation={navigation} />
 				</View>
 			</Animated.View>
 			<Modal

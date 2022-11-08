@@ -51,7 +51,7 @@ export default StyleSheet.create({
 	},
 	imagenesContent: {
 		flexDirection: 'row',
-		justifyContent: 'space-around',
+		justifyContent: 'space-evenly',
 		alignItems: 'center',
 		width: '100%'
 	}

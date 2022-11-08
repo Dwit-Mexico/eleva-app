@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
 	Alert,
 	ScrollView,
@@ -8,14 +8,16 @@ import {
 	Image,
 	Modal,
 	ImageBackground,
-	ActivityIndicator
+	ActivityIndicator,
+	Dimensions
 } from 'react-native';
-import { useRoute, useFocusEffect } from '@react-navigation/native';
+import { useRoute } from '@react-navigation/native';
 import { Consumer } from '../../../context';
 import { FontAwesome5 } from '@expo/vector-icons';
 import ImageZoom from 'react-native-image-zoom-viewer';
 import Request from '../../../core/api';
 import { Video } from 'expo-av';
+import * as VideoThumbnails from 'expo-video-thumbnails';
 
 // Componentes
 import Container from '../../../components/container';
@@ -27,34 +29,44 @@ import Colores from '../../../styles/colores';
 
 const request = new Request();
 
+const { width, height } = Dimensions.get('screen');
+
 const DetalleReporte = ({ navigation, context }) => {
 
-	const [info, setInfo] = useState({
-		Numero: '',
-		NombreArea: '',
-		NombreEquipo: '',
-		NombreProblema: '',
-		Comentarios: '',
-		IdEstado: 0
-	});
+	const route = useRoute();
+	const params = route.params;
+	const info = params.data;
+
 	const [modalImagen, setModalImagen] = useState(false);
 	const [modalVideo, setModalVideo] = useState(false);
 	const [zoomImagen, setZoomImagen] = useState(null);
 	const [playVideo, setPlayVideo] = useState(null);
 	const [loadingCancel, setLoadingCancel] = useState(false);
 	const [isPreloading, setIsPreloading] = useState(true);
-	const route = useRoute();
+	const [posterVideo, setPosterVideo] = useState(null);
 
-	useFocusEffect(() => {
-		const params = route.params;
+	useEffect(() => {
 
-		if (params.data) {
-			const info = params.data;
-			setInfo(info || {});
-		}
-	});
+		(async () => {
 
-	function _openCamara(index, imagen, video) {
+			if (info.Vid1) {
+
+				const { uri } = await VideoThumbnails.getThumbnailAsync(
+					info.Vid1,
+					{
+						time: 15000,
+					}
+				);
+
+				setPosterVideo(uri);
+
+			};
+
+		})();
+
+	}, [info]);
+
+	const _openCamara = (imagen, video) => {
 
 		if (imagen) {
 
@@ -71,17 +83,15 @@ const DetalleReporte = ({ navigation, context }) => {
 
 			return;
 		};
-	}
+	};
 
-	const ImagenButton = ({ index, imagen }) => {
-
-		console.log(imagen);
+	const ImagenButton = ({ imagen }) => {
 
 		const EmptyImage = require('../../../../assets/picture_icon.png');
 
 		return (
 			<View style={{ width: 100, height: 80, padding: 5 }}>
-				<TouchableOpacity onPress={_openCamara.bind(this, index, imagen, null)}>
+				<TouchableOpacity onPress={() => _openCamara(imagen, null)}>
 					<Image
 						source={imagen || EmptyImage}
 						style={{ width: '100%', height: '100%' }}
@@ -89,37 +99,29 @@ const DetalleReporte = ({ navigation, context }) => {
 					/>
 				</TouchableOpacity>
 			</View>
-		)
-	}
+		);
+	};
 
-	const VideoButton = ({ index, video }) => {
-
-		console.log(video);
-
-		const EmptyImage = require('../../../../assets/video1.png');
-
+	const VideoButton = ({ video }) => {
 		return (
 			<View style={{ width: 100, height: 80, padding: 5 }}>
-				<TouchableOpacity onPress={_openCamara.bind(this, index, null, video)}>
-					{/* <Image
-						source={video || EmptyImage}
-						style={{ width: '100%', height: '100%' }}
-						resizeMode='cover'
-					/> */}
-					<Video
-						style={{ width: '100%', height: '100%' }}
-						posterSource={video}
-						posterStyle={{ width: '100%', height: '100%' }}
-						resizeMode="cover"
-					/>
-					{video &&
-						<View style={{ position: 'absolute', width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center' }}>
-							<FontAwesome5
-								name="play-circle"
-								size={35}
-								color="#fff"
-							/>
-						</View>}
+				<TouchableOpacity onPress={() => _openCamara(null, video)}>
+					{!posterVideo ?
+						<View style={{ backgroundColor: '#000', width: '100%', height: '100%' }} />
+						:
+						<Image
+							source={{ uri: posterVideo }}
+							style={{ width: '100%', height: '100%' }}
+							resizeMode='cover'
+						/>
+					}
+					<View style={{ position: 'absolute', width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center' }}>
+						<FontAwesome5
+							name="play-circle"
+							size={30}
+							color="#fff"
+						/>
+					</View>
 				</TouchableOpacity>
 			</View>
 		);
@@ -140,10 +142,13 @@ const DetalleReporte = ({ navigation, context }) => {
 		}
 
 		setLoadingCancel(false);
-	}
+	};
 
 	return (
-		<ImageBackground source={require('../../../../assets/background.jpg')} style={{ flex: 1, height: '100%' }}>
+		<ImageBackground
+			source={require('../../../../assets/background.jpg')}
+			style={{ flex: 1, width: '100%', height: '100%' }}
+		>
 			<View style={Styles.backGround}>
 				<Container>
 					<ScrollView>
@@ -203,9 +208,12 @@ const DetalleReporte = ({ navigation, context }) => {
 					<Modal
 						visible={modalImagen}
 						transparent={true}
-						onBackButtonPress={() => setModalImagen(false)}>
-						<View style={{ flex: 1, backgroundColor: '#000' }}>
-							<View style={{ flex: 0.1, padding: 10, justifyContent: 'center', alignItems: 'flex-end' }}>
+						onBackButtonPress={() => setModalImagen(false)}
+						onRequestClose={() => setModalImagen(false)}
+						style={{ width: width, height: height }}
+					>
+						<View style={{ width: width, height: height, backgroundColor: '#000' }}>
+							<View style={{ position: "absolute", zIndex: 3, elevation: 3, right: 25, top: 25 }}>
 								<TouchableOpacity onPress={() => setModalImagen(false)}>
 									<FontAwesome5 name="times" size={35} color="#fff" />
 								</TouchableOpacity>
@@ -214,6 +222,7 @@ const DetalleReporte = ({ navigation, context }) => {
 								imageUrls={zoomImagen ? [{ url: zoomImagen.uri }] : []}
 								renderIndicator={() => null}
 								saveToLocalByLongPress={false}
+								style={{ width: width, height: height }}
 							/>
 						</View>
 					</Modal>
@@ -221,9 +230,11 @@ const DetalleReporte = ({ navigation, context }) => {
 						visible={modalVideo}
 						transparent={true}
 						onBackButtonPress={() => setModalVideo(false)}
+						onRequestClose={() => setModalVideo(false)}
+						style={{ flex: 1 }}
 					>
 						<View style={{ flex: 1, backgroundColor: '#000' }}>
-							<View style={{ flex: 0.1, padding: 10, justifyContent: 'center', alignItems: 'flex-end' }}>
+							<View style={{ position: "absolute", zIndex: 3, elevation: 3, right: 25, top: 25 }}>
 								<TouchableOpacity onPress={() => setModalVideo(false)}>
 									<FontAwesome5 name="times" size={35} color="#fff" />
 								</TouchableOpacity>
@@ -237,23 +248,18 @@ const DetalleReporte = ({ navigation, context }) => {
 								/>
 							}
 							<Video
-								style={{ flex: 1 }}
+								style={{ width: width, height: height }}
 								source={playVideo}
 								shouldPlay
-								resizeMode="cover"
-								onPlaybackStatusUpdate={status =>
-									status.didJustFinish
-										? [setModalVideo(false), setIsPreloading(true)]
-										: status ? setIsPreloading(false)
-											: null
-								}
+								resizeMode="contain"
+								onPlaybackStatusUpdate={status => status.didJustFinish ? setModalVideo(false) : null}
 							/>
 						</View>
 					</Modal>
 				</Container>
 			</View>
 		</ImageBackground>
-	)
-}
+	);
+};
 
 export default Consumer(DetalleReporte);

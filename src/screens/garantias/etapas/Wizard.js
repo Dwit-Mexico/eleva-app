@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Alert, View } from 'react-native';
-import { useRoute, useFocusEffect } from '@react-navigation/native';
 import { Consumer } from '../../../context';
 import * as ImageManipulator from 'expo-image-manipulator';
 import moment from 'moment-timezone';
+import { FFmpegKitConfig, FFmpegKit } from 'ffmpeg-kit-react-native';
 
 // Componentes
 import Container from '../../../components/container';
@@ -58,14 +58,14 @@ function Etapa1({ navigation, esDetalle, context }) {
 
 	async function _compressVideo(videoFile, name) {
 
-		if (videoFile) {
+		/* if (videoFile) {
 
 			return {
 				uri: videoFile.uri,
 				name: `${name}.mp4`,
 				type: `video/mp4`,
 			}
-		}
+		} */
 	}
 
 	useEffect(() => {
@@ -150,7 +150,7 @@ function Etapa1({ navigation, esDetalle, context }) {
 		const file4 = await _compressVideo(context.video1, 'video1');
 
 		setLoading(false);
-		return
+		return;
 
 		const response = await request.postFile('/app/garantias/crear', [file1, file2, file3, file4], data);
 
