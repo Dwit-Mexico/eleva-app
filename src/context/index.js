@@ -42,6 +42,7 @@ class GlobalContext extends Component {
 			getSetUnidades: getSetUnidades.bind(this),
 			getAreas: getAreas.bind(this),
 			getEquipos: getEquipos.bind(this),
+			getProblemas: getProblemas.bind(this),
 			step: 1,
 			setStep: setStep.bind(this),
 			unidad: null,
@@ -91,7 +92,7 @@ class GlobalContext extends Component {
 		if (loginUser) {
 			loginUser = JSON.parse(loginUser);
 			if (loginUser.token) {
-				this.setState({auth: true, token: loginUser.token});
+				this.setState({ auth: true, token: loginUser.token });
 			}
 		}
 	}
@@ -118,7 +119,7 @@ class GlobalContext extends Component {
 		const unidades = await getUnidades();
 		if (unidades.data) {
 
-			this.setState({unidades: unidades.data});
+			this.setState({ unidades: unidades.data });
 
 			if (Array.isArray(unidades.data)) {
 
@@ -130,11 +131,11 @@ class GlobalContext extends Component {
 			}
 		}
 
-		const problemas = await getProblemas();
+		/* const problemas = await getProblemas();
 		if (problemas.problemas) {
 			catalogoObj.problemas = problemas.problemas;
-			this.setState({problemas: problemas.problemas});
-		}
+			this.setState({ problemas: problemas.problemas });
+		} */
 
 		const reportes = await this.state.getReportes();
 		if (reportes.data) {
@@ -151,7 +152,7 @@ class GlobalContext extends Component {
 
 	render() {
 		return (
-			<Context.Provider value = {this.state}>
+			<Context.Provider value={this.state}>
 				{this.props.children}
 			</Context.Provider>
 		)
@@ -162,7 +163,7 @@ const Consumer = Component => {
 	return (props) => {
 		return (
 			<Context.Consumer>
-				{context => <Component {...props} context = {context}/>}
+				{context => <Component {...props} context={context} />}
 			</Context.Consumer>
 		)
 	}

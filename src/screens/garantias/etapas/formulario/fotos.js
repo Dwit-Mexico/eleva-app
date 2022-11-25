@@ -118,7 +118,7 @@ function SeleccionarFotos({ navigation, imagenes, videos, context }) {
 				mediaTypes: ImagePicker.MediaTypeOptions.Videos,
 				aspect: [4, 3],
 				quality: 0.5,
-				videoMaxDuration: 30,
+				videoMaxDuration: 8,
 				videoQuality: ImagePicker.UIImagePickerControllerQualityType.Low
 			});
 

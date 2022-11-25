@@ -36,10 +36,15 @@ function SelectEquipo({onSelect, value, context}) {
 	}
 
 	async function selectEquipo(id) {
+
 		setSelected(id);
 
 		if (onSelect) {
 			onSelect(id);
+		}
+
+		if (context) {
+			await context.getProblemas(id);
 		}
 	}
 
