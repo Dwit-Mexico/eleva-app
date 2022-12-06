@@ -8,7 +8,7 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "build:android": "expo build:android --config app.json --release-channel prod-v1.0.8",
-    "build:ios": "expo build:ios --config app.json --release-channel prod-v1.0.7",
+    "build:ios": "expo build:ios --config app.json --release-channel prod-v1.0.8",
     "build:test": "expo build:android --config app.test.json --release-channel test-v1.0.7",
     "build:test_ios": "expo build:ios --config app.test.json --release-channel test-v1.0.5"
   },
