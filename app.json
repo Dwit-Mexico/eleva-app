@@ -46,7 +46,7 @@
 				"READ_EXTERNAL_STORAGE",
 				"WRITE_EXTERNAL_STORAGE"
 			],
-			"versionCode": 10
+			"versionCode": 11
 		}
   	}
 }
