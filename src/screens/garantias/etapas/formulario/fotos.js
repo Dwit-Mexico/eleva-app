@@ -214,7 +214,7 @@ function SeleccionarFotos({ navigation, imagenes, videos, context }) {
 
 	const ImagenButton = ({ index, imagen }) => {
 
-		const EmptyImage = require('../../../../../assets/picture_icon.png');
+		const EmptyImage = require('../../../../../assets/picture.jpg');
 
 		return (
 			<View style={{ width: 170, height: 140, padding: 10 }}>

@@ -4,14 +4,14 @@
 		"slug": "eleva_app",
 		"version": "1.0.7",
 		"orientation": "portrait",
-		"icon": "./assets/icon.png",
+		"icon": "./assets/appstore.png",
 		"splash": {
 			"image": "./assets/splash2.png",
 			"resizeMode": "contain",
 			"backgroundColor": "#18191A"
 		},
 		"notification": {
-			"icon": "./assets/icon.png"
+			"icon": "./assets/appstore.png"
 		},
 		"updates": {
 			"enabled": false
@@ -29,9 +29,6 @@
 				"NSCameraUsageDescription": "Eleva requiere acceso a la cámara, para poder tomar fotos y enviarlo como evidencia de los reportes.",
 				"NSPhotoLibraryUsageDescription": "Eleva requiere permiso para usar la galeria de la cámara, para poder enviar evidencia de los reportes."
 			}
-		},
-		"web": {
-			"favicon": "./assets/icon.png"
 		},
 		"android": {
 			"package": "com.dwitmexico.elevaapp",

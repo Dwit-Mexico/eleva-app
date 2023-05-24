@@ -48,7 +48,7 @@ const Historico = ({ context }) => {
 	}, [route.params])
 
 	const ImagenButton = ({ navigation, index, imagen }) => {
-		const EmptyImage = require('../../../../assets/picture_icon.png');
+		const EmptyImage = require('../../../../assets/picture.jpg');
 
 		return (
 			<View style={{width: 100, height: 80, padding: 5}}>

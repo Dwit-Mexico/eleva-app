@@ -11,8 +11,6 @@ function Galeria() {
 	const [visibleModal, setVisibleModal] = useState(false);
 	const [zoomImagen, setZoomImagen] = useState([]);
 
-	const EmptyImage = require('../../../assets/picture_icon.png');
-
 	const imagenes = [{uri: 'http://192.168.1.74:8082/imagenes/8/imagen1.jpeg'}, {uri: 'http://192.168.1.74:8082/imagenes/8/imagen1.jpeg'}, {uri: 'http://192.168.1.74:8082/imagenes/8/imagen1.jpeg'}];
 
 	return (

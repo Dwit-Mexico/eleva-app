@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Routes from './src/core/routes';
-import OneSignal from 'react-native-onesignal';
 import { LogBox } from 'react-native';
 
 LogBox.ignoreLogs(['It appears that you are ']); // Ignore log notification by message

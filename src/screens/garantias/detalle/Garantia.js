@@ -199,7 +199,7 @@ const DetalleGarantia = ({ navigation, context }) => {
 	}
 
 	const ImagenButton = ({ navigation, index, imagen }) => {
-		const EmptyImage = require('../../../../assets/picture_icon.png');
+		const EmptyImage = require('../../../../assets/picture.jpg');
 
 		//console.log('Imagen', index, imagen);
 		return (
