@@ -1,54 +1,51 @@
 {
-  "expo": {
-    "name": "Eleva",
-    "slug": "elevaApp",
-    "version": "1.0.9",
-    "orientation": "portrait",
-    "icon": "./assets/appstore.png",
-    "splash": {
-      "image": "./assets/splash2.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#18191A"
-    },
-    "notification": {
-      "icon": "./assets/appstore.png"
-    },
-    "updates": {
-      "enabled": false
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": false,
-      "buildNumber": "1",
-      "bundleIdentifier": "com.elevacapitalgroup.app",
-      "requireFullScreen": true,
-      "infoPlist": {
-        "NSNotificationDescription": "Eleva requiere permiso para recibir notificaciones",
-        "NSCameraUsageDescription": "Eleva requiere acceso a la cámara, para poder tomar fotos y enviarlo como evidencia de los reportes.",
-        "NSPhotoLibraryUsageDescription": "Eleva requiere permiso para usar la galeria de la cámara, para poder enviar evidencia de los reportes."
+   "expo": {
+      "name": "Eleva",
+      "slug": "elevaApp",
+      "version": "1.0.9",
+      "orientation": "portrait",
+      "icon": "./assets/appstore.png",
+      "splash": {
+         "image": "./assets/splash2.png",
+         "resizeMode": "contain",
+         "backgroundColor": "#18191A"
+      },
+      "notification": {
+         "icon": "./assets/appstore.png"
+      },
+      "updates": {
+         "enabled": false
+      },
+      "assetBundlePatterns": ["**/*"],
+      "ios": {
+         "supportsTablet": false,
+         "buildNumber": "1",
+         "bundleIdentifier": "com.elevacapitalgroup.app",
+         "requireFullScreen": true,
+         "infoPlist": {
+            "NSNotificationDescription": "Eleva requiere permiso para recibir notificaciones",
+            "NSCameraUsageDescription": "Eleva requiere acceso a la cámara, para poder tomar fotos y enviarlo como evidencia de los reportes.",
+            "NSPhotoLibraryUsageDescription": "Eleva requiere permiso para usar la galeria de la cámara, para poder enviar evidencia de los reportes."
+         }
+      },
+      "android": {
+         "package": "com.elevacap.customerservice",
+         "googleServicesFile": "./google-services.json",
+         "permissions": [
+            "VIBRATE",
+            "CAMERA",
+            "READ_CONTACTS",
+            "NOTIFICATIONS",
+            "ACCESS_NETWORK_STATE",
+            "READ_EXTERNAL_STORAGE",
+            "WRITE_EXTERNAL_STORAGE"
+         ],
+         "versionCode": 12
+      },
+      "extra": {
+         "eas": {
+            "projectId": "2c1ccd3f-c39a-498f-b339-c49cb9f40e47"
+         }
       }
-    },
-    "android": {
-      "package": "com.elevacap.customerservice",
-      "googleServicesFile": "./google-services.json",
-      "useNextNotificationsApi": true,
-      "permissions": [
-        "VIBRATE",
-        "CAMERA",
-        "READ_CONTACTS",
-        "NOTIFICATIONS",
-        "ACCESS_NETWORK_STATE",
-        "READ_EXTERNAL_STORAGE",
-        "WRITE_EXTERNAL_STORAGE"
-      ],
-      "versionCode": 12
-    },
-    "extra": {
-      "eas": {
-        "projectId": "2c1ccd3f-c39a-498f-b339-c49cb9f40e47"
-      }
-    }
-  }
+   }
 }
