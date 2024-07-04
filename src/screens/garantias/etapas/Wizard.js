@@ -1,262 +1,269 @@
-import React, { useState, useEffect } from 'react';
-import { Alert, View } from 'react-native';
-import { Consumer } from '../../../context';
-import * as ImageManipulator from 'expo-image-manipulator';
-import moment from 'moment-timezone';
+import React, {useState, useEffect} from "react";
+import {Alert, View} from "react-native";
+import {Consumer} from "../../../context";
+import * as ImageManipulator from "expo-image-manipulator";
+import moment from "moment-timezone";
 
 // Componentes
-import Container from '../../../components/container';
-import Wizard from '../../../components/wizard';
+import Container from "../../../components/container";
+import Wizard from "../../../components/wizard";
 
 //Pages
-import Unidad from './formulario/unidad';
-import Area from './formulario/area';
-import Equipo from './formulario/equipo';
-import Problema from './formulario/problema';
-import Comentario from './formulario/comentario';
-import Fotos from './formulario/fotos';
-import Finalizar from './formulario/finalizar';
+import Unidad from "./formulario/unidad";
+import Area from "./formulario/area";
+import Equipo from "./formulario/equipo";
+import Problema from "./formulario/problema";
+import Comentario from "./formulario/comentario";
+import Fotos from "./formulario/fotos";
+import Finalizar from "./formulario/finalizar";
 
 // API
-import Request from '../../../core/api';
+import Request from "../../../core/api";
 const request = new Request();
 
-function Etapa1({ navigation, esDetalle, context }) {
+function Etapa1({navigation, esDetalle, context}) {
+   const [unidad, setUnidad] = useState(null);
+   const [area, setArea] = useState(null);
+   const [equipo, setEquipo] = useState(null);
+   const [problema, setProblema] = useState(null);
+   const [comentario, setComentario] = useState(null);
+   const [loading, setLoading] = useState(false);
+   const [imagen1, setImagen1] = useState(null);
+   const [imagen2, setImagen2] = useState(null);
+   const [imagen3, setImagen3] = useState(null);
+   const [video1, setVideo1] = useState(null);
+   const [terminado, setTerminado] = useState(false);
+   const [loadingAceptar, setLoadingAceptar] = useState(false);
+   const [loadingFinalizar, setLoadingFinalizar] = useState(false);
 
-	const [unidad, setUnidad] = useState(null);
-	const [area, setArea] = useState(null);
-	const [equipo, setEquipo] = useState(null);
-	const [problema, setProblema] = useState(null);
-	const [comentario, setComentario] = useState(null);
-	const [loading, setLoading] = useState(false);
-	const [imagen1, setImagen1] = useState(null);
-	const [imagen2, setImagen2] = useState(null);
-	const [imagen3, setImagen3] = useState(null);
-	const [video1, setVideo1] = useState(null);
-	const [terminado, setTerminado] = useState(false);
-	const [loadingAceptar, setLoadingAceptar] = useState(false);
-	const [loadingFinalizar, setLoadingFinalizar] = useState(false);
+   async function _compressImage(imagen, name) {
+      console.log("Comprimiendo imagen...", imagen);
+      if (imagen) {
+         const manipResult = await ImageManipulator.manipulateAsync(
+            imagen,
+            [],
+            {
+               compress: 0.5,
+               format: ImageManipulator.SaveFormat.JPEG,
+               base64: false,
+            }
+         );
 
-	async function _compressImage(imagen, name) {
+         return {
+            uri: manipResult,
+            name: `${name}.jpg`,
+            type: `image/jpg`,
+         };
+      }
+   }
 
-		if (imagen) {
+   async function _compressVideo(videoFile, name) {
+      if (videoFile) {
+         return {
+            uri: videoFile.uri,
+            name: `${name}.mp4`,
+            type: `video/mp4`,
+         };
+      }
+   }
 
-			const manipResult = await ImageManipulator.manipulateAsync(
-				imagen.uri,
-				[],
-				{ compress: 0.5, format: ImageManipulator.SaveFormat.JPEG, base64: false }
-			);
+   useEffect(() => {
+      if (context) {
+         setUnidad(context.unidad);
+         setArea(context.area);
+         setEquipo(context.equipo);
+         setProblema(context.problema);
+         setComentario(context.comentario);
+      }
+   }, []);
 
-			return {
-				uri: manipResult.uri,
-				name: `${name}.jpg`,
-				type: `image/jpg`,
-			}
-		}
-	}
+   useEffect(() => {
+      async function setedUnidad() {
+         if (context && unidad) {
+            await context.setUnidad(unidad);
+         }
+      }
 
-	async function _compressVideo(videoFile, name) {
+      setedUnidad();
+   }, [unidad]);
 
-		if (videoFile) {
+   useEffect(() => {
+      async function setedArea() {
+         if (context && area) {
+            await context.setArea(area);
+         }
+      }
 
-			return {
-				uri: videoFile.uri,
-				name: `${name}.mp4`,
-				type: `video/mp4`,
-			}
-		}
-	}
+      setedArea();
+   }, [area]);
 
-	useEffect(() => {
-		if (context) {
-			setUnidad(context.unidad);
-			setArea(context.area);
-			setEquipo(context.equipo);
-			setProblema(context.problema);
-			setComentario(context.comentario);
-		}
-	}, [])
+   useEffect(() => {
+      async function setedEquipo() {
+         if (context && equipo) {
+            await context.setEquipo(equipo);
+         }
+      }
 
-	useEffect(() => {
-		async function setedUnidad() {
-			if (context && unidad) {
-				await context.setUnidad(unidad);
-			}
-		}
+      setedEquipo();
+   }, [equipo]);
 
-		setedUnidad();
+   useEffect(() => {
+      async function setedProblema() {
+         if (context && problema) {
+            await context.setProblema(problema);
+         }
+      }
 
-	}, [unidad]);
+      setedProblema();
+   }, [problema]);
 
-	useEffect(() => {
-		async function setedArea() {
-			if (context && area) {
-				await context.setArea(area);
-			}
-		}
+   useEffect(() => {
+      async function setedComentario() {
+         if (context && comentario) {
+            await context.setComentario(comentario);
+         }
+      }
 
-		setedArea();
+      setedComentario();
+   }, [comentario]);
 
-	}, [area]);
+   async function _handleSubmit() {
+      console.log("Iniciando envío de formulario...");
+      setLoading(true);
+      const data = {
+         IdUnidad: unidad,
+         IdArea: area,
+         IdEquipo: equipo,
+         IdProblema: problema,
+         Comentarios: comentario || "",
+         Fecha: moment().format(),
+      };
 
-	useEffect(() => {
-		async function setedEquipo() {
-			if (context && equipo) {
-				await context.setEquipo(equipo);
-			}
-		}
+      const file1 = await _compressImage(context.imagen1, "imagen1");
+      const file2 = await _compressImage(context.imagen2, "imagen2");
+      const file3 = await _compressImage(context.imagen3, "imagen3");
+      const file4 = await _compressVideo(context.video1, "video1");
 
-		setedEquipo();
+      // console.log("file1", file1);
+      // console.log("file2", file2);
+      // console.log("file3", file3);
+      // console.log("file4", file4);
 
-	}, [equipo]);
+      // console.log("data", data);
 
-	useEffect(() => {
-		async function setedProblema() {
-			if (context && problema) {
-				await context.setProblema(problema);
-			}
-		}
+      const response = await request.postFile(
+         "/app/garantias/crear",
+         [file1, file2, file3, file4],
+         data
+      );
 
-		setedProblema();
+      console.log("response", response);
 
-	}, [problema]);
+      if (response.error) {
+         Alert.alert(null, response.message || "Error interno");
+      }
+      if (response.upload) {
+         setTerminado(true);
+      }
 
-	useEffect(() => {
-		async function setedComentario() {
-			if (context && comentario) {
-				await context.setComentario(comentario);
-			}
-		}
+      setLoading(false);
+   }
 
-		setedComentario();
+   function reinicializar() {
+      context.setEquipo(null);
+      context.setProblema(null);
+      context.setComentario(null);
+      context.setImagen1(null);
+      context.setImagen2(null);
+      context.setImagen3(null);
+      context.setVideo1(null);
 
-	}, [comentario]);
+      setEquipo(null);
+      setProblema(null);
+      setComentario(null);
+      setImagen1(null);
+      setImagen2(null);
+      setImagen3(null);
+      setVideo1(null);
+   }
 
-	async function _handleSubmit() {
-		setLoading(true);
-		const data = {
-			IdUnidad: unidad,
-			IdArea: area,
-			IdEquipo: equipo,
-			IdProblema: problema,
-			Comentarios: comentario || '',
-			Fecha: moment().format()
-		};
+   async function aceptarAction() {
+      console.log("Entrando...");
+      setLoadingAceptar(true);
+      console.log("Aceptando...");
 
-		const file1 = await _compressImage(context.imagen1, 'imagen1');
-		const file2 = await _compressImage(context.imagen2, 'imagen2');
-		const file3 = await _compressImage(context.imagen3, 'imagen3');
-		const file4 = await _compressVideo(context.video1, 'video1');
+      await context.reloadReportes();
+      await context.reloadReportesAgrupados();
 
-		const response = await request.postFile('/app/garantias/crear', [file1, file2, file3, file4], data);
+      setTerminado(false);
 
-		if (response.error) {
-			Alert.alert(null, response.message || 'Error interno');
-		}
-		if (response.upload) {
-			setTerminado(true);
-		}
+      reinicializar();
 
-		setLoading(false);
-	}
+      //Coloca el paso en el wozard a donde redirecciona el boton Aceptar
+      context.setStep(2);
 
-	function reinicializar() {
-		context.setEquipo(null);
-		context.setProblema(null);
-		context.setComentario(null);
-		context.setImagen1(null);
-		context.setImagen2(null);
-		context.setImagen3(null);
-		context.setVideo1(null);
+      setLoadingAceptar(false);
+      console.log("Saliendo...");
+   }
 
-		setEquipo(null);
-		setProblema(null);
-		setComentario(null);
-		setImagen1(null);
-		setImagen2(null);
-		setImagen3(null);
-		setVideo1(null);
-	}
+   async function finalizarAction() {
+      setLoadingFinalizar(true);
 
-	async function aceptarAction() {
-		setLoadingAceptar(true);
+      await context.reloadReportes();
+      await context.reloadReportesAgrupados();
 
-		await context.reloadReportes();
-		await context.reloadReportesAgrupados();
+      setTerminado(false);
 
-		setTerminado(false);
+      context.setUnidad(null);
+      context.setArea(null);
 
-		reinicializar();
+      reinicializar();
 
-		//Coloca el paso en el wozard a donde redirecciona el boton Aceptar
-		context.setStep(2);
+      context.setStep(1);
 
-		setLoadingAceptar(false);
-	}
+      navigation.goBack();
 
-	async function finalizarAction() {
-		setLoadingFinalizar(true);
+      setLoadingFinalizar(false);
+   }
 
-		await context.reloadReportes();
-		await context.reloadReportesAgrupados();
+   return (
+      <Container>
+         <View style={{flex: 1, height: "100%"}}>
+            <View style={{height: 8}} />
 
-		setTerminado(false);
-
-		context.setUnidad(null);
-		context.setArea(null);
-
-		reinicializar();
-
-		context.setStep(1);
-
-		navigation.goBack();
-
-		setLoadingFinalizar(false);
-	}
-
-	return (
-		<Container>
-			<View style={{ flex: 1, height: '100%' }}>
-				<View style={{ height: 8 }} />
-
-				<Wizard
-					steps={[
-						<Unidad
-							unidad={unidad}
-							setUnidad={setUnidad} />,
-						<Area
-							area={area}
-							setArea={setArea} />,
-						<Equipo
-							equipo={equipo}
-							setEquipo={setEquipo} />,
-						<Problema
-							problema={problema}
-							setProblema={setProblema} />,
-						<Comentario
-							comentario={comentario}
-							setComentario={setComentario} />,
-						<Fotos
-							navigation={navigation}
-							esDetalle={esDetalle}
-							imagenes={{ imagen1, imagen2, imagen3 }}
-							videos={{ video1 }}
-						/>,
-						<Finalizar
-							aceptarAction={() => aceptarAction()}
-							finalizarAction={() => finalizarAction()}
-							loadingAceptar={loadingAceptar}
-							loadingFinalizar={loadingFinalizar} />
-					]}
-					ultimo={6}
-					onSubmit={_handleSubmit.bind(this)}
-					loading={loading}
-					terminado={terminado}
-					unidad={unidad}
-					area={area} />
-			</View>
-		</Container>
-	);
+            <Wizard
+               steps={[
+                  <Unidad unidad={unidad} setUnidad={setUnidad} />,
+                  <Area area={area} setArea={setArea} />,
+                  <Equipo equipo={equipo} setEquipo={setEquipo} />,
+                  <Problema problema={problema} setProblema={setProblema} />,
+                  <Comentario
+                     comentario={comentario}
+                     setComentario={setComentario}
+                  />,
+                  <Fotos
+                     navigation={navigation}
+                     esDetalle={esDetalle}
+                     imagenes={{imagen1, imagen2, imagen3}}
+                     videos={{video1}}
+                  />,
+                  <Finalizar
+                     aceptarAction={() => aceptarAction()}
+                     finalizarAction={() => finalizarAction()}
+                     loadingAceptar={loadingAceptar}
+                     loadingFinalizar={loadingFinalizar}
+                  />,
+               ]}
+               ultimo={6}
+               onSubmit={_handleSubmit.bind(this)}
+               loading={loading}
+               terminado={terminado}
+               unidad={unidad}
+               area={area}
+            />
+         </View>
+      </Container>
+   );
 }
 
 export default Consumer(Etapa1);

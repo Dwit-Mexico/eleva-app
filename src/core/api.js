@@ -2,7 +2,7 @@ import {Platform} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import request from "superagent";
 import {API_URL} from "./url";
-import ExpoInfo from "expo-constants";
+import Constants from "expo-constants";
 
 let version_app = "1.0.0";
 
@@ -12,8 +12,8 @@ class Request {
          auth: "",
       };
 
-      if (ExpoInfo.manifest) {
-         const {version} = ExpoInfo.manifest;
+      if (Constants.expoConfig) {
+         const {version} = Constants.expoConfig;
          version_app = version;
       }
    }
@@ -111,6 +111,7 @@ class Request {
       }
 
       const response = await new Promise((res) => {
+         console.log(`${API_URL}${method}`);
          const postRequest = request.post(`${API_URL}${method}`);
 
          if (Array.isArray(files)) {
@@ -120,6 +121,7 @@ class Request {
                }
             });
          }
+
          if (data) {
             const keys = Object.keys(data);
             keys.forEach((key) => {
@@ -128,7 +130,7 @@ class Request {
                }
             });
          }
-
+         console.log("postRequest", postRequest);
          postRequest
             .set(
                "api_key",
@@ -136,12 +138,15 @@ class Request {
             )
             .set("auth", auth)
             .set("Accept", "application/json")
+            .set("Content-Type", "application/json")
             .set("app_platform", Platform.OS)
             .set("app_version", version_app)
+            .send(data)
             .then((resp) => {
                res(resp.body || {error: true, message: "error indefinido"});
             })
             .catch((err) => {
+               console.log("ERROR", err);
                if (err.status === 403) {
                   err.message = "Error de permisos.";
                }

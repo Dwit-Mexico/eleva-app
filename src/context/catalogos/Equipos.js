@@ -1,16 +1,17 @@
-import Request from '../../core/api';
+import Request from "../../core/api";
 
 const request = new Request();
 
 export async function getEquipos(IdTipoUnidadArea) {
-	console.log('Obteniendo catalogo equipo');
-	this.setState({equipos: []});
+   this.setState({equipos: []});
 
-	const response = await request.get('/app/unidades/get/equipos/areas', {IdTipoUnidadArea});
+   const response = await request.get("/app/unidades/get/equipos/areas", {
+      IdTipoUnidadArea,
+   });
 
-	if (Array.isArray(response.data)) {
-		this.setState({equipos: response.data});
-	}
+   if (Array.isArray(response.data)) {
+      this.setState({equipos: response.data});
+   }
 
-	return response;
-};
+   return response;
+}

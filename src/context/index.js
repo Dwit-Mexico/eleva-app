@@ -103,9 +103,7 @@ class GlobalContext extends Component {
    }
 
    async initApp() {
-      console.log("antes de log");
       let catalogos = await AsyncStorage.getItem("Catalogos");
-      console.log("despues de catalogoObj");
 
       if (catalogos) {
          catalogos = JSON.parse(catalogos);

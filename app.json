@@ -10,6 +10,22 @@
          "resizeMode": "contain",
          "backgroundColor": "#18191A"
       },
+      "plugins": [
+         [
+            "expo-camera",
+            {
+               "cameraPermissions": "Para tomar fotos o video, permite que Eleva pueda usar la cámara",
+               "recordAudioAndroid": false
+            }
+         ],
+         [
+            "expo-image-picker",
+            {
+               "cameraPermissions": "Para tomar fotos o video, permite que Eleva pueda usar la cámara",
+               "recordAudioAndroid": false
+            }
+         ]
+      ],
       "notification": {
          "icon": "./assets/appstore.png"
       },
