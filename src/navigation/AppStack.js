@@ -3,7 +3,7 @@ import { Alert, StatusBar, Platform, Linking } from 'react-native';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Consumer } from '../context';
-import Constants from 'expo-constants';
+import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 import Request from '../core/api';
 
@@ -70,7 +70,7 @@ function getHeaderTitle(route) {
 
 async function registerForPushNotificationsAsync() {
   let token;
-  if (Constants.isDevice) {
+  if (Device.isDevice) {
     const { status: existingStatus } = await Notifications.getPermissionsAsync();
     let finalStatus = existingStatus;
     if (existingStatus !== 'granted') {
