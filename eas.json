@@ -16,13 +16,10 @@
          }
       },
       "production": {
-         "node": "16.18.1",
          "ios": {
             "resourceClass": "m1-medium"
          },
-         "android": {
-            "buildType": "apk"
-         }
+         "autoIncrement": true
       }
    },
    "submit": {
