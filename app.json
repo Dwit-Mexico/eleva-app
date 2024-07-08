@@ -32,9 +32,7 @@
     "updates": {
       "enabled": false
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": false,
       "buildNumber": "1",
@@ -47,7 +45,7 @@
       }
     },
     "android": {
-      "package": "com.elevacap.customerservice",
+      "package": "com.elevapp.customerservice",
       "googleServicesFile": "./google-services.json",
       "permissions": [
         "VIBRATE",
@@ -58,7 +56,7 @@
         "READ_EXTERNAL_STORAGE",
         "WRITE_EXTERNAL_STORAGE"
       ],
-      "versionCode": 13
+      "versionCode": 15
     },
     "extra": {
       "eas": {
