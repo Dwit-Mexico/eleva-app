@@ -11,6 +11,10 @@
       "distribution": "internal"
     },
     "release": {
+      "env": {
+        "ANDROID_SDK_ROOT": "/Users/diego/Library/Android/sdk",
+        "ANDROID_HOME": "/Users/diego/Library/Android/sdk"
+      },
       "android": {
         "buildType": "apk"
       }
