@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "545970155438",
+    "project_id": "eleva-54c99",
+    "storage_bucket": "eleva-54c99.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:545970155438:android:165569135600f4e0aaa23f",
+        "android_client_info": {
+          "package_name": "com.elevapp.customerservice"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "545970155438-p9l1m3ag9nu1stvcamup2css84inq6lk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBlYE72iKbS_NM-g5GyyXwVlBLBwzdku8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "545970155438-p9l1m3ag9nu1stvcamup2css84inq6lk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

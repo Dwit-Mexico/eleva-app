@@ -1,17 +1,18 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from "react-native";
 
 //Colores
-import Colores from '../colores';
+import Colores from "../colores";
 
 export default StyleSheet.create({
-	card: {
-		flex: 1,
-		borderColor: '#aaa',
-		borderWidth: 1,
-		flexDirection: 'row',
-		marginTop: 10,
-		padding: 5,
-		backgroundColor: Colores.CardViviendaBG,
-		borderRadius: 5
-	}
+   card: {
+      flex: 1,
+      borderColor: "#aaa",
+      borderBottomColor: "#B29360",
+      borderWidth: 0,
+      borderBottomWidth: 4,
+      marginTop: 5,
+      marginBottom: 5,
+      padding: 5,
+      backgroundColor: Colores.CardViviendaBG,
+   },
 });

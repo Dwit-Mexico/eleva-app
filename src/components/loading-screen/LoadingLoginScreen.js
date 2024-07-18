@@ -1,13 +1,25 @@
-import React from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import React, {useEffect} from "react";
+import {View, ActivityIndicator} from "react-native";
+import {Consumer} from "../../context";
 
 //Styles
-import Styles from '../../styles/components/LoadingScreenStyle';
+import Styles from "../../styles/components/LoadingScreenStyle";
 
-const LoadingLoginScreen = (props) => (
-	<View style={Styles.loadingLoginScreen}>
-		<ActivityIndicator size={'large'} color={Styles.loadingLoginScreenSpinner.color}/>
-	</View>
-)
+const LoadingLoginScreen = ({context}) => {
+   if (context) {
+      useEffect(() => {
+         context.initApp();
+      }, []);
+   }
 
-export default LoadingLoginScreen;
+   return (
+      <View style={Styles.loadingLoginScreen}>
+         <ActivityIndicator
+            size={"large"}
+            color={Styles.loadingLoginScreenSpinner.color}
+         />
+      </View>
+   );
+};
+
+export default Consumer(LoadingLoginScreen);

@@ -1,35 +1,43 @@
-import React from 'react';
-import { ScrollView } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { FlatList, RefreshControl } from 'react-native';
+import { FontAwesome5 } from '@expo/vector-icons';
+import { Consumer } from '../../context';
 
 //Componentes
 import CardGarantia from './CardGarantia';
 
-function ListaViviendas({navigation}) {
+function ListaViviendas({navigation, context, lista}) {
+	const [isRefreshing, setRefreshing] = useState(false);
+
+	async function onRefresh() {
+		setRefreshing(true);
+		if (context) {
+			await context.getSetUnidades();
+			await context.reloadReportes();
+			await context.reloadReportesAgrupados();
+		}
+		setRefreshing(false);
+	}
+
 	return (
-		<ScrollView>
-			<CardGarantia
-				navigation={navigation}
-				proyecto="Demo1"
-				name="Vivienda 1"
-				direccion= "direccion de prueba"
-				area="cocina"
-				fecha="2020/10/21"/>
-			<CardGarantia
-				navigation={navigation}
-				proyecto="Demo1"
-				name="Vivienda 2"
-				direccion= "direccion de prueba 2"
-				area="comedor"
-				fecha="2020/10/21"/>
-			<CardGarantia
-				navigation={navigation}
-				proyecto="Demo1"
-				name="Vivienda 3"
-				direccion= "direccion de prueba 3"
-				area="dormitorio"
-				fecha="2020/10/21"/>
-		</ScrollView>
+		<FlatList
+			data 			=	{lista}
+			refreshControl	=	{
+				<RefreshControl
+					refreshing={isRefreshing}
+					onRefresh={onRefresh.bind(this)}
+					/>
+			}
+			renderItem 		=	{(card) => <CardGarantia
+										key			=	{card.item.IdGroup}
+										etapa 		=	{1}
+										navigation	=	{navigation}
+										item		=	{card.item}
+										icon 		=	{<FontAwesome5 name="book-open" size={24} color="black" />}
+										ruta		=	"ListaDetalleReportes"/>
+								}
+			keyExtractor	=	{(item) => `${item.IdGroup}`}/>
 	);
 }
 
-export default ListaViviendas;
+export default Consumer(ListaViviendas);

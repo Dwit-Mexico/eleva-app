@@ -1,20 +1,37 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from "react-native";
 
 export default StyleSheet.create({
-	loginButton: {
-		backgroundColor: '#B29360',
-		color: '#ffffff',
-		padding: 10,
-		width: 200,
-		textAlign: 'center',
-		borderRadius: 5
-	},
-	logoutButton: {
-		backgroundColor: '#B29360',
-		color: '#ffffff',
-		padding: 10,
-		width: 200,
-		textAlign: 'center',
-		borderRadius: 5
-	}
+   button: {
+      backgroundColor: "#B29360",
+      color: "#ffffff",
+      padding: 10,
+      textAlign: "center",
+      borderRadius: 5,
+      width: "100%",
+      height: 50,
+      justifyContent: "center",
+      alignItems: "center",
+   },
+   loginButton: {
+      backgroundColor: "#B29360",
+      color: "#ffffff",
+      padding: 10,
+      width: 200,
+      textAlign: "center",
+      borderRadius: 5,
+   },
+   logoutButton: {
+      backgroundColor: "#B29360",
+      color: "#ffffff",
+      padding: 10,
+      textAlign: "center",
+      borderRadius: 5,
+      width: "100%",
+      height: 50,
+      justifyContent: "center",
+      alignItems: "center",
+   },
+   spinner: {
+      color: "white",
+   },
 });

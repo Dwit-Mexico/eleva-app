@@ -1,13 +1,29 @@
 //Colores de la app
 const colores = {
-	tituloLogin: '#ffffff',
-	titulos: '#000002',
-	inputs: '#000002',
-	loginButtonText: '#ffffff',
-	logoutButtonText: '#ffffff',
-	CardViviendaBG: '#fff',
-	loadingLoginScreenBG: '#18191A',
-	loadingLoginScreenSpinner: '#B29360'
-}
+   tituloLogin: "#ffffff",
+   titulos: "#000002",
+   inputs: "#fff",
+   loginButtonText: "#ffffff",
+   logoutButtonText: "#ffffff",
+   CardViviendaBG: "#ffffffd0",
+   loadingLoginScreenBG: "#18191A",
+   loadingLoginScreenSpinner: "#B29360",
+   selectTheme: "#B29360",
+   bgReportes: "#DFBF84",
+   bgGarantias: "#E4CFA2",
+   bgValoraciones: "#F3E7D6",
+   spinnerColor: "#B29360",
+   CardGarantiaColor: "#ffffff",
+   CardGarantiaTitulo: "#B29360",
+   CardEtapaColor: "#ffffff",
+   CardCarpetaColor: "#ffffff",
+   CardNotificacionColor: "#ffffff",
+   ValoracionesTitulo: "#ffffff",
+   DetalleText: "#fff",
+   DetalleTitulo: "#B29360",
+   borderGold: "#B29360",
+   ratingColor: "#B29360",
+   WizardTitle: "#fff",
+};
 
 export default colores;
