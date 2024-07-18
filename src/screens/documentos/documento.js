@@ -2,9 +2,6 @@ import React, {useState, useEffect} from "react";
 import {useRoute} from "@react-navigation/native";
 import {View, Text, ImageBackground} from "react-native";
 import WebView from "react-native-webview";
-// Componentes
-
-// Styles
 import Styles from "../../styles/screens/DocumentosStyle";
 import Colores from "../../styles/colores";
 import {Platform} from "react-native-web";

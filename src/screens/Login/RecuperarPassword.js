@@ -6,17 +6,11 @@ import {
    ImageBackground,
    Text,
    TextInput,
-   TouchableWithoutFeedback,
-   Keyboard,
    Image,
 } from "react-native";
 import Request from "../../core/api";
-
-// Componentes
 import Container from "../../components/container";
 import BotonAccion from "../../components/boton/BotonAccion";
-
-//Styles
 import LoginStyle from "../../styles/screens/LoginStyle";
 import InputStyles from "../../styles/inputs";
 
@@ -25,8 +19,6 @@ const request = new Request();
 function RecuperarPassword({navigation}) {
    const [loading, setLoading] = useState(false);
    const [correo, setCorreo] = useState("");
-
-   let inputUsername = useRef();
 
    async function recuperarPassword() {
       setLoading(true);

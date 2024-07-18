@@ -1,43 +1,29 @@
 import React, {useState, useEffect} from "react";
-import {Alert, StatusBar, Platform, Linking} from "react-native";
+import {Alert, StatusBar, Platform} from "react-native";
 import {getFocusedRouteNameFromRoute} from "@react-navigation/native";
 import {createStackNavigator} from "@react-navigation/stack";
 import {Consumer} from "../context";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 import Request from "../core/api";
-
-//Componentes
 import BotonNotificaciones from "../components/boton-notificaciones/BotonNotificaciones";
-
-//Stacks
 import BottomNavigator from "./BottomTabNavigator";
-
-//Screens
 import Notificaciones from "../screens/notificaciones";
 import NotificacionesDetalle from "../screens/notificaciones/detalle";
-
 import GarantiasDetalle from "../screens/garantias/Garantias";
 import NuevaGarantia from "../screens/garantias/Nueva";
-
 import ListaReportes from "../screens/garantias/listas/Reporte";
 import ListaGarantias from "../screens/garantias/listas/Garantia";
 import ListaValoraciones from "../screens/garantias/listas/Valoraciones";
 import ListaHistorial from "../screens/garantias/listas/Historial";
-
 import ListaDetalleReportes from "../screens/garantias/listas/ReporteDetalle";
-// import ListaDetalleGarantias from '../screens/garantias/listas/GarantiaDetalle';
-
 import DetalleReportes from "../screens/garantias/detalle/Reporte";
 import DetalleGarantias from "../screens/garantias/detalle/Garantia";
 import DetalleRealizado from "../screens/garantias/detalle/Realizado";
 import DetalleValoraciones from "../screens/garantias/detalle/Valoraciones";
 import DetalleHistorico from "../screens/garantias/detalle/Historico";
-
 import ListaDocumentos from "../screens/documentos/ListaDocumentos";
 import VistaDocumento from "../screens/documentos/documento";
-
-//Usuarios
 import Usuarios from "../screens/perfil/Usuarios";
 import AgregarUsuario from "../screens/perfil/AgregarUsuario";
 
@@ -149,7 +135,6 @@ function AppStack(props) {
             name="Main"
             component={BottomNavigator}
             options={({navigation, route}) => ({
-               // header: () => null,
                headerTitle: getHeaderTitle(route),
                headerRight: () => (
                   <BotonNotificaciones navigation={navigation} />

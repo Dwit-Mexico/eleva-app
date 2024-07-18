@@ -3,12 +3,8 @@ import {Alert, View} from "react-native";
 import {Consumer} from "../../../context";
 import * as ImageManipulator from "expo-image-manipulator";
 import moment from "moment-timezone";
-
-// Componentes
 import Container from "../../../components/container";
 import Wizard from "../../../components/wizard";
-
-//Pages
 import Unidad from "./formulario/unidad";
 import Area from "./formulario/area";
 import Equipo from "./formulario/equipo";
@@ -16,8 +12,6 @@ import Problema from "./formulario/problema";
 import Comentario from "./formulario/comentario";
 import Fotos from "./formulario/fotos";
 import Finalizar from "./formulario/finalizar";
-
-// API
 import Request from "../../../core/api";
 const request = new Request();
 

@@ -17,13 +17,9 @@ import {Consumer} from "../../../context";
 import {FontAwesome5} from "@expo/vector-icons";
 import moment from "moment-timezone";
 import Request from "../../../core/api";
-
-// Componentes
 import Container from "../../../components/container";
 import SelectFechas from "../../../components/select/SelectFechas";
 import BotonAccion from "../../../components/boton/BotonAccion";
-
-// Styles
 import Styles from "../../../styles/screens/DetalleStyle";
 import Colores from "../../../styles/colores";
 

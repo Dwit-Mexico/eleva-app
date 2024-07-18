@@ -1,7 +1,5 @@
 import React, {Component, createContext} from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
-//Funciones
 import {login, logout, validar} from "./User";
 import {getUnidades, getSetUnidades} from "./catalogos/Unidades";
 import {getAreas} from "./catalogos/Areas";
@@ -82,7 +80,6 @@ class GlobalContext extends Component {
 
    async componentDidMount() {
       await this.initUser();
-      // await this.initApp();
    }
 
    async componentDidUpdate(prevProps, prevState) {
@@ -92,7 +89,6 @@ class GlobalContext extends Component {
    }
 
    async initUser() {
-      //Comprobar si el usuario inició sesión
       let loginUser = await AsyncStorage.getItem("LoginUser");
       if (loginUser) {
          loginUser = JSON.parse(loginUser);
@@ -133,12 +129,6 @@ class GlobalContext extends Component {
             }
          }
       }
-
-      /* const problemas = await getProblemas();
-		if (problemas.problemas) {
-			catalogoObj.problemas = problemas.problemas;
-			this.setState({ problemas: problemas.problemas });
-		} */
 
       const reportes = await this.state.getReportes();
       if (reportes.data) {

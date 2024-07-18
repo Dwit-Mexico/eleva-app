@@ -1,16 +1,11 @@
 import React, {useState, useEffect} from "react";
 import {Alert, View, Text, TouchableOpacity} from "react-native";
 import {Consumer} from "../../context";
-
-// Componentes
 import BotonEnviar from "../boton-enviar/BotonEnviar";
-
-// Styles
 import WizardStyle from "../../styles/components/WizardStyle";
 
 const Wizard = ({context, steps, ultimo, onSubmit, loading, terminado}) => {
    const [page, setPage] = useState(1);
-   // const [steps, setSteps] = useState([]);
    const [totalSteps, setTotalSteps] = useState(0);
 
    function prevStep() {
@@ -20,7 +15,6 @@ const Wizard = ({context, steps, ultimo, onSubmit, loading, terminado}) => {
    }
 
    function nextStep() {
-      // Validar Seleccion
       if (page == 1 && !context.unidad) {
          Alert.alert(null, "Selecciona una Unidad");
          return;
@@ -38,7 +32,6 @@ const Wizard = ({context, steps, ultimo, onSubmit, loading, terminado}) => {
          return;
       }
 
-      // Continuar a la siguiente pantalla
       if (page < totalSteps && context) {
          context.setStep(page + 1);
       }
@@ -47,7 +40,6 @@ const Wizard = ({context, steps, ultimo, onSubmit, loading, terminado}) => {
    useEffect(() => {
       const propSteps = steps;
       if (Array.isArray(propSteps)) {
-         // setSteps(propSteps);
          setTotalSteps(propSteps.length);
       }
    }, [steps]);

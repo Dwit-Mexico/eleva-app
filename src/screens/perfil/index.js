@@ -10,13 +10,9 @@ import {
 import {Consumer} from "../../context";
 import {useFocusEffect} from "@react-navigation/native";
 import Request from "../../core/api";
-
-// Componentes
 import Container from "../../components/container";
 import ListaViviendas from "../../components/lista-viviendas";
 import BotonAccion from "../../components/boton/BotonAccion";
-
-// Styles
 import Styles from "../../styles/screens/PerfilStyle";
 import StylesButtons from "../../styles/buttons";
 import StylesTexts from "../../styles/text";

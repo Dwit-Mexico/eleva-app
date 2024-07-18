@@ -1,13 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {
-   View,
-   Text,
-   TouchableOpacity,
-   StatusBar,
-   Linking,
-   Platform,
-   Image,
-} from "react-native";
+import {View, Text, TouchableOpacity, Linking, Platform} from "react-native";
 import {Camera} from "expo-camera";
 import {
    useFocusEffect,
@@ -15,14 +7,8 @@ import {
    useRoute,
 } from "@react-navigation/native";
 import {FontAwesome5, MaterialIcons} from "@expo/vector-icons";
-import ImageViewer from "react-native-image-zoom-viewer";
-
-// Componentes
 import Preview from "./preview";
 import Container from "../../components/container";
-
-//Styles
-// import Styles from '../../styles/components/ContainerStyle';
 
 let camara = null;
 
