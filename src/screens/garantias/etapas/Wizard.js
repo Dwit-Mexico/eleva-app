@@ -37,7 +37,6 @@ function Etapa1({navigation, esDetalle, context}) {
    const [loadingFinalizar, setLoadingFinalizar] = useState(false);
 
    async function _compressImage(imagen, name) {
-      console.log("Comprimiendo imagen...", imagen);
       if (imagen) {
          const manipResult = await ImageManipulator.manipulateAsync(
             imagen,
@@ -128,7 +127,6 @@ function Etapa1({navigation, esDetalle, context}) {
    }, [comentario]);
 
    async function _handleSubmit() {
-      console.log("Iniciando envío de formulario...");
       setLoading(true);
       const data = {
          IdUnidad: unidad,
@@ -144,20 +142,11 @@ function Etapa1({navigation, esDetalle, context}) {
       const file3 = await _compressImage(context.imagen3, "imagen3");
       const file4 = await _compressVideo(context.video1, "video1");
 
-      // console.log("file1", file1);
-      // console.log("file2", file2);
-      // console.log("file3", file3);
-      // console.log("file4", file4);
-
-      // console.log("data", data);
-
       const response = await request.postFile(
          "/app/garantias/crear",
          [file1, file2, file3, file4],
          data
       );
-
-      console.log("response", response);
 
       if (response.error) {
          Alert.alert(null, response.message || "Error interno");
@@ -188,9 +177,7 @@ function Etapa1({navigation, esDetalle, context}) {
    }
 
    async function aceptarAction() {
-      console.log("Entrando...");
       setLoadingAceptar(true);
-      console.log("Aceptando...");
 
       await context.reloadReportes();
       await context.reloadReportesAgrupados();
@@ -203,7 +190,6 @@ function Etapa1({navigation, esDetalle, context}) {
       context.setStep(2);
 
       setLoadingAceptar(false);
-      console.log("Saliendo...");
    }
 
    async function finalizarAction() {

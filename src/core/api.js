@@ -102,8 +102,6 @@ class Request {
    }
 
    async postFile(method, files, data) {
-      console.log(files);
-      console.log(data);
       let auth = "";
       let loginUser = await AsyncStorage.getItem("LoginUser");
 
@@ -113,7 +111,6 @@ class Request {
       }
 
       const response = await new Promise((res) => {
-         console.log(`${API_URL}${method}`);
          const postRequest = request.post(`${API_URL}${method}`);
 
          if (Array.isArray(files)) {
@@ -136,7 +133,6 @@ class Request {
                }
             });
          }
-         console.log("postRequest", postRequest);
          postRequest
             .set(
                "api_key",
@@ -151,7 +147,6 @@ class Request {
                res(resp.body || {error: true, message: "error indefinido"});
             })
             .catch((err) => {
-               console.log("ERROR", err);
                if (err.status === 403) {
                   err.message = "Error de permisos.";
                }
@@ -168,7 +163,6 @@ class Request {
             });
       });
 
-      console.log("RESPONSE", response);
       return response;
    }
 }

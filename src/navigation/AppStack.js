@@ -136,7 +136,6 @@ function AppStack(props) {
          const response = await request.post("/aplicacion/notificaciones/set", {
             token,
          });
-         // console.log('PUSH TOKEN', response);
       }
 
       if (expoPushToken) {
