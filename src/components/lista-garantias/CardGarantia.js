@@ -2,8 +2,6 @@ import React, {useState, useEffect} from "react";
 import {View, Text, TouchableOpacity} from "react-native";
 import {FontAwesome5} from "@expo/vector-icons";
 import moment from "moment-timezone";
-
-//Styles
 import CardStyles from "../../styles/components/CardGarantiaStyle";
 import Colores from "../../styles/colores";
 

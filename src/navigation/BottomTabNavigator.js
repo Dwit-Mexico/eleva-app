@@ -2,11 +2,8 @@ import React, {useEffect} from "react";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {FontAwesome5} from "@expo/vector-icons";
 import * as Notifications from "expo-notifications";
-
-//Stacks
 import PerfilStack from "./PerfilStack";
 import GarantiasStack from "./GarantiasStack";
-import GaleriaStack from "./GaleriaStack";
 import DocumentosStack from "./DocumentosStack";
 import {useNavigation} from "@react-navigation/native";
 

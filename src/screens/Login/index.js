@@ -10,12 +10,8 @@ import {
    ImageBackground,
 } from "react-native";
 import {Consumer} from "../../context";
-
-//Components
 import Container from "../../components/container";
 import Boton from "../../components/boton/BotonAccion";
-
-//Styles
 import LoginStyle from "../../styles/screens/LoginStyle";
 import TextStyle from "../../styles/text";
 import InputStyles from "../../styles/inputs";

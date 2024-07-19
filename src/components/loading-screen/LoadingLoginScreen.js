@@ -1,8 +1,6 @@
 import React, {useEffect} from "react";
 import {View, ActivityIndicator} from "react-native";
 import {Consumer} from "../../context";
-
-//Styles
 import Styles from "../../styles/components/LoadingScreenStyle";
 
 const LoadingLoginScreen = ({context}) => {
