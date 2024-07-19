@@ -24,7 +24,8 @@
                "cameraPermissions": "Para tomar fotos o video, permite que Eleva pueda usar la cámara",
                "recordAudioAndroid": false
             }
-         ]
+         ],
+         "expo-localization"
       ],
       "notification": {
          "icon": "./assets/appstore.png"

@@ -8,7 +8,13 @@ export default StyleSheet.create({
    loginView: {
       flex: 1,
       alignItems: "center",
-      justifyContent: "flex-start",
+      justifyContent: "center",
+   },
+   languageButtonContainer: {
+      position: "absolute",
+      top: 50,
+      right: 20,
+      zIndex: 1,
    },
    text: {
       color: "#fff",

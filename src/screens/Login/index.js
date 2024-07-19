@@ -1,13 +1,15 @@
-import React, {Component} from "react";
+import React, {useState, useEffect} from "react";
 import {
    Alert,
    View,
    Text,
    TextInput,
    TouchableOpacity,
-   ScrollView,
    Image,
    ImageBackground,
+   StatusBar,
+   Button,
+   Pressable,
 } from "react-native";
 import {Consumer} from "../../context";
 import Container from "../../components/container";
@@ -16,135 +18,143 @@ import LoginStyle from "../../styles/screens/LoginStyle";
 import TextStyle from "../../styles/text";
 import InputStyles from "../../styles/inputs";
 
-class LoginScreen extends Component {
-   constructor(props) {
-      super(props);
-      this.state = {
-         usuario: "",
-         password: "",
-         loading: false,
-      };
-      this.inputUsername = null;
-      this.inputPassword = null;
-   }
+import {getLocales} from "expo-localization";
+import {I18n} from "i18n-js";
+import {translations} from "../../../localizations";
 
-   async _handleSubmit() {
-      this.setState({loading: true});
-      const {usuario, password} = this.state;
-      if (!usuario) {
-         Alert.alert(null, "Debe proporcionar un usuario válido.");
-         this.setState({loading: false});
+function LoginScreen(props) {
+   const [loading, setLoading] = useState(false);
+   const [formData, setFormData] = useState({
+      email: "",
+      password: "",
+   });
+   const [locale, setLocale] = useState(getLocales()[0].languageCode ?? "es");
+
+   const i18n = new I18n(translations);
+   i18n.locale = locale;
+   i18n.enableFallback = true;
+
+   const handleSubmit = async () => {
+      setLoading(true);
+      const {email, password} = formData;
+      if (!email) {
+         Alert.alert(null, i18n.t("login.invalidEmail"));
+         setLoading(false);
          return;
       }
       if (!password) {
-         Alert.alert(null, "Debe proporcionar una contraseña válida.");
-         this.setState({loading: false});
+         Alert.alert(null, i18n.t("login.invalidPassword"));
+         setLoading(false);
          return;
       }
-      const {context} = this.props;
+      const {context} = props;
       if (context) {
-         const validar = await context.validar(usuario, password);
+         const validar = await context.validar(email, password);
          if (validar.activar) {
             this.props.navigation.navigate("ActualizarPassword", {
-               username: usuario,
+               username: email,
                IdPersona: validar.IdPersona,
             });
             return;
          }
-         await context.login(usuario, password);
+         await context.login(email, password);
       }
-      this.setState({loading: false});
-   }
+      setLoading(false);
+   };
 
-   render() {
+   useEffect(() => {
       StatusBar.setBarStyle("light-content");
-      return (
-         <ImageBackground
-            source={require("../../../assets/background.jpg")}
-            style={{flex: 1, resizeMode: "cover", justifyContent: "center"}}
-         >
-            <View style={LoginStyle.backGround}>
-               <ScrollView
-                  keyboardDismissMode="on-drag"
-                  style={{height: "100%", width: "100%"}}
-                  keyboardShouldPersistTaps="handled"
-               >
-                  <Container>
-                     <View style={LoginStyle.loginView}>
-                        <Image
-                           source={require("../../../assets/logo.png")}
-                           style={{width: 300, height: 300}}
-                        />
-                        <Text style={TextStyle.LoginTitle}>
-                           DESARROLLOS URBANOS
+   }, []);
+
+   console.log(locale);
+
+   return (
+      <ImageBackground
+         source={require("../../../assets/background.jpg")}
+         style={{
+            flex: 1,
+            resizeMode: "cover",
+            justifyContent: "center",
+            position: "relative",
+         }}
+      >
+         <View style={LoginStyle.backGround}>
+            <Container>
+               <View style={LoginStyle.languageButtonContainer}>
+                  <Pressable
+                     style={{backgroundColor: "white", padding: 10}}
+                     onPress={() => setLocale(locale === "es" ? "en" : "es")}
+                  >
+                     <Text>Cambio de Idiomas</Text>
+                  </Pressable>
+               </View>
+               <View style={LoginStyle.loginView}>
+                  <Image
+                     source={require("../../../assets/logo2.png")}
+                     style={{width: 140, height: 140}}
+                  />
+                  <View style={{height: 16}} />
+                  <Text style={TextStyle.LoginTitle}>
+                     {i18n.t("login.title")}
+                  </Text>
+                  <View style={{height: 16}} />
+                  <TextInput
+                     placeholder={i18n.t("login.email")}
+                     placeholderTextColor="#eaeaea"
+                     style={InputStyles.LoginUsername}
+                     onSubmitEditing={() => inputPassword.focus()}
+                     ref={(input) => (this.inputUsername = input)}
+                     returnKeyType="next"
+                     onChangeText={(text) =>
+                        setFormData({...formData, email: text})
+                     }
+                  />
+                  <View style={{height: 8}} />
+                  <TextInput
+                     placeholder={i18n.t("login.password")}
+                     placeholderTextColor="#eaeaea"
+                     style={InputStyles.LoginPassword}
+                     secureTextEntry={true}
+                     ref={(input) => (this.inputPassword = input)}
+                     returnKeyType="go"
+                     onSubmitEditing={handleSubmit}
+                     onChangeText={(text) =>
+                        setFormData({...formData, password: text})
+                     }
+                  />
+                  <View style={{height: 32}} />
+                  <View style={{width: 300}}>
+                     <Boton onPress={handleSubmit} loading={loading}>
+                        <Text style={TextStyle.loginButton}>
+                           {i18n.t("login.button")}
                         </Text>
-                        <View style={{height: 16}} />
-                        <TextInput
-                           placeholder="CORREO ELECTRONICO"
-                           placeholderTextColor="#eaeaea"
-                           style={InputStyles.LoginUsername}
-                           onSubmitEditing={() => this.inputPassword.focus()}
-                           ref={(input) => (this.inputUsername = input)}
-                           returnKeyType="next"
-                           onChangeText={(text) =>
-                              this.setState({usuario: text})
-                           }
-                        />
-                        <View style={{height: 8}} />
-                        <TextInput
-                           placeholder="CONTRASEÑA"
-                           placeholderTextColor="#eaeaea"
-                           style={InputStyles.LoginPassword}
-                           secureTextEntry={true}
-                           ref={(input) => (this.inputPassword = input)}
-                           returnKeyType="go"
-                           onSubmitEditing={this._handleSubmit.bind(this)}
-                           onChangeText={(text) =>
-                              this.setState({password: text})
-                           }
-                        />
-                        <View style={{height: 32}} />
-                        <View style={{width: 300}}>
-                           <Boton
-                              onPress={this._handleSubmit.bind(this)}
-                              loading={this.state.loading}
-                           >
-                              <Text
-                                 allowFontScaling={false}
-                                 style={TextStyle.loginButton}
-                              >
-                                 Iniciar
-                              </Text>
-                           </Boton>
-                        </View>
-                        <View style={{height: 16}} />
-                        <View style={{width: 300}}>
-                           <TouchableOpacity
-                              onPress={() =>
-                                 this.props.navigation.navigate(
-                                    "RecuperarPassword",
-                                    {usuario: this.state.usuario}
-                                 )
-                              }
-                           >
-                              <Text
-                                 style={{
-                                    fontSize: 12,
-                                    color: "white",
-                                    textAlign: "center",
-                                 }}
-                              >
-                                 Olvidaste tu contraseña
-                              </Text>
-                           </TouchableOpacity>
-                        </View>
-                     </View>
-                  </Container>
-               </ScrollView>
-            </View>
-         </ImageBackground>
-      );
-   }
+                     </Boton>
+                  </View>
+                  <View style={{height: 16}} />
+                  <View style={{width: 300}}>
+                     <TouchableOpacity
+                        onPress={() =>
+                           props.navigation.navigate("RecuperarPassword", {
+                              usuario: formData.email,
+                           })
+                        }
+                     >
+                        <Text
+                           style={{
+                              fontSize: 12,
+                              color: "white",
+                              textAlign: "center",
+                           }}
+                        >
+                           {i18n.t("login.forgotPassword")}
+                        </Text>
+                     </TouchableOpacity>
+                  </View>
+               </View>
+            </Container>
+         </View>
+      </ImageBackground>
+   );
 }
 
 export default Consumer(LoginScreen);
