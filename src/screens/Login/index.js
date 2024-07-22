@@ -8,7 +8,6 @@ import {
    Image,
    ImageBackground,
    StatusBar,
-   Button,
    Pressable,
 } from "react-native";
 import {Consumer} from "../../context";
@@ -17,22 +16,17 @@ import Boton from "../../components/boton/BotonAccion";
 import LoginStyle from "../../styles/screens/LoginStyle";
 import TextStyle from "../../styles/text";
 import InputStyles from "../../styles/inputs";
-
-import {getLocales} from "expo-localization";
-import {I18n} from "i18n-js";
-import {translations} from "../../../localizations";
+import {useLanguageContext} from "../../context/lang";
 
 function LoginScreen(props) {
+   const {locale, i18n, setLocale} = useLanguageContext();
    const [loading, setLoading] = useState(false);
    const [formData, setFormData] = useState({
       email: "",
       password: "",
    });
-   const [locale, setLocale] = useState(getLocales()[0].languageCode ?? "es");
 
-   const i18n = new I18n(translations);
-   i18n.locale = locale;
-   i18n.enableFallback = true;
+   console.log(locale);
 
    const handleSubmit = async () => {
       setLoading(true);
@@ -66,8 +60,6 @@ function LoginScreen(props) {
       StatusBar.setBarStyle("light-content");
    }, []);
 
-   console.log(locale);
-
    return (
       <ImageBackground
          source={require("../../../assets/background.jpg")}
@@ -85,7 +77,7 @@ function LoginScreen(props) {
                      style={{backgroundColor: "white", padding: 10}}
                      onPress={() => setLocale(locale === "es" ? "en" : "es")}
                   >
-                     <Text>Cambio de Idiomas</Text>
+                     {locale === "es" ? <Text>ES</Text> : <Text>EN</Text>}
                   </Pressable>
                </View>
                <View style={LoginStyle.loginView}>

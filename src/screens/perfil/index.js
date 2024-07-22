@@ -6,7 +6,9 @@ import {
    TouchableOpacity,
    ImageBackground,
    ActivityIndicator,
+   Pressable,
 } from "react-native";
+
 import {Consumer} from "../../context";
 import {useFocusEffect} from "@react-navigation/native";
 import Request from "../../core/api";
@@ -17,6 +19,7 @@ import Styles from "../../styles/screens/PerfilStyle";
 import StylesButtons from "../../styles/buttons";
 import StylesTexts from "../../styles/text";
 import Colores from "../../styles/colores";
+import {useLanguageContext} from "../../context/lang";
 
 const request = new Request();
 
@@ -39,6 +42,7 @@ const styleUserData = {
 };
 
 function Perfil({navigation, context}) {
+   const {locale, setLocale, i18n} = useLanguageContext();
    const [loading, setLoading] = useState(true);
    const [user, setUser] = useState({Nombre: ""});
    const [unidades, setUnidades] = useState([]);
@@ -135,6 +139,12 @@ function Perfil({navigation, context}) {
                            <ListaViviendas lista={unidades} />
                         )}
                      </View>
+                     <Pressable
+                        style={{backgroundColor: "white", padding: 10}}
+                        onPress={() => setLocale(locale === "es" ? "en" : "es")}
+                     >
+                        {locale === "es" ? <Text>ES</Text> : <Text>EN</Text>}
+                     </Pressable>
                      <View style={Styles.logoutButtonView}>
                         {user.Propietario && (
                            <View style={{width: 130}}>
@@ -162,7 +172,7 @@ function Perfil({navigation, context}) {
                                  allowFontScaling={false}
                                  style={StylesTexts.logoutButton}
                               >
-                                 Cerrar sesión
+                                 {i18n.t("profile.button")}
                               </Text>
                            </TouchableOpacity>
                         </View>
