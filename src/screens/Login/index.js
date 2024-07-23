@@ -26,8 +26,6 @@ function LoginScreen(props) {
       password: "",
    });
 
-   console.log(locale);
-
    const handleSubmit = async () => {
       setLoading(true);
       const {email, password} = formData;
@@ -77,7 +75,7 @@ function LoginScreen(props) {
                      style={{backgroundColor: "white", padding: 10}}
                      onPress={() => setLocale(locale === "es" ? "en" : "es")}
                   >
-                     {locale === "es" ? <Text>ES</Text> : <Text>EN</Text>}
+                     {locale === "es" ? <Text>Es</Text> : <Text>En</Text>}
                   </Pressable>
                </View>
                <View style={LoginStyle.loginView}>

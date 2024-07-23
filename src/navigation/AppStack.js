@@ -26,8 +26,8 @@ import ListaDocumentos from "../screens/documentos/ListaDocumentos";
 import VistaDocumento from "../screens/documentos/documento";
 import Usuarios from "../screens/perfil/Usuarios";
 import AgregarUsuario from "../screens/perfil/AgregarUsuario";
-
 import Camara from "../screens/camara";
+import {useLanguageContext} from "../context/lang";
 
 const request = new Request();
 
@@ -42,15 +42,19 @@ Notifications.setNotificationHandler({
 function getHeaderTitle(route) {
    const routeName = getFocusedRouteNameFromRoute(route) ?? "reportes";
 
+   const {i18n} = useLanguageContext();
+
    switch (routeName) {
       case "perfil":
-         return "Perfil";
+         return i18n.t("menu.profile");
       case "reportes":
-         return "Customer Service";
+         return i18n.t("menu.customerService");
       case "documentos":
-         return "Documentos";
+         return i18n.t("menu.documents");
       case "galeria":
-         return "Galería";
+         return i18n.t("menu.gallery");
+      default:
+         return i18n.t("menu.customerService");
    }
 }
 
@@ -107,6 +111,7 @@ async function registerForPushNotificationsAsync() {
 const Stack = createStackNavigator();
 
 function AppStack(props) {
+   const {i18n} = useLanguageContext();
    const [expoPushToken, setExpoPushToken] = useState("");
 
    useEffect(() => {
@@ -130,7 +135,10 @@ function AppStack(props) {
    }, [expoPushToken]);
 
    return (
-      <Stack.Navigator mode="modal">
+      <Stack.Navigator
+         // mode="modal"
+         screenOptions={{presentation: "modal"}}
+      >
          <Stack.Screen
             name="Main"
             component={BottomNavigator}
@@ -341,7 +349,7 @@ function AppStack(props) {
             name="Usuarios"
             component={Usuarios}
             options={{
-               headerTitle: "Usuarios",
+               headerTitle: i18n.t("screen.users"),
                headerStyle: {
                   backgroundColor: "#4C4C4C",
                },
@@ -353,7 +361,7 @@ function AppStack(props) {
             name="AgregarUsuario"
             component={AgregarUsuario}
             options={{
-               headerTitle: "Agregar Inquilino",
+               headerTitle: i18n.t("screen.addUser"),
                headerStyle: {
                   backgroundColor: "#4C4C4C",
                },

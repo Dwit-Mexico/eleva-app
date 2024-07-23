@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {
    Alert,
    View,
@@ -15,10 +15,12 @@ import Container from "../../components/container";
 import BotonAccion from "../../components/boton/BotonAccion";
 import LoginStyle from "../../styles/screens/LoginStyle";
 import InputStyles from "../../styles/inputs";
+import {useLanguageContext} from "../../context/lang";
 
 const request = new Request();
 
 function ActualizarPassword({context}) {
+   const {i18n} = useLanguageContext();
    const [loading, setLoading] = useState(false);
    const [password, setPassword] = useState("");
    const [usuario, setUsuario] = useState("");
@@ -26,9 +28,6 @@ function ActualizarPassword({context}) {
    const [repassword, setRePassword] = useState("");
 
    const route = useRoute();
-
-   let inputNewPassword = useRef();
-   let inputRetypePassword = useRef();
 
    useEffect(() => {
       const {username, IdPersona} = route.params;
@@ -42,11 +41,11 @@ function ActualizarPassword({context}) {
 
    function validarPassword() {
       if (!password) {
-         Alert.alert(null, "Proporcione una contraseña válida");
+         Alert.alert(null, i18n.t("updatePassword.invalidPassword"));
          return false;
       }
       if (password !== repassword) {
-         Alert.alert(null, "Las contraseñas no coinciden.");
+         Alert.alert(null, i18n.t("updatePassword.invalidRePassword"));
          return false;
       }
       return true;
@@ -68,10 +67,7 @@ function ActualizarPassword({context}) {
       const response = await request.post("/app/users/activar/cuenta", data);
 
       if (response.error) {
-         Alert.alert(
-            null,
-            response.message || "No se pudo actualizar la contraseña."
-         );
+         Alert.alert(null, response.message || i18n.t("updatePassword.error"));
       }
 
       if (response.updated) {
@@ -107,7 +103,7 @@ function ActualizarPassword({context}) {
                      </View>
                      <View style={{height: 32}} />
                      <TextInput
-                        placeholder="CONTRASEÑA NUEVA"
+                        placeholder={i18n.t("updatePassword.password")}
                         placeholderTextColor="#eaeaea"
                         style={InputStyles.LoginUsername}
                         onSubmitEditing={() => console.log("submit")}
@@ -118,7 +114,7 @@ function ActualizarPassword({context}) {
                      />
                      <View style={{height: 16}} />
                      <TextInput
-                        placeholder="REPETIR CONTRASEÑA"
+                        placeholder={i18n.t("updatePassword.repassword")}
                         placeholderTextColor="#eaeaea"
                         style={InputStyles.LoginUsername}
                         onSubmitEditing={() => console.log("submit")}
@@ -134,7 +130,7 @@ function ActualizarPassword({context}) {
                            loading={loading}
                         >
                            <Text style={{fontSize: 18, color: "white"}}>
-                              Enviar
+                              {i18n.t("updatePassword.send")}
                            </Text>
                         </BotonAccion>
                      </View>

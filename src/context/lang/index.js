@@ -29,7 +29,6 @@ export const useLanguage = () => {
       const loadLocale = async () => {
          const locale = await AsyncStorage.getItem("locale");
          if (locale) {
-            console.log("loadLocale", locale);
             setLocale(locale);
          }
       };
@@ -39,7 +38,6 @@ export const useLanguage = () => {
 
    useEffect(() => {
       i18n.locale = locale;
-      console.log("useEffect", i18n.locale);
       AsyncStorage.setItem("locale", locale);
    }, [locale]);
 

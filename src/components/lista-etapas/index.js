@@ -3,14 +3,16 @@ import {ScrollView} from "react-native";
 import {FontAwesome5} from "@expo/vector-icons";
 import CardEtapa from "./CardEtapa";
 import Colores from "../../styles/colores";
+import {useLanguageContext} from "../../context/lang";
 
 function ListaViviendas({navigation}) {
+   const {i18n} = useLanguageContext();
    return (
       <ScrollView>
          <CardEtapa
             etapa={1}
             navigation={navigation}
-            titulo="REPORTES"
+            titulo={i18n.t("screen.reports")}
             icon={
                <FontAwesome5
                   name="book-open"
@@ -23,7 +25,7 @@ function ListaViviendas({navigation}) {
          <CardEtapa
             etapa={2}
             navigation={navigation}
-            titulo="STATUS"
+            titulo={i18n.t("screen.status")}
             icon={
                <FontAwesome5
                   name="book-reader"
@@ -36,7 +38,7 @@ function ListaViviendas({navigation}) {
          <CardEtapa
             etapa={3}
             navigation={navigation}
-            titulo="VALORACIONES"
+            titulo={i18n.t("screen.ratings")}
             icon={
                <FontAwesome5
                   name="award"
@@ -49,7 +51,7 @@ function ListaViviendas({navigation}) {
          <CardEtapa
             etapa={4}
             navigation={navigation}
-            titulo="HISTORIAL"
+            titulo={i18n.t("screen.history")}
             icon={
                <FontAwesome5
                   name="history"

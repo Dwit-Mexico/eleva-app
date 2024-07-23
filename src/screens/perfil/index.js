@@ -8,7 +8,6 @@ import {
    ActivityIndicator,
    Pressable,
 } from "react-native";
-
 import {Consumer} from "../../context";
 import {useFocusEffect} from "@react-navigation/native";
 import Request from "../../core/api";
@@ -19,6 +18,7 @@ import Styles from "../../styles/screens/PerfilStyle";
 import StylesButtons from "../../styles/buttons";
 import StylesTexts from "../../styles/text";
 import Colores from "../../styles/colores";
+import LoginStyle from "../../styles/screens/LoginStyle";
 import {useLanguageContext} from "../../context/lang";
 
 const request = new Request();
@@ -39,6 +39,7 @@ const styleUserData = {
    shadowOpacity: 0.25,
    shadowRadius: 3.84,
    elevation: 6,
+   alignItems: "center",
 };
 
 function Perfil({navigation, context}) {
@@ -64,11 +65,7 @@ function Perfil({navigation, context}) {
          const response = await request.get("/app/unidades/get/unidades");
 
          if (response.error) {
-            Alert.alert(
-               null,
-               response.message ||
-                  "No se pudo obtener la información del usuario."
-            );
+            Alert.alert(null, response.message || i18n.t("profile.error"));
             setError(true);
          }
 
@@ -94,12 +91,24 @@ function Perfil({navigation, context}) {
    );
 
    return (
-      <>
+      <View style={{flex: 1, position: "relative"}}>
          <View style={{height: "25%"}}>
             <ImageBackground
                source={require("../../../assets/background.jpg")}
                style={{width: "100%", height: "100%"}}
             ></ImageBackground>
+         </View>
+         <View style={{position: "absolute", top: 20, right: 20, zIndex: 1}}>
+            <Pressable
+               style={StylesButtons.logoutButton}
+               onPress={() => setLocale(locale === "es" ? "en" : "es")}
+            >
+               {locale === "es" ? (
+                  <Text style={StylesTexts.logoutButton}>Es</Text>
+               ) : (
+                  <Text style={StylesTexts.logoutButton}>En</Text>
+               )}
+            </Pressable>
          </View>
          <View
             style={{
@@ -139,12 +148,7 @@ function Perfil({navigation, context}) {
                            <ListaViviendas lista={unidades} />
                         )}
                      </View>
-                     <Pressable
-                        style={{backgroundColor: "white", padding: 10}}
-                        onPress={() => setLocale(locale === "es" ? "en" : "es")}
-                     >
-                        {locale === "es" ? <Text>ES</Text> : <Text>EN</Text>}
-                     </Pressable>
+
                      <View style={Styles.logoutButtonView}>
                         {user.Propietario && (
                            <View style={{width: 130}}>
@@ -158,7 +162,7 @@ function Perfil({navigation, context}) {
                                     allowFontScaling={false}
                                     style={StylesTexts.logoutButton}
                                  >
-                                    Usuarios
+                                    {i18n.t("profile.users")}
                                  </Text>
                               </BotonAccion>
                            </View>
@@ -172,7 +176,7 @@ function Perfil({navigation, context}) {
                                  allowFontScaling={false}
                                  style={StylesTexts.logoutButton}
                               >
-                                 {i18n.t("profile.button")}
+                                 {i18n.t("profile.logout")}
                               </Text>
                            </TouchableOpacity>
                         </View>
@@ -181,7 +185,7 @@ function Perfil({navigation, context}) {
                </Container>
             </View>
          </View>
-      </>
+      </View>
    );
 }
 

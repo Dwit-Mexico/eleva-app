@@ -33,8 +33,10 @@ function BottomTabNavigator(props) {
 
    return (
       <Tab.Navigator
-         tabBarOptions={{activeTintColor: "#B29360"}}
-         screenOptions={{headerShown: false}}
+         screenOptions={{
+            headerShown: false,
+            tabBarActiveTintColor: "#B29360",
+         }}
       >
          <Tab.Screen
             name="reportes"

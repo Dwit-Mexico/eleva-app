@@ -16,10 +16,12 @@ import BotonAccion from "../../components/boton/BotonAccion";
 import CardUsuario from "../../components/usuarios/CardUsuario";
 import Styles from "../../styles/screens/PerfilStyle";
 import Colores from "../../styles/colores";
+import {useLanguageContext} from "../../context/lang";
 
 const request = new Request();
 
 function Usuarios({navigation}) {
+   const {i18n} = useLanguageContext();
    const [loading, setLoading] = useState(true);
    const [usuarios, setUsuarios] = useState([]);
    const [unidades, setUnidades] = useState([]);
@@ -31,19 +33,13 @@ function Usuarios({navigation}) {
       const response = await request.get("/app/usuarios/obtener");
 
       if (response.error || response.empty) {
-         Alert.alert(
-            null,
-            response.message || "No se pudieron obtener los usuarios."
-         );
+         Alert.alert(null, response.message || i18n.t("users.error"));
       }
 
       if (Array.isArray(response.usuarios)) {
          setUsuarios(response.usuarios);
       } else {
-         Alert.alert(
-            null,
-            response.message || "No se pudieron obtener los usuarios."
-         );
+         Alert.alert(null, response.message || i18n.t("users.error"));
       }
 
       setLoading(false);
@@ -78,7 +74,7 @@ function Usuarios({navigation}) {
                      }
                   >
                      <Text allowFontScaling={false} style={Styles.ButtonText}>
-                        Agregar Usuario
+                        {i18n.t("users.add")}
                      </Text>
                   </BotonAccion>
                </View>

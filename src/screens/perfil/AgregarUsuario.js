@@ -15,10 +15,12 @@ import Container from "../../components/container";
 import SelectUnidad from "../../components/select-unidad/SelectUnidad";
 import BotonAccion from "../../components/boton/BotonAccion";
 import StylesInputs from "../../styles/inputs";
+import {useLanguageContext} from "../../context/lang";
 
 const request = new Request();
 
 function AgregarUsuario() {
+   const {i18n} = useLanguageContext();
    const [loading, setLoading] = useState(false);
    const [unidades, setUnidades] = useState([]);
    const [nombre, setNombre] = useState("");
@@ -47,7 +49,7 @@ function AgregarUsuario() {
    function validarEmail(email) {
       let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
       if (reg.test(email) === false) {
-         Alert.alert(null, "Se debe proporcinar un correo válido");
+         Alert.alert(null, i18n.t("addUser.invalidEmail"));
          setLoading(false);
          return false;
       } else {
@@ -58,13 +60,13 @@ function AgregarUsuario() {
    async function agregarUsuario() {
       setLoading(true);
 
-      if (!validarCampo(unidad, "Se debe proporcinar una unidad válida.")) {
+      if (!validarCampo(unidad, i18n.t("addUser.invalidUnit"))) {
          return;
       }
-      if (!validarCampo(nombre, "se debe proporcinar un nombre válido.")) {
+      if (!validarCampo(nombre, i18n.t("addUser.invalidName"))) {
          return;
       }
-      if (!validarCampo(apellidos, "se debe proporcinar un apellido válido.")) {
+      if (!validarCampo(apellidos, i18n.t("addUser.invalidLastName"))) {
          return;
       }
       if (!validarEmail(correo)) {
@@ -82,20 +84,14 @@ function AgregarUsuario() {
       const response = await request.post("/app/users/create", data);
 
       if (response.error) {
-         Alert.alert(
-            null,
-            response.message || "No se pudo agregar al usuario."
-         );
+         Alert.alert(null, response.message || i18n.t("addUser.error"));
       }
 
       if (response.created) {
-         Alert.alert(null, "Usuario agregado correctamente");
+         Alert.alert(null, i18n.t("addUser.added"));
          navigation.goBack();
       } else {
-         Alert.alert(
-            null,
-            response.message || "No se pudo agregar al usuario."
-         );
+         Alert.alert(null, response.message || i18n.t("addUser.error"));
       }
 
       setLoading(false);
@@ -119,7 +115,7 @@ function AgregarUsuario() {
             <Container>
                <ScrollView>
                   <View>
-                     <Text>Unidad</Text>
+                     <Text>{i18n.t("addUser.unit")}</Text>
                      <SelectUnidad
                         unidades={unidades}
                         onChange={(option) => setUnidad(option)}
@@ -127,7 +123,7 @@ function AgregarUsuario() {
                   </View>
                   <View style={{height: 8}} />
                   <View>
-                     <Text>Nombre</Text>
+                     <Text>{i18n.t("addUser.name")}</Text>
                      <TextInput
                         value={nombre}
                         style={StylesInputs.inputNormal}
@@ -138,7 +134,7 @@ function AgregarUsuario() {
                      />
                   </View>
                   <View>
-                     <Text>Apellidos</Text>
+                     <Text>{i18n.t("addUser.lastName")}</Text>
                      <TextInput
                         value={apellidos}
                         style={StylesInputs.inputNormal}
@@ -149,7 +145,7 @@ function AgregarUsuario() {
                      />
                   </View>
                   <View>
-                     <Text>Correo (usuario)</Text>
+                     <Text>{i18n.t("addUser.email")}</Text>
                      <TextInput
                         value={correo}
                         style={StylesInputs.inputNormal}
@@ -161,7 +157,7 @@ function AgregarUsuario() {
                   </View>
                   <View style={{height: 8}} />
                   <View>
-                     <Text>Teléfono</Text>
+                     <Text>{i18n.t("addUser.phone")}</Text>
                      <TextInput
                         value={telefono}
                         style={StylesInputs.inputNormal}
@@ -184,7 +180,7 @@ function AgregarUsuario() {
                            fontWeight: "bold",
                         }}
                      >
-                        Agregar
+                        {i18n.t("addUser.add")}
                      </Text>
                   </BotonAccion>
                </ScrollView>
