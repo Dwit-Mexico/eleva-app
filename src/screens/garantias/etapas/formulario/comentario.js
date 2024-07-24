@@ -10,8 +10,10 @@ import {
 import {Consumer} from "../../../../context";
 import Styles from "../../../../styles/components/WizardStyle";
 import Colores from "../../../../styles/colores";
+import {useLanguageContext} from "../../../../context/lang";
 
 function Comentarios(props) {
+   const {i18n} = useLanguageContext();
    const animatedOpacity = useRef(new Animated.Value(0)).current;
 
    const [comentario, setComentario] = useState("");
@@ -49,14 +51,14 @@ function Comentarios(props) {
                      color: Colores.WizardTitle,
                   }}
                >
-                  Describe tu detalle
+                  {i18n.t("reports.comment")}
                </Text>
 
                <View style={{height: 8}} />
 
                <TextInput
                   value={props.comentario || comentario}
-                  placeholder="Escriba sus comentarios"
+                  placeholder={i18n.t("reports.comments")}
                   style={Styles.comentarios}
                   multiline
                   numberOfLines={6}

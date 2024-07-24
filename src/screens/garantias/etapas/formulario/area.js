@@ -3,8 +3,10 @@ import {View, Animated, Text} from "react-native";
 import {Consumer} from "../../../../context";
 import SelectArea from "../../../../components/select/SelectArea";
 import Styles from "../../../../styles/components/WizardStyle";
+import {useLanguageContext} from "../../../../context/lang";
 
 function SeleccionarArea({setArea, area, context}) {
+   const {i18n} = useLanguageContext();
    const animatedOpacity = useRef(new Animated.Value(0)).current;
 
    useEffect(() => {
@@ -41,7 +43,7 @@ function SeleccionarArea({setArea, area, context}) {
                opacity: animatedOpacity,
             }}
          >
-            <Text style={Styles.titleStyle}>¿Dónde tienes el detalle?</Text>
+            <Text style={Styles.titleStyle}>{i18n.t("reports.area")}</Text>
             <SelectArea onSelect={onSelect.bind(this)} value={area} />
          </Animated.View>
       </View>

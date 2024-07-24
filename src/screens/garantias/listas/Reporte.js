@@ -6,8 +6,10 @@ import Container from "../../../components/container";
 import ListaGarantias from "../../../components/lista-garantias";
 import BotonNuevo from "../../../components/boton-nuevo/BotonNuevo";
 import Styles from "../../../styles/screens/GarantiasStyle";
+import {useLanguageContext} from "../../../context/lang";
 
 const ListaReporte = ({navigation, context}) => {
+   const {i18n} = useLanguageContext();
    const [lista, setLista] = useState([]);
 
    useEffect(() => {
@@ -64,7 +66,7 @@ const ListaReporte = ({navigation, context}) => {
                   >
                      <View style={{maxWidth: 260}}>
                         <Text style={{color: "#ffffff", fontSize: 18}}>
-                           Reporta aqui tu detalle
+                           {i18n.t("reports.details")}
                         </Text>
                      </View>
                      <BotonNuevo

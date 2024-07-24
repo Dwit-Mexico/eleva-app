@@ -3,8 +3,10 @@ import {Alert, View, Text, TouchableOpacity} from "react-native";
 import {Consumer} from "../../context";
 import BotonEnviar from "../boton-enviar/BotonEnviar";
 import WizardStyle from "../../styles/components/WizardStyle";
+import {useLanguageContext} from "../../context/lang";
 
 const Wizard = ({context, steps, ultimo, onSubmit, loading, terminado}) => {
+   const {i18n} = useLanguageContext();
    const [page, setPage] = useState(1);
    const [totalSteps, setTotalSteps] = useState(0);
 
@@ -79,7 +81,7 @@ const Wizard = ({context, steps, ultimo, onSubmit, loading, terminado}) => {
                      allowFontScaling={false}
                      style={WizardStyle.navigationButtonText}
                   >
-                     Anterior
+                     {i18n.t("button.back")}
                   </Text>
                </TouchableOpacity>
                {page == ultimo ? (
@@ -93,7 +95,7 @@ const Wizard = ({context, steps, ultimo, onSubmit, loading, terminado}) => {
                         allowFontScaling={false}
                         style={WizardStyle.navigationButtonText}
                      >
-                        Siguiente
+                        {i18n.t("button.next")}
                      </Text>
                   </TouchableOpacity>
                )}

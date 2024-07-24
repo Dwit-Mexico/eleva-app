@@ -3,8 +3,10 @@ import {View, Animated, Text} from "react-native";
 import {Consumer} from "../../../../context";
 import SelectEquipo from "../../../../components/select/SelectEquipo";
 import Styles from "../../../../styles/components/WizardStyle";
+import {useLanguageContext} from "../../../../context/lang";
 
 function SeleccionarEquipo({equipo, setEquipo}) {
+   const {i18n} = useLanguageContext();
    const animatedOpacity = useRef(new Animated.Value(0)).current;
 
    useEffect(() => {
@@ -30,7 +32,7 @@ function SeleccionarEquipo({equipo, setEquipo}) {
                opacity: animatedOpacity,
             }}
          >
-            <Text style={Styles.titleStyle}>¿Que equipo presenta detalle?</Text>
+            <Text style={Styles.titleStyle}>{i18n.t("reports.equipment")}</Text>
             <SelectEquipo
                onSelect={(opcion) => onSelect(opcion)}
                value={equipo}

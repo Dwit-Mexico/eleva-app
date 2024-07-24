@@ -4,6 +4,7 @@ import {Consumer} from "../../../../context";
 import BotonWizard from "../../../../components/boton/BotonWizard";
 import Styles from "../../../../styles/components/WizardStyle";
 import ButtonStyles from "../../../../styles/buttons";
+import {useLanguageContext} from "../../../../context/lang";
 
 function Finalizar({
    aceptarAction,
@@ -11,6 +12,7 @@ function Finalizar({
    loadingAceptar,
    loadingFinalizar,
 }) {
+   const {i18n} = useLanguageContext();
    let animatedOpacity = new Animated.Value(0);
 
    function initOpactity() {
@@ -35,21 +37,19 @@ function Finalizar({
             }}
          >
             <Text style={{fontSize: 18, color: "#fff", padding: 10}}>
-               Para la atención de los detalles señalados en este reporte, el
-               departamento de customer service contara con 48 hrs. para
-               contactar al propietario o inquilino a fin de agendar una cita
-               conveniente a ambos lados para ejecutar dichos trabajos.
+               {i18n.t("reports.termns1")}
             </Text>
             <Text style={{fontSize: 18, color: "#fff", padding: 10}}>
-               <Text style={{fontWeight: "bold"}}>IMPORTANTE:</Text> El
-               propietario o inquilino tendrá que estar presente al momento de
-               que se este realizando los trabajos en el departamento.
+               <Text style={{fontWeight: "bold"}}>
+                  {i18n.t("reports.note")}
+               </Text>{" "}
+               {i18n.t("reports.terms2")}
             </Text>
             <View
                style={{flex: 1, justifyContent: "center", paddingBottom: 120}}
             >
                <Text style={Styles.titleStyle}>
-                  ¿Quieres agregar otro reporte?
+                  {i18n.t("reports.newReport")}
                </Text>
                <View style={{height: 16}} />
                <View
@@ -69,7 +69,7 @@ function Finalizar({
                            allowFontScaling={false}
                            style={{color: "white", fontSize: 18}}
                         >
-                           Aceptar
+                           {i18n.t("button.accept")}
                         </Text>
                      </BotonWizard>
                   </View>
@@ -84,7 +84,7 @@ function Finalizar({
                            allowFontScaling={false}
                            style={{color: "white", fontSize: 18}}
                         >
-                           Finalizar
+                           {i18n.t("button.finish")}
                         </Text>
                      </BotonWizard>
                   </View>

@@ -3,8 +3,10 @@ import {View, Animated, Text} from "react-native";
 import {Consumer} from "../../../../context";
 import SelectProblema from "../../../../components/select/SelectProblema";
 import Styles from "../../../../styles/components/WizardStyle";
+import {useLanguageContext} from "../../../../context/lang";
 
 function SeleccionarProblema({problema, setProblema}) {
+   const {i18n} = useLanguageContext();
    const animatedOpacity = useRef(new Animated.Value(0)).current;
 
    useEffect(() => {
@@ -30,7 +32,7 @@ function SeleccionarProblema({problema, setProblema}) {
                opacity: animatedOpacity,
             }}
          >
-            <Text style={Styles.titleStyle}>¿Cuál es tu detalle?</Text>
+            <Text style={Styles.titleStyle}>{i18n.t("reports.problem")}</Text>
             <SelectProblema
                onSelect={(opcion) => onSelect(opcion)}
                value={problema}

@@ -87,7 +87,7 @@ function RecuperarPassword({navigation}) {
                            loading={loading}
                         >
                            <Text style={{fontSize: 18, color: "white"}}>
-                              {i18n.t("recoverPassword.send")}
+                              {i18n.t("button.send")}
                            </Text>
                         </BotonAccion>
                      </View>
@@ -95,7 +95,7 @@ function RecuperarPassword({navigation}) {
                      <View style={{width: 300}}>
                         <BotonAccion onPress={() => navigation.goBack()}>
                            <Text style={{fontSize: 18, color: "white"}}>
-                              {i18n.t("recoverPassword.back")}
+                              {i18n.t("button.back")}
                            </Text>
                         </BotonAccion>
                      </View>

@@ -130,7 +130,7 @@ function ActualizarPassword({context}) {
                            loading={loading}
                         >
                            <Text style={{fontSize: 18, color: "white"}}>
-                              {i18n.t("updatePassword.send")}
+                              {i18n.t("button.send")}
                            </Text>
                         </BotonAccion>
                      </View>

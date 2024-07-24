@@ -3,8 +3,10 @@ import {View, Animated, Text} from "react-native";
 import {Consumer} from "../../../../context";
 import SelectUnidad from "../../../../components/select/SelectUnidad";
 import Styles from "../../../../styles/components/WizardStyle";
+import {useLanguageContext} from "../../../../context/lang";
 
 function SeleccionarUnidad({unidad, setUnidad}) {
+   const {i18n} = useLanguageContext();
    const animatedOpacity = useRef(new Animated.Value(0)).current;
 
    useEffect(() => {
@@ -30,7 +32,7 @@ function SeleccionarUnidad({unidad, setUnidad}) {
                opacity: animatedOpacity,
             }}
          >
-            <Text style={Styles.titleStyle}>¿En donde ocurrió el detalle?</Text>
+            <Text style={Styles.titleStyle}>{i18n.t("reports.unit")}</Text>
             <SelectUnidad onSelect={onSelect.bind(this)} value={unidad} />
          </Animated.View>
       </View>

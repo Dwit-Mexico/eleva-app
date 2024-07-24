@@ -180,7 +180,7 @@ function AgregarUsuario() {
                            fontWeight: "bold",
                         }}
                      >
-                        {i18n.t("addUser.add")}
+                        {i18n.t("button.add")}
                      </Text>
                   </BotonAccion>
                </ScrollView>

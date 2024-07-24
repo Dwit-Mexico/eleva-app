@@ -136,8 +136,8 @@ function AppStack(props) {
 
    return (
       <Stack.Navigator
-         // mode="modal"
-         screenOptions={{presentation: "modal"}}
+      // mode="modal"
+      // screenOptions={{presentation: "modal"}}
       >
          <Stack.Screen
             name="Main"
@@ -158,7 +158,7 @@ function AppStack(props) {
             name="Notificaciones"
             component={Notificaciones}
             options={{
-               headerTitle: "Notificaciones",
+               headerTitle: i18n.t("screen.notifications"),
                headerStyle: {
                   backgroundColor: "#4C4C4C",
                },
@@ -170,7 +170,7 @@ function AppStack(props) {
             name="NotificacionDetalle"
             component={NotificacionesDetalle}
             options={{
-               headerTitle: "Notificaciones",
+               headerTitle: i18n.t("screen.notifications"),
                headerStyle: {
                   backgroundColor: "#4C4C4C",
                },
@@ -194,7 +194,7 @@ function AppStack(props) {
             name="ListaReportes"
             component={ListaReportes}
             options={{
-               headerTitle: "Reportes",
+               headerTitle: i18n.t("screen.reports"),
                headerStyle: {
                   backgroundColor: "#4C4C4C",
                },
@@ -307,7 +307,7 @@ function AppStack(props) {
             name="NuevaGarantia"
             component={NuevaGarantia}
             options={{
-               headerTitle: "Nuevo Reporte",
+               headerTitle: i18n.t("screen.newReport"),
                headerStyle: {
                   backgroundColor: "#4C4C4C",
                },

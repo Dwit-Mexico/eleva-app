@@ -17,12 +17,13 @@ import ImageZoom from "react-native-image-zoom-viewer";
 import {useFocusEffect} from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
 import {Video} from "expo-av";
-
 import Styles from "../../../../styles/components/WizardStyle";
+import {useLanguageContext} from "../../../../context/lang";
 const emptyImage = require("../../../../../assets/picture.jpg");
 const emptyVideo = require("../../../../../assets/video1.jpeg");
 
 function SeleccionarFotos({navigation, imagenes, videos, context}) {
+   const {i18n} = useLanguageContext();
    let animatedOpacity = useRef(new Animated.Value(0)).current;
 
    const [imagen1, setImagen1] = useState(imagenes.imagen1 || null);
@@ -258,9 +259,7 @@ function SeleccionarFotos({navigation, imagenes, videos, context}) {
                opacity: animatedOpacity,
             }}
          >
-            <Text style={Styles.titleStyle}>
-               ¿Tienes fotos o video del detalle?
-            </Text>
+            <Text style={Styles.titleStyle}>{i18n.t("reports.photos")}</Text>
 
             <View style={{height: 8}} />
 

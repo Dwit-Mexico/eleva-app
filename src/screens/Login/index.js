@@ -116,7 +116,7 @@ function LoginScreen(props) {
                   <View style={{width: 300}}>
                      <Boton onPress={handleSubmit} loading={loading}>
                         <Text style={TextStyle.loginButton}>
-                           {i18n.t("login.button")}
+                           {i18n.t("button.start")}
                         </Text>
                      </Boton>
                   </View>

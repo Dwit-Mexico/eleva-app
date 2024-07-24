@@ -1,6 +1,7 @@
 import React from "react";
 import {TouchableOpacity, Text, ActivityIndicator} from "react-native";
 import Styles from "../../styles/components/BotonEnviarStyle";
+import {useLanguageContext} from "../../context/lang";
 
 function _onSubmit(onSubmit) {
    if (onSubmit) {
@@ -9,6 +10,7 @@ function _onSubmit(onSubmit) {
 }
 
 const BotonEnviar = (props) => {
+   const {i18n} = useLanguageContext();
    const {navigation, onSubmit} = props;
    if (props.loading) {
       return (
@@ -23,7 +25,7 @@ const BotonEnviar = (props) => {
          onPress={_onSubmit.bind(this, onSubmit)}
       >
          <Text allowFontScaling={false} style={Styles.text}>
-            Enviar
+            {i18n.t("button.send")}
          </Text>
       </TouchableOpacity>
    );
