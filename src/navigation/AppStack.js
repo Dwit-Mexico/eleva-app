@@ -205,7 +205,7 @@ function AppStack(props) {
             name="ListaGarantias"
             component={ListaGarantias}
             options={{
-               headerTitle: "Status",
+               headerTitle: i18n.t("screen.status"),
                headerStyle: {
                   backgroundColor: "#4C4C4C",
                },
@@ -216,7 +216,7 @@ function AppStack(props) {
             name="ListaValoraciones"
             component={ListaValoraciones}
             options={{
-               headerTitle: "Valoraciones",
+               headerTitle: i18n.t("screen.ratings"),
                headerStyle: {
                   backgroundColor: "#4C4C4C",
                },
@@ -262,7 +262,7 @@ function AppStack(props) {
             name="DetalleGarantia"
             component={DetalleGarantias}
             options={{
-               headerTitle: "Status",
+               headerTitle: i18n.t("screen.status"),
                headerStyle: {
                   backgroundColor: "#4C4C4C",
                },
@@ -295,7 +295,7 @@ function AppStack(props) {
             name="DetalleHistorico"
             component={DetalleHistorico}
             options={{
-               headerTitle: "Historial",
+               headerTitle: i18n.t("screen.history"),
                headerStyle: {
                   backgroundColor: "#4C4C4C",
                },

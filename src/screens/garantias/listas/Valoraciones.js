@@ -5,8 +5,10 @@ import Container from "../../../components/container";
 import ListaGarantias from "../../../components/lista-garantias-detalle";
 import Styles from "../../../styles/screens/GarantiasStyle";
 import Colores from "../../../styles/colores";
+import {useLanguageContext} from "../../../context/lang";
 
 const ListaValoraciones = ({navigation, context}) => {
+   const {i18n} = useLanguageContext();
    const [lista, setLista] = useState([]);
 
    if (context) {
@@ -32,13 +34,12 @@ const ListaValoraciones = ({navigation, context}) => {
                   <Text
                      style={{fontSize: 18, color: Colores.ValoracionesTitulo}}
                   >
-                     Su opinion nos interesa. Ayúdenos a valorar nuestro
-                     servicio.
+                     {i18n.t("ratings.text")}
                   </Text>
                   <Text
                      style={{fontSize: 18, color: Colores.ValoracionesTitulo}}
                   >
-                     Muchas Gracias
+                     {i18n.t("ratings.thanks")}
                   </Text>
                </View>
                <ListaGarantias

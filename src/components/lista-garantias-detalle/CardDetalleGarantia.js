@@ -150,6 +150,7 @@ function CardGarantia(props) {
       );
    }
 
+   //lista de status
    return (
       <TouchableOpacity
          style={{

@@ -90,6 +90,19 @@ export const translations = {
             "El propietario o inquilino tendrá que estar presente al momento de que se este realizando los trabajos en el departamento.",
          newReport: "¿Quieres agregar otro reporte?",
       },
+      ratings: {
+         title: "Valoraciones",
+         text: "Su opinion nos interesa. Ayúdenos a valorar nuestro servicio",
+         thanks: "Muchas Gracias",
+      },
+      history: {
+         title: "Historial",
+         unit: "Unidad",
+         area: "Área",
+         equipment: "Equipo",
+         problem: "Problema",
+         comments: "Comentarios",
+      },
    },
    en: {
       menu: {
@@ -183,6 +196,19 @@ export const translations = {
          terms2:
             "The owner or tenant must be present at the time the work is being done.",
          newReport: "Do you want to add another report?",
+      },
+      ratings: {
+         title: "Ratings",
+         text: "Your opinion matters to us. Help us rate our service",
+         thanks: "Thank you very much",
+      },
+      history: {
+         title: "History",
+         unit: "Unit",
+         area: "Area",
+         equipment: "Equipment",
+         problem: "Problem",
+         comments: "Comments",
       },
    },
 };

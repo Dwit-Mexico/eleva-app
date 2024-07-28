@@ -15,8 +15,10 @@ import {FontAwesome5} from "@expo/vector-icons";
 import Container from "../../../components/container";
 import Styles from "../../../styles/screens/DetalleStyle";
 import Colores from "../../../styles/colores";
+import {useLanguageContext} from "../../../context/lang";
 
 const Historico = ({context}) => {
+   const {i18n} = useLanguageContext();
    const [info, setInfo] = useState({});
    const [respuesta, setRespuesta] = useState(null);
    const [comentario, setComentario] = useState("");
@@ -92,7 +94,7 @@ const Historico = ({context}) => {
                         color: Colores.DetalleText,
                      }}
                   >
-                     Unidad: {info.Numero}
+                     {i18n.t("history.unit")}: {info.Numero}
                   </Text>
                   <Text
                      style={{
@@ -101,7 +103,7 @@ const Historico = ({context}) => {
                         color: Colores.DetalleText,
                      }}
                   >
-                     Area: {info.NombreArea}
+                     {i18n.t("history.area")}: {info.NombreArea}
                   </Text>
                   <Text
                      style={{
@@ -110,7 +112,7 @@ const Historico = ({context}) => {
                         color: Colores.DetalleText,
                      }}
                   >
-                     Equipo: {info.NombreEquipo}
+                     {i18n.t("history.equipment")}: {info.NombreEquipo}
                   </Text>
                   <Text
                      style={{
@@ -119,7 +121,7 @@ const Historico = ({context}) => {
                         color: Colores.DetalleText,
                      }}
                   >
-                     Problema: {info.NombreProblema}
+                     {i18n.t("history.problem")}: {info.NombreProblema}
                   </Text>
 
                   <View style={{height: 16}} />
