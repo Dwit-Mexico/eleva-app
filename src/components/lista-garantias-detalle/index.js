@@ -46,9 +46,11 @@ function ListaGarantiasDetalle({navigation, etapa, context, lista, reporte}) {
                   navigation={navigation}
                   proyecto={item.NombreProyecto}
                   unidad={item.Numero}
-                  problema={item.NombreProblema}
+                  problema={
+                     locale === "en" ? item.area_name : item.NombreProblema
+                  }
                   direccion=""
-                  area={item.NombreArea}
+                  area={locale === "en" ? item.area_name : item.NombreArea}
                   fecha={moment(item.Fecha).tz("GMT").format("DD/MM/YYYY")}
                   data={card}
                   reporte={reporte}

@@ -130,10 +130,10 @@ class GlobalContext extends Component {
          }
       }
 
-      // const reportes = await this.state.getReportes();
-      // if (reportes.data) {
-      //    catalogoObj.reportes = reportes.data;
-      // }
+      const reportes = await this.state.getReportes();
+      if (reportes.data) {
+         catalogoObj.reportes = reportes.data;
+      }
 
       const reportesAgrupados = await this.state.getReportesAgrupados();
       if (reportesAgrupados.data) {
