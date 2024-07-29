@@ -205,7 +205,7 @@ function AppStack(props) {
             name="ListaGarantias"
             component={ListaGarantias}
             options={{
-               headerTitle: i18n.t("screen.status"),
+               headerTitle: "pp",
                headerStyle: {
                   backgroundColor: "#4C4C4C",
                },
@@ -262,7 +262,7 @@ function AppStack(props) {
             name="DetalleGarantia"
             component={DetalleGarantias}
             options={{
-               headerTitle: i18n.t("screen.status"),
+               headerTitle: "jj",
                headerStyle: {
                   backgroundColor: "#4C4C4C",
                },

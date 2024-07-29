@@ -9,7 +9,8 @@ import Styles from "../../../styles/screens/GarantiasStyle";
 import {useLanguageContext} from "../../../context/lang";
 
 const ListaReporte = ({navigation, context}) => {
-   const {i18n} = useLanguageContext();
+   const {i18n, locale} = useLanguageContext();
+   const translate = locale === "en";
    const [lista, setLista] = useState([]);
 
    useEffect(() => {
@@ -18,7 +19,7 @@ const ListaReporte = ({navigation, context}) => {
 
    async function onRefresh() {
       if (context) {
-         await context.reloadReportes();
+         await context.reloadReportes(translate);
          await context.reloadReportesAgrupados();
       }
    }

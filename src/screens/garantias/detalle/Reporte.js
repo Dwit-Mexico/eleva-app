@@ -22,10 +22,13 @@ import Container from "../../../components/container";
 import Button from "../../../components/boton/BotonAccion";
 import Styles from "../../../styles/screens/DetalleStyle";
 import Colores from "../../../styles/colores";
+import {useLanguageContext} from "../../../context/lang";
 const request = new Request();
 const {width, height} = Dimensions.get("screen");
 
 const DetalleReporte = ({navigation, context}) => {
+   const {locale} = useLanguageContext();
+   const translate = locale === "en";
    const route = useRoute();
    const params = route.params;
    const info = params.data;
@@ -127,7 +130,7 @@ const DetalleReporte = ({navigation, context}) => {
       if (response.error) {
          Alert.alert(null, response.message || "Error interno");
       } else if (response.cancelado) {
-         await context.reloadReportes();
+         await context.reloadReportes(translate);
          navigation.goBack();
       } else {
          Alert.alert(null, "No se pudo cancelar el reporte.");

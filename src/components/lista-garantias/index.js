@@ -3,15 +3,18 @@ import {FlatList, RefreshControl} from "react-native";
 import {FontAwesome5} from "@expo/vector-icons";
 import {Consumer} from "../../context";
 import CardGarantia from "./CardGarantia";
+import {useLanguageContext} from "../../context/lang";
 
 function ListaViviendas({navigation, context, lista}) {
+   const {locale} = useLanguageContext();
+   const translate = locale === "en";
    const [isRefreshing, setRefreshing] = useState(false);
 
    async function onRefresh() {
       setRefreshing(true);
       if (context) {
          await context.getSetUnidades();
-         await context.reloadReportes();
+         await context.reloadReportes(translate);
          await context.reloadReportesAgrupados();
       }
       setRefreshing(false);

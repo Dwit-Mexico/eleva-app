@@ -13,9 +13,12 @@ import Comentario from "./formulario/comentario";
 import Fotos from "./formulario/fotos";
 import Finalizar from "./formulario/finalizar";
 import Request from "../../../core/api";
+import {useLanguageContext} from "../../../context/lang";
 const request = new Request();
 
 function Etapa1({navigation, esDetalle, context}) {
+   const {locale} = useLanguageContext();
+   const translate = locale === "en";
    const [unidad, setUnidad] = useState(null);
    const [area, setArea] = useState(null);
    const [equipo, setEquipo] = useState(null);
@@ -173,7 +176,7 @@ function Etapa1({navigation, esDetalle, context}) {
    async function aceptarAction() {
       setLoadingAceptar(true);
 
-      await context.reloadReportes();
+      await context.reloadReportes(translate);
       await context.reloadReportesAgrupados();
 
       setTerminado(false);
@@ -188,7 +191,7 @@ function Etapa1({navigation, esDetalle, context}) {
    async function finalizarAction() {
       setLoadingFinalizar(true);
 
-      await context.reloadReportes();
+      await context.reloadReportes(translate);
       await context.reloadReportesAgrupados();
 
       setTerminado(false);

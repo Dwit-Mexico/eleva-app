@@ -3,8 +3,10 @@ import {FlatList, RefreshControl} from "react-native";
 import {Consumer} from "../../context";
 import moment from "moment-timezone";
 import CardGarantia from "./CardDetalleGarantia";
+import {useLanguageContext} from "../../context/lang";
 
 function ListaGarantiasDetalle({navigation, etapa, context, lista, reporte}) {
+   const {locale} = useLanguageContext();
    const [list, setList] = useState([]);
    const [isRefreshing, setRefreshing] = useState(false);
 
@@ -17,9 +19,10 @@ function ListaGarantiasDetalle({navigation, etapa, context, lista, reporte}) {
    }
 
    async function onRefresh() {
+      const translate = locale === "en";
       setRefreshing(true);
       if (context) {
-         await context.reloadReportes();
+         await context.reloadReportes(translate);
       }
       setRefreshing(false);
    }

@@ -4,8 +4,11 @@ import {Consumer} from "../../../context";
 import Container from "../../../components/container";
 import ListaGarantias from "../../../components/lista-garantias-detalle";
 import Styles from "../../../styles/screens/GarantiasStyle";
+import {useLanguageContext} from "../../../context/lang";
 
 const ListaGarantia = ({navigation, context}) => {
+   const {locale} = useLanguageContext();
+   const translate = locale === "en";
    const [lista, setLista] = useState([]);
 
    useEffect(() => {
@@ -14,7 +17,7 @@ const ListaGarantia = ({navigation, context}) => {
 
    async function onRefresh() {
       if (context) {
-         await context.reloadReportes();
+         await context.reloadReportes(translate);
          await context.reloadReportesAgrupados();
       }
    }

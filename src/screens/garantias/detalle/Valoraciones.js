@@ -16,10 +16,13 @@ import Container from "../../../components/container";
 import BotonAccion from "../../../components/boton/BotonAccion";
 import Styles from "../../../styles/screens/DetalleStyle";
 import Colores from "../../../styles/colores";
+import {useLanguageContext} from "../../../context/lang";
 
 const request = new Request();
 
 const DetalleValoracion = ({context}) => {
+   const {locale} = useLanguageContext();
+   const translate = locale === "en";
    const [info, setInfo] = useState({});
    const [respuesta, setRespuesta] = useState(null);
    const [comentario, setComentario] = useState("");
@@ -71,7 +74,7 @@ const DetalleValoracion = ({context}) => {
       }
 
       if (response.guardado) {
-         await context.reloadReportes();
+         await context.reloadReportes(translate);
          Alert.alert(null, "Gracias por su valoración.");
          navigation.goBack();
       }
