@@ -18,19 +18,19 @@ const Wizard = ({context, steps, ultimo, onSubmit, loading, terminado}) => {
 
    function nextStep() {
       if (page == 1 && !context.unidad) {
-         Alert.alert(null, "Selecciona una Unidad");
+         Alert.alert(null, i18n.t("reports.selectUnit"));
          return;
       }
       if (page == 2 && !context.area) {
-         Alert.alert(null, "Selecciona una Área");
+         Alert.alert(null, i18n.t("reports.selectArea"));
          return;
       }
       if (page == 3 && !context.equipo) {
-         Alert.alert(null, "Selecciona un Equipo");
+         Alert.alert(null, i18n.t("reports.selectEquipment"));
          return;
       }
       if (page == 4 && !context.problema) {
-         Alert.alert(null, "Selecciona un Detalle");
+         Alert.alert(null, i18n.t("reports.selectProblem"));
          return;
       }
 

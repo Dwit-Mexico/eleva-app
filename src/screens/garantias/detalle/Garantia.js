@@ -27,7 +27,7 @@ import {useLanguageContext} from "../../../context/lang";
 const request = new Request();
 
 const DetalleGarantia = ({navigation, context}) => {
-   const {locale} = useLanguageContext();
+   const {locale, i18n} = useLanguageContext();
    const translate = locale === "en";
    const [info, setInfo] = useState({});
    const [fechas, setFechas] = useState([]);
@@ -82,7 +82,7 @@ const DetalleGarantia = ({navigation, context}) => {
             : null;
 
       if (!FechaVisita) {
-         Alert.alert(null, "Debe seleccionar una fecha.");
+         Alert.alert(null, i18n.t("error.date"));
          return;
       }
 
@@ -100,7 +100,7 @@ const DetalleGarantia = ({navigation, context}) => {
       );
 
       if (response.error) {
-         Alert.alert(null, response.message || "Error interno");
+         Alert.alert(null, response.message || i18n.t("error.intern"));
       }
       if (response.agendado) {
          await context.reloadReportes(translate);
@@ -573,7 +573,7 @@ const DetalleGarantia = ({navigation, context}) => {
                            loading={loading}
                         >
                            <Text style={{fontSize: 18, color: "white"}}>
-                              Enviar
+                              {i18n.t("button.send")}
                            </Text>
                         </BotonAccion>
                      </View>
@@ -644,7 +644,7 @@ const DetalleGarantia = ({navigation, context}) => {
 
                   <TextInput
                      onChangeText={(text) => setComentarios(text)}
-                     placeholder="Escriba sus comentarios"
+                     placeholder={i18n.t("reports.comments")}
                      style={Styles.comentarios}
                      multiline
                      numberOfLines={6}
@@ -666,7 +666,7 @@ const DetalleGarantia = ({navigation, context}) => {
                            loading={loading}
                         >
                            <Text style={{fontSize: 18, color: "white"}}>
-                              Enviar
+                              {i18n.t("button.send")}
                            </Text>
                         </BotonAccion>
                      </View>

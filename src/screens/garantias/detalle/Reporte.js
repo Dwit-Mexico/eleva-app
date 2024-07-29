@@ -27,7 +27,7 @@ const request = new Request();
 const {width, height} = Dimensions.get("screen");
 
 const DetalleReporte = ({navigation, context}) => {
-   const {locale} = useLanguageContext();
+   const {locale, i18n} = useLanguageContext();
    const translate = locale === "en";
    const route = useRoute();
    const params = route.params;
@@ -128,12 +128,12 @@ const DetalleReporte = ({navigation, context}) => {
       });
 
       if (response.error) {
-         Alert.alert(null, response.message || "Error interno");
+         Alert.alert(null, response.message || i18n.t("error.intern"));
       } else if (response.cancelado) {
          await context.reloadReportes(translate);
          navigation.goBack();
       } else {
-         Alert.alert(null, "No se pudo cancelar el reporte.");
+         Alert.alert(null, i18n.t("reporte.errorCancel"));
       }
 
       setLoadingCancel(false);

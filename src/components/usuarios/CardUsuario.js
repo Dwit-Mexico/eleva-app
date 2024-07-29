@@ -5,10 +5,12 @@ import Request from "../../core/api";
 import BotonAccion from "../../components/boton/BotonAccion";
 import CardStyles from "../../styles/components/CardUsuarioStyle";
 import Colores from "../../styles/colores";
+import {useLanguageContext} from "../../context/lang";
 
 const request = new Request();
 
 function CardUsuario(props) {
+   const {i18n} = useLanguageContext();
    const [info, setInfo] = useState({});
    const [loading, setLoading] = useState(false);
 
@@ -20,8 +22,8 @@ function CardUsuario(props) {
       setLoading(true);
 
       Alert.alert(
-         "Eliminar",
-         "¿Eliminar usuario?",
+         i18n.t("users.titleRemove"),
+         i18n.t("users.remove"),
          [
             {
                text: "Sí",
@@ -34,7 +36,7 @@ function CardUsuario(props) {
                   if (response.error) {
                      Alert.alert(
                         null,
-                        response.message || "No se pudo eliminar usuario"
+                        response.message || i18n.t("users.errorRemove")
                      );
                   }
 
@@ -45,7 +47,7 @@ function CardUsuario(props) {
                   } else {
                      Alert.alert(
                         null,
-                        response.message || "No se pudo eliminar usuario"
+                        response.message || i18n.t("users.errorRemove")
                      );
                   }
 

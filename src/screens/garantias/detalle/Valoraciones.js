@@ -21,7 +21,7 @@ import {useLanguageContext} from "../../../context/lang";
 const request = new Request();
 
 const DetalleValoracion = ({context}) => {
-   const {locale} = useLanguageContext();
+   const {locale, i18n} = useLanguageContext();
    const translate = locale === "en";
    const [info, setInfo] = useState({});
    const [respuesta, setRespuesta] = useState(null);
@@ -50,7 +50,7 @@ const DetalleValoracion = ({context}) => {
 
       if (respuesta == null) {
          setLoading(false);
-         Alert.alert(null, "Por favor elija una respuesta válida.");
+         Alert.alert(null, i18n.t("rating.errorSelect"));
          return;
       }
 
@@ -67,15 +67,12 @@ const DetalleValoracion = ({context}) => {
       );
 
       if (response.error) {
-         Alert.alert(
-            null,
-            response.message || "No se pudo enviar la valoración."
-         );
+         Alert.alert(null, response.message || i18n.t("rating.errorSave"));
       }
 
       if (response.guardado) {
          await context.reloadReportes(translate);
-         Alert.alert(null, "Gracias por su valoración.");
+         Alert.alert(null, i18n.t("rating.thanks2"));
          navigation.goBack();
       }
 
@@ -140,7 +137,7 @@ const DetalleValoracion = ({context}) => {
 
                   <TextInput
                      value={comentario}
-                     placeholder="Escriba sus comentarios"
+                     placeholder={i18n.t("reports.comments")}
                      style={Styles.comentarios}
                      multiline
                      numberOfLines={6}
@@ -179,7 +176,7 @@ const DetalleValoracion = ({context}) => {
                            loading={loading}
                         >
                            <Text style={{fontSize: 18, color: "white"}}>
-                              Enviar
+                              {i18n.t("button.send")}
                            </Text>
                         </BotonAccion>
                      </View>

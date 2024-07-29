@@ -5,10 +5,12 @@ import Request from "../../core/api";
 import Container from "../../components/container";
 import Lista from "../../components/documentos/Lista";
 import Styles from "../../styles/screens/DocumentosStyle";
+import {useLanguageContext} from "../../context/lang";
 
 const request = new Request();
 
 function ListaDocumentos({navigation}) {
+   const {i18n} = useLanguageContext();
    const [lista, setLista] = useState([]);
    const route = useRoute();
 
@@ -16,7 +18,7 @@ function ListaDocumentos({navigation}) {
       const {data} = route.params;
 
       if (!data) {
-         Alert.alert(null, "No se obtuvo informacion de carpeta");
+         Alert.alert(null, i18n.t("documents.error"));
          navigation.goBack();
          return;
       }
@@ -26,10 +28,7 @@ function ListaDocumentos({navigation}) {
       });
 
       if (response.error) {
-         Alert.alert(
-            null,
-            response.message || "No se pudieron obtener las carpetas"
-         );
+         Alert.alert(null, response.message || i18n.t("documents.error2"));
       }
 
       if (Array.isArray(response.data)) {

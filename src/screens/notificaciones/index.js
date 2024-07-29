@@ -5,10 +5,12 @@ import Container from "../../components/container";
 import ListaNotificaciones from "../../components/notificaciones/Lista";
 import Styles from "../../styles/screens/DocumentosStyle";
 import Colores from "../../styles/colores";
+import {useLanguageContext} from "../../context/lang";
 
 const request = new Request();
 
 function Notificaciones({navigation}) {
+   const {i18n} = useLanguageContext();
    const [loading, setLoading] = useState(true);
    const [lista, setLista] = useState([]);
 
@@ -16,7 +18,7 @@ function Notificaciones({navigation}) {
       const response = await request.get("/aplicacion/notificaciones/get");
 
       if (response.error) {
-         Alert.alert("No se pudieron obtener notificaciones");
+         Alert.alert(i18n.t("notificaciones.error"));
       }
 
       if (Array.isArray(response.data)) {

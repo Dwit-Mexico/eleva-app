@@ -91,14 +91,14 @@ function SeleccionarFotos({navigation, imagenes, videos, context}) {
       if (resultPermissions.status === "denied") {
          if (resultPermissions.canAskAgain) {
             Alert.alert(
-               "Permisos",
-               "Para tomar fotos o video, permite que Eleva pueda usar la cámara."
+               i18n.t("permissions.title"),
+               i18n.t("permissions.text")
             );
          } else {
             if (Platform.OS == "ios") {
                Alert.alert(
-                  "Permisos",
-                  "Para tomar fotos o video, permite que Eleva pueda usar la cámara, tienes que ir a ajustes y activarlos manualmente el permiso.",
+                  i18n.t("permissions.title"),
+                  i18n.t("permissions.textIOS"),
                   [
                      {
                         text: "ir a configuración",
@@ -108,8 +108,8 @@ function SeleccionarFotos({navigation, imagenes, videos, context}) {
                );
             } else {
                Alert.alert(
-                  "Permisos",
-                  "Para tomar fotos o video, permite que Eleva pueda usar la cámara, tienes que ir a ajustes y activarlos manualmente el permiso."
+                  i18n.t("permissions.title"),
+                  i18n.t("permissions.textIOS")
                );
             }
          }

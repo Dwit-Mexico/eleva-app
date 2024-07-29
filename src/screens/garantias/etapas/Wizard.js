@@ -17,7 +17,7 @@ import {useLanguageContext} from "../../../context/lang";
 const request = new Request();
 
 function Etapa1({navigation, esDetalle, context}) {
-   const {locale} = useLanguageContext();
+   const {locale, i18n} = useLanguageContext();
    const translate = locale === "en";
    const [unidad, setUnidad] = useState(null);
    const [area, setArea] = useState(null);
@@ -146,7 +146,7 @@ function Etapa1({navigation, esDetalle, context}) {
       );
 
       if (response.error) {
-         Alert.alert(null, response.message || "Error interno");
+         Alert.alert(null, response.message || i18n.t("error.intern"));
       }
       if (response.upload) {
          setTerminado(true);

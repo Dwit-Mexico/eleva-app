@@ -25,6 +25,11 @@ export const translations = {
          accept: "Aceptar",
          send: "Enviar",
          start: "Iniciar",
+         cancel: "Cancelar",
+      },
+      error: {
+         intern: "Error interno",
+         date: "Debe seleccionar una fecha.",
       },
       login: {
          title: "DESARROLLOS URBANOS",
@@ -58,6 +63,9 @@ export const translations = {
          title: "Usuarios",
          add: "Agregar usuario",
          error: "No se pudieron obtener los usuarios.",
+         errorRemove: "No se pudo eliminar el usuario.",
+         remove: "¿Eliminar usuario?",
+         titleRemove: "Eliminar",
       },
       addUser: {
          title: "Agregar usuario",
@@ -77,9 +85,13 @@ export const translations = {
          title: "Reportes",
          details: "Reporta aquí tu detalle",
          unit: "¿En donde ocurrió el detalle?",
+         selectUnit: "Selecciona una Unidad",
          area: "¿Dónde tienes el detalle?",
+         selectArea: "Selecciona un Área",
          equipment: "¿Qué equipo presenta detalle?",
+         selectEquipment: "Selecciona un Equipo",
          problem: "¿Cuál es tu detalle?",
+         selectProblem: "Selecciona un Detalle",
          comment: "Describa su detalle",
          comments: "Escribe aquí tu detalle",
          photos: "¿Tienes fotos o video del detalle?",
@@ -89,11 +101,15 @@ export const translations = {
          terms2:
             "El propietario o inquilino tendrá que estar presente al momento de que se este realizando los trabajos en el departamento.",
          newReport: "¿Quieres agregar otro reporte?",
+         errorCancel: "No se pudo cancelar el reporte.",
       },
       ratings: {
          title: "Valoraciones",
          text: "Su opinion nos interesa. Ayúdenos a valorar nuestro servicio",
          thanks: "Muchas Gracias",
+         errorSave: "No se pudo enviar la valoración.",
+         errorSelect: "Por favor seleccione una respuesta válida.",
+         thanks2: "Gracias por su valoración.",
       },
       history: {
          title: "Historial",
@@ -102,6 +118,29 @@ export const translations = {
          equipment: "Equipo",
          problem: "Problema",
          comments: "Comentarios",
+      },
+      documents: {
+         error: "No se obtuvo informacion de carpeta",
+         error2: "No se pudieron obtener las carpetas",
+      },
+      notifications: {
+         error: "No se pudieron obtener notificaciones",
+      },
+      select: {
+         date: "Seleccionar fecha",
+         selectDate: "Seleccione fecha",
+         search: "Buscar fecha",
+         empty: "No se encontraron fechas disponibles",
+         unit: "Seleccionar unidad",
+         selectUnit: "Seleccione una unidad",
+         searchUnit: "Buscar unidad",
+         emptyUnit: "No se encontraron unidades disponibles",
+      },
+      permissions: {
+         title: "Para tomar fotos o video, permite que Eleva pueda usar la cámara.",
+         textIOS:
+            "Para tomar fotos o video, permite que Eleva pueda usar la cámara, tienes que ir a ajustes y activarlos manualmente el permiso.",
+         text: "Para tomar fotos o video, permite que Eleva pueda usar la cámara.",
       },
    },
    en: {
@@ -130,6 +169,11 @@ export const translations = {
          accept: "Accept",
          send: "Send",
          start: "Start",
+         cancel: "Cancel",
+      },
+      error: {
+         intern: "Internal error",
+         date: "You must select a date.",
       },
       login: {
          title: "URBAN DEVELOPMENTS",
@@ -165,6 +209,9 @@ export const translations = {
          title: "Users",
          add: "Add user",
          error: "Could not get users.",
+         errorRemove: "Could not remove the user.",
+         remove: "Remove user?",
+         titleRemove: "Remove",
       },
       addUser: {
          title: "Add user",
@@ -184,9 +231,13 @@ export const translations = {
          title: "Reports",
          details: "Report your detail here",
          unit: "Where did the detail occur?",
+         selectUnit: "Select a Unit",
          area: "Where do you have the detail?",
+         selectArea: "Select an Area",
          equipment: "What equipment has detail?",
+         selectEquipment: "Select an Equipment",
          problem: "What is your detail?",
+         selectProblem: "Select a Detail",
          comment: "Describe your detail",
          comments: "Write your detail here",
          photos: "Do you have photos or video of the detail?",
@@ -196,11 +247,15 @@ export const translations = {
          terms2:
             "The owner or tenant must be present at the time the work is being done.",
          newReport: "Do you want to add another report?",
+         errorCancel: "Could not cancel the report.",
       },
       ratings: {
          title: "Ratings",
          text: "Your opinion matters to us. Help us rate our service",
          thanks: "Thank you very much",
+         errorSave: "Could not send the rating.",
+         errorSelect: "Please select a valid answer.",
+         thanks2: "Thank you for your rating.",
       },
       history: {
          title: "History",
@@ -209,6 +264,29 @@ export const translations = {
          equipment: "Equipment",
          problem: "Problem",
          comments: "Comments",
+      },
+      documents: {
+         error: "Could not get folder information",
+         error2: "Could not get folders",
+      },
+      notifications: {
+         error: "Could not get notifications",
+      },
+      select: {
+         date: "Select date",
+         selectDate: "Select date",
+         search: "Search date",
+         empty: "No dates available",
+         unit: "Select unit",
+         selectUnit: "Select a unit",
+         searchUnit: "Search unit",
+         emptyUnit: "No units available",
+      },
+      permissions: {
+         title: "Permissions",
+         textIOS:
+            "To take photos or video, allow Eleva to use the camera, you have to go to settings and manually activate the permission.",
+         text: "To take photos or video, allow Eleva to use the camera.",
       },
    },
 };
