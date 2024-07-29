@@ -20,7 +20,7 @@ function ListaViviendas({navigation}) {
                   color={Colores.CardEtapaColor}
                />
             }
-            ruta="ListaReportes"
+            ruta="NuevaGarantia"
          />
          <CardEtapa
             etapa={2}

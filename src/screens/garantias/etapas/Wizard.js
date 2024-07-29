@@ -183,7 +183,7 @@ function Etapa1({navigation, esDetalle, context}) {
 
       reinicializar();
 
-      context.setStep(2);
+      context.setStep(1);
 
       setLoadingAceptar(false);
    }
