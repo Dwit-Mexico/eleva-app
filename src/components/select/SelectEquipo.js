@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import {ScrollView, TouchableOpacity, Text} from "react-native";
 import {Consumer} from "../../context";
 import InputStyles from "../../styles/inputs";
+import {useLanguageContext} from "../../context/lang";
 
 onSelectionsChange = (data, onChange) => {
    if (onChange) {
@@ -10,6 +11,7 @@ onSelectionsChange = (data, onChange) => {
 };
 
 function SelectEquipo({onSelect, value, context}) {
+   const {locale} = useLanguageContext();
    const [equipos, setEquipos] = useState([]);
    const [selected, setSelected] = useState();
 
@@ -28,6 +30,7 @@ function SelectEquipo({onSelect, value, context}) {
    }
 
    async function selectEquipo(id) {
+      translate = locale === "en";
       setSelected(id);
 
       if (onSelect) {
@@ -35,7 +38,7 @@ function SelectEquipo({onSelect, value, context}) {
       }
 
       if (context) {
-         await context.getProblemas(id);
+         await context.getProblemas(id, translate);
       }
    }
 

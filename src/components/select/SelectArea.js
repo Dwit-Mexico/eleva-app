@@ -2,8 +2,10 @@ import React, {useState, useEffect} from "react";
 import {ScrollView, Text, TouchableOpacity} from "react-native";
 import {Consumer} from "../../context";
 import InputStyles from "../../styles/inputs";
+import {useLanguageContext} from "../../context/lang";
 
 function SelectArea({onSelect, value, context}) {
+   const {locale} = useLanguageContext();
    const [areas, setAreas] = useState([]);
    const [selected, setSelected] = useState();
 
@@ -30,6 +32,7 @@ function SelectArea({onSelect, value, context}) {
    }
 
    async function selectArea(area) {
+      const translate = locale === "en";
       setSelected(area.id);
 
       if (onSelect) {
@@ -37,7 +40,7 @@ function SelectArea({onSelect, value, context}) {
       }
 
       if (context) {
-         await context.getEquipos(area.idTipo);
+         await context.getEquipos(area.idTipo, translate);
       }
    }
 

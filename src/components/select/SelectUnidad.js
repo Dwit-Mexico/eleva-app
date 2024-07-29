@@ -3,6 +3,7 @@ import {ScrollView, TouchableOpacity, Text} from "react-native";
 import {FontAwesome5} from "@expo/vector-icons";
 import {Consumer} from "../../context";
 import InputStyles from "../../styles/inputs";
+import {useLanguageContext} from "../../context/lang";
 
 onSelectionsChange = (data, onChange) => {
    if (onChange) {
@@ -11,6 +12,7 @@ onSelectionsChange = (data, onChange) => {
 };
 
 function SelectUnidad({onSelect, value, context}) {
+   const {locale} = useLanguageContext();
    const [unidades, setUnidades] = useState([]);
    const [selected, setSelected] = useState();
 
@@ -31,6 +33,7 @@ function SelectUnidad({onSelect, value, context}) {
    }
 
    async function selectUnidad(id) {
+      const translate = locale === "en";
       setSelected(id);
 
       if (onSelect) {
@@ -38,7 +41,7 @@ function SelectUnidad({onSelect, value, context}) {
       }
 
       if (context) {
-         context.getAreas(id);
+         context.getAreas(id, translate);
       }
    }
 
