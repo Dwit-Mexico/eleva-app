@@ -3,8 +3,10 @@ import {View, Text, TouchableOpacity} from "react-native";
 import {FontAwesome5} from "@expo/vector-icons";
 import CardStyles from "../../styles/components/CardGarantiaDetalleStyle";
 import Colores from "../../styles/colores";
+import {useLanguageContext} from "../../context/lang";
 
 function CardGarantia(props) {
+   const {locale} = useLanguageContext();
    const [item, setItem] = useState({});
    const [titulo, setTitulo] = useState("");
    const [screen, setScreen] = useState("");
@@ -42,39 +44,42 @@ function CardGarantia(props) {
 
       switch (item.IdEstado) {
          case 1:
-            text = "Pendiente";
+            text = locale === "es" ? "Pendiente" : "Pending";
             color = "#fff";
             break;
          case 2:
-            text = "Aplica Garantía";
+            text = locale === "es" ? "Aplica Garantía" : "Warranty Applies";
             color = "green";
             break;
          case 3:
-            text = "No Aplica Garantía";
+            text =
+               locale === "es"
+                  ? "No Aplica Garantía"
+                  : "Warranty Does Not Apply";
             color = "red";
             break;
          case 4:
-            text = "Por Agendar";
+            text = locale === "es" ? "Por Agendar" : "To Schedule";
             color = "#fff";
             break;
          case 5:
-            text = "Programada";
+            text = locale === "es" ? "Programada" : "Scheduled";
             color = "green";
             break;
          case 6:
-            text = "Cancelada";
+            text = locale === "es" ? "Cancelada" : "Canceled";
             color = "#fff";
             break;
          case 7:
-            text = "Realizado";
+            text = locale === "es" ? "Realizado" : "Done";
             color = "yellow";
             break;
          case 8:
-            text = "Por Valorar";
+            text = locale === "es" ? "Por Valorar" : "To Value";
             color = "#fff";
             break;
          case 9:
-            text = "Finalizada";
+            text = locale === "es" ? "Finalizada" : "Finished";
             color = "#fff";
             break;
       }

@@ -136,8 +136,8 @@ function AppStack(props) {
 
    return (
       <Stack.Navigator
-      // mode="modal"
-      // screenOptions={{presentation: "modal"}}
+         // mode="modal"
+         screenOptions={{presentation: "modal"}}
       >
          <Stack.Screen
             name="Main"
@@ -205,7 +205,7 @@ function AppStack(props) {
             name="ListaGarantias"
             component={ListaGarantias}
             options={{
-               headerTitle: "pp",
+               headerTitle: i18n.t("screen.status"),
                headerStyle: {
                   backgroundColor: "#4C4C4C",
                },
@@ -227,7 +227,7 @@ function AppStack(props) {
             name="ListaHistorial"
             component={ListaHistorial}
             options={{
-               headerTitle: "Historial",
+               headerTitle: i18n.t("screen.history"),
                headerStyle: {
                   backgroundColor: "#4C4C4C",
                },
@@ -262,7 +262,7 @@ function AppStack(props) {
             name="DetalleGarantia"
             component={DetalleGarantias}
             options={{
-               headerTitle: "jj",
+               headerTitle: i18n.t("screen.status"),
                headerStyle: {
                   backgroundColor: "#4C4C4C",
                },

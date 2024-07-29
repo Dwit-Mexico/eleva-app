@@ -18,7 +18,7 @@ import Colores from "../../../styles/colores";
 import {useLanguageContext} from "../../../context/lang";
 
 const Historico = ({context}) => {
-   const {i18n} = useLanguageContext();
+   const {i18n, locale} = useLanguageContext();
    const [info, setInfo] = useState({});
    const [respuesta, setRespuesta] = useState(null);
    const [comentario, setComentario] = useState("");
@@ -84,7 +84,7 @@ const Historico = ({context}) => {
                         fontWeight: "bold",
                      }}
                   >
-                     {info.Estado}
+                     {locale === "es" ? info.Estado : info.state_name}
                   </Text>
 
                   <Text
@@ -103,7 +103,8 @@ const Historico = ({context}) => {
                         color: Colores.DetalleText,
                      }}
                   >
-                     {i18n.t("history.area")}: {info.NombreArea}
+                     {i18n.t("history.area")}:{" "}
+                     {locale === "es" ? info.NombreArea : info.area_name}
                   </Text>
                   <Text
                      style={{
@@ -112,7 +113,8 @@ const Historico = ({context}) => {
                         color: Colores.DetalleText,
                      }}
                   >
-                     {i18n.t("history.equipment")}: {info.NombreEquipo}
+                     {i18n.t("history.equipment")}:{" "}
+                     {locale === "es" ? info.NombreEquipo : info.equipment_name}
                   </Text>
                   <Text
                      style={{
@@ -121,7 +123,8 @@ const Historico = ({context}) => {
                         color: Colores.DetalleText,
                      }}
                   >
-                     {i18n.t("history.problem")}: {info.NombreProblema}
+                     {i18n.t("history.problem")}:{" "}
+                     {locale === "es" ? info.NombreProblema : info.problem_name}
                   </Text>
 
                   <View style={{height: 16}} />

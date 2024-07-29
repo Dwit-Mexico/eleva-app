@@ -47,7 +47,7 @@ function ListaGarantiasDetalle({navigation, etapa, context, lista, reporte}) {
                   proyecto={item.NombreProyecto}
                   unidad={item.Numero}
                   problema={
-                     locale === "en" ? item.area_name : item.NombreProblema
+                     locale === "en" ? item.problem_name : item.NombreProblema
                   }
                   direccion=""
                   area={locale === "en" ? item.area_name : item.NombreArea}

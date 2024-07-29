@@ -129,7 +129,7 @@ const DetalleGarantia = ({navigation, context}) => {
                            fontWeight: "bold",
                         }}
                      >
-                        No Aplica Garantía
+                        {locale === "es" ? info.Estado : info.state_name}
                      </Text>
 
                      <View style={Styles.lista}>
@@ -159,7 +159,8 @@ const DetalleGarantia = ({navigation, context}) => {
                            color={Colores.DetalleText}
                         />
                         <Text style={Styles.listaText}>
-                           &nbsp;{info.NombreArea}
+                           &nbsp;
+                           {locale === "es" ? info.NombreArea : info.area_name}
                         </Text>
                      </View>
                      <View style={Styles.lista}>
@@ -169,7 +170,10 @@ const DetalleGarantia = ({navigation, context}) => {
                            color={Colores.DetalleText}
                         />
                         <Text style={Styles.listaText}>
-                           &nbsp;{info.NombreEquipo}
+                           &nbsp;
+                           {locale === "es"
+                              ? info.NombreEquipo
+                              : info.equipment_name}
                         </Text>
                      </View>
                      <View style={Styles.lista}>
@@ -179,7 +183,10 @@ const DetalleGarantia = ({navigation, context}) => {
                            color={Colores.DetalleText}
                         />
                         <Text style={Styles.listaText}>
-                           &nbsp;{info.NombreProblema}
+                           &nbsp;
+                           {locale === "es"
+                              ? info.NombreProblema
+                              : info.problem_name}
                         </Text>
                      </View>
                      <View style={Styles.lista}>
