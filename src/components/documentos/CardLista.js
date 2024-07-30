@@ -12,7 +12,7 @@ function ListaDocumentos({navigation, item}) {
          <View style={Style.card}>
             <FontAwesome5
                name="file-pdf"
-               size={40}
+               size={30}
                color={Colores.CardCarpetaColor}
             />
             <View style={{width: 20}}></View>

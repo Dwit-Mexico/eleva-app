@@ -5,9 +5,9 @@ export default StyleSheet.create({
    card: {
       flex: 1,
       borderColor: "#aaa",
-      borderBottomColor: "#B29360",
+      // borderBottomColor: "#B29360",
       borderWidth: 0,
-      borderBottomWidth: 4,
+      borderBottomWidth: 1,
       marginTop: 5,
       marginBottom: 5,
       padding: 5,

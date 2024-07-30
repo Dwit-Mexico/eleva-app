@@ -72,10 +72,14 @@ function LoginScreen(props) {
             <Container>
                <View style={LoginStyle.languageButtonContainer}>
                   <Pressable
-                     style={{backgroundColor: "white", padding: 10}}
+                     style={{
+                        backgroundColor: "white",
+                        padding: 10,
+                        borderRadius: 5,
+                     }}
                      onPress={() => setLocale(locale === "es" ? "en" : "es")}
                   >
-                     {locale === "es" ? <Text>Es</Text> : <Text>En</Text>}
+                     {locale === "es" ? <Text>ES</Text> : <Text>EN</Text>}
                   </Pressable>
                </View>
                <View style={LoginStyle.loginView}>

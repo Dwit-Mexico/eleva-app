@@ -69,21 +69,23 @@ const Wizard = ({context, steps, ultimo, onSubmit, loading, terminado}) => {
                   position: "absolute",
                   bottom: 10,
                   flexDirection: "row",
-                  justifyContent: "space-between",
+                  justifyContent: page == 1 ? "flex-end" : "space-between",
                   width: "100%",
                }}
             >
-               <TouchableOpacity
-                  onPress={prevStep.bind(this)}
-                  style={WizardStyle.navigationButton}
-               >
-                  <Text
-                     allowFontScaling={false}
-                     style={WizardStyle.navigationButtonText}
+               {page !== 1 && (
+                  <TouchableOpacity
+                     onPress={prevStep.bind(this)}
+                     style={WizardStyle.navigationButton}
                   >
-                     {i18n.t("button.back")}
-                  </Text>
-               </TouchableOpacity>
+                     <Text
+                        allowFontScaling={false}
+                        style={WizardStyle.navigationButtonText}
+                     >
+                        {i18n.t("button.back")}
+                     </Text>
+                  </TouchableOpacity>
+               )}
                {page == ultimo ? (
                   <BotonEnviar onSubmit={onSubmit} loading={loading} />
                ) : (

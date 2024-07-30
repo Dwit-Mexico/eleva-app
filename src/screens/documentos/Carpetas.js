@@ -1,30 +1,31 @@
 import React, {useState, useEffect} from "react";
-import {Alert, View, ImageBackground, ActivityIndicator} from "react-native";
+import {
+   Alert,
+   View,
+   ImageBackground,
+   ActivityIndicator,
+   Text,
+} from "react-native";
 import {Consumer} from "../../context";
 import Request from "../../core/api";
 import Container from "../../components/container";
 import Carpetas from "../../components/documentos/Carpetas";
 import Styles from "../../styles/screens/DocumentosStyle";
 import Colores from "../../styles/colores";
+import {useLanguageContext} from "../../context/lang";
 
 const request = new Request();
 
 function Documentos({navigation}) {
+   const {i18n} = useLanguageContext();
    const [loading, setLoading] = useState(true);
    const [lista, setLista] = useState([]);
-
-   useEffect(() => {
-      getCarpetas();
-   }, []);
 
    async function getCarpetas() {
       const response = await request.get("/app/documentos/get/folders");
 
       if (response.error) {
-         Alert.alert(
-            null,
-            response.message || "No se pudieron obtener las carpetas"
-         );
+         Alert.alert(null, response.message || i18n.t("documents.error2"));
       }
 
       if (Array.isArray(response.data)) {
@@ -37,6 +38,10 @@ function Documentos({navigation}) {
    async function reload() {
       await getCarpetas();
    }
+
+   useEffect(() => {
+      getCarpetas();
+   }, []);
 
    return (
       <ImageBackground

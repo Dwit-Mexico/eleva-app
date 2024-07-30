@@ -17,7 +17,7 @@ function ListaViviendas({navigation, item}) {
          <View style={Style.card}>
             <FontAwesome5
                name="folder"
-               size={40}
+               size={30}
                color={Colores.CardCarpetaColor}
             />
             <View style={{width: 20}}></View>

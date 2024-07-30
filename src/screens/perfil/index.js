@@ -18,7 +18,6 @@ import Styles from "../../styles/screens/PerfilStyle";
 import StylesButtons from "../../styles/buttons";
 import StylesTexts from "../../styles/text";
 import Colores from "../../styles/colores";
-import LoginStyle from "../../styles/screens/LoginStyle";
 import {useLanguageContext} from "../../context/lang";
 
 const request = new Request();
@@ -26,7 +25,7 @@ const request = new Request();
 const styleUserData = {
    position: "absolute",
    backgroundColor: "#fff",
-   width: "80%",
+   width: "90%",
    top: -30,
    borderRadius: 5,
    padding: 5,
@@ -100,21 +99,19 @@ function Perfil({navigation, context}) {
          </View>
          <View style={{position: "absolute", top: 20, right: 20, zIndex: 1}}>
             <Pressable
-               style={StylesButtons.logoutButton}
+               style={{
+                  backgroundColor: "white",
+                  padding: 10,
+                  borderRadius: 5,
+               }}
                onPress={() => setLocale(locale === "es" ? "en" : "es")}
             >
-               {locale === "es" ? (
-                  <Text style={StylesTexts.logoutButton}>Es</Text>
-               ) : (
-                  <Text style={StylesTexts.logoutButton}>En</Text>
-               )}
+               {locale === "es" ? <Text>ES</Text> : <Text>EN</Text>}
             </Pressable>
          </View>
          <View
             style={{
                flex: 1,
-               borderTopColor: "#B29360",
-               borderTopWidth: 5,
                position: "relative",
                alignItems: "center",
             }}
@@ -124,7 +121,7 @@ function Perfil({navigation, context}) {
                   allowFontScaling={false}
                   style={{fontSize: 18, color: "#B29360", fontWeight: "bold"}}
                >
-                  {user.Nombre}
+                  {user.Nombre.toUpperCase()}
                </Text>
                <View style={{height: 8}} />
                <Text

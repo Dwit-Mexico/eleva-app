@@ -6,7 +6,7 @@ export default StyleSheet.create({
       flexDirection: "row",
       justifyContent: "flex-start",
       alignItems: "center",
-      borderBottomWidth: 2,
+      borderBottomWidth: 1,
       borderBottomColor: "#eaeaea",
       paddingVertical: 30,
       paddingHorizontal: 10,
@@ -21,7 +21,7 @@ export default StyleSheet.create({
    },
    text: {
       flex: 1,
-      fontSize: 18,
+      fontSize: 16,
       color: Colores.CardCarpetaColor,
       fontWeight: "bold",
    },
