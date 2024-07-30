@@ -1,0 +1,5 @@
+{
+   "NSNotificationDescription": "Eleva requires permission to receive notifications",
+   "NSCameraUsageDescription": "Eleva requires access to the camera, to take photos and send them as evidence of the reports.",
+   "NSPhotoLibraryUsageDescription": "Eleva requires permission to use the camera gallery, to send evidence of the reports."
+}
