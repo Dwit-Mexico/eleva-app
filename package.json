@@ -30,7 +30,7 @@
       "expo-localization": "~15.0.3",
       "expo-notifications": "~0.28.9",
       "expo-status-bar": "~1.12.1",
-      "expo-updates": "~0.25.18",
+      "expo-updates": "~0.25.21",
       "expo-video-thumbnails": "~8.0.0",
       "i18n-js": "^4.4.3",
       "moment-timezone": "^0.5.26",
