@@ -58,6 +58,7 @@ export const translations = {
          logout: "Cerrar sesión",
          users: "Usuarios",
          error: "No se pudo obtener la información del usuario.",
+         warranty: "Validez Garantía",
       },
       users: {
          title: "Usuarios",
@@ -204,6 +205,7 @@ export const translations = {
          logout: "Log out",
          users: "Users",
          error: "Could not get user information.",
+         warranty: "Warranty Validity",
       },
       users: {
          title: "Users",

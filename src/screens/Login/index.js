@@ -93,6 +93,7 @@ function LoginScreen(props) {
                   </Text>
                   <View style={{height: 16}} />
                   <TextInput
+                     key={`email-${locale}`}
                      placeholder={i18n.t("login.email")}
                      placeholderTextColor="#eaeaea"
                      style={InputStyles.LoginUsername}
@@ -105,6 +106,7 @@ function LoginScreen(props) {
                   />
                   <View style={{height: 8}} />
                   <TextInput
+                     key={`password-${locale}`}
                      placeholder={i18n.t("login.password")}
                      placeholderTextColor="#eaeaea"
                      style={InputStyles.LoginPassword}
