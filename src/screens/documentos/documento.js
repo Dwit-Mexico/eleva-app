@@ -5,8 +5,10 @@ import WebView from "react-native-webview";
 import Styles from "../../styles/screens/DocumentosStyle";
 import Colores from "../../styles/colores";
 import {Platform} from "react-native-web";
+import {useLanguageContext} from "../../context/lang";
 
 function Documento() {
+   const {i18n} = useLanguageContext();
    const [loading, setLoading] = useState(true);
    const [url, setUrl] = useState("");
    const route = useRoute();
@@ -50,7 +52,7 @@ function Documento() {
                               fontSize: 18,
                            }}
                         >
-                           Obteniendo archivo...
+                           {i18n.t("documents.loading")}
                         </Text>
                      </View>
                   )}

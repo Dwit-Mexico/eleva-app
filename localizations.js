@@ -123,6 +123,7 @@ export const translations = {
       documents: {
          error: "No se obtuvo informacion de carpeta",
          error2: "No se pudieron obtener las carpetas",
+         loading: "Obteniendo archivo...",
       },
       notifications: {
          error: "No se pudieron obtener notificaciones",
@@ -270,6 +271,7 @@ export const translations = {
       documents: {
          error: "Could not get folder information",
          error2: "Could not get folders",
+         loading: "Getting file...",
       },
       notifications: {
          error: "Could not get notifications",

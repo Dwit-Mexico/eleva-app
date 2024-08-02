@@ -48,7 +48,6 @@
       "react-native-select-two": "naturalphone/react-native-select-two",
       "react-native-web": "~0.19.10",
       "react-native-webview": "13.8.6",
-      "rn-pdf-reader-js": "^4.1.1",
       "superagent": "^5.1.0"
    },
    "devDependencies": {
