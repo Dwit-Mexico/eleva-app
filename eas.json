@@ -1,36 +1,42 @@
 {
-  "cli": {
-    "version": ">= 3.13.0"
-  },
-  "build": {
-    "development": {
-      "developmentClient": true,
-      "distribution": "internal"
-    },
-    "preview": {
-      "distribution": "internal"
-    },
-    "release": {
-      "env": {
-        "ANDROID_SDK_ROOT": "/Users/diego/Library/Android/sdk",
-        "ANDROID_HOME": "/Users/diego/Library/Android/sdk"
+   "cli": {
+      "version": ">= 3.13.0"
+   },
+   "build": {
+      "development": {
+         "developmentClient": true,
+         "distribution": "internal"
       },
-      "android": {
-        "buildType": "apk"
+      "preview": {
+         "distribution": "internal"
+      },
+      "release": {
+         "env": {
+            "ANDROID_SDK_ROOT": "/Users/diego/Library/Android/sdk",
+            "ANDROID_HOME": "/Users/diego/Library/Android/sdk"
+         },
+         "android": {
+            "buildType": "apk"
+         }
+      },
+      "production": {
+         "env": {
+            "ANDROID_SDK_ROOT": "/Users/diego/Library/Android/sdk",
+            "ANDROID_HOME": "/Users/diego/Library/Android/sdk"
+         },
+         "ios": {
+            "resourceClass": "m1-medium"
+         },
+         "autoIncrement": true
       }
-    },
-    "production": {
-      "env": {
-        "ANDROID_SDK_ROOT": "/Users/diego/Library/Android/sdk",
-        "ANDROID_HOME": "/Users/diego/Library/Android/sdk"
-      },
-      "ios": {
-        "resourceClass": "m1-medium"
-      },
-      "autoIncrement": true
-    }
-  },
-  "submit": {
-    "production": {}
-  }
+   },
+   "submit": {
+      "production": {
+         "ios": {
+            "appleId": "sistemas@dwitmexico.com",
+            "ascAppId": "1567124079",
+            "appleTeamId": "YT3ZZQ9F33"
+         }
+      }
+   }
 }
