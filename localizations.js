@@ -64,7 +64,7 @@ export const translations = {
     users: {
       title: "Usuarios",
       add: "Agregar usuario",
-      error: "No se pudieron obtener los usuarios.",
+      error: "No se encontraron usuarios asociados a esta cuenta",
       errorRemove: "No se pudo eliminar el usuario.",
       remove: "¿Eliminar usuario?",
       titleRemove: "Eliminar",
@@ -124,6 +124,7 @@ export const translations = {
     documents: {
       error: "No se obtuvo informacion de carpeta",
       error2: "No se pudieron obtener las carpetas",
+      error3: "No se pudieron obtener los archivos",
       loading: "Obteniendo archivo...",
     },
     notifications: {
@@ -145,6 +146,14 @@ export const translations = {
       textIOS:
         "Para tomar fotos o video, permite que Eleva pueda usar la cámara, tienes que ir a ajustes y activarlos manualmente el permiso.",
       text: "Para tomar fotos o video, permite que Eleva pueda usar la cámara.",
+    },
+    apiResponse: {
+      login: "Usuario o contraseña invalida",
+      newButton: "Vigencia no permite realizar nuevos reportes.",
+      updatePassword: "No fue posible activar el usuario.",
+      recoverPassword: "Correo enviado correctamente.",
+      recoverPassword2: "Correo incorrecto.",
+      addUser: "Datos registrado previamente.",
     },
   },
   en: {
@@ -214,7 +223,7 @@ export const translations = {
     users: {
       title: "Users",
       add: "Add user",
-      error: "Could not get users.",
+      error: "No users associated with this account were found",
       errorRemove: "Could not remove the user.",
       remove: "Remove user?",
       titleRemove: "Remove",
@@ -274,6 +283,7 @@ export const translations = {
     documents: {
       error: "Could not get folder information",
       error2: "Could not get folders",
+      error3: "Could not get files",
       loading: "Getting file...",
     },
     notifications: {
@@ -294,6 +304,14 @@ export const translations = {
       textIOS:
         "To take photos or video, allow Eleva to use the camera, you have to go to settings and manually activate the permission.",
       text: "To take photos or video, allow Eleva to use the camera.",
+    },
+    apiResponse: {
+      login: "Invalid user or password",
+      newButton: "Validity does not allow new reports.",
+      updatePassword: "Could not activate the user.",
+      recoverPassword: "Email sent correctly.",
+      recoverPassword2: "Incorrect email.",
+      addUser: "Data previously registered.",
     },
   },
 };

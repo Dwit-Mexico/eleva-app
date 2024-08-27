@@ -10,56 +10,56 @@ import {useLanguageContext} from "../../context/lang";
 const request = new Request();
 
 function ListaDocumentos({navigation}) {
-   const {i18n} = useLanguageContext();
-   const [lista, setLista] = useState([]);
-   const route = useRoute();
+  const {i18n} = useLanguageContext();
+  const [lista, setLista] = useState([]);
+  const route = useRoute();
 
-   async function getDocumentos() {
-      const {data} = route.params;
+  async function getDocumentos() {
+    const {data} = route.params;
 
-      if (!data) {
-         Alert.alert(null, i18n.t("documents.error"));
-         navigation.goBack();
-         return;
-      }
+    if (!data) {
+      Alert.alert(null, i18n.t("documents.error"));
+      navigation.goBack();
+      return;
+    }
 
-      const response = await request.get("/app/documentos/get", {
-         IdFolder: data.IdFolder,
-      });
+    const response = await request.get("/app/documentos/get", {
+      IdFolder: data.IdFolder,
+    });
 
-      if (response.error) {
-         Alert.alert(null, response.message || i18n.t("documents.error2"));
-      }
+    if (response.error) {
+      Alert.alert(null, i18n.t("documents.error3"));
+    }
 
-      if (Array.isArray(response.data)) {
-         setLista(response.data);
-      }
-   }
+    if (Array.isArray(response.data)) {
+      setLista(response.data);
+    }
+  }
 
-   useEffect(() => {
-      getDocumentos();
-   }, []);
+  useEffect(() => {
+    getDocumentos();
+  }, []);
 
-   async function reload() {
-      getDocumentos();
-   }
+  async function reload() {
+    getDocumentos();
+  }
 
-   return (
-      <ImageBackground
-         source={require("../../../assets/background.jpg")}
-         style={{flex: 1, height: "100%"}}
-      >
-         <View style={Styles.backGround}>
-            <Container>
-               <Lista
-                  navigation={navigation}
-                  lista={lista}
-                  reload={reload.bind(this)}
-               />
-            </Container>
-         </View>
-      </ImageBackground>
-   );
+  return (
+    <ImageBackground
+      source={require("../../../assets/background.jpg")}
+      style={{flex: 1, height: "100%"}}
+    >
+      <View style={Styles.backGround}>
+        <Container>
+          <Lista
+            navigation={navigation}
+            lista={lista}
+            reload={reload.bind(this)}
+          />
+        </Container>
+      </View>
+    </ImageBackground>
+  );
 }
 
 export default ListaDocumentos;

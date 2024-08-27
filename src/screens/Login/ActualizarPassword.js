@@ -67,7 +67,10 @@ function ActualizarPassword({context}) {
     const response = await request.post("/app/users/activar/cuenta", data);
 
     if (response.error) {
-      Alert.alert(null, response.message || i18n.t("updatePassword.error"));
+      Alert.alert(
+        null,
+        i18n.t("apiResponse.updatePassword") || i18n.t("updatePassword.error")
+      );
     }
 
     if (response.updated) {

@@ -49,7 +49,7 @@ function LoginScreen(props) {
         });
         return;
       }
-      await context.login(email, password);
+      await context.login(email, password, locale);
     }
     setLoading(false);
   };
