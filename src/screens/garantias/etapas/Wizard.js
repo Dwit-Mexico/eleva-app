@@ -142,7 +142,7 @@ function Etapa1({navigation, esDetalle, context}) {
     );
 
     if (response.error) {
-      Alert.alert(null, i18n.t("error.intern"));
+      Alert.alert(null, response.message || i18n.t("error.intern"));
     }
     if (response.upload) {
       setTerminado(true);

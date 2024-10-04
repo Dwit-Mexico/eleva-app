@@ -68,6 +68,7 @@ export const translations = {
       errorRemove: "No se pudo eliminar el usuario.",
       remove: "¿Eliminar usuario?",
       titleRemove: "Eliminar",
+      deleted: "Usuario eliminado.",
     },
     addUser: {
       title: "Agregar usuario",
@@ -227,6 +228,7 @@ export const translations = {
       errorRemove: "Could not remove the user.",
       remove: "Remove user?",
       titleRemove: "Remove",
+      deleted: "User deleted.",
     },
     addUser: {
       title: "Add user",

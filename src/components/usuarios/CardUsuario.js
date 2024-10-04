@@ -39,7 +39,7 @@ function CardUsuario(props) {
             if (response.deleted) {
               props.reload();
 
-              Alert.alert("Usuario Eliminado");
+              Alert.alert(i18n.t("users.deleted"));
             } else {
               Alert.alert(null, i18n.t("users.errorRemove"));
             }
