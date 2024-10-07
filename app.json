@@ -2,7 +2,7 @@
   "expo": {
     "name": "Eleva",
     "slug": "elevaApp",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "orientation": "portrait",
     "icon": "./assets/appstore.png",
     "splash": {
@@ -33,12 +33,10 @@
     "updates": {
       "enabled": false
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": false,
-      "buildNumber": "4",
+      "buildNumber": "5",
       "bundleIdentifier": "com.elevacapitalgroup.app",
       "requireFullScreen": true,
       "infoPlist": {
@@ -61,7 +59,7 @@
         "READ_EXTERNAL_STORAGE",
         "WRITE_EXTERNAL_STORAGE"
       ],
-      "versionCode": 22
+      "versionCode": 23
     },
     "extra": {
       "eas": {
