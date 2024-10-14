@@ -42,22 +42,22 @@ const DetalleGarantia = ({navigation, context}) => {
 
   useEffect(() => {
     let Fechas = [];
-    if (moment(info.Fecha1).isAfter(moment())) {
+    if (moment.utc(info.Fecha1).isAfter(moment.utc())) {
       Fechas[0] = {
         id: 1,
-        name: moment(info.Fecha1).format("DD/MM/YYYY HH:mm"),
+        name: moment.utc(info.Fecha1).format("DD/MM/YYYY HH:mm"),
       };
     }
-    if (moment(info.Fecha2).isAfter(moment())) {
+    if (moment.utc(info.Fecha2).isAfter(moment.utc())) {
       Fechas[1] = {
         id: 2,
-        name: moment(info.Fecha2).format("DD/MM/YYYY HH:mm"),
+        name: moment.utc(info.Fecha2).format("DD/MM/YYYY HH:mm"),
       };
     }
-    if (moment(info.Fecha3).isAfter(moment())) {
+    if (moment.utc(info.Fecha3).isAfter(moment.utc())) {
       Fechas[2] = {
         id: 3,
-        name: moment(info.Fecha3).format("DD/MM/YYYY HH:mm"),
+        name: moment.utc(info.Fecha3).format("DD/MM/YYYY HH:mm"),
       };
     }
     setFechas(Fechas);
@@ -282,7 +282,7 @@ const DetalleGarantia = ({navigation, context}) => {
               >
                 Fecha Visita:{" "}
                 {info.FechaVisita
-                  ? moment(info.FechaVisita).format("DD/MM/YYYY HH:mm")
+                  ? moment.utc(info.FechaVisita).format("DD/MM/YYYY HH:mm")
                   : "Sin fecha asignada"}
               </Text>
 
