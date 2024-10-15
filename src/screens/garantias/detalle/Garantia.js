@@ -588,9 +588,64 @@ const DetalleGarantia = ({navigation, context}) => {
             <View style={{height: 8}} />
 
             <Text style={{textAlign: "center", color: Colores.DetalleText}}>
-              Seleccione la fecha para la reparación
+              {i18n.t("status.title")}
             </Text>
 
+            <View style={{height: 8}} />
+
+            <View style={Styles.lista}>
+              <FontAwesome5
+                name="map-marked-alt"
+                size={20}
+                color={Colores.DetalleText}
+              />
+              <Text style={Styles.listaText}>&nbsp;{info.NombreProyecto}</Text>
+            </View>
+            <View style={Styles.lista}>
+              <FontAwesome5 name="home" size={20} color={Colores.DetalleText} />
+              <Text style={Styles.listaText}>&nbsp;{info.Numero}</Text>
+            </View>
+            <View style={Styles.lista}>
+              <FontAwesome5
+                name="map-marker-alt"
+                size={20}
+                color={Colores.DetalleText}
+              />
+              <Text style={Styles.listaText}>
+                &nbsp;
+                {locale === "es" ? info.NombreArea : info.area_name}
+              </Text>
+            </View>
+            <View style={Styles.lista}>
+              <FontAwesome5
+                name="tools"
+                size={20}
+                color={Colores.DetalleText}
+              />
+              <Text style={Styles.listaText}>
+                &nbsp;
+                {locale === "es" ? info.NombreEquipo : info.equipment_name}
+              </Text>
+            </View>
+            <View style={Styles.lista}>
+              <FontAwesome5
+                name="house-damage"
+                size={20}
+                color={Colores.DetalleText}
+              />
+              <Text style={Styles.listaText}>
+                &nbsp;
+                {locale === "es" ? info.NombreProblema : info.problem_name}
+              </Text>
+            </View>
+            <View style={Styles.lista}>
+              <FontAwesome5
+                name="hashtag"
+                size={20}
+                color={Colores.DetalleText}
+              />
+              <Text style={Styles.listaText}>&nbsp;{info.NoSolicitud}</Text>
+            </View>
             <View style={{height: 8}} />
 
             <SelectFechas fechas={fechas} onChange={(data) => setFecha(data)} />

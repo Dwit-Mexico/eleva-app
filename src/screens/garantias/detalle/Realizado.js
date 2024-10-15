@@ -305,7 +305,7 @@ const DetalleGarantia = ({navigation, context}) => {
             <View style={{height: 8}} />
 
             <Text style={{textAlign: "center", color: Colores.DetalleText}}>
-              Seleccione la fecha para la reparación
+              {i18n.t("status.title")}
             </Text>
 
             <View style={{height: 8}} />

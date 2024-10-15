@@ -173,7 +173,6 @@ function Etapa1({navigation, esDetalle, context}) {
     setLoadingAceptar(true);
 
     await context.reloadReportes(translate);
-    await context.reloadReportesAgrupados();
 
     setTerminado(false);
 
@@ -188,7 +187,6 @@ function Etapa1({navigation, esDetalle, context}) {
     setLoadingFinalizar(true);
 
     await context.reloadReportes(translate);
-    await context.reloadReportesAgrupados();
 
     setTerminado(false);
 

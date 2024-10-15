@@ -18,7 +18,6 @@ const ListaGarantia = ({navigation, context}) => {
   async function onRefresh() {
     if (context) {
       await context.reloadReportes(translate);
-      await context.reloadReportesAgrupados();
     }
   }
 

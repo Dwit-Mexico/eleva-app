@@ -131,6 +131,9 @@ export const translations = {
     notifications: {
       error: "No se pudieron obtener notificaciones",
     },
+    status: {
+      title: "Seleccione la fecha para la reparación",
+    },
     select: {
       date: "Seleccionar fecha",
       selectDate: "Seleccione fecha",
@@ -290,6 +293,9 @@ export const translations = {
     },
     notifications: {
       error: "Could not get notifications",
+    },
+    status: {
+      title: "Select the date for the repair",
     },
     select: {
       date: "Select date",

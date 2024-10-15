@@ -7,159 +7,146 @@ import {getEquipos} from "./catalogos/Equipos";
 import {getProblemas} from "./catalogos/Problemas";
 import {setStep} from "./catalogos/Wizard";
 import {
-   getForm,
-   setUnidad,
-   setArea,
-   setEquipo,
-   setProblema,
-   setComentario,
-   setImagen1,
-   setImagen2,
-   setImagen3,
-   setVideo1,
+  getForm,
+  setUnidad,
+  setArea,
+  setEquipo,
+  setProblema,
+  setComentario,
+  setImagen1,
+  setImagen2,
+  setImagen3,
+  setVideo1,
 } from "./form";
-import {
-   getReportes,
-   reloadReportes,
-   getReportesAgrupados,
-   reloadReportesAgrupados,
-} from "./reportes";
+import {getReportes, reloadReportes} from "./reportes";
 
 const Context = createContext();
 
 class GlobalContext extends Component {
-   constructor(props) {
-      super(props);
-      this.state = {
-         initApp: this.initApp.bind(this),
-         auth: false,
-         user: null,
-         token: null,
-         login: login.bind(this),
-         validar: validar.bind(this),
-         logout: logout.bind(this),
-         unidades: [],
-         areas: [],
-         equipos: [],
-         problemas: [],
-         getSetUnidades: getSetUnidades.bind(this),
-         getAreas: getAreas.bind(this),
-         getEquipos: getEquipos.bind(this),
-         getProblemas: getProblemas.bind(this),
-         step: 1,
-         setStep: setStep.bind(this),
-         unidad: null,
-         setUnidad: setUnidad.bind(this),
-         area: null,
-         setArea: setArea.bind(this),
-         equipo: null,
-         setEquipo: setEquipo.bind(this),
-         problema: null,
-         setProblema: setProblema.bind(this),
-         comentario: null,
-         setComentario: setComentario.bind(this),
-         imagen1: null,
-         setImagen1: setImagen1.bind(this),
-         imagen2: null,
-         setImagen2: setImagen2.bind(this),
-         imagen3: null,
-         setImagen3: setImagen3.bind(this),
-         video1: null,
-         setVideo1: setVideo1.bind(this),
-         getForm: getForm.bind(this),
-         reportes: [],
-         reportesAgrupados: [],
-         getReportes: getReportes.bind(this),
-         reloadReportes: reloadReportes.bind(this),
-         getReportesAgrupados: getReportesAgrupados.bind(this),
-         reloadReportesAgrupados: reloadReportesAgrupados.bind(this),
-      };
+  constructor(props) {
+    super(props);
+    this.state = {
+      initApp: this.initApp.bind(this),
+      auth: false,
+      user: null,
+      token: null,
+      login: login.bind(this),
+      validar: validar.bind(this),
+      logout: logout.bind(this),
+      unidades: [],
+      areas: [],
+      equipos: [],
+      problemas: [],
+      getSetUnidades: getSetUnidades.bind(this),
+      getAreas: getAreas.bind(this),
+      getEquipos: getEquipos.bind(this),
+      getProblemas: getProblemas.bind(this),
+      step: 1,
+      setStep: setStep.bind(this),
+      unidad: null,
+      setUnidad: setUnidad.bind(this),
+      area: null,
+      setArea: setArea.bind(this),
+      equipo: null,
+      setEquipo: setEquipo.bind(this),
+      problema: null,
+      setProblema: setProblema.bind(this),
+      comentario: null,
+      setComentario: setComentario.bind(this),
+      imagen1: null,
+      setImagen1: setImagen1.bind(this),
+      imagen2: null,
+      setImagen2: setImagen2.bind(this),
+      imagen3: null,
+      setImagen3: setImagen3.bind(this),
+      video1: null,
+      setVideo1: setVideo1.bind(this),
+      getForm: getForm.bind(this),
+      reportes: [],
+      getReportes: getReportes.bind(this),
+      reloadReportes: reloadReportes.bind(this),
+    };
 
-      this.initUser();
-   }
+    this.initUser();
+  }
 
-   async componentDidMount() {
-      await this.initUser();
-   }
+  async componentDidMount() {
+    await this.initUser();
+  }
 
-   async componentDidUpdate(prevProps, prevState) {
-      if (this.state.token !== prevState.token) {
-         this.initApp();
+  async componentDidUpdate(prevProps, prevState) {
+    if (this.state.token !== prevState.token) {
+      this.initApp();
+    }
+  }
+
+  async initUser() {
+    let loginUser = await AsyncStorage.getItem("LoginUser");
+    if (loginUser) {
+      loginUser = JSON.parse(loginUser);
+      if (loginUser.token) {
+        this.setState({auth: true, token: loginUser.token});
       }
-   }
+    }
+  }
 
-   async initUser() {
-      let loginUser = await AsyncStorage.getItem("LoginUser");
-      if (loginUser) {
-         loginUser = JSON.parse(loginUser);
-         if (loginUser.token) {
-            this.setState({auth: true, token: loginUser.token});
-         }
+  async initApp() {
+    let catalogos = await AsyncStorage.getItem("Catalogos");
+
+    if (catalogos) {
+      catalogos = JSON.parse(catalogos);
+      this.setState({
+        areas: catalogos.areas,
+        objetos: catalogos.objetos,
+        problemas: catalogos.problemas,
+        reportes: catalogos.reportes,
+      });
+    }
+
+    const catalogoObj = {
+      areas: [],
+      objetos: [],
+      equipos: [],
+    };
+
+    const unidades = await getUnidades();
+    if (unidades.data) {
+      this.setState({unidades: unidades.data});
+
+      if (Array.isArray(unidades.data)) {
+        catalogoObj.unidades = unidades.data;
+
+        if (unidades.data.length == 1) {
+          const unidad = unidades.data[0];
+        }
       }
-   }
+    }
 
-   async initApp() {
-      let catalogos = await AsyncStorage.getItem("Catalogos");
+    const reportes = await this.state.getReportes();
+    if (reportes.data) {
+      catalogoObj.reportes = reportes.data;
+    }
 
-      if (catalogos) {
-         catalogos = JSON.parse(catalogos);
-         this.setState({
-            areas: catalogos.areas,
-            objetos: catalogos.objetos,
-            problemas: catalogos.problemas,
-            reportes: catalogos.reportes,
-         });
-      }
+    AsyncStorage.setItem("Catalogos", JSON.stringify(catalogoObj));
+  }
 
-      const catalogoObj = {
-         areas: [],
-         objetos: [],
-         equipos: [],
-      };
-
-      const unidades = await getUnidades();
-      if (unidades.data) {
-         this.setState({unidades: unidades.data});
-
-         if (Array.isArray(unidades.data)) {
-            catalogoObj.unidades = unidades.data;
-
-            if (unidades.data.length == 1) {
-               const unidad = unidades.data[0];
-            }
-         }
-      }
-
-      const reportes = await this.state.getReportes();
-      if (reportes.data) {
-         catalogoObj.reportes = reportes.data;
-      }
-
-      const reportesAgrupados = await this.state.getReportesAgrupados();
-      if (reportesAgrupados.data) {
-         catalogoObj.reportesAgrupados = reportesAgrupados.data;
-      }
-
-      AsyncStorage.setItem("Catalogos", JSON.stringify(catalogoObj));
-   }
-
-   render() {
-      return (
-         <Context.Provider value={this.state}>
-            {this.props.children}
-         </Context.Provider>
-      );
-   }
+  render() {
+    return (
+      <Context.Provider value={this.state}>
+        {this.props.children}
+      </Context.Provider>
+    );
+  }
 }
 
 const Consumer = (Component) => {
-   return (props) => {
-      return (
-         <Context.Consumer>
-            {(context) => <Component {...props} context={context} />}
-         </Context.Consumer>
-      );
-   };
+  return (props) => {
+    return (
+      <Context.Consumer>
+        {(context) => <Component {...props} context={context} />}
+      </Context.Consumer>
+    );
+  };
 };
 
 export {GlobalContext, Consumer};
