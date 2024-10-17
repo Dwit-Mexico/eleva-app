@@ -117,7 +117,7 @@ function LoginScreen(props) {
           <View style={{height: 16}} />
           <TouchableOpacity
             onPress={() =>
-              props.navigation.navigate("RecuperarPassword", {
+              props.navigation.navigate("recover-password", {
                 usuario: formData.email,
               })
             }

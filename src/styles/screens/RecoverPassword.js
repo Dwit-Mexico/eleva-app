@@ -1,0 +1,67 @@
+import {StyleSheet, StatusBar} from "react-native";
+
+export default StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: "#000000A1",
+    paddingTop: StatusBar.currentHeight,
+  },
+  scrollContainer: {
+    flexGrow: 1,
+  },
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 42,
+  },
+  logo: {
+    width: 140,
+    height: 140,
+    marginBottom: 16,
+  },
+  text: {
+    textAlign: "center",
+    color: "#fff",
+    fontSize: 16,
+    marginBottom: 20,
+  },
+  input: {
+    borderBottomColor: "#ffffff",
+    borderBottomWidth: 1,
+    borderRadius: 5,
+    width: "100%",
+    padding: 5,
+    marginBottom: 8,
+    marginTop: 5,
+    color: "#fff",
+  },
+  buttonContainer: {
+    paddingHorizontal: 40,
+    paddingBottom: 20,
+  },
+  submitButton: {
+    backgroundColor: "#B29360",
+    padding: 10,
+    borderRadius: 4,
+    width: "100%",
+    height: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 10,
+  },
+  backButton: {
+    backgroundColor: "#333138",
+    padding: 10,
+    borderColor: "#000",
+    borderRadius: 4,
+    width: "100%",
+    height: 50,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  buttonText: {
+    fontWeight: "semibold",
+    color: "white",
+  },
+});
