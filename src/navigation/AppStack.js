@@ -1,33 +1,34 @@
-import React, {useState, useEffect} from "react";
-import {Alert, StatusBar, Platform} from "react-native";
-import {getFocusedRouteNameFromRoute} from "@react-navigation/native";
-import {createStackNavigator} from "@react-navigation/stack";
-import {Consumer} from "../context";
-import * as Device from "expo-device";
-import * as Notifications from "expo-notifications";
-import Request from "../core/api";
-import BotonNotificaciones from "../components/boton-notificaciones/BotonNotificaciones";
-import BottomNavigator from "./BottomTabNavigator";
-import Notificaciones from "../screens/notificaciones";
-import NotificacionesDetalle from "../screens/notificaciones/detalle";
-import GarantiasDetalle from "../screens/garantias/Garantias";
-import NuevaGarantia from "../screens/garantias/Nueva";
-import ListaReportes from "../screens/garantias/listas/Reporte";
-import ListaGarantias from "../screens/garantias/listas/Garantia";
-import ListaValoraciones from "../screens/garantias/listas/Valoraciones";
-import ListaHistorial from "../screens/garantias/listas/Historial";
-import ListaDetalleReportes from "../screens/garantias/listas/ReporteDetalle";
-import DetalleReportes from "../screens/garantias/detalle/Reporte";
-import DetalleGarantias from "../screens/garantias/detalle/Garantia";
-import DetalleRealizado from "../screens/garantias/detalle/Realizado";
-import DetalleValoraciones from "../screens/garantias/detalle/Valoraciones";
-import DetalleHistorico from "../screens/garantias/detalle/Historico";
-import ListaDocumentos from "../screens/documentos/ListaDocumentos";
-import VistaDocumento from "../screens/documentos/documento";
-import Usuarios from "../screens/perfil/Usuarios";
-import AgregarUsuario from "../screens/perfil/AgregarUsuario";
-import Camara from "../screens/camara";
-import {useLanguageContext} from "../context/lang";
+import React, { useEffect } from 'react';
+import { Alert, StatusBar, Platform } from 'react-native';
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { Consumer } from '../context';
+import * as Device from 'expo-device';
+import Constants from 'expo-constants';
+import * as Notifications from 'expo-notifications';
+import Request from '../core/api';
+import BotonNotificaciones from '../components/boton-notificaciones/BotonNotificaciones';
+import BottomNavigator from './BottomTabNavigator';
+import Notificaciones from '../screens/notificaciones';
+import NotificacionesDetalle from '../screens/notificaciones/detalle';
+import GarantiasDetalle from '../screens/garantias/Garantias';
+import NuevaGarantia from '../screens/garantias/Nueva';
+import ListaReportes from '../screens/garantias/listas/Reporte';
+import ListaGarantias from '../screens/garantias/listas/Garantia';
+import ListaValoraciones from '../screens/garantias/listas/Valoraciones';
+import ListaHistorial from '../screens/garantias/listas/Historial';
+import ListaDetalleReportes from '../screens/garantias/listas/ReporteDetalle';
+import DetalleReportes from '../screens/garantias/detalle/Reporte';
+import DetalleGarantias from '../screens/garantias/detalle/Garantia';
+import DetalleRealizado from '../screens/garantias/detalle/Realizado';
+import DetalleValoraciones from '../screens/garantias/detalle/Valoraciones';
+import DetalleHistorico from '../screens/garantias/detalle/Historico';
+import ListaDocumentos from '../screens/documentos/ListaDocumentos';
+import VistaDocumento from '../screens/documentos/documento';
+import Usuarios from '../screens/perfil/Usuarios';
+import AgregarUsuario from '../screens/perfil/AgregarUsuario';
+import Camara from '../screens/camara';
+import { useLanguageContext } from '../context/lang';
 
 const request = new Request();
 
@@ -40,68 +41,65 @@ Notifications.setNotificationHandler({
 });
 
 function getHeaderTitle(route) {
-   const routeName = getFocusedRouteNameFromRoute(route) ?? "reportes";
+   const routeName = getFocusedRouteNameFromRoute(route) ?? 'reportes';
 
-   const {i18n} = useLanguageContext();
+   const { i18n } = useLanguageContext();
 
    switch (routeName) {
-      case "perfil":
-         return i18n.t("menu.profile");
-      case "reportes":
-         return i18n.t("menu.customerService");
-      case "documentos":
-         return i18n.t("menu.documents");
-      case "galeria":
-         return i18n.t("menu.gallery");
+      case 'perfil':
+         return i18n.t('menu.profile');
+      case 'reportes':
+         return i18n.t('menu.customerService');
+      case 'documentos':
+         return i18n.t('menu.documents');
+      case 'galeria':
+         return i18n.t('menu.gallery');
       default:
-         return i18n.t("menu.customerService");
+         return i18n.t('menu.customerService');
    }
 }
 
 async function registerForPushNotificationsAsync() {
-   let token;
    if (Device.isDevice) {
-      const {status: existingStatus} =
-         await Notifications.getPermissionsAsync();
-      let finalStatus = existingStatus;
-      if (existingStatus !== "granted") {
-         const {status} = await Notifications.requestPermissionsAsync();
-         finalStatus = status;
+      try {
+         const projectId =
+            Constants?.expoConfig?.extra?.eas?.projectId ??
+            Constants?.easConfig?.projectId;
+
+         if (!projectId) {
+            Alert.alert(null, 'No se ha configurado el proyecto de notificaciones');
+            return;
+         }
+
+         const { status: existingStatus } = await Notifications.getPermissionsAsync();
+         if (existingStatus !== 'granted') {
+            const { status } = await Notifications.requestPermissionsAsync();
+            finalStatus = status;
+         }
+         const token = (
+            await Notifications.getExpoPushTokenAsync({
+               projectId,
+            })
+         ).data;
+         await request.post('/aplicacion/notificaciones/set', {
+            token,
+         });
+      } catch (error) {
+         Alert.alert(
+            null,
+            'Error al registrar el dispositivo ' + error?.message || JSON.stringify(error)
+         );
       }
-      /* if (finalStatus !== 'granted') {
-			if (Platform.OS == 'ios') {
-				Alert.alert(
-					'Permisos',
-					'Eleva requiere permisos para recibir notificaciones!',
-					[
-						{
-							text: "ir a configuración",
-							onPress: () => Linking.openURL('app-settings:')
-						},
-						{
-							text: "Cerrar",
-						}
-					],
-				)
-			} else {
-				Alert.alert(null, 'Eleva requiere permisos para recibir notificaciones!');
-			}
-			return;
-		} */
-      token = (await Notifications.getExpoPushTokenAsync()).data;
    } else {
-      Alert.alert(
-         null,
-         "Solo dispositivos fisicos pueden recibir notificaciones"
-      );
+      Alert.alert(null, 'Solo dispositivos fisicos pueden recibir notificaciones');
    }
 
-   if (Platform.OS === "android") {
-      Notifications.setNotificationChannelAsync("default", {
-         name: "default",
+   if (Platform.OS === 'android') {
+      Notifications.setNotificationChannelAsync('default', {
+         name: 'default',
          importance: Notifications.AndroidImportance.MAX,
          vibrationPattern: [0, 250, 250, 250],
-         lightColor: "#FF231F7C",
+         lightColor: '#FF231F7C',
       });
    }
 
@@ -111,46 +109,28 @@ async function registerForPushNotificationsAsync() {
 const Stack = createStackNavigator();
 
 function AppStack(props) {
-   const {i18n} = useLanguageContext();
-   const [expoPushToken, setExpoPushToken] = useState("");
+   const { i18n } = useLanguageContext();
 
    useEffect(() => {
-      StatusBar.setBarStyle("light-content");
+      StatusBar.setBarStyle('light-content');
 
-      registerForPushNotificationsAsync().then((token) =>
-         setExpoPushToken(token)
-      );
+      registerForPushNotificationsAsync().then();
    }, []);
-
-   useEffect(() => {
-      async function setToken(token) {
-         const response = await request.post("/aplicacion/notificaciones/set", {
-            token,
-         });
-      }
-
-      if (expoPushToken) {
-         setToken(expoPushToken);
-      }
-   }, [expoPushToken]);
 
    return (
       <Stack.Navigator
          // mode="modal"
-         screenOptions={{presentation: "modal"}}
-      >
+         screenOptions={{ presentation: 'modal' }}>
          <Stack.Screen
             name="Main"
             component={BottomNavigator}
-            options={({navigation, route}) => ({
+            options={({ navigation, route }) => ({
                headerTitle: getHeaderTitle(route),
-               headerRight: () => (
-                  <BotonNotificaciones navigation={navigation} />
-               ),
+               headerRight: () => <BotonNotificaciones navigation={navigation} />,
                headerStyle: {
-                  backgroundColor: "#4C4C4C",
+                  backgroundColor: '#4C4C4C',
                },
-               headerTintColor: "#B29360",
+               headerTintColor: '#B29360',
             })}
          />
 
@@ -158,11 +138,11 @@ function AppStack(props) {
             name="Notificaciones"
             component={Notificaciones}
             options={{
-               headerTitle: i18n.t("screen.notifications"),
+               headerTitle: i18n.t('screen.notifications'),
                headerStyle: {
-                  backgroundColor: "#4C4C4C",
+                  backgroundColor: '#4C4C4C',
                },
-               headerTintColor: "#B29360",
+               headerTintColor: '#B29360',
             }}
          />
 
@@ -170,11 +150,11 @@ function AppStack(props) {
             name="NotificacionDetalle"
             component={NotificacionesDetalle}
             options={{
-               headerTitle: i18n.t("screen.notifications"),
+               headerTitle: i18n.t('screen.notifications'),
                headerStyle: {
-                  backgroundColor: "#4C4C4C",
+                  backgroundColor: '#4C4C4C',
                },
-               headerTintColor: "#B29360",
+               headerTintColor: '#B29360',
             }}
          />
 
@@ -182,11 +162,11 @@ function AppStack(props) {
             name="GarantiasDetalle"
             component={GarantiasDetalle}
             options={{
-               headerTitle: "Status",
+               headerTitle: 'Status',
                headerStyle: {
-                  backgroundColor: "#4C4C4C",
+                  backgroundColor: '#4C4C4C',
                },
-               headerTintColor: "#B29360",
+               headerTintColor: '#B29360',
             }}
          />
 
@@ -194,44 +174,44 @@ function AppStack(props) {
             name="ListaReportes"
             component={ListaReportes}
             options={{
-               headerTitle: i18n.t("screen.reports"),
+               headerTitle: i18n.t('screen.reports'),
                headerStyle: {
-                  backgroundColor: "#4C4C4C",
+                  backgroundColor: '#4C4C4C',
                },
-               headerTintColor: "#B29360",
+               headerTintColor: '#B29360',
             }}
          />
          <Stack.Screen
             name="ListaGarantias"
             component={ListaGarantias}
             options={{
-               headerTitle: i18n.t("screen.status"),
+               headerTitle: i18n.t('screen.status'),
                headerStyle: {
-                  backgroundColor: "#4C4C4C",
+                  backgroundColor: '#4C4C4C',
                },
-               headerTintColor: "#B29360",
+               headerTintColor: '#B29360',
             }}
          />
          <Stack.Screen
             name="ListaValoraciones"
             component={ListaValoraciones}
             options={{
-               headerTitle: i18n.t("screen.ratings"),
+               headerTitle: i18n.t('screen.ratings'),
                headerStyle: {
-                  backgroundColor: "#4C4C4C",
+                  backgroundColor: '#4C4C4C',
                },
-               headerTintColor: "#B29360",
+               headerTintColor: '#B29360',
             }}
          />
          <Stack.Screen
             name="ListaHistorial"
             component={ListaHistorial}
             options={{
-               headerTitle: i18n.t("screen.history"),
+               headerTitle: i18n.t('screen.history'),
                headerStyle: {
-                  backgroundColor: "#4C4C4C",
+                  backgroundColor: '#4C4C4C',
                },
-               headerTintColor: "#B29360",
+               headerTintColor: '#B29360',
             }}
          />
 
@@ -239,11 +219,11 @@ function AppStack(props) {
             name="ListaDetalleReportes"
             component={ListaDetalleReportes}
             options={{
-               headerTitle: "Detalle Reporte",
+               headerTitle: 'Detalle Reporte',
                headerStyle: {
-                  backgroundColor: "#4C4C4C",
+                  backgroundColor: '#4C4C4C',
                },
-               headerTintColor: "#B29360",
+               headerTintColor: '#B29360',
             }}
          />
 
@@ -251,55 +231,55 @@ function AppStack(props) {
             name="DetalleReporte"
             component={DetalleReportes}
             options={{
-               headerTitle: "Reporte",
+               headerTitle: 'Reporte',
                headerStyle: {
-                  backgroundColor: "#4C4C4C",
+                  backgroundColor: '#4C4C4C',
                },
-               headerTintColor: "#B29360",
+               headerTintColor: '#B29360',
             }}
          />
          <Stack.Screen
             name="DetalleGarantia"
             component={DetalleGarantias}
             options={{
-               headerTitle: i18n.t("screen.status"),
+               headerTitle: i18n.t('screen.status'),
                headerStyle: {
-                  backgroundColor: "#4C4C4C",
+                  backgroundColor: '#4C4C4C',
                },
-               headerTintColor: "#B29360",
+               headerTintColor: '#B29360',
             }}
          />
          <Stack.Screen
             name="DetalleRealizado"
             component={DetalleRealizado}
             options={{
-               headerTitle: "Realizado",
+               headerTitle: 'Realizado',
                headerStyle: {
-                  backgroundColor: "#4C4C4C",
+                  backgroundColor: '#4C4C4C',
                },
-               headerTintColor: "#B29360",
+               headerTintColor: '#B29360',
             }}
          />
          <Stack.Screen
             name="DetalleValoracion"
             component={DetalleValoraciones}
             options={{
-               headerTitle: "Valoración",
+               headerTitle: 'Valoración',
                headerStyle: {
-                  backgroundColor: "#4C4C4C",
+                  backgroundColor: '#4C4C4C',
                },
-               headerTintColor: "#B29360",
+               headerTintColor: '#B29360',
             }}
          />
          <Stack.Screen
             name="DetalleHistorico"
             component={DetalleHistorico}
             options={{
-               headerTitle: i18n.t("screen.history"),
+               headerTitle: i18n.t('screen.history'),
                headerStyle: {
-                  backgroundColor: "#4C4C4C",
+                  backgroundColor: '#4C4C4C',
                },
-               headerTintColor: "#B29360",
+               headerTintColor: '#B29360',
             }}
          />
 
@@ -307,11 +287,11 @@ function AppStack(props) {
             name="NuevaGarantia"
             component={NuevaGarantia}
             options={{
-               headerTitle: i18n.t("screen.newReport"),
+               headerTitle: i18n.t('screen.newReport'),
                headerStyle: {
-                  backgroundColor: "#4C4C4C",
+                  backgroundColor: '#4C4C4C',
                },
-               headerTintColor: "#B29360",
+               headerTintColor: '#B29360',
             }}
          />
          <Stack.Screen
@@ -325,23 +305,23 @@ function AppStack(props) {
          <Stack.Screen
             name="ListaDocumentos"
             component={ListaDocumentos}
-            options={({route}) => ({
-               headerTitle: route.params.title.toUpperCase() || "",
+            options={({ route }) => ({
+               headerTitle: route.params.title.toUpperCase() || '',
                headerStyle: {
-                  backgroundColor: "#4C4C4C",
+                  backgroundColor: '#4C4C4C',
                },
-               headerTintColor: "#B29360",
+               headerTintColor: '#B29360',
             })}
          />
          <Stack.Screen
             name="VistaDocumento"
             component={VistaDocumento}
-            options={({route}) => ({
-               headerTitle: route.params.title || "",
+            options={({ route }) => ({
+               headerTitle: route.params.title || '',
                headerStyle: {
-                  backgroundColor: "#4C4C4C",
+                  backgroundColor: '#4C4C4C',
                },
-               headerTintColor: "#B29360",
+               headerTintColor: '#B29360',
             })}
          />
 
@@ -349,11 +329,11 @@ function AppStack(props) {
             name="Usuarios"
             component={Usuarios}
             options={{
-               headerTitle: i18n.t("screen.users"),
+               headerTitle: i18n.t('screen.users'),
                headerStyle: {
-                  backgroundColor: "#4C4C4C",
+                  backgroundColor: '#4C4C4C',
                },
-               headerTintColor: "#B29360",
+               headerTintColor: '#B29360',
             }}
          />
 
@@ -361,11 +341,11 @@ function AppStack(props) {
             name="AgregarUsuario"
             component={AgregarUsuario}
             options={{
-               headerTitle: i18n.t("screen.addUser"),
+               headerTitle: i18n.t('screen.addUser'),
                headerStyle: {
-                  backgroundColor: "#4C4C4C",
+                  backgroundColor: '#4C4C4C',
                },
-               headerTintColor: "#B29360",
+               headerTintColor: '#B29360',
             }}
          />
       </Stack.Navigator>
