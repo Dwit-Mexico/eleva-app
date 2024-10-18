@@ -7,34 +7,50 @@ import {useLanguageContext} from "../../context/lang";
 const request = new Request();
 
 export default function RecoverPassword({navigation}) {
-  const {i18n} = useLanguageContext();
+  const {locale} = useLanguageContext();
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
 
   async function handleSubmit() {
     setLoading(true);
+
     if (!email) {
-      Alert.alert(null, i18n.t("recoverPassword.invalidEmail"));
+      Alert.alert(
+        null,
+        locale === "es"
+          ? "Por favor ingrese un correo válido."
+          : "Please enter a valid email."
+      );
       setLoading(false);
       return;
     }
+
     const data = {
       Email: email,
     };
-    const response = await request.post("/app/users/recuperar/password", data);
-    if (response.error) {
-      Alert.alert(
-        null,
-        i18n.t("apiResponse.recoverPassword2") ||
-          i18n.t("recoverPassword.error")
-      );
-    }
-    if (response.sended) {
-      Alert.alert(
-        null,
-        i18n.t("apiResponse.recoverPassword") || i18n.t("recoverPassword.sent")
-      );
-      navigation.goBack();
+
+    try {
+      const response = await request.post("/app/users/recovery/password", data);
+
+      if (response.error) {
+        Alert.alert(
+          null,
+          locale === "es" ? response.message.es : response.message.en
+        );
+      } else if (response.sended) {
+        Alert.alert(
+          null,
+          locale === "es" ? response.message.es : response.message.en
+        );
+        navigation.navigate("verify-code", {Email: email});
+      } else {
+        Alert.alert(
+          null,
+          locale === "es" ? response.message.es : response.message.en
+        );
+      }
+    } catch (error) {
+      Alert.alert(null, error.message);
     }
 
     setLoading(false);
@@ -48,7 +64,7 @@ export default function RecoverPassword({navigation}) {
       <Form
         onEmailChange={setEmail}
         onSubmit={handleSubmit}
-        isloading={loading}
+        isLoading={loading}
         navigation={navigation}
       />
     </ImageBackground>

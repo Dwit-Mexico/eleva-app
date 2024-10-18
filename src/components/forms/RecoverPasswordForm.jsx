@@ -47,7 +47,7 @@ export default function RecoverPasswordForm({
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.submitButton} onPress={onSubmit}>
             {isLoading ? (
-              <ActivityIndicator color="#ffffff" />
+              <ActivityIndicator color="#ffffff" size="small" />
             ) : (
               <Text style={styles.buttonText}>Solicitar código</Text>
             )}
