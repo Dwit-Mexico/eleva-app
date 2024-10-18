@@ -43,7 +43,6 @@ export default function RecoverPasswordForm({
             onChangeText={(text) => onEmailChange(text)}
           />
         </View>
-
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.submitButton} onPress={onSubmit}>
             {isLoading ? (

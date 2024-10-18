@@ -1,24 +1,13 @@
 import React, {useState, useRef} from "react";
-import {
-  View,
-  ScrollView,
-  Text,
-  TextInput,
-  Image,
-  SafeAreaView,
-  TouchableOpacity,
-  ActivityIndicator,
-  ImageBackground,
-  Alert,
-} from "react-native";
+import {ImageBackground, Alert} from "react-native";
 import Request from "../../core/api";
 import {useLanguageContext} from "../../context/lang";
-import styles from "../../styles/screens/RecoverPassword";
+import Form from "../../components/forms/VerifyCodeForm";
 
 const request = new Request();
 
 export default function VerifyCode({navigation, route}) {
-  const {i18n, locale} = useLanguageContext();
+  const {locale} = useLanguageContext();
   const [code, setCode] = useState(["", "", "", "", "", ""]);
   const [isLoading, setIsLoading] = useState(false);
   const {Email} = route.params;
@@ -86,69 +75,14 @@ export default function VerifyCode({navigation, route}) {
       source={require("../../../assets/background.jpg")}
       style={{flex: 1, resizeMode: "contain"}}
     >
-      <SafeAreaView style={styles.safeArea}>
-        <ScrollView
-          contentContainerStyle={styles.scrollContainer}
-          keyboardDismissMode="on-drag"
-          keyboardShouldPersistTaps="handled"
-        >
-          <View style={styles.container}>
-            <Image
-              source={require("../../../assets/logo2.png")}
-              style={styles.logo}
-            />
-            <Text style={styles.text}>{i18n.t("verifyCode.enterCode")}</Text>
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                width: "100%",
-              }}
-            >
-              {code.map((digit, index) => (
-                <TextInput
-                  key={index}
-                  placeholder="0"
-                  value={digit}
-                  onChangeText={(text) => handleChangeText(text, index)}
-                  keyboardType="number-pad"
-                  maxLength={1}
-                  ref={(el) => (inputRefs.current[index] = el)}
-                  style={{
-                    borderBottomColor: "#ffffff",
-                    borderBottomWidth: 1,
-                    borderRadius: 4,
-                    textAlign: "center",
-                    fontSize: 24,
-                    paddingVertical: 0,
-                    width: 50,
-                    height: 50,
-                    color: "#fff",
-                  }}
-                />
-              ))}
-            </View>
-          </View>
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity
-              style={styles.submitButton}
-              onPress={handleSubmit}
-            >
-              {isLoading ? (
-                <ActivityIndicator color="#ffffff" />
-              ) : (
-                <Text style={styles.buttonText}>Validar</Text>
-              )}
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.backButton}
-              onPress={() => navigation.navigate("recover-password", {Email})}
-            >
-              <Text style={styles.buttonText}>{i18n.t("button.back")}</Text>
-            </TouchableOpacity>
-          </View>
-        </ScrollView>
-      </SafeAreaView>
+      <Form
+        code={code}
+        onCodeChange={handleChangeText}
+        onSubmit={handleSubmit}
+        isLoading={isLoading}
+        inputRefs={inputRefs}
+        navigation={navigation}
+      />
     </ImageBackground>
   );
 }
