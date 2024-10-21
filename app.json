@@ -12,6 +12,13 @@
     },
     "plugins": [
       [
+        "expo-notifications",
+        {
+          "icon": "./assets/notification-icon.png",
+          "color": "#ffffff"
+        }
+      ],
+      [
         "expo-camera",
         {
           "cameraPermissions": "Para tomar fotos o video, permite que Eleva pueda usar la cámara",

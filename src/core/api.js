@@ -34,7 +34,6 @@ class Request {
         "api_key",
         "87882e138de18177515be74e7e098cd81a79cc44fcfb0097e55230b2280df6b1"
       )
-      .set("ngrok-skip-browser-warning", "1")
       .set("auth", auth)
       .set("Accept", "application/json")
       .set("app_platform", Platform.OS)
@@ -75,7 +74,6 @@ class Request {
         "api_key",
         "87882e138de18177515be74e7e098cd81a79cc44fcfb0097e55230b2280df6b1"
       )
-      .set("ngrok-skip-browser-warning", "1")
       .set("auth", auth)
       .set("Accept", "application/json")
       .set("Content-Type", "application/json")
@@ -140,7 +138,6 @@ class Request {
           "api_key",
           "87882e138de18177515be74e7e098cd81a79cc44fcfb0097e55230b2280df6b1"
         )
-        .set("ngrok-skip-browser-warning", "1")
         .set("auth", auth)
         .set("Accept", "application/json")
         .set("Content-Type", "multipart/form-data")
