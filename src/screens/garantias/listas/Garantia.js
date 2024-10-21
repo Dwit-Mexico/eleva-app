@@ -21,8 +21,8 @@ const ListaGarantia = ({navigation, context}) => {
     if (context) {
       setIsLoading(true);
       await context.reloadReportes(translate);
+      setIsLoading(false);
     }
-    setIsLoading(false);
   }
 
   if (context) {

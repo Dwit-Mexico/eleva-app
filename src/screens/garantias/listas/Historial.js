@@ -7,11 +7,13 @@ import {
 } from "react-native";
 import {Ionicons} from "@expo/vector-icons";
 import {Consumer} from "../../../context";
-import Container from "../../../components/container";
 import ListaGarantias from "../../../components/lista-garantias-detalle";
 import Styles from "../../../styles/screens/GarantiasStyle";
+import {useLanguageContext} from "../../../context/lang";
 
 const Historial = ({navigation, context}) => {
+  const {locale} = useLanguageContext();
+  const translate = locale === "en";
   const [lista, setLista] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -19,8 +21,8 @@ const Historial = ({navigation, context}) => {
     if (context) {
       setIsLoading(true);
       await context.reloadReportes(translate);
+      setIsLoading(false);
     }
-    setIsLoading(false);
   }
 
   if (context) {
