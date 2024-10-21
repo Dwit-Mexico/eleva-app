@@ -35,7 +35,7 @@
       "expo-localization"
     ],
     "notification": {
-      "icon": "./assets/appstore.png"
+      "icon": "./assets/notification-icon.png"
     },
     "updates": {
       "enabled": false
