@@ -32,8 +32,7 @@ export default function RecoverPasswordForm({
             style={styles.logo}
           />
           <Text style={styles.text}>
-            Ingrese su correo electrónico registrado para recibir un código de
-            verificación.
+            {i18n.t("recoverPassword.description")}
           </Text>
           <TextInput
             placeholder={i18n.t("recoverPassword.email")}
@@ -48,7 +47,9 @@ export default function RecoverPasswordForm({
             {isLoading ? (
               <ActivityIndicator color="#ffffff" size="small" />
             ) : (
-              <Text style={styles.buttonText}>Solicitar código</Text>
+              <Text style={styles.buttonText}>
+                {i18n.t("recoverPassword.button")}
+              </Text>
             )}
           </TouchableOpacity>
           <TouchableOpacity

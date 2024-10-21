@@ -38,11 +38,11 @@ export default function ResetPasswordForm({
             source={require("../../../assets/logo2.png")}
             style={styles.logo}
           />
-          <Text style={styles.text}>Restablecer Contraseña</Text>
+          <Text style={styles.text}>{i18n.t("updatePassword.desciption")}</Text>
           <View style={styles.inputPassword}>
             <TextInput
               key={`new-password-${locale}`}
-              placeholder="Nueva contraseña"
+              placeholder={i18n.t("updatePassword.password")}
               placeholderTextColor="#eaeaea"
               style={{color: "#fff", flex: 1}}
               secureTextEntry={!showPassword}
@@ -60,7 +60,7 @@ export default function ResetPasswordForm({
           <View style={styles.inputPassword}>
             <TextInput
               key={`confirm-password-${locale}`}
-              placeholder="Confirmar contraseña"
+              placeholder={i18n.t("updatePassword.repassword")}
               placeholderTextColor="#eaeaea"
               style={{color: "#fff", flex: 1}}
               secureTextEntry={!showConfirmPassword}
@@ -83,7 +83,7 @@ export default function ResetPasswordForm({
             {isLoading ? (
               <ActivityIndicator color="#ffffff" />
             ) : (
-              <Text style={styles.buttonText}>Enviar</Text>
+              <Text style={styles.buttonText}>{i18n.t("button.send")}</Text>
             )}
           </TouchableOpacity>
           <TouchableOpacity

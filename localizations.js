@@ -48,9 +48,9 @@ export const translations = {
     },
     updatePassword: {
       title: "Actualizar contraseña",
-      desciption: "Por favor, ingrese su nueva contraseña",
+      desciption: "Ingrese su nueva contraseña.",
       password: "Contraseña nueva",
-      repassword: "Repetir contraseña",
+      repassword: "Confirmar contraseña",
       invalidPassword: "Debes proporcionar una contraseña válida",
       invalidRePassword: "Las contraseñas no coinciden",
       error: "No se pudo actualizar la contraseña, intente nuevamente.",
@@ -159,6 +159,18 @@ export const translations = {
       recoverPassword2: "Correo incorrecto.",
       addUser: "Datos registrado previamente.",
     },
+    recoverPassword: {
+      title: "Recuperar contraseña",
+      description:
+        "Ingrese su correo electrónico registrado para recibir un código de verificación.",
+      email: "Correo electrónico",
+      button: "Solicitar código",
+    },
+    verifyCode: {
+      title: "Verificar código",
+      description: "Ingrese el código de verificación enviado a su correo.",
+      button: "Verificar",
+    },
   },
   en: {
     menu: {
@@ -213,7 +225,7 @@ export const translations = {
       title: "Update password",
       desciption: "Please enter your new password",
       password: "New password",
-      repassword: "Repeat password",
+      repassword: "Confirm password",
       invalidPassword: "You must provide a valid password",
       invalidRePassword: "Passwords do not match",
       error: "Could not update the password, try again.",
@@ -320,6 +332,18 @@ export const translations = {
       recoverPassword: "Email sent correctly.",
       recoverPassword2: "Incorrect email.",
       addUser: "Data previously registered.",
+    },
+    recoverPassword: {
+      title: "Recover password",
+      description:
+        "Enter your registered email to receive a verification code.",
+      email: "Email",
+      button: "Request code",
+    },
+    verifyCode: {
+      title: "Verify code",
+      description: "Enter the verification code sent to your email.",
+      button: "Verify",
     },
   },
 };

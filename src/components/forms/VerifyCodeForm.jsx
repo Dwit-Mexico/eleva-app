@@ -20,6 +20,7 @@ export default function VerifyCodeForm({
   navigation,
 }) {
   const {i18n} = useLanguageContext();
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView
@@ -32,7 +33,7 @@ export default function VerifyCodeForm({
             source={require("../../../assets/logo2.png")}
             style={styles.logo}
           />
-          <Text style={styles.text}>{i18n.t("verifyCode.enterCode")}</Text>
+          <Text style={styles.text}>{i18n.t("verifyCode.description")}</Text>
           <View
             style={{
               flexDirection: "row",
@@ -69,7 +70,9 @@ export default function VerifyCodeForm({
             {isLoading ? (
               <ActivityIndicator color="#ffffff" />
             ) : (
-              <Text style={styles.buttonText}>Validar</Text>
+              <Text style={styles.buttonText}>
+                {i18n.t("verifyCode.button")}
+              </Text>
             )}
           </TouchableOpacity>
           <TouchableOpacity

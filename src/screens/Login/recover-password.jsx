@@ -50,7 +50,7 @@ export default function RecoverPassword({navigation}) {
         );
       }
     } catch (error) {
-      Alert.alert(null, error.message);
+      Alert.alert(null, error.message.es);
     }
 
     setLoading(false);

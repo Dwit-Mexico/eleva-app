@@ -1,7 +1,12 @@
 import React, {useState, useEffect} from "react";
-import {View, ImageBackground} from "react-native";
+import {
+  View,
+  ImageBackground,
+  Pressable,
+  ActivityIndicator,
+} from "react-native";
+import {Ionicons} from "@expo/vector-icons";
 import {Consumer} from "../../../context";
-import Container from "../../../components/container";
 import ListaGarantias from "../../../components/lista-garantias-detalle";
 import Styles from "../../../styles/screens/GarantiasStyle";
 import {useLanguageContext} from "../../../context/lang";
@@ -10,15 +15,14 @@ const ListaGarantia = ({navigation, context}) => {
   const {locale} = useLanguageContext();
   const translate = locale === "en";
   const [lista, setLista] = useState([]);
-
-  useEffect(() => {
-    onRefresh();
-  }, []);
+  const [isLoading, setIsLoading] = useState(false);
 
   async function onRefresh() {
     if (context) {
+      setIsLoading(true);
       await context.reloadReportes(translate);
     }
+    setIsLoading(false);
   }
 
   if (context) {
@@ -39,15 +43,37 @@ const ListaGarantia = ({navigation, context}) => {
     }, [context.reportes]);
   }
 
+  useEffect(() => {
+    onRefresh();
+  }, []);
+
   return (
     <ImageBackground
       source={require("../../../../assets/background2.jpg")}
-      style={{flex: 1}}
+      style={{flex: 1, resizeMode: "contain"}}
     >
       <View style={Styles.backGround}>
-        <Container>
-          <ListaGarantias navigation={navigation} lista={lista} etapa={2} />
-        </Container>
+        <ListaGarantias navigation={navigation} lista={lista} etapa={2} />
+        <Pressable
+          style={{
+            backgroundColor: "#B29360",
+            borderRadius: 25,
+            width: 50,
+            height: 50,
+            justifyContent: "center",
+            alignItems: "center",
+            position: "absolute",
+            bottom: 20,
+            right: 20,
+          }}
+          onPress={onRefresh}
+        >
+          {isLoading ? (
+            <ActivityIndicator color="#ffffff" size="small" />
+          ) : (
+            <Ionicons name="reload" size={24} color="#ffffff" />
+          )}
+        </Pressable>
       </View>
     </ImageBackground>
   );
