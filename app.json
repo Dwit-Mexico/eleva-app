@@ -2,7 +2,7 @@
   "expo": {
     "name": "Eleva",
     "slug": "elevaApp",
-    "version": "1.1.2",
+    "version": "1.1.3",
     "orientation": "portrait",
     "icon": "./assets/appstore.png",
     "splash": {
