@@ -25,10 +25,6 @@ function Etapa1({navigation, esDetalle, context}) {
   const [problema, setProblema] = useState(null);
   const [comentario, setComentario] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [imagen1, setImagen1] = useState(null);
-  const [imagen2, setImagen2] = useState(null);
-  const [imagen3, setImagen3] = useState(null);
-  const [video1, setVideo1] = useState(null);
   const [terminado, setTerminado] = useState(false);
   const [loadingAceptar, setLoadingAceptar] = useState(false);
   const [loadingFinalizar, setLoadingFinalizar] = useState(false);
@@ -49,10 +45,11 @@ function Etapa1({navigation, esDetalle, context}) {
     }
   }
 
-  async function _compressVideo(videoFile, name) {
-    if (videoFile) {
+  async function _compressVideo(videoUri, name) {
+    if (videoUri) {
+      console.log("videoUri", videoUri);
       return {
-        uri: videoFile.uri,
+        uri: videoUri,
         name: `${name}.mp4`,
         type: `video/mp4`,
       };
@@ -130,10 +127,13 @@ function Etapa1({navigation, esDetalle, context}) {
       Fecha: moment().format(),
     };
 
+    console.log("cont", context.video1);
     const file1 = await _compressImage(context.imagen1, "imagen1");
     const file2 = await _compressImage(context.imagen2, "imagen2");
     const file3 = await _compressImage(context.imagen3, "imagen3");
     const file4 = await _compressVideo(context.video1, "video1");
+
+    console.log("data", file4);
 
     const response = await request.postFile(
       "/app/garantias/crear",
@@ -163,10 +163,6 @@ function Etapa1({navigation, esDetalle, context}) {
     setEquipo(null);
     setProblema(null);
     setComentario(null);
-    setImagen1(null);
-    setImagen2(null);
-    setImagen3(null);
-    setVideo1(null);
   }
 
   async function aceptarAction() {
@@ -220,8 +216,7 @@ function Etapa1({navigation, esDetalle, context}) {
             <Fotos
               navigation={navigation}
               esDetalle={esDetalle}
-              imagenes={{imagen1, imagen2, imagen3}}
-              videos={{video1}}
+              context={context}
             />,
             <Finalizar
               aceptarAction={() => aceptarAction()}

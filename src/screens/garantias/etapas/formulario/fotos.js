@@ -21,15 +21,8 @@ import Styles from "../../../../styles/components/WizardStyle";
 import {useLanguageContext} from "../../../../context/lang";
 import MediaButton from "../../../../components/common/Buttons/MediaButton";
 
-function SeleccionarFotos({navigation, imagenes, videos, context}) {
+function SeleccionarFotos({navigation, context}) {
   const {i18n} = useLanguageContext();
-  const [media, setMedia] = useState({
-    imagen1: imagenes.imagen1 || null,
-    imagen2: imagenes.imagen2 || null,
-    imagen3: imagenes.imagen3 || null,
-    video1: videos.video1 || null,
-  });
-  // const [index, setIndex] = useState(null);
   const [showModal, setShowModal] = useState({imagen: false, video: false});
   const [zoom, setZoom] = useState({imagen: null, video: null});
   const [visible, setVisible] = useState(false);
@@ -82,10 +75,6 @@ function SeleccionarFotos({navigation, imagenes, videos, context}) {
       });
 
       if (!result.canceled) {
-        setMedia((prevMedia) => ({
-          ...prevMedia,
-          [`imagen${index}`]: result?.assets[0].uri,
-        }));
         context[`setImagen${index}`](result?.assets[0].uri);
       }
     }
@@ -100,10 +89,6 @@ function SeleccionarFotos({navigation, imagenes, videos, context}) {
       });
 
       if (!result.canceled) {
-        setMedia((prevMedia) => ({
-          ...prevMedia,
-          [`video1`]: result?.assets[0].uri,
-        }));
         context.setVideo1(result?.assets[0].uri);
       }
     }
@@ -130,10 +115,10 @@ function SeleccionarFotos({navigation, imagenes, videos, context}) {
   ];
 
   const mediaItems = [
-    {id: 1, media: media.imagen1, type: "image"},
-    {id: 2, media: media.imagen2, type: "image"},
-    {id: 3, media: media.imagen3, type: "image"},
-    {id: 4, media: media.video1, type: "video"},
+    {id: 1, media: context.imagen1, type: "image"},
+    {id: 2, media: context.imagen2, type: "image"},
+    {id: 3, media: context.imagen3, type: "image"},
+    {id: 4, media: context.video1, type: "video"},
   ];
 
   useEffect(() => {
