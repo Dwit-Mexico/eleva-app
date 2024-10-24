@@ -106,6 +106,14 @@ export const translations = {
       newReport: "¿Quieres agregar otro reporte?",
       errorCancel: "No se pudo cancelar el reporte.",
     },
+    media: {
+      title: "Selecciona una opción",
+      takeNewPhoto: "Tomar foto nueva",
+      takeNewVideo: "Tomar video nuevo",
+      selectImageFromDevice: "Seleccionar imagen del dispositivo",
+      selectVideoFromDevice: "Seleccionar video del dispositivo",
+      cancel: "Cancelar",
+    },
     ratings: {
       title: "Valoraciones",
       text: "Su opinion nos interesa. Ayúdenos a valorar nuestro servicio",
@@ -280,6 +288,14 @@ export const translations = {
         "The owner or tenant must be present at the time the work is being done.",
       newReport: "Do you want to add another report?",
       errorCancel: "Could not cancel the report.",
+    },
+    media: {
+      title: "Select an option",
+      takeNewPhoto: "Take a new photo",
+      takeNewVideo: "Take a new video",
+      selectImageFromDevice: "Select image from device",
+      selectVideoFromDevice: "Select video from device",
+      cancel: "Cancel",
     },
     ratings: {
       title: "Ratings",
