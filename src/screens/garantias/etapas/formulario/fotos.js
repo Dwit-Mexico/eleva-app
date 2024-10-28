@@ -1,32 +1,22 @@
-import React, {useEffect, useState, useCallback, useRef} from "react";
-import {
-  Alert,
-  View,
-  Animated,
-  Text,
-  TouchableOpacity,
-  Modal,
-  Image,
-  Platform,
-  Linking,
-} from "react-native";
+import React, {useEffect, useState} from "react";
+import {Alert, View, Animated, Text, Platform, Linking} from "react-native";
 import {Camera} from "expo-camera";
-import {Consumer} from "../../../../context";
-import {Feather} from "@expo/vector-icons";
-import ImageZoom from "react-native-image-zoom-viewer";
-import {useFocusEffect} from "@react-navigation/native";
+// import {Consumer} from "../../../../context";
+// import {Feather} from "@expo/vector-icons";
+// import ImageZoom from "react-native-image-zoom-viewer";
+// import {useFocusEffect} from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
-import {Video} from "expo-av";
+// import {Video} from "expo-av";
 import Styles from "../../../../styles/components/WizardStyle";
 import {useLanguageContext} from "../../../../context/lang";
 import MediaButton from "../../../../components/common/Buttons/MediaButton";
+import BottomSheet from "../.././../../components/common/BottomSheet";
 
 function SeleccionarFotos({navigation, context}) {
   const {i18n} = useLanguageContext();
-  const [showModal, setShowModal] = useState({imagen: false, video: false});
-  const [zoom, setZoom] = useState({imagen: null, video: null});
-  const [visible, setVisible] = useState(false);
-  const [selectedMediaId, setSelectedMediaId] = useState(null);
+  const [isBottomSheetVisible, setBottomSheetVisible] = useState(false);
+  const [mediaType, setMediaType] = useState(null);
+  const [mediaIndex, setMediaIndex] = useState(null);
 
   const cameraPermissions = async () => {
     const {status: existingStatus} =
@@ -65,9 +55,11 @@ function SeleccionarFotos({navigation, context}) {
     }
   };
 
-  const handleOpenCamera = async (type, index) => {
-    handlePermission();
-    if (type === "image") {
+  const handleOpenCamera = async () => {
+    setBottomSheetVisible(false);
+    await handlePermission();
+
+    if (mediaTypes === "image") {
       const result = await ImagePicker.launchCameraAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         aspect: [4, 3],
@@ -75,11 +67,11 @@ function SeleccionarFotos({navigation, context}) {
       });
 
       if (!result.canceled) {
-        context[`setImagen${index}`](result?.assets[0].uri);
+        context[`setImagen${mediaIndex}`](result?.assets[0].uri);
       }
     }
 
-    if (type === "video") {
+    if (mediaTypes === "video") {
       const result = await ImagePicker.launchCameraAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Videos,
         aspect: [4, 3],
@@ -96,23 +88,41 @@ function SeleccionarFotos({navigation, context}) {
     setSelectedMediaId(null);
   };
 
-  const mediaOptions = (type, index) => [
-    {
-      label:
-        type === "image"
-          ? i18n.t("media.takeNewPhoto")
-          : i18n.t("media.takeNewVideo"),
-      onPress: () => handleOpenCamera(type, index),
-    },
-    {
-      label:
-        type === "image"
-          ? i18n.t("media.selectImageFromDevice")
-          : i18n.t("media.selectVideoFromDevice"),
-      onPress: () => setSelectedMediaId(null),
-    },
-    {label: i18n.t("media.cancel"), onPress: () => setSelectedMediaId(null)},
-  ];
+  handlePickMedia = async () => {
+    setBottomSheetVisible(false);
+
+    if (mediaType === "image") {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        aspect: [4, 3],
+        quality: 1,
+      });
+
+      if (!result.canceled) {
+        context[`setImagen${mediaIndex}`](result?.assets[0].uri);
+      }
+    }
+
+    if (mediaType === "video") {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Videos,
+        aspect: [4, 3],
+        quality: 0.5,
+        videoMaxDuration: 8,
+        videoQuality: ImagePicker.UIImagePickerControllerQualityType.Low,
+      });
+
+      if (!result.canceled) {
+        context.setVideo1(result?.assets[0].uri);
+      }
+    }
+  };
+
+  const openBottomSheet = (type, index) => {
+    setMediaType(type);
+    setMediaIndex(index);
+    setBottomSheetVisible(true);
+  };
 
   const mediaItems = [
     {id: 1, media: context.imagen1, type: "image"},
@@ -140,12 +150,34 @@ function SeleccionarFotos({navigation, context}) {
           <MediaButton
             key={index}
             item={item}
-            options={mediaOptions}
-            visible={selectedMediaId === item.id}
-            onVisibleChange={() => setSelectedMediaId(item.id)}
+            onOpen={() => openBottomSheet(item.type, item.id)}
           />
         ))}
       </View>
+
+      <BottomSheet
+        options={[
+          {
+            label:
+              mediaType === "image"
+                ? i18n.t("media.takeNewPhoto")
+                : i18n.t("media.takeNewVideo"),
+            onPress: () => handleOpenCamera(),
+          },
+          {
+            label:
+              mediaType === "image"
+                ? i18n.t("media.selectImageFromDevice")
+                : i18n.t("media.selectVideoFromDevice"),
+            onPress: () => handlePickMedia(),
+          },
+          {
+            label: i18n.t("media.cancel"),
+            onPress: () => setBottomSheetVisible(false),
+          },
+        ]}
+        isVisible={isBottomSheetVisible}
+      />
     </View>
   );
 }

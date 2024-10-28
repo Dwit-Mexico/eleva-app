@@ -1,17 +1,16 @@
 import {View, Image, TouchableOpacity} from "react-native";
 import {Feather} from "@expo/vector-icons";
-import BottomSheet from "../BottomSheet";
 import emptyImage from "../../../../assets/picture.jpg";
 import emptyVideo from "../../../../assets/video1.jpeg";
 
-export default function MediaButton({item, options, visible, onVisibleChange}) {
+export default function MediaButton({item, onOpen}) {
   const isVideo = item.type === "video";
 
   return (
     <View>
       <TouchableOpacity
         style={{width: 170, height: 140, padding: 10}}
-        onPress={() => onVisibleChange(true)}
+        onPress={onOpen}
       >
         <Image
           source={
@@ -34,7 +33,6 @@ export default function MediaButton({item, options, visible, onVisibleChange}) {
           </View>
         )}
       </TouchableOpacity>
-      <BottomSheet options={options(item.type, item.id)} isVisible={visible} />
     </View>
   );
 }

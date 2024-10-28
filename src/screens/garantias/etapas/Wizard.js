@@ -47,7 +47,6 @@ function Etapa1({navigation, esDetalle, context}) {
 
   async function _compressVideo(videoUri, name) {
     if (videoUri) {
-      console.log("videoUri", videoUri);
       return {
         uri: videoUri,
         name: `${name}.mp4`,
@@ -127,13 +126,10 @@ function Etapa1({navigation, esDetalle, context}) {
       Fecha: moment().format(),
     };
 
-    console.log("cont", context.video1);
     const file1 = await _compressImage(context.imagen1, "imagen1");
     const file2 = await _compressImage(context.imagen2, "imagen2");
     const file3 = await _compressImage(context.imagen3, "imagen3");
     const file4 = await _compressVideo(context.video1, "video1");
-
-    console.log("data", file4);
 
     const response = await request.postFile(
       "/app/garantias/crear",
