@@ -56,10 +56,9 @@ function SeleccionarFotos({navigation, context}) {
   };
 
   const handleOpenCamera = async () => {
-    setBottomSheetVisible(false);
     await handlePermission();
 
-    if (mediaTypes === "image") {
+    if (mediaType === "image") {
       const result = await ImagePicker.launchCameraAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         aspect: [4, 3],
@@ -71,7 +70,7 @@ function SeleccionarFotos({navigation, context}) {
       }
     }
 
-    if (mediaTypes === "video") {
+    if (mediaType === "video") {
       const result = await ImagePicker.launchCameraAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Videos,
         aspect: [4, 3],
@@ -84,8 +83,8 @@ function SeleccionarFotos({navigation, context}) {
         context.setVideo1(result?.assets[0].uri);
       }
     }
-
-    setSelectedMediaId(null);
+    setMediaType(null);
+    setBottomSheetVisible(false);
   };
 
   handlePickMedia = async () => {
@@ -116,6 +115,7 @@ function SeleccionarFotos({navigation, context}) {
         context.setVideo1(result?.assets[0].uri);
       }
     }
+    setMediaType(null);
   };
 
   const openBottomSheet = (type, index) => {
@@ -162,14 +162,14 @@ function SeleccionarFotos({navigation, context}) {
               mediaType === "image"
                 ? i18n.t("media.takeNewPhoto")
                 : i18n.t("media.takeNewVideo"),
-            onPress: () => handleOpenCamera(),
+            onPress: handleOpenCamera,
           },
           {
             label:
               mediaType === "image"
                 ? i18n.t("media.selectImageFromDevice")
                 : i18n.t("media.selectVideoFromDevice"),
-            onPress: () => handlePickMedia(),
+            onPress: handlePickMedia,
           },
           {
             label: i18n.t("media.cancel"),
