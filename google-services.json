@@ -2,12 +2,12 @@
   "project_info": {
     "project_number": "545970155438",
     "project_id": "eleva-54c99",
-    "storage_bucket": "eleva-54c99.appspot.com"
+    "storage_bucket": "eleva-54c99.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:545970155438:android:165569135600f4e0aaa23f",
+        "mobilesdk_app_id": "1:545970155438:android:e58b71722d937f9caaa23f",
         "android_client_info": {
           "package_name": "com.elevapp.customerservice"
         }

@@ -1,134 +1,54 @@
-import React, {useEffect, useState} from "react";
-import {Alert, View, Animated, Text, Platform, Linking} from "react-native";
-import {Camera} from "expo-camera";
-// import {Consumer} from "../../../../context";
-// import {Feather} from "@expo/vector-icons";
-// import ImageZoom from "react-native-image-zoom-viewer";
-// import {useFocusEffect} from "@react-navigation/native";
-import * as ImagePicker from "expo-image-picker";
-// import {Video} from "expo-av";
+import React, {useEffect} from "react";
+import {View, Animated, Text} from "react-native";
 import Styles from "../../../../styles/components/WizardStyle";
 import {useLanguageContext} from "../../../../context/lang";
 import MediaButton from "../../../../components/common/Buttons/MediaButton";
 import BottomSheet from "../.././../../components/common/BottomSheet";
+import ModalViewMedia from "../../../../components/common/Modals/ModalViewMedia";
+import useMediaHandler from "../../../../hooks/useMediaHandler";
 
 function SeleccionarFotos({navigation, context}) {
   const {i18n} = useLanguageContext();
-  const [isBottomSheetVisible, setBottomSheetVisible] = useState(false);
-  const [mediaType, setMediaType] = useState(null);
-  const [mediaIndex, setMediaIndex] = useState(null);
-
-  const cameraPermissions = async () => {
-    const {status: existingStatus} =
-      await Camera.requestCameraPermissionsAsync();
-    if (existingStatus !== "granted") {
-      await Camera.requestCameraPermissionsAsync();
-    }
-  };
-
-  const handlePermission = async () => {
-    const permissions = await Camera.requestCameraPermissionsAsync();
-
-    if (permissions.status === "denied") {
-      if (permissions.canAskAgain) {
-        Alert.alert(i18n.t("permissions.title"), i18n.t("permissions.text"));
-      } else {
-        if (Platform.OS == "ios") {
-          Alert.alert(
-            i18n.t("permissions.title"),
-            i18n.t("permissions.textIOS"),
-            [
-              {
-                text: "ir a configuración",
-                onPress: () => Linking.openURL("app-settings:"),
-              },
-            ]
-          );
-        } else {
-          Alert.alert(
-            i18n.t("permissions.title"),
-            i18n.t("permissions.textIOS")
-          );
-        }
-      }
-      return;
-    }
-  };
-
-  const handleOpenCamera = async () => {
-    await handlePermission();
-
-    if (mediaType === "image") {
-      const result = await ImagePicker.launchCameraAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        aspect: [4, 3],
-        quality: 1,
-      });
-
-      if (!result.canceled) {
-        context[`setImagen${mediaIndex}`](result?.assets[0].uri);
-      }
-    }
-
-    if (mediaType === "video") {
-      const result = await ImagePicker.launchCameraAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Videos,
-        aspect: [4, 3],
-        quality: 0.5,
-        videoMaxDuration: 8,
-        videoQuality: ImagePicker.UIImagePickerControllerQualityType.Low,
-      });
-
-      if (!result.canceled) {
-        context.setVideo1(result?.assets[0].uri);
-      }
-    }
-    setMediaType(null);
-    setBottomSheetVisible(false);
-  };
-
-  handlePickMedia = async () => {
-    setBottomSheetVisible(false);
-
-    if (mediaType === "image") {
-      const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        aspect: [4, 3],
-        quality: 1,
-      });
-
-      if (!result.canceled) {
-        context[`setImagen${mediaIndex}`](result?.assets[0].uri);
-      }
-    }
-
-    if (mediaType === "video") {
-      const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Videos,
-        aspect: [4, 3],
-        quality: 0.5,
-        videoMaxDuration: 8,
-        videoQuality: ImagePicker.UIImagePickerControllerQualityType.Low,
-      });
-
-      if (!result.canceled) {
-        context.setVideo1(result?.assets[0].uri);
-      }
-    }
-    setMediaType(null);
-  };
-
-  const openBottomSheet = (type, index) => {
-    setMediaType(type);
-    setMediaIndex(index);
-    setBottomSheetVisible(true);
-  };
+  const {
+    cameraPermissions,
+    handleOpenCamera,
+    handlePickMedia,
+    openBottomSheet,
+    isBottomSheetVisible,
+    setBottomSheetVisible,
+    mediaType,
+    mediaIndex,
+    showModalMedia,
+    setShowModalMedia,
+    handleEditMedia,
+  } = useMediaHandler(context);
 
   const mediaItems = [
     {id: 1, media: context.imagen1, type: "image"},
     {id: 2, media: context.imagen2, type: "image"},
     {id: 3, media: context.imagen3, type: "image"},
     {id: 4, media: context.video1, type: "video"},
+  ];
+
+  const options = [
+    {
+      label:
+        mediaType === "image"
+          ? i18n.t("media.takeNewPhoto")
+          : i18n.t("media.takeNewVideo"),
+      onPress: handleOpenCamera,
+    },
+    {
+      label:
+        mediaType === "image"
+          ? i18n.t("media.selectImageFromDevice")
+          : i18n.t("media.selectVideoFromDevice"),
+      onPress: handlePickMedia,
+    },
+    {
+      label: i18n.t("media.cancel"),
+      onPress: () => setBottomSheetVisible(false),
+    },
   ];
 
   useEffect(() => {
@@ -154,29 +74,17 @@ function SeleccionarFotos({navigation, context}) {
           />
         ))}
       </View>
-
+      <ModalViewMedia
+        isVisible={showModalMedia}
+        onClose={() => setShowModalMedia(false)}
+        type={mediaType}
+        media={context[`imagen${mediaIndex}`] || context.video1}
+        onEditMedia={() => handleEditMedia(mediaIndex)}
+      />
       <BottomSheet
-        options={[
-          {
-            label:
-              mediaType === "image"
-                ? i18n.t("media.takeNewPhoto")
-                : i18n.t("media.takeNewVideo"),
-            onPress: handleOpenCamera,
-          },
-          {
-            label:
-              mediaType === "image"
-                ? i18n.t("media.selectImageFromDevice")
-                : i18n.t("media.selectVideoFromDevice"),
-            onPress: handlePickMedia,
-          },
-          {
-            label: i18n.t("media.cancel"),
-            onPress: () => setBottomSheetVisible(false),
-          },
-        ]}
+        options={options}
         isVisible={isBottomSheetVisible}
+        onClose={() => setBottomSheetVisible(false)}
       />
     </View>
   );
