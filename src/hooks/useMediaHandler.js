@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {Alert, Platform, Linking} from "react-native";
 import {Camera} from "expo-camera";
 import * as ImagePicker from "expo-image-picker";
+import * as VideoThumbnails from "expo-video-thumbnails";
 import {useLanguageContext} from "../context/lang";
 
 const useMediaHandler = (context) => {
@@ -10,6 +11,7 @@ const useMediaHandler = (context) => {
   const [mediaType, setMediaType] = useState(null);
   const [mediaIndex, setMediaIndex] = useState(null);
   const [showModalMedia, setShowModalMedia] = useState(false);
+  const [thumbnail, setThumbnail] = useState(null);
 
   const cameraPermissions = async () => {
     const {status: existingStatus} =
@@ -48,6 +50,17 @@ const useMediaHandler = (context) => {
     }
   };
 
+  const generateThumbnail = async (videoUri) => {
+    try {
+      const {uri} = await VideoThumbnails.getThumbnailAsync(videoUri, {
+        time: 15000,
+      });
+      setThumbnail(uri);
+    } catch (e) {
+      console.warn(e);
+    }
+  };
+
   const handleOpenCamera = async () => {
     await handlePermission();
 
@@ -73,7 +86,9 @@ const useMediaHandler = (context) => {
       });
 
       if (!result.canceled) {
-        context.setVideo1(result?.assets[0].uri);
+        const videoUri = result.assets[0].uri;
+        context.setVideo1(videoUri);
+        await generateThumbnail(videoUri);
       }
     }
     setMediaType(null);
@@ -105,7 +120,9 @@ const useMediaHandler = (context) => {
       });
 
       if (!result.canceled) {
-        context.setVideo1(result?.assets[0].uri);
+        const videoUri = result.assets[0].uri;
+        context.setVideo1(videoUri);
+        await generateThumbnail(videoUri);
       }
     }
     setMediaType(null);
@@ -155,6 +172,7 @@ const useMediaHandler = (context) => {
     showModalMedia,
     setShowModalMedia,
     handleEditMedia,
+    thumbnail,
   };
 };
 

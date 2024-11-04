@@ -3,7 +3,7 @@ import {Feather} from "@expo/vector-icons";
 import emptyImage from "../../../../assets/picture.jpg";
 import emptyVideo from "../../../../assets/video1.jpeg";
 
-export default function MediaButton({item, onOpen}) {
+export default function MediaButton({item, thumbnail, onOpen}) {
   const isVideo = item.type === "video";
 
   return (
@@ -14,7 +14,11 @@ export default function MediaButton({item, onOpen}) {
       >
         <Image
           source={
-            item.media ? {uri: item.media} : isVideo ? emptyVideo : emptyImage
+            item.media
+              ? {uri: isVideo && thumbnail ? thumbnail : item.media}
+              : isVideo
+              ? emptyVideo
+              : emptyImage
           }
           style={{width: "100%", height: "100%"}}
           resizeMode="cover"

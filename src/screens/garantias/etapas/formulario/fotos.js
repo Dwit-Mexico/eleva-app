@@ -21,6 +21,7 @@ function SeleccionarFotos({navigation, context}) {
     showModalMedia,
     setShowModalMedia,
     handleEditMedia,
+    thumbnail,
   } = useMediaHandler(context);
 
   const mediaItems = [
@@ -70,6 +71,7 @@ function SeleccionarFotos({navigation, context}) {
           <MediaButton
             key={index}
             item={item}
+            thumbnail={thumbnail}
             onOpen={() => openBottomSheet(item.type, item.id)}
           />
         ))}
