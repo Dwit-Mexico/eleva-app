@@ -1,38 +1,25 @@
-import {View, Image, TouchableOpacity} from "react-native";
+import {View, Image, TouchableOpacity, StyleSheet} from "react-native";
 import {Feather} from "@expo/vector-icons";
-import emptyImage from "../../../../assets/picture.jpg";
-import emptyVideo from "../../../../assets/video1.jpeg";
 
 export default function MediaButton({item, thumbnail, onOpen}) {
   const isVideo = item.type === "video";
 
   return (
     <View>
-      <TouchableOpacity
-        style={{width: 170, height: 140, padding: 10}}
-        onPress={onOpen}
-      >
-        <Image
-          source={
-            item.media
-              ? {uri: isVideo && thumbnail ? thumbnail : item.media}
-              : isVideo
-              ? emptyVideo
-              : emptyImage
-          }
-          style={{width: "100%", height: "100%"}}
-          resizeMode="cover"
-        />
+      <TouchableOpacity style={styles.button} onPress={onOpen}>
+        {item.media ? (
+          <Image
+            source={isVideo && thumbnail ? {uri: thumbnail} : {uri: item.media}}
+            style={styles.image}
+            resizeMode="cover"
+          />
+        ) : item.type === "video" ? (
+          <Feather name="video" size={32} color="#333138" />
+        ) : (
+          <Feather name="image" size={32} color="#333138" />
+        )}
         {isVideo && item.media && (
-          <View
-            style={{
-              position: "absolute",
-              width: "100%",
-              height: "100%",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
+          <View style={styles.overlay}>
             <Feather name="play-circle" size={32} color="#fff" />
           </View>
         )}
@@ -40,3 +27,29 @@ export default function MediaButton({item, thumbnail, onOpen}) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  button: {
+    width: 160,
+    height: 160,
+    marginRight: 10,
+    marginBottom: 10,
+    backgroundColor: "#FCFAFA",
+    borderRadius: 8,
+    borderWidth: 3,
+    borderColor: "#333138",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  image: {
+    width: "100%",
+    height: "100%",
+  },
+  overlay: {
+    position: "absolute",
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});

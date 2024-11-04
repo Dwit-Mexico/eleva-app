@@ -59,12 +59,12 @@ function SeleccionarFotos({navigation, context}) {
   return (
     <View style={{flex: 1}}>
       <Text style={Styles.titleStyle}>{i18n.t("reports.photos")}</Text>
-      <View style={{height: 8}} />
       <View
         style={{
           flexDirection: "row",
           flexWrap: "wrap",
           justifyContent: "center",
+          alignItems: "center",
         }}
       >
         {mediaItems.map((item, index) => (
