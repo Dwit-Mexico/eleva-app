@@ -12,10 +12,6 @@ const input = {
   color: Colores.inputs,
 };
 
-const alignCenter = {
-  textAlign: "center",
-};
-
 export default StyleSheet.create({
   LoginUsername: {
     ...input,
@@ -33,7 +29,7 @@ export default StyleSheet.create({
     alignItems: "center",
     borderWidth: 1,
     borderColor: "#555",
-    borderRadius: 8,
+    borderRadius: 4,
   },
   inputNormal: {
     flexDirection: "row",
@@ -51,7 +47,7 @@ export default StyleSheet.create({
     borderWidth: 2,
     marginHorizontal: 2,
     marginVertical: 2,
-    borderRadius: 2,
+    borderRadius: 4,
   },
   itemTextNormal: {
     color: "#fff",
@@ -67,6 +63,7 @@ export default StyleSheet.create({
     borderWidth: 2,
     marginHorizontal: 2,
     marginVertical: 2,
+    borderRadius: 4,
   },
   itemTextSelected: {
     color: "#ffffff",

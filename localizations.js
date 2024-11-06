@@ -99,10 +99,10 @@ export const translations = {
       comments: "Escribe aquí tu detalle",
       photos: "¿Tienes fotos o video del detalle?",
       termns1:
-        "Para la atención de los detalles señalados en este reporte, el departamento de customer service contara con 48 hrs. para contactar al propietario o inquilino a fin de agendar una cita conveniente a ambos lados para ejecutar dichos trabajos.",
+        "¡Muchas gracias! su reporte ha sido enviado, el Departamento de Customer Service se pondrá en contacto con usted a través de la información proporcionada en un lapso de 72 horas con el fin de programar la atención al mismo.",
       note: "IMPORTANTE:",
       terms2:
-        "El propietario o inquilino tendrá que estar presente al momento de que se este realizando los trabajos en el departamento.",
+        "Es importante tomar en cuenta que una vez agendada la visita para realizar los trabajos, siempre esté presente una persona responsable del inmueble.",
       newReport: "¿Quieres agregar otro reporte?",
       errorCancel: "No se pudo cancelar el reporte.",
     },
@@ -282,10 +282,10 @@ export const translations = {
       comments: "Write your detail here",
       photos: "Do you have photos or video of the detail?",
       termns1:
-        "To attend the details marked on this form, the customer service department will have 48 hrs to contact the owner or the tenant in order to schedule a convenient appointment and do the necessary repairs.",
+        "Thank you very much! your report has been sent, the Customer Service Department will contact you through the information provided within 72 hours in order to schedule the attention to it.",
       note: "IMPORTANT:",
       terms2:
-        "The owner or tenant must be present at the time the work is being done.",
+        "It is important to take into account that once the visit is scheduled to carry out the work, a responsible person must be present in the property.",
       newReport: "Do you want to add another report?",
       errorCancel: "Could not cancel the report.",
     },

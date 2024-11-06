@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useRef} from "react";
 import {View, Animated, Text} from "react-native";
 import Styles from "../../../../styles/components/WizardStyle";
 import {useLanguageContext} from "../../../../context/lang";
@@ -7,7 +7,8 @@ import BottomSheet from "../.././../../components/common/BottomSheet";
 import ModalViewMedia from "../../../../components/common/Modals/ModalViewMedia";
 import useMediaHandler from "../../../../hooks/useMediaHandler";
 
-function SeleccionarFotos({navigation, context}) {
+function SeleccionarFotos({context}) {
+  const fadeAnim = useRef(new Animated.Value(0)).current;
   const {i18n} = useLanguageContext();
   const {
     cameraPermissions,
@@ -53,11 +54,16 @@ function SeleccionarFotos({navigation, context}) {
   ];
 
   useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 1000,
+      useNativeDriver: true,
+    }).start();
     cameraPermissions();
   }, []);
 
   return (
-    <View style={{flex: 1}}>
+    <Animated.View style={{flex: 1, opacity: fadeAnim}}>
       <Text style={Styles.titleStyle}>{i18n.t("reports.photos")}</Text>
       <View
         style={{
@@ -88,7 +94,7 @@ function SeleccionarFotos({navigation, context}) {
         isVisible={isBottomSheetVisible}
         onClose={() => setBottomSheetVisible(false)}
       />
-    </View>
+    </Animated.View>
   );
 }
 

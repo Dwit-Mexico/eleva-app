@@ -53,6 +53,7 @@ const ListaGarantia = ({navigation, context}) => {
       style={{flex: 1, resizeMode: "contain"}}
     >
       <View style={Styles.backGround}>
+        <View style={{height: 8}} />
         <ListaGarantias navigation={navigation} lista={lista} etapa={2} />
         <Pressable
           style={{

@@ -13,10 +13,7 @@ import {useFocusEffect} from "@react-navigation/native";
 import Request from "../../core/api";
 import Container from "../../components/container";
 import ListaViviendas from "../../components/lista-viviendas";
-import BotonAccion from "../../components/boton/BotonAccion";
-import Styles from "../../styles/screens/PerfilStyle";
-import StylesButtons from "../../styles/buttons";
-import StylesTexts from "../../styles/text";
+import styles from "../../styles/screens/PerfilStyle";
 import Colores from "../../styles/colores";
 import {useLanguageContext} from "../../context/lang";
 
@@ -132,46 +129,35 @@ function Perfil({navigation, context}) {
           <Container>
             <View style={{height: 50}} />
             <View style={{flex: 1, width: "100%"}}>
-              <View style={{flex: 0.8}}>
-                {loading ? (
-                  <ActivityIndicator size={30} color={Colores.spinnerColor} />
-                ) : (
-                  <ListaViviendas lista={unidades} />
-                )}
-              </View>
-
-              <View style={Styles.logoutButtonView}>
-                {user.Propietario && (
-                  <View style={{width: 130}}>
-                    <BotonAccion
-                      onPress={() =>
-                        navigation.navigate("Usuarios", {unidades})
-                      }
-                      disabled={loading}
-                    >
-                      <Text
-                        allowFontScaling={false}
-                        style={StylesTexts.logoutButton}
-                      >
-                        {i18n.t("profile.users")}
-                      </Text>
-                    </BotonAccion>
-                  </View>
-                )}
-                <View style={{width: 130}}>
-                  <TouchableOpacity
-                    onPress={_logOut.bind(this, context)}
-                    style={StylesButtons.logoutButton}
-                  >
-                    <Text
-                      allowFontScaling={false}
-                      style={StylesTexts.logoutButton}
-                    >
-                      {i18n.t("profile.logout")}
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
+              {loading ? (
+                <ActivityIndicator size={30} color={Colores.spinnerColor} />
+              ) : (
+                <ListaViviendas lista={unidades} />
+              )}
+            </View>
+            <View style={styles.logoutButtonView}>
+              {user.Propietario && (
+                <TouchableOpacity
+                  style={styles.userButton}
+                  onPress={() => navigation.navigate("Usuarios", {unidades})}
+                  disabled={loading}
+                >
+                  <Text style={styles.buttonText} allowFontScaling={false}>
+                    {i18n.t("profile.users")}
+                  </Text>
+                </TouchableOpacity>
+              )}
+              <TouchableOpacity
+                onPress={() => _logOut(context)}
+                style={[
+                  styles.logoutButton,
+                  {width: user.Propietario ? "45%" : "100%"},
+                ]}
+              >
+                <Text allowFontScaling={false} style={styles.buttonText}>
+                  {i18n.t("profile.logout")}
+                </Text>
+              </TouchableOpacity>
             </View>
           </Container>
         </View>

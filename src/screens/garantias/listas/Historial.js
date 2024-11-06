@@ -46,6 +46,7 @@ const Historial = ({navigation, context}) => {
       style={{flex: 1}}
     >
       <View style={Styles.backGround}>
+        <View style={{height: 8}} />
         <ListaGarantias navigation={navigation} lista={lista} etapa={4} />
         <Pressable
           style={{

@@ -209,11 +209,7 @@ function Etapa1({navigation, esDetalle, context}) {
               comentario={comentario}
               setComentario={setComentario}
             />,
-            <Fotos
-              navigation={navigation}
-              esDetalle={esDetalle}
-              context={context}
-            />,
+            <Fotos context={context} />,
             <Finalizar
               aceptarAction={() => aceptarAction()}
               finalizarAction={() => finalizarAction()}
