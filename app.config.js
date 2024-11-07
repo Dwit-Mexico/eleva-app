@@ -36,9 +36,6 @@ export default {
       ],
       "expo-localization",
     ],
-    notification: {
-      icon: "./assets/notification-icon.png",
-    },
     updates: {
       enabled: false,
     },
