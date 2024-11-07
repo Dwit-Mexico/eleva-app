@@ -23,7 +23,6 @@ function Galeria() {
         <SliderBox
           onCurrentImagePressed={(index) => {
             const imgRender = imagenes[index];
-            console.log("imagen", imgRender);
             const imgSource = imgRender.uri
               ? [
                   {
