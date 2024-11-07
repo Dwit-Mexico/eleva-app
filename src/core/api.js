@@ -119,7 +119,7 @@ class Request {
         files.forEach((file, index) => {
           if (file && (file.uri || file.uri.uri)) {
             postRequest.attach(`file_${index + 1}`, {
-              uri: file.uri.uri,
+              uri: file.uri || file.uri.uri,
               name: file.name,
               type: file.type,
             });
