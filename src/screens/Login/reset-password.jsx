@@ -91,6 +91,8 @@ export default function ResetPassword({navigation, route}) {
         onSubmit={handleResetPassword}
         isLoading={isLoading}
         navigation={navigation}
+        Email={Email}
+        OTP={OTP}
       />
     </ImageBackground>
   );

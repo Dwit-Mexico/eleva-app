@@ -66,6 +66,7 @@ export default function RecoverPassword({navigation}) {
         onSubmit={handleSubmit}
         isLoading={loading}
         navigation={navigation}
+        Email={email}
       />
     </ImageBackground>
   );

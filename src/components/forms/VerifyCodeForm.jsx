@@ -18,6 +18,7 @@ export default function VerifyCodeForm({
   isLoading,
   inputRefs,
   navigation,
+  Email,
 }) {
   const {i18n} = useLanguageContext();
 

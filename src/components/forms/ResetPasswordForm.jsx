@@ -23,6 +23,8 @@ export default function ResetPasswordForm({
   onSubmit,
   isLoading,
   navigation,
+  Email,
+  OTP,
 }) {
   const {i18n, locale} = useLanguageContext();
 
@@ -88,7 +90,7 @@ export default function ResetPasswordForm({
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.backButton}
-            onPress={() => navigation.navigate("verify-code", {Email})}
+            onPress={() => navigation.navigate("verify-code", {Email, OTP})}
           >
             <Text style={styles.buttonText}>{i18n.t("button.back")}</Text>
           </TouchableOpacity>

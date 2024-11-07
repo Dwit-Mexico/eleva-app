@@ -1,8 +1,13 @@
 import React, {useState, useEffect} from "react";
-import {View, Text, TouchableOpacity, Alert} from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Alert,
+  ActivityIndicator,
+} from "react-native";
 import {FontAwesome5} from "@expo/vector-icons";
 import Request from "../../core/api";
-import BotonAccion from "../../components/boton/BotonAccion";
 import CardStyles from "../../styles/components/CardUsuarioStyle";
 import Colores from "../../styles/colores";
 import {useLanguageContext} from "../../context/lang";
@@ -63,7 +68,7 @@ function CardUsuario(props) {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        paddingHorizontal: 10,
+        paddingHorizontal: 4,
       }}
       onPress={() =>
         props.navigation
@@ -150,16 +155,28 @@ function CardUsuario(props) {
               marginTop: 5,
             }}
           >
-            <BotonAccion
+            <TouchableOpacity
+              style={{
+                backgroundColor: "#F24236",
+                padding: 10,
+                borderRadius: 4,
+                width: "100%",
+                height: 50,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
               onPress={() => elimiarUsuario(info.IdPersona)}
-              loading={loading}
             >
-              <FontAwesome5
-                name="trash"
-                size={20}
-                color={Colores.CardGarantiaColor}
-              />
-            </BotonAccion>
+              {loading ? (
+                <ActivityIndicator color="#ffffff" />
+              ) : (
+                <FontAwesome5
+                  name="trash"
+                  size={20}
+                  color={Colores.CardGarantiaColor}
+                />
+              )}
+            </TouchableOpacity>
           </View>
         </View>
       </View>

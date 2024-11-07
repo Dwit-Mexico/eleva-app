@@ -82,6 +82,7 @@ export default function VerifyCode({navigation, route}) {
         isLoading={isLoading}
         inputRefs={inputRefs}
         navigation={navigation}
+        Email={Email}
       />
     </ImageBackground>
   );
