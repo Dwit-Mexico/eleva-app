@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from "react";
+import React, {useState, useEffect} from "react";
 import {
   Alert,
   FlatList,
@@ -7,6 +7,7 @@ import {
   ImageBackground,
   ActivityIndicator,
   RefreshControl,
+  TouchableOpacity,
 } from "react-native";
 import {Consumer} from "../../context";
 import {useRoute} from "@react-navigation/native";
@@ -14,7 +15,7 @@ import Request from "../../core/api";
 import Container from "../../components/container";
 import BotonAccion from "../../components/boton/BotonAccion";
 import CardUsuario from "../../components/usuarios/CardUsuario";
-import Styles from "../../styles/screens/PerfilStyle";
+import styles from "../../styles/screens/PerfilStyle";
 import Colores from "../../styles/colores";
 import {useLanguageContext} from "../../context/lang";
 
@@ -63,20 +64,20 @@ function Usuarios({navigation}) {
   return (
     <ImageBackground
       source={require("../../../assets/background.jpg")}
-      style={{flex: 1}}
+      style={{flex: 1, resizeMode: "contain"}}
     >
-      <View style={Styles.backGround}>
+      <View style={styles.backGround}>
         <Container>
-          <View>
-            <BotonAccion
+          <View style={{marginHorizontal: 4, marginVertical: 8}}>
+            <TouchableOpacity
+              style={styles.logoutButton}
               onPress={() => navigation.navigate("AgregarUsuario", {unidades})}
             >
-              <Text allowFontScaling={false} style={Styles.ButtonText}>
+              <Text allowFontScaling={false} style={styles.buttonText}>
                 {i18n.t("users.add")}
               </Text>
-            </BotonAccion>
+            </TouchableOpacity>
           </View>
-          <View style={{height: 24}} />
           <View
             style={{
               flex: 1,

@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Alert,
   ActivityIndicator,
+  StyleSheet,
 } from "react-native";
 import {FontAwesome5} from "@expo/vector-icons";
 import Request from "../../core/api";
@@ -64,12 +65,7 @@ function CardUsuario(props) {
 
   return (
     <TouchableOpacity
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        paddingHorizontal: 4,
-      }}
+      style={styles.touchableOpacity}
       onPress={() =>
         props.navigation
           ? props.navigation.navigate(props.ruta, {
@@ -82,89 +78,26 @@ function CardUsuario(props) {
       }
     >
       <View style={CardStyles.card}>
-        <View style={{alignItems: "flex-start"}}>
-          <View
-            style={{
-              flexDirection: "row",
-              flex: 1,
-              alignItems: "center",
-              justifyContent: "flex-start",
-            }}
-          >
+        <View style={styles.flexStart}>
+          <View style={styles.row}>
             <Text
-              style={{
-                padding: 2,
-                fontSize: 20,
-                fontWeight: "bold",
-                textAlign: "center",
-                color: Colores.CardGarantiaTitulo,
-              }}
+              style={styles.userName}
             >{`${info.Nombre} ${info.Apellidos}`}</Text>
           </View>
-          <View
-            style={{
-              flexDirection: "row",
-              flex: 1,
-              alignItems: "center",
-              justifyContent: "flex-start",
-            }}
-          >
-            <Text
-              style={{
-                padding: 2,
-                fontSize: 19,
-                fontWeight: "bold",
-                textAlign: "center",
-                color: Colores.CardGarantiaColor,
-              }}
-            >
-              {info.Email}
-            </Text>
+          <View style={styles.row}>
+            <Text style={styles.userEmail}>{info.Email}</Text>
           </View>
-          <View
-            style={{
-              flexDirection: "row",
-              flex: 1,
-              alignItems: "center",
-              justifyContent: "flex-start",
-            }}
-          >
+          <View style={styles.row}>
             <FontAwesome5
               name="home"
-              size={20}
+              size={18}
               color={Colores.CardGarantiaColor}
             />
-            <Text
-              style={{
-                padding: 2,
-                fontSize: 19,
-                fontWeight: "bold",
-                textAlign: "center",
-                color: Colores.CardGarantiaColor,
-              }}
-            >
-              {info.Numero}
-            </Text>
+            <Text style={styles.userNumber}>{info.Numero}</Text>
           </View>
-          <View
-            style={{
-              flexDirection: "row",
-              flex: 0.5,
-              alignItems: "center",
-              justifyContent: "flex-start",
-              marginTop: 5,
-            }}
-          >
+          <View style={styles.deleteButtonContainer}>
             <TouchableOpacity
-              style={{
-                backgroundColor: "#F24236",
-                padding: 10,
-                borderRadius: 4,
-                width: "100%",
-                height: 50,
-                justifyContent: "center",
-                alignItems: "center",
-              }}
+              style={styles.deleteButton}
               onPress={() => elimiarUsuario(info.IdPersona)}
             >
               {loading ? (
@@ -172,7 +105,7 @@ function CardUsuario(props) {
               ) : (
                 <FontAwesome5
                   name="trash"
-                  size={20}
+                  size={18}
                   color={Colores.CardGarantiaColor}
                 />
               )}
@@ -183,5 +116,60 @@ function CardUsuario(props) {
     </TouchableOpacity>
   );
 }
+
+const styles = StyleSheet.create({
+  touchableOpacity: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 4,
+  },
+  flexStart: {
+    alignItems: "flex-start",
+  },
+  row: {
+    flexDirection: "row",
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "flex-start",
+  },
+  userName: {
+    padding: 2,
+    fontSize: 20,
+    fontWeight: "bold",
+    textAlign: "center",
+    color: Colores.CardGarantiaTitulo,
+  },
+  userEmail: {
+    padding: 2,
+    fontSize: 18,
+    fontWeight: "semibold",
+    textAlign: "center",
+    color: Colores.CardGarantiaColor,
+  },
+  userNumber: {
+    padding: 2,
+    fontSize: 18,
+    fontWeight: "semibold",
+    textAlign: "center",
+    color: Colores.CardGarantiaColor,
+  },
+  deleteButtonContainer: {
+    flexDirection: "row",
+    flex: 0.5,
+    alignItems: "center",
+    justifyContent: "flex-start",
+    marginTop: 5,
+  },
+  deleteButton: {
+    backgroundColor: "#F24236",
+    padding: 10,
+    borderRadius: 4,
+    width: "100%",
+    height: 50,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
 
 export default CardUsuario;

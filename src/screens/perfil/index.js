@@ -19,25 +19,6 @@ import {useLanguageContext} from "../../context/lang";
 
 const request = new Request();
 
-const styleUserData = {
-  position: "absolute",
-  backgroundColor: "#fff",
-  width: "90%",
-  top: -30,
-  borderRadius: 5,
-  padding: 5,
-  zIndex: 2,
-  shadowColor: "#000000",
-  shadowOffset: {
-    width: 0,
-    height: 2,
-  },
-  shadowOpacity: 0.25,
-  shadowRadius: 3.84,
-  elevation: 6,
-  alignItems: "center",
-};
-
 function Perfil({navigation, context}) {
   const {locale, setLocale, i18n} = useLanguageContext();
   const [loading, setLoading] = useState(true);
@@ -113,7 +94,7 @@ function Perfil({navigation, context}) {
           alignItems: "center",
         }}
       >
-        <View style={styleUserData}>
+        <View style={styles.userData}>
           <Text
             allowFontScaling={false}
             style={{fontSize: 18, color: "#B29360", fontWeight: "bold"}}
@@ -140,7 +121,6 @@ function Perfil({navigation, context}) {
                 <TouchableOpacity
                   style={styles.userButton}
                   onPress={() => navigation.navigate("Usuarios", {unidades})}
-                  disabled={loading}
                 >
                   <Text style={styles.buttonText} allowFontScaling={false}>
                     {i18n.t("profile.users")}
@@ -148,11 +128,8 @@ function Perfil({navigation, context}) {
                 </TouchableOpacity>
               )}
               <TouchableOpacity
+                style={[styles.logoutButton]}
                 onPress={() => _logOut(context)}
-                style={[
-                  styles.logoutButton,
-                  {width: user.Propietario ? "45%" : "100%"},
-                ]}
               >
                 <Text allowFontScaling={false} style={styles.buttonText}>
                   {i18n.t("profile.logout")}
