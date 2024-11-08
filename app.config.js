@@ -2,7 +2,7 @@ export default {
   expo: {
     name: "Eleva",
     slug: "elevaApp",
-    version: "1.1.4",
+    version: "1.2.0",
     orientation: "portrait",
     icon: "./assets/appstore.png",
     splash: {
