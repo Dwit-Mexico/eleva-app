@@ -209,7 +209,7 @@ function Etapa1({navigation, esDetalle, context}) {
               comentario={comentario}
               setComentario={setComentario}
             />,
-            <Fotos context={context} />,
+            <Fotos context={context} navigation={navigation} />,
             <Finalizar
               aceptarAction={() => aceptarAction()}
               finalizarAction={() => finalizarAction()}
@@ -218,7 +218,7 @@ function Etapa1({navigation, esDetalle, context}) {
             />,
           ]}
           ultimo={6}
-          onSubmit={_handleSubmit.bind(this)}
+          onSubmit={() => _handleSubmit()}
           loading={loading}
           terminado={terminado}
           unidad={unidad}
