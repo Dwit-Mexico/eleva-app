@@ -2,7 +2,7 @@ export default {
   expo: {
     name: "Eleva",
     slug: "elevaApp",
-    version: "1.2.0",
+    version: "1.2.1",
     orientation: "portrait",
     icon: "./assets/appstore.png",
     splash: {
@@ -55,7 +55,7 @@ export default {
     },
     android: {
       package: "com.elevapp.customerservice",
-      googleServicesFile: process.env.GOOGLE_SERVICES_FILE,
+      googleServicesFile: process.env.GOOGLE_SERVICES_JSON,
       permissions: [
         "VIBRATE",
         "CAMERA",
