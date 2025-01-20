@@ -201,7 +201,7 @@ function Etapa1({navigation, esDetalle, context}) {
 
         <Wizard
           steps={[
-            <Unidad unidad={unidad} setUnidad={setUnidad} />,
+            <Unidad unidad={unidad} setUnidad={setUnidad} context={context} />,
             <Area area={area} setArea={setArea} />,
             <Equipo equipo={equipo} setEquipo={setEquipo} />,
             <Problema problema={problema} setProblema={setProblema} />,
