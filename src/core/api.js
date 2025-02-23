@@ -4,7 +4,7 @@ import request from "superagent";
 import {API_URL} from "./url";
 import Constants from "expo-constants";
 
-let version_app = "1.2.1";
+let version_app = "1.3.0";
 
 class Request {
   constructor() {

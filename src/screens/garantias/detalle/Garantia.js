@@ -14,7 +14,7 @@ import {
 import ImageZoom from "react-native-image-zoom-viewer";
 import {useRoute} from "@react-navigation/native";
 import {Consumer} from "../../../context";
-import {FontAwesome5} from "@expo/vector-icons";
+import {FontAwesome5, FontAwesome} from "@expo/vector-icons";
 import moment from "moment-timezone";
 import Request from "../../../core/api";
 import Container from "../../../components/container";
@@ -184,6 +184,15 @@ const DetalleGarantia = ({navigation, context}) => {
                 </Text>
               </View>
               <View style={Styles.lista}>
+                <FontAwesome
+                  name="comments"
+                  size={24}
+                  color={Colores.DetalleText}
+                />
+
+                <Text style={Styles.listaText}>&nbsp;{info.Comentarios}</Text>
+              </View>
+              <View style={Styles.lista}>
                 <FontAwesome5
                   name="hashtag"
                   size={20}
@@ -275,6 +284,15 @@ const DetalleGarantia = ({navigation, context}) => {
                 <Text style={Styles.listaText}>
                   &nbsp;{info.NombreProblema}
                 </Text>
+              </View>
+              <View style={Styles.lista}>
+                <FontAwesome
+                  name="comments"
+                  size={24}
+                  color={Colores.DetalleText}
+                />
+
+                <Text style={Styles.listaText}>&nbsp;{info.Comentarios}</Text>
               </View>
               <View style={Styles.lista}>
                 <FontAwesome5
@@ -432,6 +450,14 @@ const DetalleGarantia = ({navigation, context}) => {
                 <Text style={Styles.listaText}>
                   &nbsp;{info.NombreProblema}
                 </Text>
+              </View>
+              <View style={Styles.lista}>
+                <FontAwesome
+                  name="comments"
+                  size={24}
+                  color={Colores.DetalleText}
+                />
+                <Text style={Styles.listaText}>&nbsp;{info.Comentarios}</Text>
               </View>
               <View style={Styles.lista}>
                 <FontAwesome5
@@ -637,6 +663,15 @@ const DetalleGarantia = ({navigation, context}) => {
                 &nbsp;
                 {locale === "es" ? info.NombreProblema : info.problem_name}
               </Text>
+            </View>
+            <View style={Styles.lista}>
+              <FontAwesome
+                name="comments"
+                size={24}
+                color={Colores.DetalleText}
+              />
+
+              <Text style={Styles.listaText}>&nbsp;{info.Comentarios}</Text>
             </View>
             <View style={Styles.lista}>
               <FontAwesome5

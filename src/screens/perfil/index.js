@@ -8,6 +8,7 @@ import {
   ActivityIndicator,
   Pressable,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {Consumer} from "../../context";
 import {useFocusEffect} from "@react-navigation/native";
 import Request from "../../core/api";
@@ -26,9 +27,9 @@ function Perfil({navigation, context}) {
   const [unidades, setUnidades] = useState([]);
   const [error, setError] = useState(false);
 
-  function _logOut(context) {
+  async function _logOut(context) {
     if (context) {
-      context.logout();
+      await context.logout();
     }
   }
 
