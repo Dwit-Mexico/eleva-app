@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from "react";
+import {useEffect, useRef, useMemo} from "react";
 import {View, Animated, Text} from "react-native";
 import Styles from "../../../../styles/components/WizardStyle";
 import {useLanguageContext} from "../../../../context/lang";
@@ -11,7 +11,7 @@ function SeleccionarFotos({context}) {
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const {i18n} = useLanguageContext();
   const {
-    cameraPermissions,
+    verifyPermissions,
     handleOpenCamera,
     handlePickMedia,
     openBottomSheet,
@@ -23,6 +23,7 @@ function SeleccionarFotos({context}) {
     setShowModalMedia,
     handleEditMedia,
     thumbnail,
+    cameraPermission,
   } = useMediaHandler(context);
 
   const mediaItems = [
@@ -32,26 +33,29 @@ function SeleccionarFotos({context}) {
     {id: 4, media: context.video1, type: "video"},
   ];
 
-  const options = [
-    {
-      label:
-        mediaType === "image"
-          ? i18n.t("media.takeNewPhoto")
-          : i18n.t("media.takeNewVideo"),
-      onPress: handleOpenCamera,
-    },
-    {
-      label:
-        mediaType === "image"
-          ? i18n.t("media.selectImageFromDevice")
-          : i18n.t("media.selectVideoFromDevice"),
-      onPress: handlePickMedia,
-    },
-    {
-      label: i18n.t("media.cancel"),
-      onPress: () => setBottomSheetVisible(false),
-    },
-  ];
+  const options = useMemo(
+    () => [
+      {
+        label:
+          mediaType === "image"
+            ? i18n.t("media.takeNewPhoto")
+            : i18n.t("media.takeNewVideo"),
+        onPress: handleOpenCamera,
+      },
+      {
+        label:
+          mediaType === "image"
+            ? i18n.t("media.selectImageFromDevice")
+            : i18n.t("media.selectVideoFromDevice"),
+        onPress: handlePickMedia,
+      },
+      {
+        label: i18n.t("media.cancel"),
+        onPress: () => setBottomSheetVisible(false),
+      },
+    ],
+    [mediaType, i18n]
+  );
 
   useEffect(() => {
     Animated.timing(fadeAnim, {
@@ -59,8 +63,8 @@ function SeleccionarFotos({context}) {
       duration: 1000,
       useNativeDriver: true,
     }).start();
-    cameraPermissions();
-  }, []);
+    verifyPermissions();
+  }, [cameraPermission]);
 
   return (
     <Animated.View style={{flex: 1, opacity: fadeAnim}}>

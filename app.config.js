@@ -5,12 +5,19 @@ export default {
     version: "1.3.0",
     orientation: "portrait",
     icon: "./assets/appstore.png",
+    newArchEnabled: true,
     splash: {
       image: "./assets/splash2.png",
       resizeMode: "contain",
       backgroundColor: "#18191A",
     },
     plugins: [
+      [
+        "expo-dev-client",
+        {
+          launchMode: "most-recent",
+        },
+      ],
       [
         "expo-notifications",
         {
@@ -19,19 +26,14 @@ export default {
         },
       ],
       [
-        "expo-camera",
-        {
-          cameraPermissions:
-            "Para tomar fotos o video, permite que Eleva pueda usar la cámara",
-          recordAudioAndroid: false,
-        },
-      ],
-      [
         "expo-image-picker",
         {
-          cameraPermissions:
+          cameraPermission:
             "Para tomar fotos o video, permite que Eleva pueda usar la cámara",
-          recordAudioAndroid: false,
+          photosPermission:
+            "Para acceder a tus fotos, permite que Eleva pueda usar la galería",
+          microphonePermission:
+            "Para grabar audio, permite que Eleva pueda usar el micrófono",
         },
       ],
       "expo-localization",

@@ -1,6 +1,5 @@
-import React, {useState} from "react";
+import {useState} from "react";
 import {Alert, Platform, Linking} from "react-native";
-import {Camera} from "expo-camera";
 import * as ImagePicker from "expo-image-picker";
 import * as VideoThumbnails from "expo-video-thumbnails";
 import {useLanguageContext} from "../context/lang";
@@ -12,41 +11,45 @@ const useMediaHandler = (context) => {
   const [mediaIndex, setMediaIndex] = useState(null);
   const [showModalMedia, setShowModalMedia] = useState(false);
   const [thumbnail, setThumbnail] = useState(null);
+  const [cameraPermission, requestCameraPermission] =
+    ImagePicker.useCameraPermissions();
+  const [mediaLibraryPermission, requestMediaLibraryPermission] =
+    ImagePicker.useMediaLibraryPermissions();
 
-  const cameraPermissions = async () => {
-    const {status: existingStatus} =
-      await Camera.requestCameraPermissionsAsync();
-    if (existingStatus !== "granted") {
-      await Camera.requestCameraPermissionsAsync();
+  const verifyPermissions = async () => {
+    // Verificar permisos de cámara
+    if (!cameraPermission?.granted) {
+      const {granted} = await requestCameraPermission();
+      if (!granted) {
+        return false;
+      }
     }
+
+    // Verificar permisos de biblioteca de medios (solo necesario para iOS 14+)
+    if (Platform.OS === "ios" && !mediaLibraryPermission?.granted) {
+      const {granted} = await requestMediaLibraryPermission();
+      if (!granted) {
+        return false;
+      }
+    }
+
+    return true;
   };
 
-  const handlePermission = async () => {
-    const permissions = await Camera.requestCameraPermissionsAsync();
-
-    if (permissions.status === "denied") {
-      if (permissions.canAskAgain) {
-        Alert.alert(i18n.t("permissions.title"), i18n.t("permissions.text"));
-      } else {
-        if (Platform.OS == "ios") {
-          Alert.alert(
-            i18n.t("permissions.title"),
-            i18n.t("permissions.textIOS"),
-            [
-              {
-                text: "ir a configuración",
-                onPress: () => Linking.openURL("app-settings:"),
-              },
-            ]
-          );
-        } else {
-          Alert.alert(
-            i18n.t("permissions.title"),
-            i18n.t("permissions.textIOS")
-          );
-        }
-      }
-      return;
+  const handlePermissionDenied = () => {
+    if (Platform.OS == "ios") {
+      Alert.alert(i18n.t("permissions.title"), i18n.t("permissions.textIOS"), [
+        {
+          text: "Ir a configuración",
+          onPress: () => Linking.openURL("app-settings:"),
+        },
+        {
+          text: "Cancelar",
+          style: "cancel",
+        },
+      ]);
+    } else {
+      Alert.alert(i18n.t("permissions.title"), i18n.t("permissions.text"));
     }
   };
 
@@ -62,11 +65,15 @@ const useMediaHandler = (context) => {
   };
 
   const handleOpenCamera = async () => {
-    await handlePermission();
+    const hasPermission = await verifyPermissions();
+    if (!hasPermission) {
+      handlePermissionDenied();
+      return;
+    }
 
     if (mediaType === "image") {
       const result = await ImagePicker.launchCameraAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        mediaTypes: ["images"],
         aspect: [4, 3],
         quality: 1,
       });
@@ -78,7 +85,7 @@ const useMediaHandler = (context) => {
 
     if (mediaType === "video") {
       const result = await ImagePicker.launchCameraAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Videos,
+        mediaTypes: ["videos"],
         aspect: [4, 3],
         quality: 0.5,
         videoMaxDuration: 8,
@@ -95,12 +102,18 @@ const useMediaHandler = (context) => {
     setBottomSheetVisible(false);
   };
 
-  handlePickMedia = async () => {
+  const handlePickMedia = async () => {
+    const hasPermission = await verifyPermissions();
+    if (!hasPermission) {
+      handlePermissionDenied();
+      return;
+    }
+
     setBottomSheetVisible(false);
 
     if (mediaType === "image") {
       const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        mediaTypes: ["images"],
         aspect: [4, 3],
         quality: 1,
       });
@@ -112,7 +125,7 @@ const useMediaHandler = (context) => {
 
     if (mediaType === "video") {
       const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Videos,
+        mediaTypes: ["videos"],
         aspect: [4, 3],
         quality: 0.5,
         videoMaxDuration: 8,
@@ -161,7 +174,7 @@ const useMediaHandler = (context) => {
   };
 
   return {
-    cameraPermissions,
+    verifyPermissions,
     handleOpenCamera,
     handlePickMedia,
     openBottomSheet,
@@ -173,6 +186,7 @@ const useMediaHandler = (context) => {
     setShowModalMedia,
     handleEditMedia,
     thumbnail,
+    cameraPermission,
   };
 };
 

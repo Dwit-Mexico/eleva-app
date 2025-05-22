@@ -27,7 +27,6 @@ import ListaDocumentos from "../screens/documentos/ListaDocumentos";
 import VistaDocumento from "../screens/documentos/documento";
 import Usuarios from "../screens/perfil/Usuarios";
 import AgregarUsuario from "../screens/perfil/AgregarUsuario";
-import Camara from "../screens/camara";
 import {useLanguageContext} from "../context/lang";
 
 const request = new Request();
@@ -298,13 +297,6 @@ function AppStack(props) {
             backgroundColor: "#4C4C4C",
           },
           headerTintColor: "#B29360",
-        }}
-      />
-      <Stack.Screen
-        name="Camara"
-        component={Camara}
-        options={{
-          header: () => null,
         }}
       />
 
