@@ -2,7 +2,7 @@ export default {
   expo: {
     name: "Eleva",
     slug: "elevaApp",
-    version: "1.3.0",
+    version: "2.0.1",
     orientation: "portrait",
     icon: "./assets/appstore.png",
     newArchEnabled: true,
@@ -49,6 +49,7 @@ export default {
       requireFullScreen: true,
       infoPlist: {
         CFBundleAllowMixedLocalizations: true,
+        ITSAppUsesNonExemptEncryption: false,
       },
     },
     locales: {

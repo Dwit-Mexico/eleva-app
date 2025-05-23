@@ -131,8 +131,6 @@ function Etapa1({navigation, esDetalle, context}) {
     const file3 = await _compressImage(context.imagen3, "imagen3");
     const file4 = await _compressVideo(context.video1, "video1");
 
-    console.log("file1", file1);
-
     const response = await request.postFile(
       "/app/garantias/crear",
       [file1, file2, file3, file4],
