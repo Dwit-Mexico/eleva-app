@@ -80,3 +80,5 @@ buck-out/
 web-build/
 
 # @end expo-cli
+
+firebase-key.json
