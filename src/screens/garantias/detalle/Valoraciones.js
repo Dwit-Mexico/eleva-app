@@ -7,8 +7,9 @@ import {
   TextInput,
   Button,
   ImageBackground,
+  TouchableOpacity,
 } from "react-native";
-import {AirbnbRating} from "react-native-ratings";
+import {FontAwesome} from "@expo/vector-icons";
 import {useRoute, useNavigation} from "@react-navigation/native";
 import {Consumer} from "../../../context";
 import Request from "../../../core/api";
@@ -19,6 +20,56 @@ import Colores from "../../../styles/colores";
 import {useLanguageContext} from "../../../context/lang";
 
 const request = new Request();
+const reviews = ["Muy mala", "Mala", "Regular", "Buena", "Muy buena"];
+const maxRating = reviews.length;
+
+const RatingInput = ({value, onChange}) => {
+  const rating = Math.max(1, Math.min(maxRating, Number(value) || maxRating));
+  const review = reviews[rating - 1];
+
+  return (
+    <View style={{alignItems: "center"}}>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "center",
+        }}
+      >
+        {reviews.map((label, index) => {
+          const starValue = index + 1;
+          const selected = starValue <= rating;
+
+          return (
+            <TouchableOpacity
+              key={label}
+              accessibilityRole="button"
+              accessibilityLabel={`${label}. ${starValue} de ${maxRating}`}
+              accessibilityState={{selected: starValue === rating}}
+              onPress={() => onChange(starValue)}
+              style={{paddingHorizontal: 4, paddingVertical: 4}}
+            >
+              <FontAwesome
+                name={selected ? "star" : "star-o"}
+                size={30}
+                color={selected ? Colores.ratingColor : "#BFBFBF"}
+              />
+            </TouchableOpacity>
+          );
+        })}
+      </View>
+      <Text
+        style={{
+          marginTop: 8,
+          fontSize: 18,
+          textAlign: "center",
+          color: Colores.ratingColor,
+        }}
+      >
+        {review}
+      </Text>
+    </View>
+  );
+};
 
 const DetalleValoracion = ({context}) => {
   const {locale, i18n} = useLanguageContext();
@@ -37,7 +88,7 @@ const DetalleValoracion = ({context}) => {
       setInfo(data);
       setRespuesta(data.Reparado || null);
       setComentario(data.ComentarioReparacion || "");
-      setValoracion(data.Valoracion || 5);
+      setValoracion(Number(data.Valoracion) || 5);
     }
   }, [route.params]);
 
@@ -145,17 +196,7 @@ const DetalleValoracion = ({context}) => {
 
             <View style={{height: 32}} />
 
-            <AirbnbRating
-              reviewSize={18}
-              count={5}
-              reviews={["Muy mala", "Mala", "Regular", "Buena", "Muy buena"]}
-              defaultRating={5}
-              showRating={true}
-              size={30}
-              onFinishRating={ratingCompleted}
-              reviewColor={Colores.ratingColor}
-              selectedColor={Colores.ratingColor}
-            />
+            <RatingInput value={valoracion} onChange={ratingCompleted} />
 
             <View style={{height: 32}} />
 

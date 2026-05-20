@@ -1,7 +1,7 @@
 import {View, Modal, TouchableOpacity, StyleSheet} from "react-native";
 import ImageZoom from "react-native-image-zoom-viewer";
 import {Feather} from "@expo/vector-icons";
-import {Video} from "expo-av";
+import ExpoVideoPlayer from "../ExpoVideoPlayer";
 
 export default function ModalViewMedia({
   isVisible,
@@ -34,13 +34,11 @@ export default function ModalViewMedia({
             saveToLocalByLongPress={false}
           />
         ) : (
-          <Video
+          <ExpoVideoPlayer
             style={styles.video}
-            source={{uri: media}}
-            resizeMode="contain"
-            shouldPlay
-            isLooping
-            useNativeControls
+            source={media}
+            shouldPlay={isVisible}
+            isLooping={true}
           />
         )}
         <View style={styles.editButtonContainer}>

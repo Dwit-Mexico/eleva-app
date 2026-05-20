@@ -16,9 +16,9 @@ import {Consumer} from "../../../context";
 import {FontAwesome5} from "@expo/vector-icons";
 import ImageZoom from "react-native-image-zoom-viewer";
 import Request from "../../../core/api";
-import {Video} from "expo-av";
 import * as VideoThumbnails from "expo-video-thumbnails";
 import Container from "../../../components/container";
+import ExpoVideoPlayer from "../../../components/common/ExpoVideoPlayer";
 import Button from "../../../components/boton/BotonAccion";
 import Styles from "../../../styles/screens/DetalleStyle";
 import Colores from "../../../styles/colores";
@@ -40,6 +40,11 @@ const DetalleReporte = ({navigation, context}) => {
   const [loadingCancel, setLoadingCancel] = useState(false);
   const [isPreloading, setIsPreloading] = useState(true);
   const [posterVideo, setPosterVideo] = useState(null);
+
+  const closeVideoModal = () => {
+    setModalVideo(false);
+    setIsPreloading(true);
+  };
 
   useEffect(() => {
     (async () => {
@@ -63,6 +68,7 @@ const DetalleReporte = ({navigation, context}) => {
 
     if (video) {
       setModalVideo(true);
+      setIsPreloading(true);
       setPlayVideo(video);
 
       return;
@@ -302,8 +308,8 @@ const DetalleReporte = ({navigation, context}) => {
           <Modal
             visible={modalVideo}
             transparent={true}
-            onBackButtonPress={() => setModalVideo(false)}
-            onRequestClose={() => setModalVideo(false)}
+            onBackButtonPress={closeVideoModal}
+            onRequestClose={closeVideoModal}
             style={{flex: 1}}
           >
             <View style={{flex: 1, backgroundColor: "#000"}}>
@@ -316,7 +322,7 @@ const DetalleReporte = ({navigation, context}) => {
                   top: 25,
                 }}
               >
-                <TouchableOpacity onPress={() => setModalVideo(false)}>
+                <TouchableOpacity onPress={closeVideoModal}>
                   <FontAwesome5 name="times" size={35} color="#fff" />
                 </TouchableOpacity>
               </View>
@@ -334,15 +340,16 @@ const DetalleReporte = ({navigation, context}) => {
                   }}
                 />
               )}
-              <Video
-                style={{width: width, height: height}}
-                source={playVideo}
-                shouldPlay
-                resizeMode="contain"
-                onPlaybackStatusUpdate={(status) =>
-                  status.didJustFinish ? setModalVideo(false) : null
-                }
-              />
+              {playVideo ? (
+                <ExpoVideoPlayer
+                  style={{width: width, height: height}}
+                  source={playVideo}
+                  shouldPlay={modalVideo}
+                  contentFit="contain"
+                  onFirstFrameRender={() => setIsPreloading(false)}
+                  onEnd={closeVideoModal}
+                />
+              ) : null}
             </View>
           </Modal>
         </Container>

@@ -1,5 +1,5 @@
-import {useEffect, useRef, useMemo} from "react";
-import {View, Animated, Text} from "react-native";
+import {useEffect, useRef} from "react";
+import {ActivityIndicator, View, Animated, Text} from "react-native";
 import Styles from "../../../../styles/components/WizardStyle";
 import {useLanguageContext} from "../../../../context/lang";
 import MediaButton from "../../../../components/common/Buttons/MediaButton";
@@ -11,7 +11,6 @@ function SeleccionarFotos({context}) {
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const {i18n} = useLanguageContext();
   const {
-    verifyPermissions,
     handleOpenCamera,
     handlePickMedia,
     openBottomSheet,
@@ -23,7 +22,7 @@ function SeleccionarFotos({context}) {
     setShowModalMedia,
     handleEditMedia,
     thumbnail,
-    cameraPermission,
+    isMediaProcessing,
   } = useMediaHandler(context);
 
   const mediaItems = [
@@ -33,29 +32,26 @@ function SeleccionarFotos({context}) {
     {id: 4, media: context.video1, type: "video"},
   ];
 
-  const options = useMemo(
-    () => [
-      {
-        label:
-          mediaType === "image"
-            ? i18n.t("media.takeNewPhoto")
-            : i18n.t("media.takeNewVideo"),
-        onPress: handleOpenCamera,
-      },
-      {
-        label:
-          mediaType === "image"
-            ? i18n.t("media.selectImageFromDevice")
-            : i18n.t("media.selectVideoFromDevice"),
-        onPress: handlePickMedia,
-      },
-      {
-        label: i18n.t("media.cancel"),
-        onPress: () => setBottomSheetVisible(false),
-      },
-    ],
-    [mediaType, i18n]
-  );
+  const options = [
+    {
+      label:
+        mediaType === "image"
+          ? i18n.t("media.takeNewPhoto")
+          : i18n.t("media.takeNewVideo"),
+      onPress: handleOpenCamera,
+    },
+    {
+      label:
+        mediaType === "image"
+          ? i18n.t("media.selectImageFromDevice")
+          : i18n.t("media.selectVideoFromDevice"),
+      onPress: handlePickMedia,
+    },
+    {
+      label: i18n.t("media.cancel"),
+      onPress: () => setBottomSheetVisible(false),
+    },
+  ];
 
   useEffect(() => {
     Animated.timing(fadeAnim, {
@@ -63,8 +59,7 @@ function SeleccionarFotos({context}) {
       duration: 1000,
       useNativeDriver: true,
     }).start();
-    verifyPermissions();
-  }, [cameraPermission]);
+  }, []);
 
   return (
     <Animated.View style={{flex: 1, opacity: fadeAnim}}>
@@ -95,9 +90,52 @@ function SeleccionarFotos({context}) {
       />
       <BottomSheet
         options={options}
-        isVisible={isBottomSheetVisible}
-        onClose={() => setBottomSheetVisible(false)}
+        isVisible={isBottomSheetVisible && !isMediaProcessing}
+        onClose={() => {
+          if (!isMediaProcessing) {
+            setBottomSheetVisible(false);
+          }
+        }}
       />
+      {isMediaProcessing ? (
+        <View
+          style={{
+            position: "absolute",
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0,
+            backgroundColor: "rgba(0, 0, 0, 0.45)",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+          pointerEvents="auto"
+        >
+          <View
+            style={{
+              minWidth: 180,
+              paddingHorizontal: 20,
+              paddingVertical: 16,
+              borderRadius: 8,
+              backgroundColor: "#fff",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <ActivityIndicator size="large" color="#B29360" />
+            <Text
+              style={{
+                marginTop: 10,
+                fontSize: 14,
+                textAlign: "center",
+                color: "#333",
+              }}
+            >
+              {i18n.t("documents.loading")}
+            </Text>
+          </View>
+        </View>
+      ) : null}
     </Animated.View>
   );
 }

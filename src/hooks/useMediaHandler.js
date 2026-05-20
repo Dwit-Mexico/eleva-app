@@ -11,13 +11,11 @@ const useMediaHandler = (context) => {
   const [mediaIndex, setMediaIndex] = useState(null);
   const [showModalMedia, setShowModalMedia] = useState(false);
   const [thumbnail, setThumbnail] = useState(null);
+  const [isMediaProcessing, setIsMediaProcessing] = useState(false);
   const [cameraPermission, requestCameraPermission] =
     ImagePicker.useCameraPermissions();
-  const [mediaLibraryPermission, requestMediaLibraryPermission] =
-    ImagePicker.useMediaLibraryPermissions();
 
-  const verifyPermissions = async () => {
-    // Verificar permisos de cámara
+  const verifyCameraPermissions = async () => {
     if (!cameraPermission?.granted) {
       const {granted} = await requestCameraPermission();
       if (!granted) {
@@ -25,15 +23,15 @@ const useMediaHandler = (context) => {
       }
     }
 
-    // Verificar permisos de biblioteca de medios (solo necesario para iOS 14+)
-    if (Platform.OS === "ios" && !mediaLibraryPermission?.granted) {
-      const {granted} = await requestMediaLibraryPermission();
-      if (!granted) {
-        return false;
-      }
-    }
-
     return true;
+  };
+
+  const closeBottomSheetBeforePicker = () => {
+    setBottomSheetVisible(false);
+
+    return new Promise((resolve) => {
+      setTimeout(resolve, 250);
+    });
   };
 
   const handlePermissionDenied = () => {
@@ -65,83 +63,102 @@ const useMediaHandler = (context) => {
   };
 
   const handleOpenCamera = async () => {
-    const hasPermission = await verifyPermissions();
+    if (isMediaProcessing) {
+      return;
+    }
+
+    const hasPermission = await verifyCameraPermissions();
     if (!hasPermission) {
       handlePermissionDenied();
       return;
     }
 
-    if (mediaType === "image") {
-      const result = await ImagePicker.launchCameraAsync({
-        mediaTypes: ["images"],
-        aspect: [4, 3],
-        quality: 1,
-      });
+    setIsMediaProcessing(true);
 
-      if (!result.canceled) {
-        context[`setImagen${mediaIndex}`](result?.assets[0].uri);
+    try {
+      await closeBottomSheetBeforePicker();
+
+      if (mediaType === "image") {
+        const result = await ImagePicker.launchCameraAsync({
+          mediaTypes: ["images"],
+          aspect: [4, 3],
+          quality: 1,
+        });
+
+        if (!result.canceled) {
+          context[`setImagen${mediaIndex}`](result?.assets[0].uri);
+        }
       }
-    }
 
-    if (mediaType === "video") {
-      const result = await ImagePicker.launchCameraAsync({
-        mediaTypes: ["videos"],
-        aspect: [4, 3],
-        quality: 0.5,
-        videoMaxDuration: 8,
-        videoQuality: ImagePicker.UIImagePickerControllerQualityType.Low,
-      });
+      if (mediaType === "video") {
+        const result = await ImagePicker.launchCameraAsync({
+          mediaTypes: ["videos"],
+          aspect: [4, 3],
+          quality: 0.5,
+          videoMaxDuration: 8,
+          videoQuality: ImagePicker.UIImagePickerControllerQualityType.Low,
+        });
 
-      if (!result.canceled) {
-        const videoUri = result.assets[0].uri;
-        context.setVideo1(videoUri);
-        await generateThumbnail(videoUri);
+        if (!result.canceled) {
+          const videoUri = result.assets[0].uri;
+          context.setVideo1(videoUri);
+          await generateThumbnail(videoUri);
+        }
       }
+    } finally {
+      setMediaType(null);
+      setIsMediaProcessing(false);
     }
-    setMediaType(null);
-    setBottomSheetVisible(false);
   };
 
   const handlePickMedia = async () => {
-    const hasPermission = await verifyPermissions();
-    if (!hasPermission) {
-      handlePermissionDenied();
+    if (isMediaProcessing) {
       return;
     }
 
-    setBottomSheetVisible(false);
+    setIsMediaProcessing(true);
 
-    if (mediaType === "image") {
-      const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ["images"],
-        aspect: [4, 3],
-        quality: 1,
-      });
+    try {
+      await closeBottomSheetBeforePicker();
 
-      if (!result.canceled) {
-        context[`setImagen${mediaIndex}`](result?.assets[0].uri);
+      if (mediaType === "image") {
+        const result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ["images"],
+          aspect: [4, 3],
+          quality: 1,
+        });
+
+        if (!result.canceled) {
+          context[`setImagen${mediaIndex}`](result?.assets[0].uri);
+        }
       }
-    }
 
-    if (mediaType === "video") {
-      const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ["videos"],
-        aspect: [4, 3],
-        quality: 0.5,
-        videoMaxDuration: 8,
-        videoQuality: ImagePicker.UIImagePickerControllerQualityType.Low,
-      });
+      if (mediaType === "video") {
+        const result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ["videos"],
+          aspect: [4, 3],
+          quality: 0.5,
+          videoMaxDuration: 8,
+          videoQuality: ImagePicker.UIImagePickerControllerQualityType.Low,
+        });
 
-      if (!result.canceled) {
-        const videoUri = result.assets[0].uri;
-        context.setVideo1(videoUri);
-        await generateThumbnail(videoUri);
+        if (!result.canceled) {
+          const videoUri = result.assets[0].uri;
+          context.setVideo1(videoUri);
+          await generateThumbnail(videoUri);
+        }
       }
+    } finally {
+      setMediaType(null);
+      setIsMediaProcessing(false);
     }
-    setMediaType(null);
   };
 
   const openBottomSheet = (type, index) => {
+    if (isMediaProcessing) {
+      return;
+    }
+
     if (context[`imagen${index}`] && type === "image") {
       setMediaType(type);
       setMediaIndex(index);
@@ -162,6 +179,12 @@ const useMediaHandler = (context) => {
   };
 
   const handleEditMedia = (index) => {
+    if (isMediaProcessing) {
+      return;
+    }
+
+    setMediaIndex(index);
+
     if (mediaType === "image") {
       context[`setImagen${index}`](null);
     }
@@ -174,7 +197,6 @@ const useMediaHandler = (context) => {
   };
 
   return {
-    verifyPermissions,
     handleOpenCamera,
     handlePickMedia,
     openBottomSheet,
@@ -186,7 +208,7 @@ const useMediaHandler = (context) => {
     setShowModalMedia,
     handleEditMedia,
     thumbnail,
-    cameraPermission,
+    isMediaProcessing,
   };
 };
 
