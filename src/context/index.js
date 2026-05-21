@@ -1,11 +1,11 @@
-import React, {Component, createContext} from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import {login, logout, validar} from "./User";
-import {getUnidades, getSetUnidades} from "./catalogos/Unidades";
-import {getAreas} from "./catalogos/Areas";
-import {getEquipos} from "./catalogos/Equipos";
-import {getProblemas} from "./catalogos/Problemas";
-import {setStep} from "./catalogos/Wizard";
+import React, { Component, createContext } from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { login, logout, validar } from './User'
+import { getUnidades, getSetUnidades } from './catalogos/Unidades'
+import { getAreas } from './catalogos/Areas'
+import { getEquipos } from './catalogos/Equipos'
+import { getProblemas } from './catalogos/Problemas'
+import { setStep } from './catalogos/Wizard'
 import {
   getForm,
   setUnidad,
@@ -17,14 +17,14 @@ import {
   setImagen2,
   setImagen3,
   setVideo1,
-} from "./form";
-import {getReportes, reloadReportes} from "./reportes";
+} from './form'
+import { getReportes, reloadReportes } from './reportes'
 
-const Context = createContext();
+const Context = createContext()
 
 class GlobalContext extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       initApp: this.initApp.bind(this),
       auth: false,
@@ -65,88 +65,80 @@ class GlobalContext extends Component {
       reportes: [],
       getReportes: getReportes.bind(this),
       reloadReportes: reloadReportes.bind(this),
-    };
+    }
 
-    this.initUser();
+    this.initUser()
   }
 
   async componentDidMount() {
-    await this.initUser();
+    await this.initUser()
   }
 
   async componentDidUpdate(prevProps, prevState) {
     if (this.state.token !== prevState.token) {
-      this.initApp();
+      this.initApp()
     }
   }
 
   async initUser() {
-    let loginUser = await AsyncStorage.getItem("LoginUser");
+    let loginUser = await AsyncStorage.getItem('LoginUser')
     if (loginUser) {
-      loginUser = JSON.parse(loginUser);
+      loginUser = JSON.parse(loginUser)
       if (loginUser.token) {
-        this.setState({auth: true, token: loginUser.token});
+        this.setState({ auth: true, token: loginUser.token })
       }
     }
   }
 
   async initApp() {
-    let catalogos = await AsyncStorage.getItem("Catalogos");
+    let catalogos = await AsyncStorage.getItem('Catalogos')
 
     if (catalogos) {
-      catalogos = JSON.parse(catalogos);
+      catalogos = JSON.parse(catalogos)
       this.setState({
         areas: catalogos.areas,
         objetos: catalogos.objetos,
         problemas: catalogos.problemas,
         reportes: catalogos.reportes,
-      });
+      })
     }
 
     const catalogoObj = {
       areas: [],
       objetos: [],
       equipos: [],
-    };
+    }
 
-    const unidades = await getUnidades();
+    const unidades = await getUnidades()
     if (unidades.data) {
-      this.setState({unidades: unidades.data});
+      this.setState({ unidades: unidades.data })
 
       if (Array.isArray(unidades.data)) {
-        catalogoObj.unidades = unidades.data;
+        catalogoObj.unidades = unidades.data
 
         if (unidades.data.length == 1) {
-          const unidad = unidades.data[0];
+          const unidad = unidades.data[0]
         }
       }
     }
 
-    const reportes = await this.state.getReportes();
+    const reportes = await this.state.getReportes()
     if (reportes.data) {
-      catalogoObj.reportes = reportes.data;
+      catalogoObj.reportes = reportes.data
     }
 
-    AsyncStorage.setItem("Catalogos", JSON.stringify(catalogoObj));
+    AsyncStorage.setItem('Catalogos', JSON.stringify(catalogoObj))
   }
 
   render() {
-    return (
-      <Context.Provider value={this.state}>
-        {this.props.children}
-      </Context.Provider>
-    );
+    return <Context.Provider value={this.state}>{this.props.children}</Context.Provider>
   }
 }
 
-const Consumer = (Component) => {
-  return (props) => {
-    return (
-      <Context.Consumer>
-        {(context) => <Component {...props} context={context} />}
-      </Context.Consumer>
-    );
-  };
-};
+const Consumer = Component => {
+  return props => {
+    return <Context.Consumer>{context => <Component {...props} context={context} />}</Context.Consumer>
+  }
+}
 
-export {GlobalContext, Consumer};
+export { GlobalContext, Consumer }
