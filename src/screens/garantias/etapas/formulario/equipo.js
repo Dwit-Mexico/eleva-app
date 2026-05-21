@@ -1,45 +1,42 @@
-import React, {useEffect, useRef} from "react";
-import {View, Animated, Text} from "react-native";
-import {Consumer} from "../../../../context";
-import SelectEquipo from "../../../../components/select/SelectEquipo";
-import Styles from "../../../../styles/components/WizardStyle";
-import {useLanguageContext} from "../../../../context/lang";
+import React, { useEffect, useRef } from 'react'
+import { View, Animated, Text } from 'react-native'
+import { Consumer } from '../../../../context'
+import SelectEquipo from '../../../../components/select/SelectEquipo'
+import Styles from '../../../../styles/components/WizardStyle'
+import { useLanguageContext } from '../../../../context/lang'
 
-function SeleccionarEquipo({equipo, setEquipo}) {
-   const {i18n} = useLanguageContext();
-   const animatedOpacity = useRef(new Animated.Value(0)).current;
+function SeleccionarEquipo({ equipo, setEquipo }) {
+  const { i18n } = useLanguageContext()
+  const animatedOpacity = useRef(new Animated.Value(0)).current
 
-   useEffect(() => {
-      Animated.timing(animatedOpacity, {
-         toValue: 1,
-         duration: 1000,
-         useNativeDriver: true,
-      }).start();
-   }, []);
+  useEffect(() => {
+    Animated.timing(animatedOpacity, {
+      toValue: 1,
+      duration: 1000,
+      useNativeDriver: true,
+    }).start()
+  }, [])
 
-   function onSelect(opcion) {
-      if (setEquipo) {
-         setEquipo(opcion);
-      }
-   }
+  function onSelect(opcion) {
+    if (setEquipo) {
+      setEquipo(opcion)
+    }
+  }
 
-   return (
-      <View style={{flex: 1}}>
-         <Animated.View
-            style={{
-               flex: 1,
-               height: "100%",
-               opacity: animatedOpacity,
-            }}
-         >
-            <Text style={Styles.titleStyle}>{i18n.t("reports.equipment")}</Text>
-            <SelectEquipo
-               onSelect={(opcion) => onSelect(opcion)}
-               value={equipo}
-            />
-         </Animated.View>
-      </View>
-   );
+  return (
+    <View style={{ flex: 1 }}>
+      <Animated.View
+        style={{
+          flex: 1,
+          height: '100%',
+          opacity: animatedOpacity,
+        }}
+      >
+        <Text style={Styles.titleStyle}>{i18n.t('reports.equipment')}</Text>
+        <SelectEquipo onSelect={opcion => onSelect(opcion)} value={equipo} />
+      </Animated.View>
+    </View>
+  )
 }
 
-export default Consumer(SeleccionarEquipo);
+export default Consumer(SeleccionarEquipo)
