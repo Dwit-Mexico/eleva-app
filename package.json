@@ -55,9 +55,7 @@
     "doctor": {
       "reactNativeDirectoryCheck": {
         "enabled": true,
-        "exclude": [
-          "react-native-image-zoom-viewer"
-        ],
+        "exclude": [],
         "listUnknownPackages": false
       }
     }
