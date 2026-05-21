@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { ScrollView, View, Text, TouchableOpacity, ImageBackground, Image, Modal, StyleSheet } from 'react-native'
-import ImageZoom from 'react-native-image-zoom-viewer'
 import { useRoute, useNavigation } from '@react-navigation/native'
 import { Consumer } from '../../../context'
 import { FontAwesome5, Feather } from '@expo/vector-icons'
 import Container from '../../../components/container'
+import ZoomableImage from '../../../components/common/ZoomableImage'
 import Styles from '../../../styles/screens/DetalleStyle'
 import Colores from '../../../styles/colores'
 import { useLanguageContext } from '../../../context/lang'
@@ -102,11 +102,7 @@ const Historico = ({ context }) => {
                   <Feather name="x" size={32} color="#fff" />
                 </TouchableOpacity>
               </View>
-              <ImageZoom
-                imageUrls={zoomImagen ? [{ url: zoomImagen.uri }] : []}
-                renderIndicator={() => null}
-                saveToLocalByLongPress={false}
-              />
+              <ZoomableImage uri={zoomImagen?.uri} />
             </View>
           </Modal>
         </Container>

@@ -1,7 +1,7 @@
 import { View, Modal, TouchableOpacity, StyleSheet } from 'react-native'
-import ImageZoom from 'react-native-image-zoom-viewer'
 import { Feather } from '@expo/vector-icons'
 import ExpoVideoPlayer from '../ExpoVideoPlayer'
+import ZoomableImage from '../ZoomableImage'
 
 export default function ModalViewMedia({ isVisible, onClose, type, media, onEditMedia }) {
   return (
@@ -13,7 +13,7 @@ export default function ModalViewMedia({ isVisible, onClose, type, media, onEdit
           </TouchableOpacity>
         </View>
         {type === 'image' ? (
-          <ImageZoom imageUrls={[{ url: media }]} renderIndicator={() => null} saveToLocalByLongPress={false} />
+          <ZoomableImage uri={media} />
         ) : (
           <ExpoVideoPlayer style={styles.video} source={media} shouldPlay={isVisible} isLooping={true} />
         )}

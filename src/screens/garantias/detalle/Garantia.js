@@ -11,13 +11,13 @@ import {
   Button,
   Modal,
 } from "react-native";
-import ImageZoom from "react-native-image-zoom-viewer";
 import {useRoute} from "@react-navigation/native";
 import {Consumer} from "../../../context";
 import {FontAwesome5, FontAwesome} from "@expo/vector-icons";
 import moment from "moment-timezone";
 import Request from "../../../core/api";
 import Container from "../../../components/container";
+import ZoomableImage from "../../../components/common/ZoomableImage";
 import SelectFechas from "../../../components/select/SelectFechas";
 import BotonAccion from "../../../components/boton/BotonAccion";
 import Styles from "../../../styles/screens/DetalleStyle";
@@ -590,11 +590,7 @@ const DetalleGarantia = ({navigation, context}) => {
                     <FontAwesome5 name="times" size={35} color="#fff" />
                   </TouchableOpacity>
                 </View>
-                <ImageZoom
-                  imageUrls={zoomImagen ? [{url: zoomImagen.uri}] : []}
-                  renderIndicator={() => null}
-                  saveToLocalByLongPress={false}
-                />
+                <ZoomableImage uri={zoomImagen?.uri} />
               </View>
             </Modal>
           </Container>
