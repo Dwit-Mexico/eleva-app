@@ -17,6 +17,10 @@ export default {
         'expo-dev-client',
         {
           launchMode: 'most-recent',
+          defaultLaunchURL: 'http://localhost:8081',
+          android: {
+            defaultLaunchURL: 'http://10.0.0.2:8081',
+          },
         },
       ],
       [
