@@ -63,7 +63,6 @@ class Request {
 
     if (loginUser) {
       loginUser = JSON.parse(loginUser)
-      console.log('Login user token:', loginUser)
       auth = loginUser.token
     }
 

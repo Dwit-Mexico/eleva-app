@@ -58,27 +58,28 @@ function getHeaderTitle(route) {
 }
 
 async function registerForPushNotificationsAsync() {
+  let pushToken = null
+
   if (Device.isDevice) {
     try {
       const projectId = Constants?.expoConfig?.extra?.eas?.projectId ?? Constants?.easConfig?.projectId
 
       if (!projectId) {
         Alert.alert(null, 'No se ha configurado el proyecto de notificaciones')
-        return
+        return pushToken
       }
 
       const { status: existingStatus } = await Notifications.getPermissionsAsync()
       if (existingStatus !== 'granted') {
-        const { status } = await Notifications.requestPermissionsAsync()
-        finalStatus = status
+        await Notifications.requestPermissionsAsync()
       }
-      const token = (
+      pushToken = (
         await Notifications.getExpoPushTokenAsync({
           projectId,
         })
       ).data
       await request.post('/aplicacion/notificaciones/set', {
-        token,
+        token: pushToken,
       })
     } catch (error) {
       Alert.alert(null, 'Error al registrar el dispositivo ' + error?.message || JSON.stringify(error))
@@ -96,7 +97,7 @@ async function registerForPushNotificationsAsync() {
     })
   }
 
-  return token
+  return pushToken
 }
 
 const Stack = createStackNavigator()
