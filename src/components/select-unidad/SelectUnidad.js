@@ -30,7 +30,7 @@ function SelectUnidad({ unidades, onChange }) {
         onSelect={data => onSelectionsChange(data)}
         onRemoveItem={data => onSelectionsChange(data)}
       />
-      <AntDesign style={{ right: 25 }} name="caretdown" color="grey" size={10} />
+      <AntDesign style={{ right: 25 }} name="caret-down" color="grey" size={10} />
     </View>
   )
 }

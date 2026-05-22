@@ -1,7 +1,7 @@
 import React from 'react'
 import { View } from 'react-native'
 import Select2 from 'react-native-select-two'
-import { AntDesign } from '@expo/vector-icons'
+import AntDesign from '@expo/vector-icons/AntDesign'
 import InputStyles from '../../styles/inputs'
 import Colores from '../../styles/colores'
 import { useLanguageContext } from '../../context/lang'
@@ -31,7 +31,7 @@ function SelectArea({ fechas, value, onChange }) {
         onRemoveItem={data => onSelectionsChange(data)}
         showSearchBox={false}
       />
-      <AntDesign style={{ right: 25 }} name="caretdown" color="grey" size={10} />
+      <AntDesign style={{ right: 25 }} name="caret-down" color="grey" size={10} />
     </View>
   )
 }
