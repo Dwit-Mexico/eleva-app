@@ -1,39 +1,31 @@
 // components/Layout.js
 import React from 'react'
-import { ImageBackground, StyleSheet, View } from 'react-native'
+import { ImageBackground, View } from 'react-native'
+import { withUniwind } from 'uniwind'
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context'
+
+const StyledSafeAreaView = withUniwind(SafeAreaView)
 
 function Layout({ children, backgroundImage, edges = ['left', 'right'] }) {
   if (backgroundImage) {
     return (
       <SafeAreaProvider>
-        <SafeAreaView style={styles.container} edges={edges}>
-          <ImageBackground source={backgroundImage} resizeMode="cover" style={styles.image}>
+        <StyledSafeAreaView className="flex-1" edges={edges}>
+          <ImageBackground source={backgroundImage} resizeMode="cover" className="flex-1">
             {children}
           </ImageBackground>
-        </SafeAreaView>
+        </StyledSafeAreaView>
       </SafeAreaProvider>
     )
   }
 
-  // Si no hay imagen de fondo, solo SafeAreaProvider y SafeAreaView
   return (
     <SafeAreaProvider>
-      <SafeAreaView style={styles.container} edges={edges}>
+      <StyledSafeAreaView className="flex-1" edges={edges}>
         {children}
-      </SafeAreaView>
+      </StyledSafeAreaView>
     </SafeAreaProvider>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  image: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-})
 
 export default Layout

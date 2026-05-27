@@ -48,7 +48,7 @@ function LoginScreen(props) {
 
   return (
     <Layout backgroundImage={image}>
-      <View style={LoginStyle.overlay}>
+      <View className="flex-1 bg-[#000000A1]">
         <View style={LoginStyle.languageContainer}>
           <Pressable style={LoginStyle.languageButton} onPress={() => setLocale(locale === 'es' ? 'en' : 'es')}>
             {locale === 'es' ? <Text>ES</Text> : <Text>EN</Text>}
