@@ -1,4 +1,5 @@
-import {View, Image, TouchableOpacity, StyleSheet} from "react-native";
+import {View, TouchableOpacity, StyleSheet} from "react-native";
+import {Image} from "expo-image";
 import {Feather} from "@expo/vector-icons";
 
 export default function MediaButton({item, thumbnail, onOpen}) {
@@ -9,9 +10,9 @@ export default function MediaButton({item, thumbnail, onOpen}) {
       <TouchableOpacity style={styles.button} onPress={onOpen}>
         {item.media ? (
           <Image
-            source={isVideo && thumbnail ? {uri: thumbnail} : {uri: item.media}}
+            source={isVideo && thumbnail ? thumbnail : {uri: item.media}}
             style={styles.image}
-            resizeMode="cover"
+            contentFit="cover"
           />
         ) : item.type === "video" ? (
           <Feather name="video" size={32} color="#333138" />

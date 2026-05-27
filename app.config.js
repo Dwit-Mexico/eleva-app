@@ -46,6 +46,12 @@ export default {
           supportsPictureInPicture: true,
         },
       ],
+      [
+        'expo-image',
+        {
+          disableLibdav1d: true,
+        },
+      ],
       'expo-localization',
     ],
     updates: {

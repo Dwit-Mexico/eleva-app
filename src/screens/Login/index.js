@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState } from 'react'
 import { Alert, View, Text, Pressable } from 'react-native'
 import { Consumer } from '../../context'
 import { useLanguageContext } from '../../context/lang'
@@ -15,7 +15,6 @@ function LoginScreen(props) {
     email: '',
     password: '',
   })
-  const passwordRef = useRef(null)
 
   const handleSubmit = async () => {
     setLoading(true)
@@ -62,7 +61,6 @@ function LoginScreen(props) {
           loading={loading}
           showPassword={showPassword}
           setShowPassword={setShowPassword}
-          passwordRef={passwordRef}
         />
       </View>
     </Layout>

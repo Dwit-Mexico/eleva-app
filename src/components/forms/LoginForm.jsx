@@ -1,3 +1,4 @@
+import React, { useRef } from 'react'
 import { View, Text, TextInput, TouchableOpacity, Image, Pressable } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { Ionicons } from '@expo/vector-icons'
@@ -7,18 +8,11 @@ import TextStyle from '../../styles/text'
 import InputStyles from '../../styles/inputs'
 import { useLanguageContext } from '../../context/lang'
 
-export default function LoginForm(
-  formData,
-  setFormData,
-  handleSubmit,
-  loading,
-  showPassword,
-  setShowPassword,
-  passwordRef,
-) {
+export default function LoginForm({ formData, setFormData, handleSubmit, loading, showPassword, setShowPassword }) {
   const { locale, i18n } = useLanguageContext()
   const navigation = useNavigation()
   const logo = require('../../../assets/logo2.png')
+  const passwordRef = useRef(null)
 
   return (
     <View style={LoginStyle.loginView}>

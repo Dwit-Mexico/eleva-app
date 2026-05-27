@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {Alert, Platform, Linking} from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import * as VideoThumbnails from "expo-video-thumbnails";
+import {createVideoPlayer} from "expo-video";
 import {useLanguageContext} from "../context/lang";
 
 const useMediaHandler = (context) => {
@@ -52,13 +52,18 @@ const useMediaHandler = (context) => {
   };
 
   const generateThumbnail = async (videoUri) => {
+    const player = createVideoPlayer(videoUri);
+
     try {
-      const {uri} = await VideoThumbnails.getThumbnailAsync(videoUri, {
-        time: 15000,
+      const thumbnails = await player.generateThumbnailsAsync(15, {
+        maxWidth: 320,
       });
-      setThumbnail(uri);
+
+      setThumbnail(thumbnails[0] || null);
     } catch (e) {
       console.warn(e);
+    } finally {
+      player.release();
     }
   };
 
