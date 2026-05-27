@@ -1,25 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react'
-import {
-  Alert,
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  Image,
-  ImageBackground,
-  Pressable,
-  StyleSheet,
-} from 'react-native'
-import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context'
-import { Ionicons } from '@expo/vector-icons'
+import { Alert, View, Text, Pressable } from 'react-native'
 import { Consumer } from '../../context'
-import Boton from '../../components/boton/BotonAccion'
-import LoginStyle from '../../styles/screens/LoginStyle'
-import TextStyle from '../../styles/text'
-import InputStyles from '../../styles/inputs'
 import { useLanguageContext } from '../../context/lang'
 import Layout from '../../components/layout'
 import LoginForm from '../../components/forms/LoginForm'
+import Boton from '../../components/boton/BotonAccion'
+import LoginStyle from '../../styles/screens/LoginStyle'
 
 function LoginScreen(props) {
   const { locale, i18n, setLocale } = useLanguageContext()
@@ -63,7 +49,7 @@ function LoginScreen(props) {
 
   return (
     <Layout backgroundImage={image}>
-      <View style={styles.overlay}>
+      <View style={LoginStyle.overlay}>
         <View style={LoginStyle.languageContainer}>
           <Pressable style={LoginStyle.languageButton} onPress={() => setLocale(locale === 'es' ? 'en' : 'es')}>
             {locale === 'es' ? <Text>ES</Text> : <Text>EN</Text>}
@@ -82,12 +68,5 @@ function LoginScreen(props) {
     </Layout>
   )
 }
-
-const styles = StyleSheet.create({
-  overlay: {
-    flex: 1,
-    backgroundColor: '#000000A1',
-  },
-})
 
 export default Consumer(LoginScreen)

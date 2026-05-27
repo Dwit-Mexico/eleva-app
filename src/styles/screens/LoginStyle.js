@@ -1,37 +1,37 @@
-import {StyleSheet} from "react-native";
+import { StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
-  backGround: {
+  overlay: {
     flex: 1,
-    backgroundColor: "#000000A1",
+    backgroundColor: '#000000A1',
   },
   ImageBackground: {
     flex: 1,
-    resizeMode: "cover",
-    justifyContent: "center",
-    position: "relative",
+    resizeMode: 'cover',
+    justifyContent: 'center',
+    position: 'relative',
   },
   loginView: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     padding: 44,
   },
   languageContainer: {
-    position: "absolute",
+    position: 'absolute',
     top: 50,
     right: 20,
     zIndex: 1,
   },
   languageButton: {
-    backgroundColor: "white",
+    backgroundColor: 'white',
     padding: 10,
     borderRadius: 4,
   },
   text: {
-    color: "#fff",
+    color: '#fff',
   },
   inputs: {
-    color: "#fff",
+    color: '#fff',
   },
-});
+})
