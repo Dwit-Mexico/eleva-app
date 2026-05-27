@@ -1,20 +1,12 @@
-import React, {Component} from "react";
-import Routes from "./src/core/routes";
-import {LogBox} from "react-native";
+import { KeyboardAvoidingView, Platform } from 'react-native'
+import { StatusBar } from 'expo-status-bar'
+import Routes from './src/core/routes'
 
-LogBox.ignoreLogs(["It appears that you are "]);
-LogBox.ignoreLogs(["expo-permissions is now deprecated "]);
-LogBox.ignoreLogs(["AsyncStorage has been extracted "]);
-LogBox.ignoreAllLogs();
-
-class App extends Component {
-   constructor(props) {
-      super(props);
-   }
-
-   render() {
-      return <Routes />;
-   }
+export default function App() {
+  return (
+    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
+      <StatusBar style="light" />
+      <Routes />
+    </KeyboardAvoidingView>
+  )
 }
-
-export default App;

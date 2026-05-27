@@ -1,25 +1,23 @@
-import * as React from "react";
-import {KeyboardAvoidingView} from "react-native";
-import {GlobalContext} from "../context/index";
-import Request from "./api";
+import * as React from 'react'
+import { GlobalContext } from '../context/index'
+import Request from './api'
 
-const request = new Request();
+const request = new Request()
 
 /** Navigation */
-import Navigation from "../navigation/Navigation";
-import {LanguageContext, useLanguage} from "../context/lang";
+import Navigation from '../navigation/Navigation'
+import { LanguageContext, useLanguage } from '../context/lang'
+import { StatusBar } from 'expo-status-bar'
 
 function Routes() {
-   const {locale, setLocale, i18n} = useLanguage();
-   return (
-      <GlobalContext>
-         <LanguageContext.Provider value={{locale, setLocale, i18n}}>
-            <KeyboardAvoidingView style={{flex: 1}}>
-               <Navigation />
-            </KeyboardAvoidingView>
-         </LanguageContext.Provider>
-      </GlobalContext>
-   );
+  const { locale, setLocale, i18n } = useLanguage()
+  return (
+    <GlobalContext>
+      <LanguageContext.Provider value={{ locale, setLocale, i18n }}>
+        <Navigation />
+      </LanguageContext.Provider>
+    </GlobalContext>
+  )
 }
 
-export default Routes;
+export default Routes

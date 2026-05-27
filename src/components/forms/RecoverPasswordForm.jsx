@@ -7,17 +7,12 @@ import {
   SafeAreaView,
   TouchableOpacity,
   ActivityIndicator,
-} from "react-native";
-import {useLanguageContext} from "../../context/lang";
-import styles from "../../styles/screens/RecoverPassword";
+} from 'react-native'
+import { useLanguageContext } from '../../context/lang'
+import styles from '../../styles/screens/RecoverPassword'
 
-export default function RecoverPasswordForm({
-  onEmailChange,
-  onSubmit,
-  isLoading,
-  navigation,
-}) {
-  const {i18n} = useLanguageContext();
+export default function RecoverPasswordForm({ onEmailChange, onSubmit, isLoading, navigation }) {
+  const { i18n } = useLanguageContext()
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -27,19 +22,14 @@ export default function RecoverPasswordForm({
         keyboardShouldPersistTaps="handled"
       >
         <View style={styles.container}>
-          <Image
-            source={require("../../../assets/logo2.png")}
-            style={styles.logo}
-          />
-          <Text style={styles.text}>
-            {i18n.t("recoverPassword.description")}
-          </Text>
+          <Image source={require('../../../assets/logo2.png')} style={styles.logo} />
+          <Text style={styles.text}>{i18n.t('recoverPassword.description')}</Text>
           <TextInput
-            placeholder={i18n.t("recoverPassword.email")}
+            placeholder={i18n.t('recoverPassword.email')}
             placeholderTextColor="#eaeaea"
             style={styles.input}
             returnKeyType="go"
-            onChangeText={(text) => onEmailChange(text)}
+            onChangeText={text => onEmailChange(text)}
           />
         </View>
         <View style={styles.buttonContainer}>
@@ -47,19 +37,14 @@ export default function RecoverPasswordForm({
             {isLoading ? (
               <ActivityIndicator color="#ffffff" size="small" />
             ) : (
-              <Text style={styles.buttonText}>
-                {i18n.t("recoverPassword.button")}
-              </Text>
+              <Text style={styles.buttonText}>{i18n.t('recoverPassword.button')}</Text>
             )}
           </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.backButton}
-            onPress={() => navigation.goBack()}
-          >
-            <Text style={styles.buttonText}>{i18n.t("button.back")}</Text>
+          <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+            <Text style={styles.buttonText}>{i18n.t('button.back')}</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
     </SafeAreaView>
-  );
+  )
 }

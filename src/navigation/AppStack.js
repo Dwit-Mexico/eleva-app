@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Alert, StatusBar, Platform } from 'react-native'
+import { Alert, Platform } from 'react-native'
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { Consumer } from '../context'
@@ -106,8 +106,6 @@ function AppStack(props) {
   const { i18n } = useLanguageContext()
 
   useEffect(() => {
-    StatusBar.setBarStyle('light-content')
-
     registerForPushNotificationsAsync().then()
   }, [])
 

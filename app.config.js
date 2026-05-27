@@ -13,6 +13,7 @@ export default {
     },
     plugins: [
       ['expo-font'],
+      ['expo-status-bar'],
       [
         'expo-dev-client',
         {

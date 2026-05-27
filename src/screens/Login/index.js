@@ -7,9 +7,10 @@ import {
   TouchableOpacity,
   Image,
   ImageBackground,
-  StatusBar,
   Pressable,
+  StyleSheet,
 } from 'react-native'
+import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context'
 import { Ionicons } from '@expo/vector-icons'
 import { Consumer } from '../../context'
 import Boton from '../../components/boton/BotonAccion'
@@ -17,6 +18,8 @@ import LoginStyle from '../../styles/screens/LoginStyle'
 import TextStyle from '../../styles/text'
 import InputStyles from '../../styles/inputs'
 import { useLanguageContext } from '../../context/lang'
+import Layout from '../../components/layout'
+import LoginForm from '../../components/forms/LoginForm'
 
 function LoginScreen(props) {
   const { locale, i18n, setLocale } = useLanguageContext()
@@ -56,63 +59,35 @@ function LoginScreen(props) {
     setLoading(false)
   }
 
-  useEffect(() => {
-    StatusBar.setBarStyle('light-content')
-  }, [])
+  const image = require('../../../assets/background.jpg')
 
   return (
-    <ImageBackground source={require('../../../assets/background.jpg')} style={LoginStyle.ImageBackground}>
-      <View style={LoginStyle.backGround}>
+    <Layout backgroundImage={image}>
+      <View style={styles.overlay}>
         <View style={LoginStyle.languageContainer}>
           <Pressable style={LoginStyle.languageButton} onPress={() => setLocale(locale === 'es' ? 'en' : 'es')}>
             {locale === 'es' ? <Text>ES</Text> : <Text>EN</Text>}
           </Pressable>
         </View>
-        <View style={LoginStyle.loginView}>
-          <Image source={require('../../../assets/logo2.png')} style={{ width: 140, height: 140 }} />
-          <Text style={TextStyle.LoginTitle}>{i18n.t('login.title')}</Text>
-          <TextInput
-            key={`email-${locale}`}
-            placeholder={i18n.t('login.email')}
-            placeholderTextColor="#eaeaea"
-            style={InputStyles.LoginUsername}
-            onSubmitEditing={() => passwordRef.current.focus()}
-            returnKeyType="next"
-            onChangeText={text => setFormData({ ...formData, email: text })}
-          />
-          <View style={InputStyles.LoginPassword}>
-            <TextInput
-              key={`password-${locale}`}
-              placeholder={i18n.t('login.password')}
-              placeholderTextColor="#eaeaea"
-              style={{ color: '#fff', flex: 1 }}
-              ref={passwordRef}
-              secureTextEntry={!showPassword}
-              returnKeyType="go"
-              onSubmitEditing={handleSubmit}
-              onChangeText={text => setFormData({ ...formData, password: text })}
-            />
-            <Pressable onPress={() => setShowPassword(!showPassword)}>
-              <Ionicons name={showPassword ? 'eye-off-outline' : 'eye-outline'} size={24} color="#fff" />
-            </Pressable>
-          </View>
-          <Boton onPress={handleSubmit} loading={loading}>
-            <Text style={TextStyle.loginButton}>{i18n.t('button.start')}</Text>
-          </Boton>
-          <View style={{ height: 16 }} />
-          <TouchableOpacity
-            onPress={() =>
-              props.navigation.navigate('recover-password', {
-                usuario: formData.email,
-              })
-            }
-          >
-            <Text style={TextStyle.forgotPassword}>{i18n.t('login.forgotPassword')}</Text>
-          </TouchableOpacity>
-        </View>
+        <LoginForm
+          formData={formData}
+          setFormData={setFormData}
+          handleSubmit={handleSubmit}
+          loading={loading}
+          showPassword={showPassword}
+          setShowPassword={setShowPassword}
+          passwordRef={passwordRef}
+        />
       </View>
-    </ImageBackground>
+    </Layout>
   )
 }
+
+const styles = StyleSheet.create({
+  overlay: {
+    flex: 1,
+    backgroundColor: '#000000A1',
+  },
+})
 
 export default Consumer(LoginScreen)
