@@ -84,7 +84,6 @@ export default {
         'READ_EXTERNAL_STORAGE',
         'WRITE_EXTERNAL_STORAGE',
       ],
-      versionCode: 23,
     },
     extra: {
       eas: {
