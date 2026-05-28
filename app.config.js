@@ -12,8 +12,8 @@ export default {
       backgroundColor: '#18191A',
     },
     plugins: [
-      ['expo-font'],
-      ['expo-status-bar'],
+      'expo-font',
+      'expo-status-bar',
       [
         'expo-dev-client',
         {
@@ -22,6 +22,9 @@ export default {
           android: {
             defaultLaunchURL: 'http://10.0.0.2:8081',
           },
+          toolsButton: true,
+          skipOnboarding: false,
+          showMenuAtLaunch: true,
         },
       ],
       [
