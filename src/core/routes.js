@@ -7,7 +7,6 @@ const request = new Request()
 /** Navigation */
 import Navigation from '../navigation/Navigation'
 import { LanguageContext, useLanguage } from '../context/lang'
-import { StatusBar } from 'expo-status-bar'
 
 function Routes() {
   const { locale, setLocale, i18n } = useLanguage()

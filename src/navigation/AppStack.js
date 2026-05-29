@@ -2,13 +2,14 @@ import React, { useEffect } from 'react'
 import { Alert, Platform } from 'react-native'
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import { Consumer } from '../context'
+
 import * as Device from 'expo-device'
 import Constants from 'expo-constants'
 import * as Notifications from 'expo-notifications'
-import Request from '../core/api'
-import BotonNotificaciones from '../components/boton-notificaciones/BotonNotificaciones'
-import BottomNavigator from './BottomTabNavigator'
+
+import { Consumer } from '../context'
+import { useLanguageContext } from '../context/lang'
+
 import Notificaciones from '../screens/notificaciones'
 import NotificacionesDetalle from '../screens/notificaciones/detalle'
 import GarantiasDetalle from '../screens/garantias/Garantias'
@@ -26,8 +27,11 @@ import ListaDocumentos from '../screens/documentos/ListaDocumentos'
 import VistaDocumento from '../screens/documentos/documento'
 import Usuarios from '../screens/perfil/Usuarios'
 import AgregarUsuario from '../screens/perfil/AgregarUsuario'
-import { useLanguageContext } from '../context/lang'
 
+import BotonNotificaciones from '../components/boton-notificaciones/BotonNotificaciones'
+import BottomNavigator from './BottomTabNavigator'
+
+import Request from '../core/api'
 const request = new Request()
 
 Notifications.setNotificationHandler({
@@ -123,7 +127,6 @@ function AppStack(props) {
           headerTintColor: '#B29360',
         })}
       />
-
       <Stack.Screen
         name="Notificaciones"
         component={Notificaciones}
@@ -135,7 +138,6 @@ function AppStack(props) {
           headerTintColor: '#B29360',
         }}
       />
-
       <Stack.Screen
         name="NotificacionDetalle"
         component={NotificacionesDetalle}
@@ -147,7 +149,6 @@ function AppStack(props) {
           headerTintColor: '#B29360',
         }}
       />
-
       <Stack.Screen
         name="GarantiasDetalle"
         component={GarantiasDetalle}
@@ -159,7 +160,6 @@ function AppStack(props) {
           headerTintColor: '#B29360',
         }}
       />
-
       <Stack.Screen
         name="ListaReportes"
         component={ListaReportes}
@@ -204,7 +204,6 @@ function AppStack(props) {
           headerTintColor: '#B29360',
         }}
       />
-
       <Stack.Screen
         name="ListaDetalleReportes"
         component={ListaDetalleReportes}
@@ -216,7 +215,6 @@ function AppStack(props) {
           headerTintColor: '#B29360',
         }}
       />
-
       <Stack.Screen
         name="DetalleGarantia"
         component={DetalleGarantias}
@@ -261,7 +259,6 @@ function AppStack(props) {
           headerTintColor: '#B29360',
         }}
       />
-
       <Stack.Screen
         name="NuevaGarantia"
         component={NuevaGarantia}
@@ -273,7 +270,6 @@ function AppStack(props) {
           headerTintColor: '#B29360',
         }}
       />
-
       <Stack.Screen
         name="ListaDocumentos"
         component={ListaDocumentos}
@@ -296,7 +292,6 @@ function AppStack(props) {
           headerTintColor: '#B29360',
         })}
       />
-
       <Stack.Screen
         name="Usuarios"
         component={Usuarios}
@@ -308,7 +303,6 @@ function AppStack(props) {
           headerTintColor: '#B29360',
         }}
       />
-
       <Stack.Screen
         name="AgregarUsuario"
         component={AgregarUsuario}

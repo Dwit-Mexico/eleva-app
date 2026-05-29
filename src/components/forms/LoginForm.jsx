@@ -1,11 +1,7 @@
 import React, { useRef } from 'react'
-import { View, Text, TextInput, TouchableOpacity, Image, Pressable } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, Image, Pressable, ActivityIndicator } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { Ionicons } from '@expo/vector-icons'
-import Boton from '../boton/BotonAccion'
-import LoginStyle from '../../styles/screens/LoginStyle'
-import TextStyle from '../../styles/text'
-import InputStyles from '../../styles/inputs'
 import { useLanguageContext } from '../../context/lang'
 
 export default function LoginForm({ formData, setFormData, handleSubmit, loading, showPassword, setShowPassword }) {
@@ -15,24 +11,25 @@ export default function LoginForm({ formData, setFormData, handleSubmit, loading
   const passwordRef = useRef(null)
 
   return (
-    <View style={LoginStyle.loginView}>
-      <Image source={logo} style={{ width: 140, height: 140 }} />
-      <Text style={TextStyle.LoginTitle}>{i18n.t('login.title')}</Text>
+    <View className="flex-1 items-center justify-center px-11 gap-4">
+      <Image source={logo} className="w-36 h-36" />
+      <Text className=" text-xl text-white align-center">{i18n.t('login.title')}</Text>
+
       <TextInput
         key={`email-${locale}`}
         placeholder={i18n.t('login.email')}
         placeholderTextColor="#eaeaea"
-        style={InputStyles.LoginUsername}
+        className="border-b border-white w-72 text-white py-2"
         onSubmitEditing={() => passwordRef.current.focus()}
         returnKeyType="next"
         onChangeText={text => setFormData({ ...formData, email: text })}
       />
-      <View style={InputStyles.LoginPassword}>
+      <View className="flex-row items-center justify-content w-72 border-b border-white ">
         <TextInput
           key={`password-${locale}`}
           placeholder={i18n.t('login.password')}
           placeholderTextColor="#eaeaea"
-          style={{ color: '#fff', flex: 1 }}
+          className="flex-1 text-white py-2"
           ref={passwordRef}
           secureTextEntry={!showPassword}
           returnKeyType="go"
@@ -43,10 +40,15 @@ export default function LoginForm({ formData, setFormData, handleSubmit, loading
           <Ionicons name={showPassword ? 'eye-off-outline' : 'eye-outline'} size={24} color="#fff" />
         </Pressable>
       </View>
-      <Boton onPress={handleSubmit} loading={loading}>
-        <Text style={TextStyle.loginButton}>{i18n.t('button.start')}</Text>
-      </Boton>
-      <View style={{ height: 16 }} />
+
+      <TouchableOpacity onPress={handleSubmit} className="bg-[#B29360] w-72 h-12 rounded items-center justify-center">
+        {loading ? (
+          <ActivityIndicator color="#fff" />
+        ) : (
+          <Text className="text-white align-center">{i18n.t('button.start')}</Text>
+        )}
+      </TouchableOpacity>
+
       <TouchableOpacity
         onPress={() =>
           navigation.navigate('recover-password', {
@@ -54,7 +56,7 @@ export default function LoginForm({ formData, setFormData, handleSubmit, loading
           })
         }
       >
-        <Text style={TextStyle.forgotPassword}>{i18n.t('login.forgotPassword')}</Text>
+        <Text className="text-white underline align-center">{i18n.t('login.forgotPassword')}</Text>
       </TouchableOpacity>
     </View>
   )
