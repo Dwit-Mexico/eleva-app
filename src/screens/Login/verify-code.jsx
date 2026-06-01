@@ -3,6 +3,7 @@ import { Alert, View, ImageBackground } from 'react-native'
 
 import { useLanguageContext } from '../../context/lang'
 
+import Layout from '../../components/layout'
 import Form from '../../components/forms/VerifyCodeForm'
 
 import Request from '../../core/api'
@@ -62,7 +63,7 @@ export default function VerifyCode({ navigation, route }) {
   }
 
   return (
-    <ImageBackground source={image} resizeMode="cover" className="flex-1">
+    <Layout backgroundImage={image}>
       <View className="flex-1 bg-[#000000A1]">
         <Form
           code={code}
@@ -74,6 +75,6 @@ export default function VerifyCode({ navigation, route }) {
           Email={Email}
         />
       </View>
-    </ImageBackground>
+    </Layout>
   )
 }

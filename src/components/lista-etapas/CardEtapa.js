@@ -14,19 +14,9 @@ function CardEtapa(props) {
           : null
       }
     >
-      <View style={{ ...CardStyles.card, backgroundColor: props.background }}>
-        <View style={{ flex: 1, alignItems: 'center' }}>
-          <View
-            style={{
-              flex: 1,
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            {props.icon}
-            <Text style={CardStyles.titulo}>{props.titulo}</Text>
-          </View>
-        </View>
+      <View className="flex-col items-center justify-center align-center gap-2">
+        {props.icon}
+        <Text className="text-white text-2xl ">{props.titulo}</Text>
       </View>
     </TouchableOpacity>
   )

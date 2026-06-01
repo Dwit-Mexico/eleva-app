@@ -3,6 +3,7 @@ import { Alert, ImageBackground, View } from 'react-native'
 
 import { useLanguageContext } from '../../context/lang'
 
+import Layout from '../../components/layout'
 import Form from '../../components/forms/ResetPasswordForm'
 
 import Request from '../../core/api'
@@ -56,7 +57,7 @@ export default function ResetPassword({ navigation, route }) {
   }
 
   return (
-    <ImageBackground source={image} className="flex-1 resize-mode">
+    <Layout backgroundImage={image}>
       <View className="flex-1 bg-[#000000A1]">
         <Form
           showPassword={showPassword}
@@ -72,6 +73,6 @@ export default function ResetPassword({ navigation, route }) {
           OTP={OTP}
         />
       </View>
-    </ImageBackground>
+    </Layout>
   )
 }

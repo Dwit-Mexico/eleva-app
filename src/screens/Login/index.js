@@ -4,6 +4,7 @@ import { Alert, View, Text, Pressable, ImageBackground } from 'react-native'
 import { Consumer } from '../../context'
 import { useLanguageContext } from '../../context/lang'
 
+import Layout from '../../components/layout'
 import LoginForm from '../../components/forms/LoginForm'
 import Boton from '../../components/boton/BotonAccion'
 
@@ -47,7 +48,7 @@ function LoginScreen(props) {
   const image = require('../../../assets/background.jpg')
 
   return (
-    <ImageBackground source={image} resizeMode="cover" className="flex-1">
+    <Layout backgroundImage={image}>
       <View className="flex-1 bg-[#000000A1]">
         <View className="absolute top-12 right-5 z-10">
           <Pressable className="bg-white p-2.5 rounded" onPress={() => setLocale(locale === 'es' ? 'en' : 'es')}>
@@ -63,7 +64,7 @@ function LoginScreen(props) {
           setShowPassword={setShowPassword}
         />
       </View>
-    </ImageBackground>
+    </Layout>
   )
 }
 

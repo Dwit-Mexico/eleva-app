@@ -4,14 +4,14 @@ import Container from '../../components/container'
 import ListaEtapas from '../../components/lista-etapas'
 
 import Styles from '../../styles/screens/GarantiasStyle'
+import Layout from '../../components/layout'
 
 function Etapas({ navigation }) {
+  const image = require('../../../assets/background.jpg')
   return (
-    <ImageBackground source={require('../../../assets/background.jpg')} style={{ flex: 1 }}>
-      <View style={Styles.backGround}>
-        <Container>
-          <ListaEtapas navigation={navigation} />
-        </Container>
+    <ImageBackground source={image} resizeMode="cover" className="flex-1">
+      <View className="flex-1 bg-[#000000A1]">
+        <ListaEtapas navigation={navigation} />
       </View>
     </ImageBackground>
   )

@@ -6,13 +6,21 @@ import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context'
 
 const StyledSafeAreaView = withUniwind(SafeAreaView)
 
-function Layout({ children, className = '', edges = ['right', 'bottom', 'left'] }) {
-  return (
-    <SafeAreaProvider>
-      <StyledSafeAreaView className={`flex-1 ${className}`} edges={edges}>
-        {children}
+function Layout({ children, backgroundImage, className = '', edges = ['right', 'bottom', 'left'] }) {
+  if (backgroundImage) {
+    return (
+      <StyledSafeAreaView className="flex-1 " edges={edges}>
+        <ImageBackground source={backgroundImage} resizeMode="cover" className="flex-1">
+          {children}
+        </ImageBackground>
       </StyledSafeAreaView>
-    </SafeAreaProvider>
+    )
+  }
+
+  return (
+    <StyledSafeAreaView className="flex-1" edges={edges}>
+      {children}
+    </StyledSafeAreaView>
   )
 }
 

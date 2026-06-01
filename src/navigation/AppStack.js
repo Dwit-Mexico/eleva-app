@@ -114,7 +114,7 @@ function AppStack(props) {
   }, [])
 
   return (
-    <Stack.Navigator screenOptions={{ presentation: 'modal' }}>
+    <Stack.Navigator>
       <Stack.Screen
         name="Main"
         component={BottomNavigator}
@@ -127,6 +127,7 @@ function AppStack(props) {
           headerTintColor: '#B29360',
         })}
       />
+
       <Stack.Screen
         name="Notificaciones"
         component={Notificaciones}
