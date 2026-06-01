@@ -52,15 +52,15 @@ function SelectUnidad({ onSelect, value, context }) {
       }}
     >
       {unidades.map((unidad, index) => {
-        const textStyle = unidad.id == selected ? InputStyles.itemTextSelected : InputStyles.itemTextNormal
+        const isSelected = unidad.id === selected
 
         return (
           <TouchableOpacity
             key={index}
             onPress={selectUnidad.bind(this, unidad.id)}
-            style={unidad.id == selected ? InputStyles.itemSelected : InputStyles.itemNormal}
+            className={`flex-row items-center p-2 border-2 border-[#B29330] rounded ${isSelected ? 'bg-[#B29330]' : ''}`}
           >
-            <Text style={textStyle}>{unidad.name}</Text>
+            <Text className="text-white font-bold text-lg">{unidad.name}</Text>
           </TouchableOpacity>
         )
       })}

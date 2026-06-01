@@ -1,123 +1,101 @@
-import React, {useState, useEffect} from "react";
-import {Alert, View, Text, TouchableOpacity} from "react-native";
-import {Consumer} from "../../context";
-import BotonEnviar from "../boton-enviar/BotonEnviar";
-import WizardStyle from "../../styles/components/WizardStyle";
-import {useLanguageContext} from "../../context/lang";
+import React, { useState, useEffect } from 'react'
+import { Alert, View, Text, TouchableOpacity } from 'react-native'
+import { Consumer } from '../../context'
+import { useLanguageContext } from '../../context/lang'
 
-const Wizard = ({context, steps, ultimo, onSubmit, loading, terminado}) => {
-  const {i18n} = useLanguageContext();
-  const [page, setPage] = useState(1);
-  const [totalSteps, setTotalSteps] = useState(0);
+const Wizard = ({ context, steps, ultimo, onSubmit, loading, terminado }) => {
+  const { i18n } = useLanguageContext()
+  const [page, setPage] = useState(1)
+  const [totalSteps, setTotalSteps] = useState(0)
 
   function prevStep() {
     if (page > 1) {
-      context.setStep(page - 1);
+      context.setStep(page - 1)
     }
   }
 
   function nextStep() {
     if (page == 1 && !context.unidad) {
-      Alert.alert(null, i18n.t("reports.selectUnit"));
-      return;
+      Alert.alert(null, i18n.t('reports.selectUnit'))
+      return
     }
     if (page == 2 && !context.area) {
-      Alert.alert(null, i18n.t("reports.selectArea"));
-      return;
+      Alert.alert(null, i18n.t('reports.selectArea'))
+      return
     }
     if (page == 3 && !context.equipo) {
-      Alert.alert(null, i18n.t("reports.selectEquipment"));
-      return;
+      Alert.alert(null, i18n.t('reports.selectEquipment'))
+      return
     }
     if (page == 4 && !context.problema) {
-      Alert.alert(null, i18n.t("reports.selectProblem"));
-      return;
+      Alert.alert(null, i18n.t('reports.selectProblem'))
+      return
     }
 
     if (page < totalSteps && context) {
-      context.setStep(page + 1);
+      context.setStep(page + 1)
     }
   }
 
   useEffect(() => {
-    const propSteps = steps;
+    const propSteps = steps
     if (Array.isArray(propSteps)) {
-      setTotalSteps(propSteps.length);
+      setTotalSteps(propSteps.length)
     }
-  }, [steps]);
+  }, [steps])
 
   if (context) {
     useEffect(() => {
-      setPage(context.step);
-    }, [context.step]);
+      setPage(context.step)
+    }, [context.step])
   }
 
   useEffect(() => {
     if (terminado) {
-      context.setStep(steps.length);
+      context.setStep(steps.length)
     }
-  }, [terminado]);
+  }, [terminado])
 
   return (
-    <View
-      style={{
-        flex: 1,
-        flexDirection: "column",
-        // position: "relative"
-      }}
-    >
+    <View className="flex-1 flex-col">
       {steps[page - 1]}
 
-      {!terminado ? (
-        <View
-          // style={{
-          //   flex: 1,
-          //   position: "absolute",
-          //   bottom: 10,
-          //   flexDirection: "row",
-          //   justifyContent: page == 1 ? "flex-end" : "space-between",
-          //   width: "100%",
-          // }}
-          style={{
-            paddingTop: 15,
-            paddingBottom: 10,
-            flexDirection: "row",
-            justifyContent: page == 1 ? "flex-end" : "space-between",
-            width: "100%",
-          }}
-        >
+      {!terminado && (
+        <View className={`flex-row items-center w-full ${page == 1 ? 'justify-end' : 'justify-between'}`}>
           {page !== 1 && (
             <TouchableOpacity
               onPress={prevStep.bind(this)}
-              style={WizardStyle.navigationButton}
+              className="bg-black w-28 h-12 rounded items-center justify-center"
             >
-              <Text
-                allowFontScaling={false}
-                style={WizardStyle.navigationButtonText}
-              >
-                {i18n.t("button.back")}
+              <Text allowFontScaling={false} className="text-white text-center text-lg">
+                {i18n.t('button.back')}
               </Text>
             </TouchableOpacity>
           )}
           {page == ultimo ? (
-            <BotonEnviar onSubmit={onSubmit} loading={loading} />
+            <TouchableOpacity onPress={onSubmit} className="bg-[#B29360] w-28 h-12 rounded items-center justify-center">
+              {loading ? (
+                <ActivityIndicator color="#fff" />
+              ) : (
+                <Text allowFontScaling={false} className="text-white text-center text-lg">
+                  {i18n.t('button.send')}
+                </Text>
+              )}
+            </TouchableOpacity>
           ) : (
             <TouchableOpacity
-              style={WizardStyle.navigationButton}
+              className="bg-[#B29360] w-28 h-12 rounded items-center justify-center"
               onPress={nextStep.bind(this)}
             >
-              <Text
-                allowFontScaling={false}
-                style={WizardStyle.navigationButtonText}
-              >
-                {i18n.t("button.next")}
+              <Text allowFontScaling={false} className="text-white text-center text-lg">
+                {i18n.t('button.next')}
               </Text>
             </TouchableOpacity>
           )}
         </View>
-      ) : null}
+      )}
     </View>
-  );
-};
+  )
+}
 
-export default Consumer(Wizard);
+export default Consumer(Wizard)

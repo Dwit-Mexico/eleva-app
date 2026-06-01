@@ -1,22 +1,19 @@
 import React from 'react'
-import { View, ImageBackground } from 'react-native'
+import { View, ImageBackground, Text } from 'react-native'
 import Wizard from './etapas/Wizard'
-import Container from '../../components/container'
-import Styles from '../../styles/screens/GarantiasStyle'
+import Layout from '../../components/layout'
 
 function NuevaGarantia({ navigation }) {
-  const Etapa = () => {
-    return <Wizard navigation={navigation} esDetalle={false} />
-  }
+  const image = require('../../../assets/background.jpg')
 
   return (
-    <ImageBackground source={require('../../../assets/background.jpg')} style={{ flex: 1 }}>
-      <View style={Styles.backGround}>
-        <Container>
-          <Etapa />
-        </Container>
+    <Layout backgroundImage={image}>
+      <View className="flex-1 bg-[#000000A1]">
+        <View className="flex-1 p-4">
+          <Wizard navigation={navigation} esDetalle={false} />
+        </View>
       </View>
-    </ImageBackground>
+    </Layout>
   )
 }
 

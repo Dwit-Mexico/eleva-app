@@ -1,33 +1,33 @@
-import {useState, useEffect} from "react";
-import {Alert, View} from "react-native";
-import {Consumer} from "../../../context";
-import * as ImageManipulator from "expo-image-manipulator";
-import moment from "moment-timezone";
-import Container from "../../../components/container";
-import Wizard from "../../../components/wizard";
-import Unidad from "./formulario/unidad";
-import Area from "./formulario/area";
-import Equipo from "./formulario/equipo";
-import Problema from "./formulario/problema";
-import Comentario from "./formulario/comentario";
-import Fotos from "./formulario/fotos";
-import Finalizar from "./formulario/finalizar";
-import Request from "../../../core/api";
-import {useLanguageContext} from "../../../context/lang";
-const request = new Request();
+import { useState, useEffect } from 'react'
+import { Alert, View } from 'react-native'
+import { Consumer } from '../../../context'
+import * as ImageManipulator from 'expo-image-manipulator'
+import moment from 'moment-timezone'
+import Container from '../../../components/container'
+import Wizard from '../../../components/wizard'
+import Unidad from './formulario/unidad'
+import Area from './formulario/area'
+import Equipo from './formulario/equipo'
+import Problema from './formulario/problema'
+import Comentario from './formulario/comentario'
+import Fotos from './formulario/fotos'
+import Finalizar from './formulario/finalizar'
+import Request from '../../../core/api'
+import { useLanguageContext } from '../../../context/lang'
+const request = new Request()
 
-function Etapa1({navigation, esDetalle, context}) {
-  const {locale, i18n} = useLanguageContext();
-  const translate = locale === "en";
-  const [unidad, setUnidad] = useState(null);
-  const [area, setArea] = useState(null);
-  const [equipo, setEquipo] = useState(null);
-  const [problema, setProblema] = useState(null);
-  const [comentario, setComentario] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [terminado, setTerminado] = useState(false);
-  const [loadingAceptar, setLoadingAceptar] = useState(false);
-  const [loadingFinalizar, setLoadingFinalizar] = useState(false);
+function Etapa1({ navigation, esDetalle, context }) {
+  const { locale, i18n } = useLanguageContext()
+  const translate = locale === 'en'
+  const [unidad, setUnidad] = useState(null)
+  const [area, setArea] = useState(null)
+  const [equipo, setEquipo] = useState(null)
+  const [problema, setProblema] = useState(null)
+  const [comentario, setComentario] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [terminado, setTerminado] = useState(false)
+  const [loadingAceptar, setLoadingAceptar] = useState(false)
+  const [loadingFinalizar, setLoadingFinalizar] = useState(false)
 
   async function _compressImage(imagen, name) {
     if (imagen) {
@@ -35,13 +35,13 @@ function Etapa1({navigation, esDetalle, context}) {
         compress: 0.5,
         format: ImageManipulator.SaveFormat.JPEG,
         base64: false,
-      });
+      })
 
       return {
         uri: manipResult,
         name: `${name}.jpg`,
         type: `image/jpg`,
-      };
+      }
     }
   }
 
@@ -51,153 +51,149 @@ function Etapa1({navigation, esDetalle, context}) {
         uri: videoUri,
         name: `${name}.mp4`,
         type: `video/mp4`,
-      };
+      }
     }
   }
 
   useEffect(() => {
     if (context) {
-      setUnidad(context.unidad);
-      setArea(context.area);
-      setEquipo(context.equipo);
-      setProblema(context.problema);
-      setComentario(context.comentario);
+      setUnidad(context.unidad)
+      setArea(context.area)
+      setEquipo(context.equipo)
+      setProblema(context.problema)
+      setComentario(context.comentario)
     }
-  }, []);
+  }, [])
 
   useEffect(() => {
     async function setedUnidad() {
       if (context && unidad) {
-        await context.setUnidad(unidad);
+        await context.setUnidad(unidad)
       }
     }
 
-    setedUnidad();
-  }, [unidad]);
+    setedUnidad()
+  }, [unidad])
 
   useEffect(() => {
     async function setedArea() {
       if (context && area) {
-        await context.setArea(area);
+        await context.setArea(area)
       }
     }
 
-    setedArea();
-  }, [area]);
+    setedArea()
+  }, [area])
 
   useEffect(() => {
     async function setedEquipo() {
       if (context && equipo) {
-        await context.setEquipo(equipo);
+        await context.setEquipo(equipo)
       }
     }
 
-    setedEquipo();
-  }, [equipo]);
+    setedEquipo()
+  }, [equipo])
 
   useEffect(() => {
     async function setedProblema() {
       if (context && problema) {
-        await context.setProblema(problema);
+        await context.setProblema(problema)
       }
     }
 
-    setedProblema();
-  }, [problema]);
+    setedProblema()
+  }, [problema])
 
   useEffect(() => {
     async function setedComentario() {
       if (context && comentario) {
-        await context.setComentario(comentario);
+        await context.setComentario(comentario)
       }
     }
 
-    setedComentario();
-  }, [comentario]);
+    setedComentario()
+  }, [comentario])
 
   async function _handleSubmit() {
-    setLoading(true);
+    setLoading(true)
     const data = {
       IdUnidad: unidad,
       IdArea: area,
       IdEquipo: equipo,
       IdProblema: problema,
-      Comentarios: comentario || "",
+      Comentarios: comentario || '',
       Fecha: moment().format(),
-    };
+    }
 
-    const file1 = await _compressImage(context.imagen1, "imagen1");
-    const file2 = await _compressImage(context.imagen2, "imagen2");
-    const file3 = await _compressImage(context.imagen3, "imagen3");
-    const file4 = await _compressVideo(context.video1, "video1");
+    const file1 = await _compressImage(context.imagen1, 'imagen1')
+    const file2 = await _compressImage(context.imagen2, 'imagen2')
+    const file3 = await _compressImage(context.imagen3, 'imagen3')
+    const file4 = await _compressVideo(context.video1, 'video1')
 
-    const response = await request.postFile(
-      "/app/garantias/crear",
-      [file1, file2, file3, file4],
-      data
-    );
+    const response = await request.postFile('/app/garantias/crear', [file1, file2, file3, file4], data)
 
     if (response.error) {
-      Alert.alert(null, response.message || i18n.t("error.intern"));
+      Alert.alert(null, response.message || i18n.t('error.intern'))
     }
     if (response.upload) {
-      setTerminado(true);
+      setTerminado(true)
     }
 
-    setLoading(false);
+    setLoading(false)
   }
 
   function reinicializar() {
-    context.setEquipo(null);
-    context.setProblema(null);
-    context.setComentario(null);
-    context.setImagen1(null);
-    context.setImagen2(null);
-    context.setImagen3(null);
-    context.setVideo1(null);
+    context.setEquipo(null)
+    context.setProblema(null)
+    context.setComentario(null)
+    context.setImagen1(null)
+    context.setImagen2(null)
+    context.setImagen3(null)
+    context.setVideo1(null)
 
-    setEquipo(null);
-    setProblema(null);
-    setComentario(null);
+    setEquipo(null)
+    setProblema(null)
+    setComentario(null)
   }
 
   async function aceptarAction() {
-    setLoadingAceptar(true);
+    setLoadingAceptar(true)
 
-    await context.reloadReportes(translate);
+    await context.reloadReportes(translate)
 
-    setTerminado(false);
+    setTerminado(false)
 
-    reinicializar();
+    reinicializar()
 
-    context.setStep(1);
+    context.setStep(1)
 
-    setLoadingAceptar(false);
+    setLoadingAceptar(false)
   }
 
   async function finalizarAction() {
-    setLoadingFinalizar(true);
+    setLoadingFinalizar(true)
 
-    await context.reloadReportes(translate);
+    await context.reloadReportes(translate)
 
-    setTerminado(false);
+    setTerminado(false)
 
-    context.setUnidad(null);
-    context.setArea(null);
+    context.setUnidad(null)
+    context.setArea(null)
 
-    reinicializar();
+    reinicializar()
 
-    context.setStep(1);
+    context.setStep(1)
 
-    navigation.goBack();
+    navigation.goBack()
 
-    setLoadingFinalizar(false);
+    setLoadingFinalizar(false)
   }
 
   return (
     <Container>
-      <View style={{flex: 1, height: "100%"}}>
-        <View style={{height: 8}} />
+      <View style={{ flex: 1, height: '100%' }}>
+        <View style={{ height: 8 }} />
 
         <Wizard
           steps={[
@@ -205,10 +201,7 @@ function Etapa1({navigation, esDetalle, context}) {
             <Area area={area} setArea={setArea} />,
             <Equipo equipo={equipo} setEquipo={setEquipo} />,
             <Problema problema={problema} setProblema={setProblema} />,
-            <Comentario
-              comentario={comentario}
-              setComentario={setComentario}
-            />,
+            <Comentario comentario={comentario} setComentario={setComentario} />,
             <Fotos context={context} navigation={navigation} />,
             <Finalizar
               aceptarAction={() => aceptarAction()}
@@ -226,7 +219,7 @@ function Etapa1({navigation, esDetalle, context}) {
         />
       </View>
     </Container>
-  );
+  )
 }
 
-export default Consumer(Etapa1);
+export default Consumer(Etapa1)
