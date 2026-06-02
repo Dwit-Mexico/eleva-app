@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { Alert, View, Text, TouchableOpacity } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { Alert, View, Text, TouchableOpacity, ActivityIndicator } from 'react-native'
 import { Consumer } from '../../context'
 import { useLanguageContext } from '../../context/lang'
 

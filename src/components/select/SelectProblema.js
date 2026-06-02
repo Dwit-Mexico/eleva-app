@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { ScrollView, TouchableOpacity, Text } from 'react-native'
+import { ScrollView, TouchableOpacity, Text, View } from 'react-native'
 import { Consumer } from '../../context'
 import InputStyles from '../../styles/inputs'
-
-const onSelectionsChange = (data, onChange) => {
-  if (onChange) {
-    onChange(data[0])
-  }
-}
 
 function SelectProblema({ onSelect, value, context }) {
   const [problemas, setProblemas] = useState([])
@@ -39,24 +33,23 @@ function SelectProblema({ onSelect, value, context }) {
     <ScrollView
       contentContainerStyle={{
         width: '100%',
-        flexDirection: 'row',
-        flexWrap: 'wrap',
+        flexDirection: 'column',
         justifyContent: 'center',
       }}
     >
-      {problemas.map(problema => {
-        return (
+      <View className="flex-row flex-wrap gap-2 justify-center">
+        {problemas.map((problema, index) => (
           <TouchableOpacity
             key={problema.id}
-            onPress={selectProblema.bind(this, problema.id)}
-            style={problema.id == selected ? InputStyles.itemSelected : InputStyles.itemNormal}
+            onPress={() => selectProblema(problema.id)}
+            className={`flex-col items-center p-2 border border-[#B29330] rounded ${
+              problema.id === selected ? 'bg-[#B29330]' : ''
+            }`}
           >
-            <Text style={problema.id == selected ? InputStyles.itemTextSelected : InputStyles.itemTextNormal}>
-              {problema.name}
-            </Text>
+            <Text className="text-white font-bold text-lg">{problema.name}</Text>
           </TouchableOpacity>
-        )
-      })}
+        ))}
+      </View>
     </ScrollView>
   )
 }

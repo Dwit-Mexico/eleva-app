@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from 'react'
 import { View, Animated, Text } from 'react-native'
 import { Consumer } from '../../../../context'
 import SelectEquipo from '../../../../components/select/SelectEquipo'
-import Styles from '../../../../styles/components/WizardStyle'
 import { useLanguageContext } from '../../../../context/lang'
 
 function SeleccionarEquipo({ equipo, setEquipo }) {
@@ -18,24 +17,23 @@ function SeleccionarEquipo({ equipo, setEquipo }) {
   }, [])
 
   function onSelect(opcion) {
-    if (setEquipo) {
-      setEquipo(opcion)
-    }
+    setEquipo(opcion)
   }
 
   return (
-    <View style={{ flex: 1 }}>
-      <Animated.View
-        style={{
-          flex: 1,
-          height: '100%',
-          opacity: animatedOpacity,
-        }}
-      >
-        <Text style={Styles.titleStyle}>{i18n.t('reports.equipment')}</Text>
-        <SelectEquipo onSelect={opcion => onSelect(opcion)} value={equipo} />
-      </Animated.View>
-    </View>
+    <Animated.View
+      className="flex-1 h-full"
+      style={{
+        opacity: animatedOpacity,
+      }}
+    >
+      <View className="gap-4">
+        <Text className="text-lg text-white text-center">{i18n.t('reports.equipment')}</Text>
+        <View className="h-11/12">
+          <SelectEquipo onSelect={onSelect} value={equipo} />
+        </View>
+      </View>
+    </Animated.View>
   )
 }
 

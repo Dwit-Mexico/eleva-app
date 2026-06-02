@@ -28,9 +28,7 @@ function SeleccionarUnidad({ unidad, setUnidad, context }) {
   }
 
   function onSelect(opcion) {
-    if (setUnidad) {
-      setUnidad(opcion)
-    }
+    setUnidad(opcion)
   }
 
   useEffect(() => {
@@ -38,32 +36,31 @@ function SeleccionarUnidad({ unidad, setUnidad, context }) {
   }, [])
 
   return (
-    <View className="flex-1 ">
-      <Animated.View
-        style={{
-          flex: 1,
-          height: '100%',
-          opacity: animatedOpacity,
-        }}
-      >
-        <View className="gap-4">
-          <View className="flex-row items-center justify-center">
-            <Text className="text-lg text-white ">{i18n.t('reports.unit')}</Text>
-            <Pressable
-              className="absolute rounded-full w-10 h-10 justify-center items-center bg-[#B29360] right-0"
-              onPress={onRefresh}
-            >
-              {loading ? (
-                <ActivityIndicator color="#ffffff" size="small" />
-              ) : (
-                <Ionicons name="reload" size={20} color="#ffffff" />
-              )}
-            </Pressable>
-          </View>
-          <SelectUnidad onSelect={onSelect.bind(this)} value={unidad} />
+    <Animated.View
+      className="flex-1 h-full"
+      style={{
+        opacity: animatedOpacity,
+      }}
+    >
+      <View className="gap-4">
+        <View className="flex-row items-center justify-center">
+          <Text className="text-lg text-white">{i18n.t('reports.unit')}</Text>
+          <Pressable
+            className="absolute rounded-full w-10 h-10 justify-center items-center bg-[#B29360] right-0"
+            onPress={onRefresh}
+          >
+            {loading ? (
+              <ActivityIndicator color="#ffffff" size="small" />
+            ) : (
+              <Ionicons name="reload" size={20} color="#ffffff" />
+            )}
+          </Pressable>
         </View>
-      </Animated.View>
-    </View>
+        <View className="h-11/12">
+          <SelectUnidad onSelect={onSelect} value={unidad} />
+        </View>
+      </View>
+    </Animated.View>
   )
 }
 

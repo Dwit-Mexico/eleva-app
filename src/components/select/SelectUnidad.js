@@ -1,15 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { ScrollView, TouchableOpacity, Text } from 'react-native'
+import { ScrollView, TouchableOpacity, Text, View } from 'react-native'
 import { FontAwesome5 } from '@expo/vector-icons'
 import { Consumer } from '../../context'
 import InputStyles from '../../styles/inputs'
 import { useLanguageContext } from '../../context/lang'
-
-const onSelectionsChange = (data, onChange) => {
-  if (onChange) {
-    onChange(data[0])
-  }
-}
 
 function SelectUnidad({ onSelect, value, context }) {
   const { locale } = useLanguageContext()
@@ -51,19 +45,19 @@ function SelectUnidad({ onSelect, value, context }) {
         justifyContent: 'center',
       }}
     >
-      {unidades.map((unidad, index) => {
-        const isSelected = unidad.id === selected
-
-        return (
+      <View className="gap-2">
+        {unidades.map((unidad, index) => (
           <TouchableOpacity
             key={index}
-            onPress={selectUnidad.bind(this, unidad.id)}
-            className={`flex-row items-center p-2 border-2 border-[#B29330] rounded ${isSelected ? 'bg-[#B29330]' : ''}`}
+            onPress={() => selectUnidad(unidad.id)}
+            className={`flex-row items-center p-2 border border-[#B29330] rounded ${
+              unidad.id === selected ? 'bg-[#B29330]' : ''
+            }`}
           >
             <Text className="text-white font-bold text-lg">{unidad.name}</Text>
           </TouchableOpacity>
-        )
-      })}
+        ))}
+      </View>
     </ScrollView>
   )
 }

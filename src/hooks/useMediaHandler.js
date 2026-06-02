@@ -1,205 +1,203 @@
-import {useState} from "react";
-import {Alert, Platform, Linking} from "react-native";
-import * as ImagePicker from "expo-image-picker";
-import {createVideoPlayer} from "expo-video";
-import {useLanguageContext} from "../context/lang";
+import { useState } from 'react'
+import { Alert, Platform, Linking } from 'react-native'
+import * as ImagePicker from 'expo-image-picker'
+import { createVideoPlayer } from 'expo-video'
+import { useLanguageContext } from '../context/lang'
 
-const useMediaHandler = (context) => {
-  const {i18n} = useLanguageContext();
-  const [isBottomSheetVisible, setBottomSheetVisible] = useState(false);
-  const [mediaType, setMediaType] = useState(null);
-  const [mediaIndex, setMediaIndex] = useState(null);
-  const [showModalMedia, setShowModalMedia] = useState(false);
-  const [thumbnail, setThumbnail] = useState(null);
-  const [isMediaProcessing, setIsMediaProcessing] = useState(false);
-  const [cameraPermission, requestCameraPermission] =
-    ImagePicker.useCameraPermissions();
+const useMediaHandler = context => {
+  const { i18n } = useLanguageContext()
+  const [isBottomSheetVisible, setBottomSheetVisible] = useState(false)
+  const [mediaType, setMediaType] = useState(null)
+  const [mediaIndex, setMediaIndex] = useState(null)
+  const [showModalMedia, setShowModalMedia] = useState(false)
+  const [thumbnail, setThumbnail] = useState(null)
+  const [isMediaProcessing, setIsMediaProcessing] = useState(false)
+  const [cameraPermission, requestCameraPermission] = ImagePicker.useCameraPermissions()
 
   const verifyCameraPermissions = async () => {
     if (!cameraPermission?.granted) {
-      const {granted} = await requestCameraPermission();
+      const { granted } = await requestCameraPermission()
       if (!granted) {
-        return false;
+        return false
       }
     }
 
-    return true;
-  };
+    return true
+  }
 
   const closeBottomSheetBeforePicker = () => {
-    setBottomSheetVisible(false);
+    setBottomSheetVisible(false)
 
-    return new Promise((resolve) => {
-      setTimeout(resolve, 250);
-    });
-  };
+    return new Promise(resolve => {
+      setTimeout(resolve, 250)
+    })
+  }
 
   const handlePermissionDenied = () => {
-    if (Platform.OS == "ios") {
-      Alert.alert(i18n.t("permissions.title"), i18n.t("permissions.textIOS"), [
+    if (Platform.OS == 'ios') {
+      Alert.alert(i18n.t('permissions.title'), i18n.t('permissions.textIOS'), [
         {
-          text: "Ir a configuración",
-          onPress: () => Linking.openURL("app-settings:"),
+          text: 'Ir a configuración',
+          onPress: () => Linking.openURL('app-settings:'),
         },
         {
-          text: "Cancelar",
-          style: "cancel",
+          text: 'Cancelar',
+          style: 'cancel',
         },
-      ]);
+      ])
     } else {
-      Alert.alert(i18n.t("permissions.title"), i18n.t("permissions.text"));
+      Alert.alert(i18n.t('permissions.title'), i18n.t('permissions.text'))
     }
-  };
+  }
 
-  const generateThumbnail = async (videoUri) => {
-    const player = createVideoPlayer(videoUri);
+  const generateThumbnail = async videoUri => {
+    const player = createVideoPlayer(videoUri)
 
     try {
-      const thumbnails = await player.generateThumbnailsAsync(15, {
-        maxWidth: 320,
-      });
+      await new Promise(resolve => setTimeout(resolve, 2000))
+      const thumbnails = await player.generateThumbnailsAsync(1)
 
-      setThumbnail(thumbnails[0] || null);
+      setThumbnail(thumbnails[0] || null)
     } catch (e) {
-      console.warn(e);
+      console.warn(e)
     } finally {
-      player.release();
+      player.release()
     }
-  };
+  }
 
   const handleOpenCamera = async () => {
     if (isMediaProcessing) {
-      return;
+      return
     }
 
-    const hasPermission = await verifyCameraPermissions();
+    const hasPermission = await verifyCameraPermissions()
     if (!hasPermission) {
-      handlePermissionDenied();
-      return;
+      handlePermissionDenied()
+      return
     }
 
-    setIsMediaProcessing(true);
+    setIsMediaProcessing(true)
 
     try {
-      await closeBottomSheetBeforePicker();
+      await closeBottomSheetBeforePicker()
 
-      if (mediaType === "image") {
+      if (mediaType === 'image') {
         const result = await ImagePicker.launchCameraAsync({
-          mediaTypes: ["images"],
+          mediaTypes: ['images'],
           aspect: [4, 3],
           quality: 1,
-        });
+        })
 
         if (!result.canceled) {
-          context[`setImagen${mediaIndex}`](result?.assets[0].uri);
+          context[`setImagen${mediaIndex}`](result?.assets[0].uri)
         }
       }
 
-      if (mediaType === "video") {
+      if (mediaType === 'video') {
         const result = await ImagePicker.launchCameraAsync({
-          mediaTypes: ["videos"],
+          mediaTypes: ['videos'],
           aspect: [4, 3],
           quality: 0.5,
           videoMaxDuration: 8,
           videoQuality: ImagePicker.UIImagePickerControllerQualityType.Low,
-        });
+        })
 
         if (!result.canceled) {
-          const videoUri = result.assets[0].uri;
-          context.setVideo1(videoUri);
-          await generateThumbnail(videoUri);
+          const videoUri = result.assets[0].uri
+          context.setVideo1(videoUri)
+          await generateThumbnail(videoUri)
         }
       }
     } finally {
-      setMediaType(null);
-      setIsMediaProcessing(false);
+      setMediaType(null)
+      setIsMediaProcessing(false)
     }
-  };
+  }
 
   const handlePickMedia = async () => {
     if (isMediaProcessing) {
-      return;
+      return
     }
 
-    setIsMediaProcessing(true);
+    setIsMediaProcessing(true)
 
     try {
-      await closeBottomSheetBeforePicker();
+      await closeBottomSheetBeforePicker()
 
-      if (mediaType === "image") {
+      if (mediaType === 'image') {
         const result = await ImagePicker.launchImageLibraryAsync({
-          mediaTypes: ["images"],
+          mediaTypes: ['images'],
           aspect: [4, 3],
           quality: 1,
-        });
+        })
 
         if (!result.canceled) {
-          context[`setImagen${mediaIndex}`](result?.assets[0].uri);
+          context[`setImagen${mediaIndex}`](result?.assets[0].uri)
         }
       }
 
-      if (mediaType === "video") {
+      if (mediaType === 'video') {
         const result = await ImagePicker.launchImageLibraryAsync({
-          mediaTypes: ["videos"],
+          mediaTypes: ['videos'],
           aspect: [4, 3],
           quality: 0.5,
           videoMaxDuration: 8,
           videoQuality: ImagePicker.UIImagePickerControllerQualityType.Low,
-        });
+        })
 
         if (!result.canceled) {
-          const videoUri = result.assets[0].uri;
-          context.setVideo1(videoUri);
-          await generateThumbnail(videoUri);
+          const videoUri = result.assets[0].uri
+          context.setVideo1(videoUri)
+          await generateThumbnail(videoUri)
         }
       }
     } finally {
-      setMediaType(null);
-      setIsMediaProcessing(false);
+      setMediaType(null)
+      setIsMediaProcessing(false)
     }
-  };
+  }
 
   const openBottomSheet = (type, index) => {
     if (isMediaProcessing) {
-      return;
+      return
     }
 
-    if (context[`imagen${index}`] && type === "image") {
-      setMediaType(type);
-      setMediaIndex(index);
-      setShowModalMedia(true);
-      return;
+    if (context[`imagen${index}`] && type === 'image') {
+      setMediaType(type)
+      setMediaIndex(index)
+      setShowModalMedia(true)
+      return
     }
 
-    if (context.video1 && type === "video") {
-      setMediaType(type);
-      setMediaIndex(index);
-      setShowModalMedia(true);
-      return;
+    if (context.video1 && type === 'video') {
+      setMediaType(type)
+      setMediaIndex(index)
+      setShowModalMedia(true)
+      return
     }
 
-    setMediaType(type);
-    setMediaIndex(index);
-    setBottomSheetVisible(true);
-  };
+    setMediaType(type)
+    setMediaIndex(index)
+    setBottomSheetVisible(true)
+  }
 
-  const handleEditMedia = (index) => {
+  const handleEditMedia = index => {
     if (isMediaProcessing) {
-      return;
+      return
     }
 
-    setMediaIndex(index);
+    setMediaIndex(index)
 
-    if (mediaType === "image") {
-      context[`setImagen${index}`](null);
+    if (mediaType === 'image') {
+      context[`setImagen${index}`](null)
     }
 
-    if (mediaType === "video") {
-      context.setVideo1(null);
+    if (mediaType === 'video') {
+      context.setVideo1(null)
     }
-    setShowModalMedia(false);
-    setBottomSheetVisible(true);
-  };
+    setShowModalMedia(false)
+    setBottomSheetVisible(true)
+  }
 
   return {
     handleOpenCamera,
@@ -214,7 +212,7 @@ const useMediaHandler = (context) => {
     handleEditMedia,
     thumbnail,
     isMediaProcessing,
-  };
-};
+  }
+}
 
-export default useMediaHandler;
+export default useMediaHandler

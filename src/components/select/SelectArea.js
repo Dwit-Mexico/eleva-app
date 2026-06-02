@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { ScrollView, Text, TouchableOpacity } from 'react-native'
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native'
 import { Consumer } from '../../context'
-import InputStyles from '../../styles/inputs'
 import { useLanguageContext } from '../../context/lang'
 
 function SelectArea({ onSelect, value, context }) {
@@ -48,24 +47,23 @@ function SelectArea({ onSelect, value, context }) {
     <ScrollView
       contentContainerStyle={{
         width: '100%',
-        flexDirection: 'row',
-        flexWrap: 'wrap',
+        flexDirection: 'column',
         justifyContent: 'center',
       }}
     >
-      {areas.map(area => {
-        return (
+      <View className="flex-row flex-wrap gap-2 justify-center">
+        {areas.map((area, index) => (
           <TouchableOpacity
-            key={area.id}
-            onPress={selectArea.bind(this, area)}
-            style={area.id == selected ? InputStyles.itemSelected : InputStyles.itemNormal}
+            key={index}
+            onPress={() => selectArea(area)}
+            className={`flex-col items-center p-2 border border-[#B29330] rounded ${
+              area.id === selected ? 'bg-[#B29330]' : ''
+            }`}
           >
-            <Text style={area.id == selected ? InputStyles.itemTextSelected : InputStyles.itemTextNormal}>
-              {area.name}
-            </Text>
+            <Text className="text-white font-bold text-lg">{area.name}</Text>
           </TouchableOpacity>
-        )
-      })}
+        ))}
+      </View>
     </ScrollView>
   )
 }

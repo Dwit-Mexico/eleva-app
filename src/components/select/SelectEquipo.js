@@ -1,14 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { ScrollView, TouchableOpacity, Text } from 'react-native'
+import { ScrollView, TouchableOpacity, Text, View } from 'react-native'
 import { Consumer } from '../../context'
-import InputStyles from '../../styles/inputs'
 import { useLanguageContext } from '../../context/lang'
-
-const onSelectionsChange = (data, onChange) => {
-  if (onChange) {
-    onChange(data[0])
-  }
-}
 
 function SelectEquipo({ onSelect, value, context }) {
   const { locale } = useLanguageContext()
@@ -46,24 +39,23 @@ function SelectEquipo({ onSelect, value, context }) {
     <ScrollView
       contentContainerStyle={{
         width: '100%',
-        flexDirection: 'row',
-        flexWrap: 'wrap',
+        flexDirection: 'column',
         justifyContent: 'center',
       }}
     >
-      {equipos.map(equipo => {
-        return (
+      <View className="flex-row flex-wrap gap-2 justify-center">
+        {equipos.map((equipo, index) => (
           <TouchableOpacity
-            key={equipo.id}
-            onPress={selectEquipo.bind(this, equipo.id)}
-            style={equipo.id == selected ? InputStyles.itemSelected : InputStyles.itemNormal}
+            key={index}
+            onPress={() => selectEquipo(equipo.id)}
+            className={`flex-col items-center p-2 border border-[#B29330] rounded ${
+              equipo.id === selected ? 'bg-[#B29330]' : ''
+            }`}
           >
-            <Text style={equipo.id == selected ? InputStyles.itemTextSelected : InputStyles.itemTextNormal}>
-              {equipo.name}
-            </Text>
+            <Text className="text-white font-bold text-lg">{equipo.name}</Text>
           </TouchableOpacity>
-        )
-      })}
+        ))}
+      </View>
     </ScrollView>
   )
 }
