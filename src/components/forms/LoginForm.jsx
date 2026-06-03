@@ -45,7 +45,7 @@ export default function LoginForm({ formData, setFormData, handleSubmit, loading
         {loading ? (
           <ActivityIndicator color="#fff" />
         ) : (
-          <Text className="text-white align-center">{i18n.t('button.start')}</Text>
+          <Text className="text-white align-center text-base">{i18n.t('button.start')}</Text>
         )}
       </TouchableOpacity>
 

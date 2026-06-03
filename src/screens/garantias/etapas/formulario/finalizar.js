@@ -34,7 +34,7 @@ function Finalizar({ aceptarAction, finalizarAction, loadingAceptar, loadingFina
             {loadingAceptar ? (
               <ActivityIndicator color="#fff" />
             ) : (
-              <Text className="text-white text-center text-lg">{i18n.t('button.accept')}</Text>
+              <Text className="text-white text-center text-base">{i18n.t('button.accept')}</Text>
             )}
           </TouchableOpacity>
           <TouchableOpacity
@@ -44,7 +44,7 @@ function Finalizar({ aceptarAction, finalizarAction, loadingAceptar, loadingFina
             {loadingFinalizar ? (
               <ActivityIndicator color="#fff" />
             ) : (
-              <Text className="text-white text-center text-lg">{i18n.t('button.finish')}</Text>
+              <Text className="text-white text-center text-base">{i18n.t('button.finish')}</Text>
             )}
           </TouchableOpacity>
         </View>

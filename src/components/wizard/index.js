@@ -67,7 +67,7 @@ const Wizard = ({ context, steps, ultimo, onSubmit, loading, terminado }) => {
               onPress={prevStep.bind(this)}
               className="bg-black w-28 h-12 rounded items-center justify-center"
             >
-              <Text allowFontScaling={false} className="text-white text-center text-lg">
+              <Text allowFontScaling={false} className="text-white text-center text-base">
                 {i18n.t('button.back')}
               </Text>
             </TouchableOpacity>
@@ -77,7 +77,7 @@ const Wizard = ({ context, steps, ultimo, onSubmit, loading, terminado }) => {
               {loading ? (
                 <ActivityIndicator color="#fff" />
               ) : (
-                <Text allowFontScaling={false} className="text-white text-center text-lg">
+                <Text allowFontScaling={false} className="text-white text-center text-base">
                   {i18n.t('button.send')}
                 </Text>
               )}
@@ -87,7 +87,7 @@ const Wizard = ({ context, steps, ultimo, onSubmit, loading, terminado }) => {
               className="bg-[#B29360] w-28 h-12 rounded items-center justify-center"
               onPress={nextStep.bind(this)}
             >
-              <Text allowFontScaling={false} className="text-white text-center text-lg">
+              <Text allowFontScaling={false} className="text-white text-center text-base">
                 {i18n.t('button.next')}
               </Text>
             </TouchableOpacity>

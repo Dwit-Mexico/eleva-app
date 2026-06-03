@@ -8,8 +8,10 @@ import ZoomableImage from '../../../components/common/ZoomableImage'
 import Styles from '../../../styles/screens/DetalleStyle'
 import Colores from '../../../styles/colores'
 import { useLanguageContext } from '../../../context/lang'
+import Layout from '../../../components/layout'
 
 const Historico = ({ context }) => {
+  const image = require('../../../../assets/background2.jpg')
   const { i18n, locale } = useLanguageContext()
   const route = useRoute()
   const navigation = useNavigation()
@@ -52,9 +54,9 @@ const Historico = ({ context }) => {
   }
 
   return (
-    <ImageBackground source={require('../../../../assets/background.jpg')} style={styles.background}>
-      <View style={Styles.backGround}>
-        <Container>
+    <Layout backgroundImage={image}>
+      <View className="flex-1 bg-[#000000A1]">
+        <View className="flex-1 p-4">
           <ScrollView>
             <View style={styles.spacing8} />
 
@@ -94,28 +96,23 @@ const Historico = ({ context }) => {
 
             <View style={styles.spacing32} />
           </ScrollView>
-
-          <Modal visible={modalImagen} transparent={true} onBackButtonPress={() => setModalImagen(false)}>
-            <View style={styles.modalContainer}>
-              <View style={styles.closeButtonContainer}>
-                <TouchableOpacity onPress={() => setModalImagen(false)} accessible accessibilityLabel="Cerrar">
-                  <Feather name="x" size={32} color="#fff" />
-                </TouchableOpacity>
-              </View>
-              <ZoomableImage uri={zoomImagen?.uri} />
+        </View>
+        <Modal visible={modalImagen} transparent={true} onBackButtonPress={() => setModalImagen(false)}>
+          <View style={styles.modalContainer}>
+            <View style={styles.closeButtonContainer}>
+              <TouchableOpacity onPress={() => setModalImagen(false)} accessible accessibilityLabel="Cerrar">
+                <Feather name="x" size={32} color="#fff" />
+              </TouchableOpacity>
             </View>
-          </Modal>
-        </Container>
+            <ZoomableImage uri={zoomImagen?.uri} />
+          </View>
+        </Modal>
       </View>
-    </ImageBackground>
+    </Layout>
   )
 }
 
 const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    height: '100%',
-  },
   spacing8: {
     height: 8,
   },

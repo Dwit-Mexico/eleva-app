@@ -32,14 +32,14 @@ export default function VerifyCodeForm({ code, onCodeChange, onSubmit, isLoading
           {isLoading ? (
             <ActivityIndicator color="#ffffff" />
           ) : (
-            <Text className="text-white align-center">{i18n.t('verifyCode.button')}</Text>
+            <Text className="text-white align-center text-base">{i18n.t('verifyCode.button')}</Text>
           )}
         </TouchableOpacity>
         <TouchableOpacity
-          className="bg-[#333138] w-full h-12 rounded items-center justify-center"
+          className="bg-black w-full h-12 rounded items-center justify-center"
           onPress={() => navigation.navigate('recover-password', { Email })}
         >
-          <Text className="text-white align-center">{i18n.t('button.back')}</Text>
+          <Text className="text-white align-center text-base">{i18n.t('button.back')}</Text>
         </TouchableOpacity>
       </View>
     </>

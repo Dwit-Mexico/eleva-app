@@ -58,14 +58,14 @@ export default function ResetPasswordForm({
           {isLoading ? (
             <ActivityIndicator color="#ffffff" />
           ) : (
-            <Text className="text-white align-center">{i18n.t('button.send')}</Text>
+            <Text className="text-white align-center text-base">{i18n.t('button.send')}</Text>
           )}
         </TouchableOpacity>
         <TouchableOpacity
-          className="bg-[#333138] w-full h-12 rounded items-center justify-center"
+          className="bg-black w-full h-12 rounded items-center justify-center"
           onPress={() => navigation.navigate('verify-code', { Email, OTP })}
         >
-          <Text className="text-white align-center">{i18n.t('button.back')}</Text>
+          <Text className="text-white align-center text-base">{i18n.t('button.back')}</Text>
         </TouchableOpacity>
       </View>
     </>

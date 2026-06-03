@@ -25,14 +25,14 @@ export default function RecoverPasswordForm({ onEmailChange, onSubmit, loading, 
           {loading ? (
             <ActivityIndicator color="#ffffff" size="small" />
           ) : (
-            <Text className="text-white align-center">{i18n.t('recoverPassword.button')}</Text>
+            <Text className="text-white align-center text-base">{i18n.t('recoverPassword.button')}</Text>
           )}
         </TouchableOpacity>
         <TouchableOpacity
-          className="bg-[#333138] w-full h-12 rounded items-center justify-center"
+          className="bg-black w-full h-12 rounded items-center justify-center"
           onPress={() => navigation.goBack()}
         >
-          <Text className="text-white align-center">{i18n.t('button.back')}</Text>
+          <Text className="text-white align-center text-base">{i18n.t('button.back')}</Text>
         </TouchableOpacity>
       </View>
     </>
