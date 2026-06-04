@@ -69,6 +69,13 @@ export default {
       infoPlist: {
         CFBundleAllowMixedLocalizations: true,
         ITSAppUsesNonExemptEncryption: false,
+        NSCameraUsageDescription:
+          'Eleva requiere acceso a la cámara, para poder tomar fotos y enviarlas como evidencia de los reportes.',
+        NSMicrophoneUsageDescription:
+          'Eleva requiere acceso al micrófono, para poder grabar audio y enviarlo como evidencia de los reportes.',
+        NSPhotoLibraryUsageDescription:
+          'Eleva requiere permiso para usar la galería, para poder enviar evidencia de los reportes.',
+        NSUserNotificationUsageDescription: 'Eleva requiere permiso para recibir notificaciones',
       },
     },
     locales: {

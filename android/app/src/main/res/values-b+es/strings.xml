@@ -1,0 +1,6 @@
+<resources>
+  <string name="NSNotificationDescription">"Eleva requiere permiso para recibir notificaciones"</string>
+  <string name="NSCameraUsageDescription">"Eleva requiere acceso a la cámara, para poder tomar fotos y enviarlo como evidencia de los reportes."</string>
+  <string name="NSMicrophoneUsageDescription">"Eleva requiere acceso al micrófono, para poder grabar audio y enviarlo como evidencia de los reportes."</string>
+  <string name="NSPhotoLibraryUsageDescription">"Eleva requiere permiso para usar la galeria de la cámara, para poder enviar evidencia de los reportes."</string>
+</resources>

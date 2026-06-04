@@ -16,7 +16,6 @@ const ListaValoraciones = ({ navigation, context }) => {
   if (context) {
     useEffect(() => {
       let reportes = context.reportes
-      console.log(reportes)
 
       if (Array.isArray(reportes)) {
         reportes = reportes.filter(r => r.IdEstado == 8)
