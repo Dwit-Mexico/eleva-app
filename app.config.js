@@ -79,6 +79,7 @@ export default {
       },
     },
     locales: {
+      '': './languages/en.json',
       es: './languages/es.json',
       en: './languages/en.json',
     },
