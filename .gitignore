@@ -84,3 +84,5 @@ web-build/
 firebase-key.json
 .env
 .expo
+/android
+/ios

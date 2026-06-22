@@ -1,6 +1,0 @@
-<resources>
-  <string name="NSNotificationDescription">"Eleva requires permission to receive notifications"</string>
-  <string name="NSCameraUsageDescription">"Eleva requires access to the camera, to take photos and send them as evidence of the reports."</string>
-  <string name="NSMicrophoneUsageDescription">"Eleva requires access to the microphone, to record audio and send it as evidence of the reports."</string>
-  <string name="NSPhotoLibraryUsageDescription">"Eleva requires permission to use the camera gallery, to send evidence of the reports."</string>
-</resources>
