@@ -53,7 +53,8 @@
     "uniwind": "^1.7.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.19.3"
+    "@babel/core": "^7.19.3",
+    "@react-native/metro-config": "^0.86.0"
   },
   "private": true,
   "expo": {

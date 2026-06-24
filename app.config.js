@@ -85,7 +85,7 @@ export default {
     },
     android: {
       package: 'com.elevapp.customerservice',
-      googleServicesFile: './google-services.json',
+      googleServicesFile: process.env.GOOGLE_SERVICES_JSON,
       permissions: [
         'VIBRATE',
         'CAMERA',

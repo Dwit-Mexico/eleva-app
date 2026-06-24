@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { ScrollView, View, Text, TouchableOpacity, ImageBackground, Image, Modal, StyleSheet } from 'react-native'
 import { useRoute, useNavigation } from '@react-navigation/native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import { Consumer } from '../../../context'
 import { FontAwesome5, Feather } from '@expo/vector-icons'
 import Container from '../../../components/container'
@@ -98,14 +99,16 @@ const Historico = ({ context }) => {
           </ScrollView>
         </View>
         <Modal visible={modalImagen} transparent={true} onBackButtonPress={() => setModalImagen(false)}>
-          <View style={styles.modalContainer}>
-            <View style={styles.closeButtonContainer}>
-              <TouchableOpacity onPress={() => setModalImagen(false)} accessible accessibilityLabel="Cerrar">
-                <Feather name="x" size={32} color="#fff" />
-              </TouchableOpacity>
+          <SafeAreaView style={styles.safeArea}>
+            <View style={styles.container}>
+              <View style={styles.closeButtonContainer}>
+                <TouchableOpacity onPress={() => setModalImagen(false)} accessible accessibilityLabel="Cerrar">
+                  <Feather name="x" size={32} color="#fff" />
+                </TouchableOpacity>
+              </View>
+              <ZoomableImage uri={zoomImagen?.uri} />
             </View>
-            <ZoomableImage uri={zoomImagen?.uri} />
-          </View>
+          </SafeAreaView>
         </Modal>
       </View>
     </Layout>
@@ -113,6 +116,17 @@ const Historico = ({ context }) => {
 }
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+  },
+  container: {
+    flex: 1,
+    backgroundColor: '#000',
+  },
+  closeButtonContainer: {
+    padding: 10,
+    alignItems: 'flex-end',
+  },
   spacing8: {
     height: 8,
   },
@@ -154,20 +168,6 @@ const styles = StyleSheet.create({
   modalContainer: {
     flex: 1,
     backgroundColor: '#000',
-  },
-  closeButtonContainer: {
-    flex: 0.1,
-    padding: 10,
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
-  },
-  video: {
-    flex: 1,
-  },
-  editButtonContainer: {
-    paddingBottom: 24,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 })
 

@@ -36,6 +36,7 @@ function Comentarios({ comentario, setComentario }) {
             multiline
             numberOfLines={8}
             maxLength={1500}
+            textAlignVertical="top"
             onChangeText={onChange}
           />
         </View>

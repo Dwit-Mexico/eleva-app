@@ -1,33 +1,39 @@
 import { View, Modal, TouchableOpacity, StyleSheet } from 'react-native'
 import { Feather } from '@expo/vector-icons'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import ExpoVideoPlayer from '../ExpoVideoPlayer'
 import ZoomableImage from '../ZoomableImage'
 
 export default function ModalViewMedia({ isVisible, onClose, type, media, onEditMedia }) {
   return (
     <Modal visible={isVisible} transparent={true} onRequestClose={onClose} animationType="fade">
-      <View style={styles.container}>
-        <View style={styles.closeButtonContainer}>
-          <TouchableOpacity onPress={onClose} accessible accessibilityLabel="Cerrar">
-            <Feather name="x" size={32} color="#fff" />
-          </TouchableOpacity>
+      <SafeAreaView style={styles.safeArea}>
+        <View style={styles.container}>
+          <View style={styles.closeButtonContainer}>
+            <TouchableOpacity onPress={onClose} accessible accessibilityLabel="Cerrar">
+              <Feather name="x" size={32} color="#fff" />
+            </TouchableOpacity>
+          </View>
+          {type === 'image' ? (
+            <ZoomableImage uri={media} />
+          ) : (
+            <ExpoVideoPlayer style={styles.video} source={media} shouldPlay={isVisible} isLooping={true} />
+          )}
+          <View style={styles.editButtonContainer}>
+            <TouchableOpacity onPress={onEditMedia} accessible accessibilityLabel="Editar">
+              <Feather name="edit" size={32} color="#fff" />
+            </TouchableOpacity>
+          </View>
         </View>
-        {type === 'image' ? (
-          <ZoomableImage uri={media} />
-        ) : (
-          <ExpoVideoPlayer style={styles.video} source={media} shouldPlay={isVisible} isLooping={true} />
-        )}
-        <View style={styles.editButtonContainer}>
-          <TouchableOpacity onPress={onEditMedia} accessible accessibilityLabel="Editar">
-            <Feather name="edit" size={32} color="#fff" />
-          </TouchableOpacity>
-        </View>
-      </View>
+      </SafeAreaView>
     </Modal>
   )
 }
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     backgroundColor: '#000',
