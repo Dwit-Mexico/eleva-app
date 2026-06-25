@@ -100,85 +100,84 @@ function AgregarUsuario() {
     setLoading(false)
   }
 
-  if (route.params) {
-    useEffect(() => {
-      let { unidades } = route.params
-      if (unidades) {
-        unidades = unidades.map(unidad => {
-          return { id: unidad.IdUnidad, name: unidad.Numero }
-        })
-        setUnidades(unidades)
-      }
-    }, [route.params])
-  }
+  useEffect(() => {
+    const unidadesParams = route.params?.unidades
+
+    if (unidadesParams) {
+      const mapped = unidadesParams.map(unidad => ({
+        id: unidad.IdUnidad,
+        name: unidad.Numero,
+      }))
+
+      setUnidades(mapped)
+    }
+  }, [route.params])
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <Layout>
-        <View className="flex-1 p-4 gap-2">
-          <View>
-            <Text>{i18n.t('addUser.unit')}</Text>
-            <SelectUnidad unidades={unidades} onChange={option => setUnidad(option)} />
-          </View>
-          <View>
-            <Text>{i18n.t('addUser.name')}</Text>
-            <TextInput
-              value={nombre}
-              style={StylesInputs.inputNormal}
-              onChangeText={text => setNombre(text)}
-              returnKeyType="next"
-              ref={ref => (inputNombre = ref)}
-              onSubmitEditing={() => inputApellidos.focus()}
-            />
-          </View>
-          <View>
-            <Text>{i18n.t('addUser.lastName')}</Text>
-            <TextInput
-              value={apellidos}
-              style={StylesInputs.inputNormal}
-              onChangeText={text => setApellidos(text)}
-              returnKeyType="next"
-              ref={ref => (inputApellidos = ref)}
-              onSubmitEditing={() => inputCorreo.focus()}
-            />
-          </View>
-          <View>
-            <Text>{i18n.t('addUser.email')}</Text>
-            <TextInput
-              value={correo}
-              style={StylesInputs.inputNormal}
-              onChangeText={text => setCorreo(text)}
-              returnKeyType="next"
-              ref={ref => (inputCorreo = ref)}
-              onSubmitEditing={() => inputTelefono.focus()}
-            />
-          </View>
-
-          <View>
-            <Text>{i18n.t('addUser.phone')}</Text>
-            <TextInput
-              value={telefono}
-              style={StylesInputs.inputNormal}
-              onChangeText={text => setTelefono(text)}
-              returnKeyType="go"
-              ref={ref => (inputTelefono = ref)}
-              onSubmitEditing={agregarUsuario.bind(this)}
-            />
-          </View>
-
-          <TouchableOpacity
-            onPress={agregarUsuario}
-            className="bg-[#B29360] w-full h-12 rounded items-center justify-center"
-          >
-            {loading ? (
-              <ActivityIndicator color="#fff" />
-            ) : (
-              <Text className="text-white text-center text-base">{i18n.t('button.add')}</Text>
-            )}
-          </TouchableOpacity>
+    <Layout>
+      <View className="flex-1 p-4 gap-2">
+        <View>
+          <Text>{i18n.t('addUser.unit')}</Text>
+          <SelectUnidad unidades={unidades} value={unidad} onChange={option => setUnidad(option)} />
         </View>
-      </Layout>
-    </TouchableWithoutFeedback>
+        <View>
+          <Text>{i18n.t('addUser.name')}</Text>
+          <TextInput
+            value={nombre}
+            style={StylesInputs.inputNormal}
+            onChangeText={text => setNombre(text)}
+            returnKeyType="next"
+            ref={ref => (inputNombre = ref)}
+            onSubmitEditing={() => inputApellidos.focus()}
+          />
+        </View>
+        <View>
+          <Text>{i18n.t('addUser.lastName')}</Text>
+          <TextInput
+            value={apellidos}
+            style={StylesInputs.inputNormal}
+            onChangeText={text => setApellidos(text)}
+            returnKeyType="next"
+            ref={ref => (inputApellidos = ref)}
+            onSubmitEditing={() => inputCorreo.focus()}
+          />
+        </View>
+        <View>
+          <Text>{i18n.t('addUser.email')}</Text>
+          <TextInput
+            value={correo}
+            style={StylesInputs.inputNormal}
+            onChangeText={text => setCorreo(text)}
+            returnKeyType="next"
+            ref={ref => (inputCorreo = ref)}
+            onSubmitEditing={() => inputTelefono.focus()}
+          />
+        </View>
+
+        <View>
+          <Text>{i18n.t('addUser.phone')}</Text>
+          <TextInput
+            value={telefono}
+            style={StylesInputs.inputNormal}
+            onChangeText={text => setTelefono(text)}
+            returnKeyType="go"
+            ref={ref => (inputTelefono = ref)}
+            onSubmitEditing={agregarUsuario.bind(this)}
+          />
+        </View>
+
+        <TouchableOpacity
+          onPress={agregarUsuario}
+          className="bg-[#B29360] w-full h-12 rounded items-center justify-center"
+        >
+          {loading ? (
+            <ActivityIndicator color="#fff" />
+          ) : (
+            <Text className="text-white text-center text-base">{i18n.t('button.add')}</Text>
+          )}
+        </TouchableOpacity>
+      </View>
+    </Layout>
   )
 }
 

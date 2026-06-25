@@ -512,7 +512,7 @@ const DetalleGarantia = ({ navigation, context }) => {
             </View>
             <View style={{ height: 8 }} />
 
-            <SelectFechas fechas={fechas} onChange={data => setFecha(data)} />
+            <SelectFechas fechas={fechas} value={fecha} onChange={data => setFecha(data)} />
 
             <View style={{ height: 8 }} />
 

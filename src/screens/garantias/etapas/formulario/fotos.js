@@ -34,14 +34,17 @@ function SeleccionarFotos({ context }) {
 
   const options = [
     {
+      id: 1,
       label: mediaType === 'image' ? i18n.t('media.takeNewPhoto') : i18n.t('media.takeNewVideo'),
       onPress: handleOpenCamera,
     },
     {
+      id: 2,
       label: mediaType === 'image' ? i18n.t('media.selectImageFromDevice') : i18n.t('media.selectVideoFromDevice'),
       onPress: handlePickMedia,
     },
     {
+      id: 3,
       label: i18n.t('media.cancel'),
       onPress: () => setBottomSheetVisible(false),
     },
@@ -102,35 +105,12 @@ function SeleccionarFotos({ context }) {
             right: 0,
             bottom: 0,
             left: 0,
-            backgroundColor: 'rgba(0, 0, 0, 0.45)',
             justifyContent: 'center',
             alignItems: 'center',
             flex: 1,
           }}
         >
-          <View
-            style={{
-              minWidth: 180,
-              paddingHorizontal: 20,
-              paddingVertical: 16,
-              borderRadius: 8,
-              backgroundColor: '#fff',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <ActivityIndicator size="large" color="#B29360" />
-            <Text
-              style={{
-                marginTop: 10,
-                fontSize: 14,
-                textAlign: 'center',
-                color: '#333',
-              }}
-            >
-              {i18n.t('documents.loading')}
-            </Text>
-          </View>
+          <ActivityIndicator size="large" color="#B29360" />
         </View>
       )}
     </Animated.View>

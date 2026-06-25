@@ -1,24 +1,38 @@
-import { View, Text, Modal, TouchableOpacity, StyleSheet } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { View, Text, Modal, TouchableOpacity, StyleSheet, FlatList } from 'react-native'
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useLanguageContext } from '../../context/lang'
 
 export default function BottomSheet({ options, isVisible, onClose }) {
   const { i18n } = useLanguageContext()
+  const insets = useSafeAreaInsets()
 
   return (
     <Modal visible={isVisible} onRequestClose={onClose} animationType="fade" transparent statusBarTranslucent={false}>
-      <SafeAreaView style={styles.safeArea}>
+      <SafeAreaView style={styles.safeArea} edges={['top', 'left', 'right']}>
         <View style={styles.container}>
           <TouchableOpacity style={styles.backdrop} activeOpacity={1} onPress={onClose} />
 
-          <View style={styles.bottomSheet}>
+          <View
+            style={[
+              styles.bottomSheet,
+              {
+                paddingBottom: Math.max(insets.bottom, 30),
+              },
+            ]}
+          >
             <Text style={styles.title}>{i18n.t('media.title')}</Text>
 
-            {options.map((option, index) => (
-              <TouchableOpacity key={index} style={styles.option} onPress={option.onPress}>
-                <Text style={styles.optionText}>{option.label}</Text>
-              </TouchableOpacity>
-            ))}
+            <FlatList
+              data={options || []}
+              keyExtractor={(item, index) => String(item.id ?? index)}
+              showsVerticalScrollIndicator={false}
+              ListEmptyComponent={<Text style={styles.emptyText}>{i18n.t('select.emptyUnit')}</Text>}
+              renderItem={({ item }) => (
+                <TouchableOpacity style={styles.option} onPress={item.onPress}>
+                  <Text style={styles.optionText}>{item.label}</Text>
+                </TouchableOpacity>
+              )}
+            />
           </View>
         </View>
       </SafeAreaView>
@@ -32,6 +46,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     justifyContent: 'flex-end',
   },
   backdrop: {
@@ -59,5 +74,10 @@ const styles = StyleSheet.create({
   optionText: {
     fontSize: 14,
     color: '#333',
+  },
+  emptyText: {
+    textAlign: 'center',
+    paddingVertical: 20,
+    color: '#777',
   },
 })
