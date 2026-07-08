@@ -2,7 +2,7 @@ export default {
   expo: {
     name: 'Eleva',
     slug: 'elevaApp',
-    version: '3.6.0',
+    version: '3.6.3',
     orientation: 'portrait',
     icon: './assets/appstore.png',
     newArchEnabled: true,
@@ -32,6 +32,7 @@ export default {
         {
           icon: './assets/notification-icon.png',
           color: '#ffffff',
+          defaultChannel: 'default',
         },
       ],
       [
@@ -45,8 +46,8 @@ export default {
       [
         'expo-video',
         {
-          supportsBackgroundPlayback: true,
-          supportsPictureInPicture: true,
+          supportsBackgroundPlayback: false,
+          supportsPictureInPicture: false,
         },
       ],
       [
@@ -79,18 +80,16 @@ export default {
       },
     },
     locales: {
-      '': './languages/en.json',
       es: './languages/es.json',
       en: './languages/en.json',
     },
     android: {
       package: 'com.elevapp.customerservice',
-      googleServicesFile: process.env.GOOGLE_SERVICES_JSON,
+      googleServicesFile: './google-services.json',
       permissions: [
         'VIBRATE',
         'CAMERA',
         'READ_CONTACTS',
-        'NOTIFICATIONS',
         'ACCESS_NETWORK_STATE',
         'READ_EXTERNAL_STORAGE',
         'WRITE_EXTERNAL_STORAGE',

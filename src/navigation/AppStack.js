@@ -36,9 +36,10 @@ const request = new Request()
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
-    shouldShowAlert: true,
     shouldPlaySound: false,
     shouldSetBadge: false,
+    shouldShowBanner: true,
+    shouldShowList: true,
   }),
 })
 
@@ -64,36 +65,8 @@ function getHeaderTitle(route) {
 async function registerForPushNotificationsAsync() {
   let pushToken = null
 
-  if (Device.isDevice) {
-    try {
-      const projectId = Constants?.expoConfig?.extra?.eas?.projectId ?? Constants?.easConfig?.projectId
-
-      if (!projectId) {
-        Alert.alert(null, 'No se ha configurado el proyecto de notificaciones')
-        return pushToken
-      }
-
-      const { status: existingStatus } = await Notifications.getPermissionsAsync()
-      if (existingStatus !== 'granted') {
-        await Notifications.requestPermissionsAsync()
-      }
-      pushToken = (
-        await Notifications.getExpoPushTokenAsync({
-          projectId,
-        })
-      ).data
-      await request.post('/aplicacion/notificaciones/set', {
-        token: pushToken,
-      })
-    } catch (error) {
-      Alert.alert(null, 'Error al registrar el dispositivo ' + error?.message || JSON.stringify(error))
-    }
-  } else {
-    Alert.alert(null, 'Solo dispositivos fisicos pueden recibir notificaciones')
-  }
-
   if (Platform.OS === 'android') {
-    Notifications.setNotificationChannelAsync('default', {
+    await Notifications.setNotificationChannelAsync('default', {
       name: 'default',
       importance: Notifications.AndroidImportance.MAX,
       vibrationPattern: [0, 250, 250, 250],
@@ -101,9 +74,40 @@ async function registerForPushNotificationsAsync() {
     })
   }
 
+  if (!Device.isDevice) {
+    Alert.alert(null, 'Solo dispositivos físicos pueden recibir notificaciones')
+    return null
+  }
+
+  try {
+    const projectId = Constants?.expoConfig?.extra?.eas?.projectId ?? Constants?.easConfig?.projectId
+
+    if (!projectId) {
+      Alert.alert(null, 'No se ha configurado el proyecto de notificaciones')
+      return null
+    }
+
+    const { status: existingStatus } = await Notifications.getPermissionsAsync()
+    let finalStatus = existingStatus
+
+    if (existingStatus !== 'granted') {
+      const { status } = await Notifications.requestPermissionsAsync()
+      finalStatus = status
+    }
+
+    if (finalStatus !== 'granted') return null
+
+    pushToken = (await Notifications.getExpoPushTokenAsync({ projectId })).data
+
+    await request.post('/aplicacion/notificaciones/set', {
+      token: pushToken,
+    })
+  } catch (error) {
+    Alert.alert(null, 'Error al registrar el dispositivo: ' + (error?.message || JSON.stringify(error)))
+  }
+
   return pushToken
 }
-
 const Stack = createStackNavigator()
 
 function AppStack(props) {
