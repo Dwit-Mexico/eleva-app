@@ -24,63 +24,44 @@ import Styles from '../../../styles/screens/DetalleStyle'
 import Colores from '../../../styles/colores'
 import { useLanguageContext } from '../../../context/lang'
 import Layout from '../../../components/layout'
+import { formatFecha, toISOString } from '../../../utils/date'
 
 const request = new Request()
 
 const DetalleGarantia = ({ navigation, context }) => {
+  const route = useRoute()
   const image = require('../../../../assets/background2.jpg')
+  const { data } = route.params
   const { locale, i18n } = useLanguageContext()
   const translate = locale === 'en'
-  const [info, setInfo] = useState({})
-  const [fechas, setFechas] = useState([])
+  const [info, setInfo] = useState(data || {})
   const [fecha, setFecha] = useState(null)
   const [comentarios, setComentarios] = useState('')
   const [loading, setLoading] = useState(false)
   const [respuesta, setRespuesta] = useState(null)
   const [modalImagen, setModalImagen] = useState(false)
   const [zoomImagen, setZoomImagen] = useState(null)
-  const route = useRoute()
 
-  if (route.params) {
-    useEffect(() => {
-      const { data } = route.params
-      if (data) {
-        setInfo(data)
-      }
-    }, [route.params])
-  }
+  const fechas = [
+    [1, info.Fecha1],
+    [2, info.Fecha2],
+    [3, info.Fecha3],
+  ]
+    .map(([id, fecha]) => {
+      const name = formatFecha(fecha)
 
-  useEffect(() => {
-    let Fechas = []
-    if (moment.utc(info.Fecha1).isAfter(moment.utc())) {
-      Fechas[0] = {
-        id: 1,
-        name: moment.utc(info.Fecha1).format('DD/MM/YYYY HH:mm'),
-      }
-    }
-    if (moment.utc(info.Fecha2).isAfter(moment.utc())) {
-      Fechas[1] = {
-        id: 2,
-        name: moment.utc(info.Fecha2).format('DD/MM/YYYY HH:mm'),
-      }
-    }
-    if (moment.utc(info.Fecha3).isAfter(moment.utc())) {
-      Fechas[2] = {
-        id: 3,
-        name: moment.utc(info.Fecha3).format('DD/MM/YYYY HH:mm'),
-      }
-    }
-    setFechas(Fechas)
-  }, [info])
+      return name ? { id, name } : null
+    })
+    .filter(Boolean)
 
   async function handleSubmit() {
     const FechaVisita =
       fecha == 1
-        ? moment(info.Fecha1).format()
+        ? toISOString(info.Fecha1)
         : fecha == 2
-          ? moment(info.Fecha2).format()
+          ? toISOString(info.Fecha2)
           : fecha == 3
-            ? moment(info.Fecha3).format()
+            ? toISOString(info.Fecha3)
             : null
 
     if (!FechaVisita) {
@@ -503,7 +484,6 @@ const DetalleGarantia = ({ navigation, context }) => {
             </View>
             <View style={Styles.lista}>
               <FontAwesome name="comments" size={24} color={Colores.DetalleText} />
-
               <Text style={Styles.listaText}>&nbsp;{info.Comentarios}</Text>
             </View>
             <View style={Styles.lista}>
