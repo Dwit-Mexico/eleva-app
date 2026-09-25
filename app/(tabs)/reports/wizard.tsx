@@ -1,9 +1,9 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'expo-router';
-import { ChevronRight } from 'lucide-react-native';
+import { Check, ChevronRight } from 'lucide-react-native';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { BackHandler, Pressable, Text, View } from 'react-native';
+import { BackHandler, Pressable, Text, TextInput, useWindowDimensions, View } from 'react-native';
 
 import { appApi } from '@/api/app';
 import { errorText } from '@/api/client';
@@ -21,12 +21,12 @@ import {
   Chip,
   EmptyState,
   ErrorMessage,
-  Field,
   Header,
   MediaSlot,
   Screen,
   Skeleton,
   StepIndicator,
+  useTheme,
 } from '@/ui';
 
 type Step = 'unit' | 'area' | 'equipment' | 'problem' | 'comment' | 'evidence' | 'summary';
@@ -37,6 +37,8 @@ export default function Wizard() {
   const { t } = useTranslation();
   const router = useRouter();
   const qc = useQueryClient();
+  const { palette } = useTheme();
+  const { fontScale } = useWindowDimensions();
   const lang = currentLanguage();
   const { unit: activeUnit, units } = useActiveUnit();
   const setActiveUnit = useActiveUnitStore((s) => s.setUnit);
@@ -110,7 +112,7 @@ export default function Wizard() {
       const { data } = await appApi.createRequest(form);
       clear();
       void qc.invalidateQueries({ queryKey: keys.requests });
-      router.replace({ pathname: '/report/sent', params: { kind: 'guided', folio: data.folio } });
+      router.replace({ pathname: '/reports/sent', params: { kind: 'guided', folio: data.folio } });
     } catch (e) {
       setError(errorText(e, lang));
     } finally {
@@ -126,13 +128,6 @@ export default function Wizard() {
     comment: t('report.qComment'),
     evidence: t('report.qPhotos'),
     summary: t('report.qSummary'),
-  };
-  const hint: Partial<Record<Step, string>> = {
-    unit: t('report.selUnit'),
-    area: t('report.selArea'),
-    equipment: t('report.selEquip'),
-    problem: t('report.selProb'),
-    summary: t('report.summaryHelp'),
   };
 
   // Opciones con carga, error y lista vacía.
@@ -168,36 +163,44 @@ export default function Wizard() {
   const selectedUnit = units.find((u) => u.unitId === unitId);
   const photos = draft.media.filter((m) => m.kind === 'photo');
   const video = draft.media.find((m) => m.kind === 'video');
-  const evidenceSummary =
-    draft.media.length === 0
-      ? t('report.none')
-      : `${t('report.photos', { count: photos.length })}${video ? ` ${t('report.withVideo')}` : ''}`;
 
-  const summaryRows: { step: Step; label: string; value: string }[] = [
-    ...(units.length > 1 ? [{ step: 'unit' as Step, label: t('report.unit'), value: selectedUnit?.label ?? '' }] : []),
+  const rawRows: { step: Step; label: string; value: string }[] = [
+    { step: 'unit', label: t('report.unit'), value: selectedUnit?.label ?? '' },
     { step: 'area', label: t('report.area'), value: draft.area ? loc(draft.area.name, lang) : '' },
     { step: 'equipment', label: t('report.equipment'), value: draft.equipment ? loc(draft.equipment.name, lang) : '' },
     { step: 'problem', label: t('report.problem'), value: draft.problem ? loc(draft.problem.name, lang) : '' },
-    { step: 'comment', label: t('report.comments'), value: draft.description.trim() || t('report.none') },
-    { step: 'evidence', label: t('report.evidence'), value: evidenceSummary },
+    { step: 'comment', label: t('report.comments'), value: draft.description.trim() },
+    { step: 'evidence', label: t('report.evidence'), value: draft.media.length ? t('report.files', { count: draft.media.length }) : '' },
   ];
+  // Solo los pasos que existen (la vivienda, si hay más de una); vacías en cursiva.
+  const summaryRows = rawRows
+    .filter((r) => steps.includes(r.step))
+    .map((r) => ({ ...r, value: r.value || t('report.none'), empty: !r.value }));
 
   return (
     <Screen
-      header={<Header title={t('report.quickTitle')} back={() => (index > 0 ? go(index - 1) : setLeaving(true))} />}
+      header={
+        <>
+          <Header
+            title={t('report.newReport')}
+            subtitle={fontScale > 1 ? undefined : selectedUnit?.label}
+            back={() => (index > 0 ? go(index - 1) : setLeaving(true))}
+          />
+          <View className="gap-2 px-5 pt-4">
+            <StepIndicator current={index + 1} total={steps.length} />
+          </View>
+        </>
+      }
       footer={
         <View className="gap-3">
           {error ? <ErrorMessage message={error} /> : null}
-          <View className="flex-row gap-3">
-            <View className="flex-1">
-              <Button
-                label={t('common.back')}
-                variant="secondary"
-                onPress={() => (index > 0 ? go(index - 1) : setLeaving(true))}
-                fullWidth
-              />
-            </View>
-            <View className="flex-1">
+          <View className="flex-row gap-2.5">
+            {index > 0 ? (
+              <View className="flex-1">
+                <Button label={t('common.back')} variant="secondary" onPress={() => go(index - 1)} fullWidth />
+              </View>
+            ) : null}
+            <View className="flex-[2]">
               {step === 'summary' ? (
                 <Button label={t('report.send')} onPress={send} loading={sending} fullWidth />
               ) : (
@@ -208,28 +211,34 @@ export default function Wizard() {
         </View>
       }
     >
-      <StepIndicator current={index + 1} total={steps.length} />
-      <View className="gap-2">
-        <Text className="text-title font-semibold text-text" accessibilityRole="header">
-          {question[step]}
-        </Text>
-        {hint[step] ? <Text className="text-body text-text-soft">{hint[step]}</Text> : null}
-      </View>
+      <Text className="text-title font-semibold text-text" accessibilityRole="header">
+        {question[step]}
+      </Text>
 
       {step === 'unit' ? (
-        <View className="flex-row flex-wrap gap-2" accessibilityRole="radiogroup">
-          {units.map((u) => (
-            <Chip
-              key={u.unitId}
-              label={`${u.label} · ${u.name}`}
-              selected={unitId === u.unitId}
-              onPress={() => {
-                // Cambiar de vivienda reinicia la clasificación.
-                update({ unitId: u.unitId, area: undefined, equipment: undefined, problem: undefined });
-                setActiveUnit(u.unitId);
-              }}
-            />
-          ))}
+        <View className="gap-2" accessibilityRole="radiogroup">
+          {units.map((u) => {
+            const on = unitId === u.unitId;
+            return (
+              <Pressable
+                key={u.unitId}
+                onPress={() => {
+                  // Cambiar de vivienda reinicia la clasificación.
+                  update({ unitId: u.unitId, area: undefined, equipment: undefined, problem: undefined });
+                  setActiveUnit(u.unitId);
+                }}
+                accessibilityRole="radio"
+                accessibilityState={{ selected: on }}
+                className={`min-h-16 flex-row items-center gap-3 rounded-md border bg-surface-1 px-4 py-3.5 ${on ? 'border-brand' : 'border-border'}`}
+              >
+                <View className="min-w-0 flex-1">
+                  <Text className="text-body-lg text-text">{u.label}</Text>
+                  {u.address ? <Text className="text-caption text-text-soft">{u.address}</Text> : null}
+                </View>
+                {on ? <Check size={20} color={palette.brand} strokeWidth={2} /> : null}
+              </Pressable>
+            );
+          })}
         </View>
       ) : null}
 
@@ -270,43 +279,57 @@ export default function Wizard() {
         : null}
 
       {step === 'comment' ? (
-        <Field
-          label={t('report.comments')}
-          value={draft.description}
-          onChangeText={(description) => update({ description })}
-          placeholder={t('report.commentPh')}
-          hint={`${t('report.commentHelp')} ${draft.description.length}/1500`}
-          multiline
-          maxLength={1500}
-        />
-      ) : null}
-
-      {step === 'evidence' ? (
-        <View className="gap-3">
-          <Text className="text-body text-text-soft">{t('report.mediaHelp')}</Text>
-          <View className="flex-row gap-3">
-            {Array.from({ length: MAX_PHOTOS }, (_, i) => {
-              const m = photos[i];
-              return (
-                <MediaSlot
-                  key={`p${i}`}
-                  kind="photo"
-                  index={i + 1}
-                  uri={m?.uri}
-                  onPress={() => (m ? setSelected(draft.media.indexOf(m)) : picker.open('photo'))}
-                />
-              );
-            })}
-            <MediaSlot
-              kind="video"
-              uri={video?.uri}
-              onPress={() => (video ? setSelected(draft.media.indexOf(video)) : picker.open('video'))}
-            />
+        <View className="gap-2">
+          <TextInput
+            value={draft.description}
+            onChangeText={(description) => update({ description })}
+            placeholder={t('report.commentPh')}
+            placeholderTextColor={palette.textMute}
+            selectionColor={palette.brand}
+            multiline
+            maxLength={1500}
+            accessibilityLabel={t('report.qComment')}
+            className="min-h-[176px] rounded-sm border border-border bg-surface-2 p-3.5 text-body text-text"
+            style={{ textAlignVertical: 'top' }}
+          />
+          <View className="flex-row justify-between gap-3">
+            <Text className="flex-1 text-label text-text-mute">{t('report.commentHelp')}</Text>
+            <Text className="text-label text-text-mute">{draft.description.length}/1500</Text>
           </View>
         </View>
       ) : null}
 
+      {step === 'evidence' ? (
+        <View className="gap-3">
+          <View className="flex-row flex-wrap gap-3">
+            {Array.from({ length: MAX_PHOTOS }, (_, i) => {
+              const m = photos[i];
+              return (
+                <View key={`p${i}`} className="w-[47.5%]">
+                  <MediaSlot
+                    kind="photo"
+                    index={i + 1}
+                    uri={m?.uri}
+                    onPress={() => (m ? setSelected(draft.media.indexOf(m)) : picker.open('photo'))}
+                  />
+                </View>
+              );
+            })}
+            <View className="w-[47.5%]">
+              <MediaSlot
+                kind="video"
+                uri={video?.uri}
+                onPress={() => (video ? setSelected(draft.media.indexOf(video)) : picker.open('video'))}
+              />
+            </View>
+          </View>
+          <Text className="text-caption text-text-mute">{t('report.mediaHelp')}</Text>
+        </View>
+      ) : null}
+
       {step === 'summary' ? (
+        <View className="gap-4">
+        <Text className="text-body text-text-soft">{t('report.summaryHelp')}</Text>
         <View className="overflow-hidden rounded-md border border-border bg-surface-1">
           {summaryRows.map((row, i) => (
             <Pressable
@@ -314,17 +337,19 @@ export default function Wizard() {
               onPress={() => go(steps.indexOf(row.step))}
               accessibilityRole="button"
               accessibilityLabel={`${row.label}: ${row.value}. ${t('report.edit')}`}
-              className={`flex-row items-center gap-3 px-4 py-3.5 active:opacity-80 ${i > 0 ? 'border-t border-border' : ''}`}
+              className={`min-h-14 flex-row items-center gap-3 px-4 py-3 active:opacity-80 ${i < summaryRows.length - 1 ? 'border-b border-surface-2' : ''}`}
             >
-              <View className="flex-1 gap-0.5">
-                <Text className="text-label font-medium text-text-mute">{row.label}</Text>
-                <Text className="text-body text-text" numberOfLines={3}>
-                  {row.value}
-                </Text>
-              </View>
-              <Text className="text-caption font-medium text-brand-soft">{t('report.edit')}</Text>
+              <Text className="w-[84px] text-label font-medium text-text-mute">{row.label}</Text>
+              <Text
+                className={`min-w-0 flex-1 text-body ${row.empty ? 'italic text-text-mute' : 'text-text'}`}
+                numberOfLines={3}
+              >
+                {row.value}
+              </Text>
+              <Text className="text-caption font-semibold text-brand-soft">{t('report.edit')}</Text>
             </Pressable>
           ))}
+        </View>
         </View>
       ) : null}
 

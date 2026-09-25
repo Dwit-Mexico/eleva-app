@@ -1,18 +1,14 @@
 import type { TFunction } from 'i18next';
 
-// Fecha relativa corta ("Hace 2 días"). Después de una semana, la fecha
-// completa dd/mm/aaaa. Propio en vez de Intl.RelativeTimeFormat para no
-// depender de lo que traiga Hermes.
+// Fecha relativa por día, como el prototipo: hoy, ayer, hace N días,
+// semanas o meses.
 export function relativeTime(date: Date, t: TFunction, now: Date = new Date()): string {
-  const minutes = Math.floor((now.getTime() - date.getTime()) / 60000);
-  if (minutes < 1) return t('time.now');
-  if (minutes < 60) return t('time.minutes', { count: minutes });
-  const hours = Math.floor(minutes / 60);
-  if (hours < 24 && now.getDate() === date.getDate()) return t('time.hours', { count: hours });
   const days = Math.round((startOfDay(now) - startOfDay(date)) / 86400000);
-  if (days <= 1) return t('time.yesterday');
+  if (days <= 0) return t('time.today');
+  if (days === 1) return t('time.yesterday');
   if (days < 7) return t('time.days', { count: days });
-  return formatDate(date);
+  if (days < 30) return t('time.weeks', { count: Math.floor(days / 7) });
+  return t('time.months', { count: Math.max(1, Math.floor(days / 30)) });
 }
 
 export function formatDate(date: Date): string {

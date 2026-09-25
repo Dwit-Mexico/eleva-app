@@ -34,8 +34,8 @@ export function StatusBadge({ statusId }: { statusId: number }) {
   const { t } = useTranslation();
   const tone = statusTone(statusId);
   return (
-    <View className={`h-[22px] justify-center self-start rounded-pill px-[9px] ${fill[tone]}`}>
-      <Text className={`text-label font-semibold ${tone === 'neutral' ? 'text-text-soft' : 'text-ink'}`}>
+    <View className={`min-h-[22px] justify-center self-start rounded-pill px-[9px] py-0.5 ${fill[tone]}`}>
+      <Text className={`text-label font-semibold tracking-[0.24px] ${tone === 'neutral' ? 'text-text-soft' : 'text-ink'}`}>
         {t(`status.${statusId}` as 'status.1', { defaultValue: `#${statusId}` })}
       </Text>
     </View>

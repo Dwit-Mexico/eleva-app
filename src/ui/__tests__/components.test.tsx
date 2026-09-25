@@ -11,7 +11,7 @@ beforeAll(() => i18n.changeLanguage('es'));
 describe('StatusBadge', () => {
   it('traduce el IdEstado y usa colores semánticos', () => {
     render(<StatusBadge statusId={8} />);
-    expect(screen.getByText('Por valorar')).toBeTruthy();
+    expect(screen.getByText('Califica la reparación')).toBeTruthy();
     expect(statusTone(7)).toBe('warning');
     expect(statusTone(5)).toBe('success');
     expect(statusTone(9)).toBe('neutral');

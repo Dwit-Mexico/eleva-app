@@ -72,7 +72,8 @@ type ScreenProps = {
 // Fondo sólido bg (sin foto), margen lateral 20.
 export function Screen({ children, header, banner, scroll = true, footer, onRefresh, refreshing }: ScreenProps) {
   const { palette } = useTheme();
-  const body = <View className="gap-4 px-5 py-5">{children}</View>;
+  // padding 16 20 28 y gap 20, como el contenedor de cada pantalla del prototipo.
+  const body = <View className="gap-5 px-5 pb-7 pt-4">{children}</View>;
   return (
     <SafeAreaView edges={['top', 'left', 'right']} className="flex-1 bg-bg">
       {header}
