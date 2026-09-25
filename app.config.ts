@@ -4,16 +4,21 @@ import type { ExpoConfig } from 'expo/config';
 // la app deja de ser una actualización de la que ya está publicada (3.6.4).
 const PROJECT_ID = '2c1ccd3f-c39a-498f-b339-c49cb9f40e47';
 
+// APP_VARIANT=development: dev build con su propio id, para instalarlo junto a
+// la app de tiendas (misma id + otra firma no se puede instalar). Sin Firebase:
+// google-services.json solo conoce el package de producción.
+const DEV = process.env.APP_VARIANT === 'development';
+
 const config: ExpoConfig = {
-  name: 'Eleva',
+  name: DEV ? 'Eleva (dev)' : 'Eleva',
   slug: 'elevaApp',
   version: '4.0.0',
   orientation: 'portrait',
   icon: './assets/appstore.png',
-  scheme: 'eleva',
+  scheme: DEV ? 'eleva-dev' : 'eleva',
   userInterfaceStyle: 'automatic',
   ios: {
-    bundleIdentifier: 'com.elevacapitalgroup.app',
+    bundleIdentifier: DEV ? 'com.elevacapitalgroup.app.dev' : 'com.elevacapitalgroup.app',
     supportsTablet: false,
     requireFullScreen: true,
     infoPlist: {
@@ -22,9 +27,9 @@ const config: ExpoConfig = {
     },
   },
   android: {
-    package: 'com.elevapp.customerservice',
+    package: DEV ? 'com.elevapp.customerservice.dev' : 'com.elevapp.customerservice',
     // En EAS viene de un secret de tipo archivo; en local, del archivo (ignorado por git).
-    googleServicesFile: process.env.GOOGLE_SERVICES_JSON ?? './google-services.json',
+    googleServicesFile: DEV ? undefined : (process.env.GOOGLE_SERVICES_JSON ?? './google-services.json'),
     adaptiveIcon: {
       foregroundImage: './assets/appstore.png',
       backgroundColor: '#18191A',

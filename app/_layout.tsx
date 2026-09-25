@@ -1,23 +1,26 @@
 import '../global.css';
+import '@/i18n';
 
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { useColorScheme, View } from 'react-native';
+import { useColorScheme } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import { themeStyles } from '@/ui/theme';
+import { usePrefs } from '@/store/prefs';
+import { ThemeProvider } from '@/ui';
 import type { ThemeName } from '@/ui/tokens';
 
 export default function RootLayout() {
-  // Por defecto sigue al sistema: oscuro → dark, claro → cream. La elección
-  // manual (Perfil → Accesibilidad) llega en la fase 5.
-  const theme: ThemeName = useColorScheme() === 'light' ? 'cream' : 'dark';
+  // Por defecto sigue al sistema: oscuro → dark, claro → cream.
+  const system = useColorScheme();
+  const pref = usePrefs((s) => s.theme);
+  const theme: ThemeName = pref === 'system' ? (system === 'light' ? 'cream' : 'dark') : pref;
   return (
     <SafeAreaProvider>
-      <View style={themeStyles[theme]} className="flex-1 bg-bg">
+      <ThemeProvider name={theme}>
         <StatusBar style={theme === 'dark' ? 'light' : 'dark'} />
         <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: 'transparent' } }} />
-      </View>
+      </ThemeProvider>
     </SafeAreaProvider>
   );
 }

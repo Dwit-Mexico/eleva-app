@@ -11,7 +11,8 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "test": "jest",
-    "check": "bun run typecheck && bun run lint && bun run test"
+    "check": "bun run typecheck && bun run lint && bun run test",
+    "android:dev": "APP_VARIANT=development expo run:android"
   },
   "dependencies": {
     "@hookform/resolvers": "5.9.1",
