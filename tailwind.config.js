@@ -4,6 +4,7 @@
 const c = (name) => `rgb(var(--${name}) / <alpha-value>)`;
 // Fondos de aviso: el color semántico al 12–18 % según el tema.
 const tint = (name) => `rgb(var(--${name}) / var(--tint))`;
+const { platformSelect } = require('nativewind/theme');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -11,6 +12,8 @@ module.exports = {
   presets: [require('nativewind/preset')],
   theme: {
     extend: {
+      // Folios: la monoespaciada del sistema (Menlo en iOS).
+      fontFamily: { mono: platformSelect({ ios: 'Menlo', default: 'monospace' }) },
       colors: {
         bg: c('bg'),
         'surface-1': c('surface-1'),

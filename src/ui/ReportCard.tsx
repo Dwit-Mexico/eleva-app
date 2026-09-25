@@ -1,4 +1,4 @@
-import { ChevronRight } from 'lucide-react-native';
+import { MapPin, Star } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
 import { Text, View } from 'react-native';
 
@@ -14,11 +14,12 @@ type Props = {
   createdAt: Date;
   title: string;
   location: string;
-  cta?: string; // p. ej. "Valorar el servicio" (warning)
+  cta?: string; // "Califica la reparación": botón con borde warning
+  pin?: boolean; // ícono de ubicación (lista; el Inicio no lo lleva)
   onPress?: () => void;
 };
 
-export function ReportCard({ folio, statusId, createdAt, title, location, cta, onPress }: Props) {
+export function ReportCard({ folio, statusId, createdAt, title, location, cta, pin, onPress }: Props) {
   const { t } = useTranslation();
   const { palette } = useTheme();
   return (
@@ -32,11 +33,14 @@ export function ReportCard({ folio, statusId, createdAt, title, location, cta, o
         <Text className="text-body-lg text-text" numberOfLines={2}>
           {title}
         </Text>
-        <Text className="text-caption text-text-soft">{location}</Text>
+        <View className="flex-row items-center gap-1.5">
+          {pin ? <MapPin size={14} color={palette.textSoft} strokeWidth={2} /> : null}
+          <Text className="flex-1 text-caption text-text-soft">{location}</Text>
+        </View>
         {cta ? (
-          <View className="mt-1 flex-row items-center justify-between rounded-sm bg-warning-tint px-3 py-2.5">
-            <Text className="text-body font-semibold text-warning">{cta}</Text>
-            <ChevronRight size={18} color={palette.warning} strokeWidth={2} />
+          <View className="mt-0.5 min-h-11 flex-row items-center justify-center gap-2 rounded-sm border border-warning px-3">
+            <Star size={16} color={palette.warning} strokeWidth={2} />
+            <Text className="text-[14px] font-semibold text-warning">{cta}</Text>
           </View>
         ) : null}
       </View>

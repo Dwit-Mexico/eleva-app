@@ -67,13 +67,14 @@ type ScreenProps = {
   footer?: ReactNode; // barra fija inferior (wizard)
   onRefresh?: () => void; // jalar para actualizar
   refreshing?: boolean;
+  bodyClassName?: string; // reemplaza el padding y gap del cuerpo (lista: segmentos a todo lo ancho)
 };
 
 // Fondo sólido bg (sin foto), margen lateral 20.
-export function Screen({ children, header, banner, scroll = true, footer, onRefresh, refreshing }: ScreenProps) {
+export function Screen({ children, header, banner, scroll = true, footer, onRefresh, refreshing, bodyClassName }: ScreenProps) {
   const { palette } = useTheme();
   // padding 16 20 28 y gap 20, como el contenedor de cada pantalla del prototipo.
-  const body = <View className="gap-5 px-5 pb-7 pt-4">{children}</View>;
+  const body = <View className={bodyClassName ?? 'gap-5 px-5 pb-7 pt-4'}>{children}</View>;
   return (
     <SafeAreaView edges={['top', 'left', 'right']} className="flex-1 bg-bg">
       {header}
