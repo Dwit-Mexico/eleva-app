@@ -1,0 +1,36 @@
+{
+  "cli": {
+    "version": ">= 16.0.0",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "channel": "development",
+      "env": { "EXPO_PUBLIC_API_URL": "https://api-v1.elevacap.com" }
+    },
+    "preview": {
+      "distribution": "internal",
+      "channel": "preview",
+      "android": { "buildType": "apk" },
+      "env": { "EXPO_PUBLIC_API_URL": "https://api-customerservice.elevacap.com" }
+    },
+    "production": {
+      "channel": "production",
+      "autoIncrement": true,
+      "ios": { "resourceClass": "m-medium" },
+      "env": { "EXPO_PUBLIC_API_URL": "https://api-customerservice.elevacap.com" }
+    }
+  },
+  "submit": {
+    "production": {
+      "ios": {
+        "appleId": "sistemas@dwitmexico.com",
+        "ascAppId": "1567124079",
+        "appleTeamId": "YT3ZZQ9F33"
+      },
+      "android": { "track": "internal" }
+    }
+  }
+}

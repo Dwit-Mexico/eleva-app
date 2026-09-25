@@ -1,0 +1,22 @@
+node_modules/
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+# nativos: se generan con prebuild / EAS
+/android
+/ios
+# secretos: van en EAS (secret de archivo) o 1Password, nunca en git
+.env
+google-services.json
+GoogleService-Info.plist
+*.jks
+*.keystore
+*.p8
+*.p12
+*.key
+*.mobileprovision
+# tests y editores
+coverage/
+.DS_Store
+*.log
