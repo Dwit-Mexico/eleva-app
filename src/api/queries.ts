@@ -1,0 +1,47 @@
+import { useQuery } from '@tanstack/react-query';
+
+import { appApi } from './app';
+
+// Llaves de caché compartidas (la persistencia sin conexión llega en la fase 6).
+export const keys = {
+  units: ['units'] as const,
+  requests: ['requests'] as const,
+  request: (id: number) => ['requests', id] as const,
+  areas: (unitId: number) => ['areas', unitId] as const,
+  equipment: (unitAreaId: number) => ['equipment', unitAreaId] as const,
+  problems: (equipmentId: number) => ['problems', equipmentId] as const,
+  notifications: ['notifications'] as const,
+};
+
+const data = <T,>(p: Promise<{ data: T }>) => p.then((r) => r.data);
+
+export const useUnits = () => useQuery({ queryKey: keys.units, queryFn: () => data(appApi.units()) });
+
+export const useRequests = () => useQuery({ queryKey: keys.requests, queryFn: () => data(appApi.requests()) });
+
+export const useUnitAreas = (unitId?: number) =>
+  useQuery({
+    queryKey: keys.areas(unitId ?? 0),
+    queryFn: () => data(appApi.unitAreas(unitId!)),
+    enabled: !!unitId,
+    staleTime: 10 * 60_000,
+  });
+
+export const useAreaEquipment = (unitAreaId?: number) =>
+  useQuery({
+    queryKey: keys.equipment(unitAreaId ?? 0),
+    queryFn: () => data(appApi.areaEquipment(unitAreaId!)),
+    enabled: !!unitAreaId,
+    staleTime: 10 * 60_000,
+  });
+
+export const useEquipmentProblems = (equipmentId?: number) =>
+  useQuery({
+    queryKey: keys.problems(equipmentId ?? 0),
+    queryFn: () => data(appApi.equipmentProblems(equipmentId!)),
+    enabled: !!equipmentId,
+    staleTime: 10 * 60_000,
+  });
+
+export const useNotifications = () =>
+  useQuery({ queryKey: keys.notifications, queryFn: () => data(appApi.notifications()) });

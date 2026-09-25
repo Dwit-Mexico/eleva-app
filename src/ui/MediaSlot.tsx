@@ -30,12 +30,14 @@ export function MediaSlot({ kind, index = 1, uri, onPress, disabled }: Props) {
     >
       {uri ? (
         <View className="flex-1">
-          <Image source={{ uri }} style={{ flex: 1 }} contentFit="cover" accessibilityIgnoresInvertColors />
-          {kind === 'video' ? (
-            <View className="absolute inset-0 items-center justify-center">
+          {kind === 'photo' ? (
+            <Image source={{ uri }} style={{ flex: 1 }} contentFit="cover" accessibilityIgnoresInvertColors />
+          ) : (
+            // Un video no tiene miniatura sin decodificarlo: se marca con play.
+            <View className="flex-1 items-center justify-center bg-surface-2">
               <Play size={28} color={palette.text} fill={palette.text} />
             </View>
-          ) : null}
+          )}
           <View className="absolute right-1.5 top-1.5 h-6 w-6 items-center justify-center rounded-pill bg-success">
             <Check size={14} color={palette.ink} strokeWidth={3} />
           </View>

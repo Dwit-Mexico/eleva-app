@@ -29,7 +29,9 @@ export function ReportCard({ folio, statusId, createdAt, title, location, cta, o
           <StatusBadge statusId={statusId} />
           <Text className="ml-auto text-caption text-text-soft">{relativeTime(createdAt, t)}</Text>
         </View>
-        <Text className="text-body-lg text-text">{title}</Text>
+        <Text className="text-body-lg text-text" numberOfLines={2}>
+          {title}
+        </Text>
         <View className="flex-row items-center gap-1.5">
           <MapPin size={14} color={palette.textSoft} strokeWidth={2} />
           <Text className="flex-1 text-caption text-text-soft">{location}</Text>

@@ -63,6 +63,8 @@ export default function RootLayout() {
             <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: 'transparent' } }}>
               <Stack.Protected guard={signedIn}>
                 <Stack.Screen name="(tabs)" />
+                <Stack.Screen name="report" />
+                <Stack.Screen name="notifications" />
                 <Stack.Screen name="dev/components" />
               </Stack.Protected>
               <Stack.Protected guard={!signedIn}>

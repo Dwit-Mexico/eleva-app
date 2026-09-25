@@ -2,7 +2,7 @@ import { useRouter } from 'expo-router';
 import { Bell, ChevronLeft } from 'lucide-react-native';
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Pressable, ScrollView, Text, View } from 'react-native';
+import { Pressable, RefreshControl, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { useTheme } from './ThemeProvider';
@@ -65,17 +65,35 @@ type ScreenProps = {
   banner?: ReactNode;
   scroll?: boolean;
   footer?: ReactNode; // barra fija inferior (wizard)
+  onRefresh?: () => void; // jalar para actualizar
+  refreshing?: boolean;
 };
 
 // Fondo sólido bg (sin foto), margen lateral 20.
-export function Screen({ children, header, banner, scroll = true, footer }: ScreenProps) {
+export function Screen({ children, header, banner, scroll = true, footer, onRefresh, refreshing }: ScreenProps) {
+  const { palette } = useTheme();
   const body = <View className="gap-4 px-5 py-5">{children}</View>;
   return (
     <SafeAreaView edges={['top', 'left', 'right']} className="flex-1 bg-bg">
       {header}
       {banner}
       {scroll ? (
-        <ScrollView className="flex-1" contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="handled">
+        <ScrollView
+          className="flex-1"
+          contentContainerStyle={{ flexGrow: 1 }}
+          keyboardShouldPersistTaps="handled"
+          refreshControl={
+            onRefresh ? (
+              <RefreshControl
+                refreshing={!!refreshing}
+                onRefresh={onRefresh}
+                tintColor={palette.brandSoft}
+                colors={[palette.brand]}
+                progressBackgroundColor={palette.surface2}
+              />
+            ) : undefined
+          }
+        >
           {body}
         </ScrollView>
       ) : (

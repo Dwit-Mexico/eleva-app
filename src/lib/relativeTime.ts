@@ -23,3 +23,11 @@ export function formatDate(date: Date): string {
 function startOfDay(d: Date): number {
   return new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
 }
+
+// "jueves 25 sep · 10:00" en el idioma de la app (visitas).
+export function formatVisit(date: Date, lang: 'es' | 'en'): string {
+  const locale = lang === 'en' ? 'en-US' : 'es-MX';
+  const day = date.toLocaleDateString(locale, { weekday: 'long', day: 'numeric', month: 'short' });
+  const time = date.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit', hour12: false });
+  return `${day} · ${time}`;
+}
