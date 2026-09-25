@@ -15,7 +15,7 @@ export function CodeInput({ value, onChange, error }: { value: string; onChange:
   const [focused, setFocused] = useState(false);
   return (
     <Pressable onPress={() => input.current?.focus()} accessible={false}>
-      <View className="flex-row gap-2">
+      <View className="flex-row gap-2.5">
         {Array.from({ length: LENGTH }, (_, i) => {
           const current = focused && i === Math.min(value.length, LENGTH - 1);
           return (
@@ -23,7 +23,7 @@ export function CodeInput({ value, onChange, error }: { value: string; onChange:
               key={i}
               className={`h-15 flex-1 items-center justify-center rounded-sm border bg-surface-2 ${error ? 'border-danger' : current ? 'border-brand' : 'border-border'}`}
             >
-              <Text className="text-title font-semibold text-text">{value[i] ?? ''}</Text>
+              <Text className="text-[24px] font-semibold text-text">{value[i] ?? ''}</Text>
             </View>
           );
         })}

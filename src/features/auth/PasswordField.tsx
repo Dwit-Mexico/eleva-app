@@ -49,11 +49,11 @@ export function PasswordRules({ value }: { value: string }) {
       {rules.map((r) => (
         <View key={r.label} className="flex-row items-center gap-2" accessible accessibilityState={{ checked: r.ok }}>
           {r.ok ? (
-            <Check size={16} color={palette.success} strokeWidth={2.5} />
+            <Check size={16} color={palette.success} strokeWidth={2} />
           ) : (
             <Circle size={16} color={palette.textMute} strokeWidth={2} />
           )}
-          <Text className={`text-caption ${r.ok ? 'text-success' : 'text-text-soft'}`}>{r.label}</Text>
+          <Text className="text-[13px] leading-[18px] text-text-soft">{r.label}</Text>
         </View>
       ))}
     </View>

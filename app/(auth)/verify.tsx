@@ -5,11 +5,11 @@ import { Text, View } from 'react-native';
 
 import { authApi } from '@/api/auth';
 import { errorText } from '@/api/client';
-import { AuthScreen } from '@/features/auth/AuthScreen';
+import { AuthScreen, TextLink } from '@/features/auth/AuthScreen';
 import { CodeInput } from '@/features/auth/CodeInput';
 import { useAuthFlow } from '@/features/auth/flow';
 import { currentLanguage } from '@/store/prefs';
-import { Button, ErrorMessage, Header } from '@/ui';
+import { Button, ErrorMessage } from '@/ui';
 
 const RESEND_AFTER = 60; // segundos
 
@@ -58,24 +58,18 @@ export default function Verify() {
 
   const mmss = `00:${String(wait).padStart(2, '0')}`;
   return (
-    <AuthScreen
-      header={<Header title="" back />}
-      title={t('auth.verifyTitle')}
-      description={t('auth.verifyDesc', { email: flow.email })}
-    >
+    <AuthScreen title={t('auth.verifyTitle')} back description={t('auth.verifyDesc', { email: flow.email })}>
       <View className="gap-3">
         <CodeInput value={code} onChange={setCode} error={!!error} />
         {error ? <ErrorMessage message={error} /> : null}
         {notice && !error ? <Text className="text-caption text-success">{notice}</Text> : null}
       </View>
-      <View className="gap-2">
-        <Button label={t('auth.verify')} onPress={submit} loading={loading} disabled={code.length !== 6} fullWidth />
-        <Button
+      <Button label={t('auth.verify')} onPress={submit} loading={loading} disabled={code.length !== 6} fullWidth />
+      <View className="-mt-3">
+        <TextLink
           label={wait > 0 ? t('auth.resendIn', { time: mmss }) : t('auth.resend')}
-          variant="ghost"
           onPress={resend}
           disabled={wait > 0}
-          fullWidth
         />
       </View>
     </AuthScreen>

@@ -2,7 +2,6 @@ import { useRouter } from 'expo-router';
 import { Mail } from 'lucide-react-native';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { View } from 'react-native';
 
 import { authApi } from '@/api/auth';
 import { errorText } from '@/api/client';
@@ -10,7 +9,7 @@ import { AuthScreen } from '@/features/auth/AuthScreen';
 import { useAuthFlow } from '@/features/auth/flow';
 import { validEmail } from '@/features/auth/password';
 import { currentLanguage } from '@/store/prefs';
-import { Button, ErrorMessage, Field, Header } from '@/ui';
+import { Button, ErrorMessage, Field } from '@/ui';
 
 export default function Recover() {
   const { t } = useTranslation();
@@ -37,22 +36,21 @@ export default function Recover() {
   };
 
   return (
-    <AuthScreen header={<Header title="" back />} title={t('auth.recover')} description={t('auth.recoverDesc')}>
-      <View className="gap-4">
-        <Field
-          label={t('auth.email')}
-          icon={Mail}
-          value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
-          autoCapitalize="none"
-          autoCorrect={false}
-          autoComplete="email"
-          returnKeyType="send"
-          onSubmitEditing={submit}
-        />
-        {error ? <ErrorMessage message={error} /> : null}
-      </View>
+    <AuthScreen title={t('auth.recover')} back description={t('auth.recoverDesc')}>
+      <Field
+        label={t('auth.email')}
+        icon={Mail}
+        value={email}
+        onChangeText={setEmail}
+        placeholder="nombre@correo.com"
+        keyboardType="email-address"
+        autoCapitalize="none"
+        autoCorrect={false}
+        autoComplete="email"
+        returnKeyType="send"
+        onSubmitEditing={submit}
+      />
+      {error ? <ErrorMessage message={error} /> : null}
       <Button label={t('auth.requestCode')} onPress={submit} loading={loading} fullWidth />
     </AuthScreen>
   );

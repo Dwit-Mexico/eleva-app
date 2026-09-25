@@ -1,7 +1,6 @@
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { View } from 'react-native';
 
 import { authApi } from '@/api/auth';
 import { errorText } from '@/api/client';
@@ -11,7 +10,7 @@ import { passwordOk } from '@/features/auth/password';
 import { PasswordField, PasswordRules } from '@/features/auth/PasswordField';
 import { currentLanguage } from '@/store/prefs';
 import { useSession } from '@/store/session';
-import { Button, ErrorMessage, Header } from '@/ui';
+import { Button, ErrorMessage } from '@/ui';
 
 export default function Reset() {
   const { t } = useTranslation();
@@ -42,28 +41,29 @@ export default function Reset() {
     }
   };
 
+  // No está en el prototipo: sigue el patrón de activar.
   return (
-    <AuthScreen header={<Header title="" back />} title={t('auth.resetTitle')} description={t('auth.resetDesc')}>
-      <View className="gap-4">
-        <PasswordField
-          label={t('auth.newPassword')}
-          value={password}
-          onChangeText={setPassword}
-          autoComplete="new-password"
-          textContentType="newPassword"
-        />
-        <PasswordRules value={password} />
-        <PasswordField
-          label={t('auth.repeatPassword')}
-          value={repeat}
-          onChangeText={setRepeat}
-          autoComplete="new-password"
-          textContentType="newPassword"
-          returnKeyType="go"
-          onSubmitEditing={submit}
-        />
-        {error ? <ErrorMessage message={error} /> : null}
-      </View>
+    <AuthScreen title={t('auth.resetTitle')} back description={t('auth.resetDesc')}>
+      <PasswordField
+        label={t('auth.newPassword')}
+        value={password}
+        onChangeText={setPassword}
+        placeholder="••••••••"
+        autoComplete="new-password"
+        textContentType="newPassword"
+      />
+      <PasswordField
+        label={t('auth.repeatPassword')}
+        value={repeat}
+        onChangeText={setRepeat}
+        placeholder="••••••••"
+        autoComplete="new-password"
+        textContentType="newPassword"
+        returnKeyType="go"
+        onSubmitEditing={submit}
+      />
+      <PasswordRules value={password} />
+      {error ? <ErrorMessage message={error} /> : null}
       <Button label={t('auth.resetCta')} onPress={submit} loading={loading} fullWidth />
     </AuthScreen>
   );
