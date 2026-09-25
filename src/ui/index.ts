@@ -6,6 +6,7 @@ export { Chip } from './Chip';
 export { EmptyState } from './EmptyState';
 export { ErrorMessage } from './ErrorMessage';
 export { Field } from './Field';
+export { Logo } from './Logo';
 export { MediaSlot } from './MediaSlot';
 export { ReportCard } from './ReportCard';
 export { BellButton, Header, Screen } from './Screen';
