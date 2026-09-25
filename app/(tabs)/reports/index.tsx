@@ -54,16 +54,18 @@ export default function Reports() {
       refreshing={requests.isRefetching}
       bodyClassName="gap-4 pb-7 pt-4"
     >
-      {units.length > 1 && unit ? (
+      {/* Siempre visible, aunque solo haya una vivienda: dice de cuál son los reportes. */}
+      {unit ? (
         <Pressable
-          onPress={() => setUnitSheet(true)}
-          accessibilityRole="button"
-          accessibilityLabel={`${unit.label}. ${t('home.change')}`}
+          onPress={units.length > 1 ? () => setUnitSheet(true) : undefined}
+          disabled={units.length < 2}
+          accessibilityRole={units.length > 1 ? 'button' : undefined}
+          accessibilityLabel={units.length > 1 ? `${unit.label}. ${t('home.change')}` : unit.label}
           className="mx-5 min-h-11 flex-row items-center gap-2.5 rounded-md border border-border bg-surface-1 px-3.5 py-2 active:opacity-80"
         >
           <Building2 size={16} color={palette.brandSoft} strokeWidth={2} />
           <Text className="flex-1 text-[14px] leading-5 text-text-soft">{unit.label}</Text>
-          <Text className="text-[13px] font-semibold text-brand-soft">{t('home.change')}</Text>
+          {units.length > 1 ? <Text className="text-[13px] font-semibold text-brand-soft">{t('home.change')}</Text> : null}
         </Pressable>
       ) : null}
 
