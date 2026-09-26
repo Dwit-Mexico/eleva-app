@@ -23,7 +23,7 @@ import { ContactButtons } from '@/features/requests/ContactButtons';
 import { UnitCard } from '@/features/units/UnitCard';
 import { useQuickDraft } from '@/features/quick/draft';
 import { useDraft } from '@/features/wizard/draft';
-import { formatVisit } from '@/lib/relativeTime';
+import { formatVisit, parseDay } from '@/lib/relativeTime';
 import { support, supportEmail } from '@/lib/support';
 import { useActiveUnit } from '@/store/activeUnit';
 import { currentLanguage } from '@/store/prefs';
@@ -191,7 +191,7 @@ export default function Home() {
                     key={r.id}
                     folio={r.folio}
                     statusId={r.status.id}
-                    createdAt={new Date(r.createdAt)}
+                    createdAt={parseDay(r.createdAt)}
                     title={title(r)}
                     location={requestLocation(r, lang)}
                     onPress={() => router.push(`/reports/${r.id}`)}

@@ -45,3 +45,12 @@ export function formatDateTime(date: Date): string {
   const pad = (n: number) => String(n).padStart(2, '0');
   return `${formatDate(date)} ${pad(date.getHours())}:${pad(date.getMinutes())}`;
 }
+
+// Solicitud.Fecha es DATE: la API la manda como medianoche UTC y en México
+// caería el día anterior. Una fecha sin hora (00:00:00Z) se toma como ese día
+// en la zona del teléfono; las fechas con hora se dejan igual.
+export function parseDay(iso: string): Date {
+  const m = /^(\d{4})-(\d{2})-(\d{2})T00:00:00(?:\.0+)?Z$/.exec(iso);
+  if (!m) return new Date(iso);
+  return new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+}

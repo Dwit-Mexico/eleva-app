@@ -7,6 +7,7 @@ import { Pressable, ScrollView, Text, View } from 'react-native';
 import { useRequests } from '@/api/queries';
 import { byNewest, requestLocation, requestTitle } from '@/features/requests/labels';
 import { useActiveUnit, useActiveUnitStore } from '@/store/activeUnit';
+import { parseDay } from '@/lib/relativeTime';
 import { currentLanguage } from '@/store/prefs';
 import { BottomSheet, EmptyState, Header, ReportCard, Screen, Skeleton, useTheme } from '@/ui';
 
@@ -127,7 +128,7 @@ export default function Reports() {
                 key={r.id}
                 folio={r.folio}
                 statusId={r.status.id}
-                createdAt={new Date(r.createdAt)}
+                createdAt={parseDay(r.createdAt)}
                 title={requestTitle(r, lang, t('report.quickTitle'))}
                 location={requestLocation(r, lang)}
                 cta={r.canRate ? t('list.rateNow') : undefined}

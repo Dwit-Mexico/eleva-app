@@ -1,6 +1,6 @@
 import i18n from '@/i18n';
 
-import { formatDate, relativeTime } from '../relativeTime';
+import { formatDate, parseDay, relativeTime } from '../relativeTime';
 
 const t = i18n.t.bind(i18n);
 const now = new Date(2026, 8, 25, 15, 0);
@@ -19,5 +19,15 @@ describe('relativeTime', () => {
 
   it('formatea la fecha', () => {
     expect(formatDate(new Date(2026, 0, 5))).toBe('05/01/2026');
+  });
+});
+
+describe('parseDay', () => {
+  it('toma la fecha sin hora como ese día local', () => {
+    const d = parseDay('2026-09-25T00:00:00Z');
+    expect([d.getFullYear(), d.getMonth(), d.getDate()]).toEqual([2026, 8, 25]);
+  });
+  it('deja igual las fechas con hora', () => {
+    expect(parseDay('2026-09-25T15:30:00Z').toISOString()).toBe('2026-09-25T15:30:00.000Z');
   });
 });

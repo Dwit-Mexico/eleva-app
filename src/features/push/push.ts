@@ -35,7 +35,8 @@ export async function registerPush(ask: boolean): Promise<void> {
   try {
     const { data } = await Notifications.getExpoPushTokenAsync({ projectId });
     await appApi.pushToken(data);
-  } catch {
+  } catch (e) {
+    if (__DEV__) console.warn('[push] token', e);
     // Sin Firebase (variante dev) o sin red: se reintenta en el próximo arranque.
   }
 }
