@@ -2,7 +2,7 @@ import Constants from 'expo-constants';
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 import type { useRouter } from 'expo-router';
-import { Platform } from 'react-native';
+import { InteractionManager, Platform } from 'react-native';
 
 import { appApi } from '@/api/app';
 
@@ -53,21 +53,25 @@ export function pushTarget(data: PushData | undefined): string {
 }
 
 // Tocar un aviso abre su pantalla, también con la app cerrada (arranque en
-// frío). En frío la respuesta llega antes de que el router termine de montar:
-// quien llama espera a que la navegación esté lista y aquí se difiere un
-// tick. Cada aviso se abre una sola vez (el layout puede volver a montarse).
+// frío). En frío la respuesta llega mientras el router todavía resuelve la
+// ruta inicial y en release (más rápido que dev) un push inmediato se pierde:
+// se espera a que termine la primera interacción y un momento más. Cada aviso
+// se abre una sola vez (el layout puede volver a montarse).
 let handled: string | null = null;
+const COLD_START_DELAY = 400;
 
 export function listenPushTaps(router: ReturnType<typeof useRouter>): () => void {
-  const open = (r: Notifications.NotificationResponse | null) => {
+  const open = (r: Notifications.NotificationResponse | null, cold: boolean) => {
     if (!r) return;
     const id = r.notification.request.identifier;
     if (id === handled) return;
     handled = id;
     const target = pushTarget(r.notification.request.content.data as PushData);
-    setTimeout(() => router.push(target as never), 0);
+    const go = () => router.push(target as never);
+    if (!cold) return go();
+    InteractionManager.runAfterInteractions(() => setTimeout(go, COLD_START_DELAY));
   };
-  void Notifications.getLastNotificationResponseAsync().then(open);
-  const sub = Notifications.addNotificationResponseReceivedListener(open);
+  void Notifications.getLastNotificationResponseAsync().then((r) => open(r, true));
+  const sub = Notifications.addNotificationResponseReceivedListener((r) => open(r, false));
   return () => sub.remove();
 }
