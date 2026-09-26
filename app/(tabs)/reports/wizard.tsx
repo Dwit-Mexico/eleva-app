@@ -1,7 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'expo-router';
-import { Check, ChevronRight } from 'lucide-react-native';
-import { useEffect, useMemo, useState } from 'react';
+import { Check, ChevronRight, RefreshCw, Trash2 } from 'lucide-react-native';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BackHandler, Pressable, Text, TextInput, useWindowDimensions, View } from 'react-native';
 
@@ -9,6 +9,7 @@ import { appApi } from '@/api/app';
 import { errorText } from '@/api/client';
 import { keys, useAreaEquipment, useEquipmentProblems, useUnitAreas } from '@/api/queries';
 import { MAX_PHOTOS } from '@/features/media/media';
+import { MediaViewer } from '@/features/media/MediaViewer';
 import { useMediaPicker } from '@/features/media/useMediaPicker';
 import { requestForm } from '@/features/requests/form';
 import { loc } from '@/features/requests/labels';
@@ -61,8 +62,14 @@ export default function Wizard() {
   const [sending, setSending] = useState(false);
   const [leaving, setLeaving] = useState(false);
   const [selected, setSelected] = useState<number | null>(null);
-  const picker = useMediaPicker((m) =>
-    update({ media: m.kind === 'video' ? [...draft.media.filter((x) => x.kind !== 'video'), m] : [...draft.media, m] }),
+  // Reemplazar desde el visor cambia esa misma posición.
+  const replacing = useRef<number | null>(null);
+  const picker = useMediaPicker((m) => {
+    const at = replacing.current;
+    replacing.current = null;
+    if (at !== null) return update({ media: draft.media.map((x, i) => (i === at ? m : x)) });
+    update({ media: m.kind === 'video' ? [...draft.media.filter((x) => x.kind !== 'video'), m] : [...draft.media, m] });
+  }
   );
 
   const go = (i: number) => {
@@ -354,18 +361,29 @@ export default function Wizard() {
       ) : null}
 
       {picker.sheets}
-      <BottomSheet
-        visible={selected !== null}
+      <MediaViewer
+        items={draft.media.map((m) => ({ kind: m.kind, uri: m.uri }))}
+        index={selected}
+        onIndex={setSelected}
         onClose={() => setSelected(null)}
-        title={t('report.evidence')}
-        hideCancel={false}
-        options={[
+        caption={t('media.pending')}
+        actions={[
           {
-            label: t('report.remove'),
-            tone: 'danger',
-            onPress: () => {
-              update({ media: draft.media.filter((_, i) => i !== selected) });
+            label: t('media.replace'),
+            icon: RefreshCw,
+            onPress: (i) => {
               setSelected(null);
+              replacing.current = i;
+              picker.open(draft.media[i]?.kind ?? 'photo');
+            },
+          },
+          {
+            label: t('media.remove'),
+            icon: Trash2,
+            danger: true,
+            onPress: (i) => {
+              setSelected(null);
+              update({ media: draft.media.filter((_, j) => j !== i) });
             },
           },
         ]}

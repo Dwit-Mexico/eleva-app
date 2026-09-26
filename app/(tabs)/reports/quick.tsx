@@ -1,7 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
-import { AlertCircle, Building2, Camera, CheckCircle2, Info, Play, Plus, Video, X } from 'lucide-react-native';
+import { AlertCircle, Building2, Camera, CheckCircle2, Info, Play, Plus, RefreshCw, Trash2, Video, X } from 'lucide-react-native';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BackHandler, Pressable, Text, TextInput, View } from 'react-native';
@@ -10,6 +10,7 @@ import { appApi } from '@/api/app';
 import { errorText } from '@/api/client';
 import { keys, useUnitAreas } from '@/api/queries';
 import { MAX_PHOTOS, type Media } from '@/features/media/media';
+import { MediaViewer } from '@/features/media/MediaViewer';
 import { useMediaPicker } from '@/features/media/useMediaPicker';
 import { useQuickDraft } from '@/features/quick/draft';
 import { requestForm } from '@/features/requests/form';
@@ -40,6 +41,7 @@ export default function QuickReport() {
   const [error, setError] = useState<string>();
   const [sending, setSending] = useState(false);
   const [unitSheet, setUnitSheet] = useState(false);
+  const [viewer, setViewer] = useState<number | null>(null);
 
   const photos = media.filter((m) => m.kind === 'photo');
   const video = media.find((m) => m.kind === 'video');
@@ -128,11 +130,7 @@ export default function QuickReport() {
                 <Thumb
                   key={m.uri}
                   media={m}
-                  onPress={() => {
-                    // El visor con reemplazar llega en la fase 4; por ahora tocar reemplaza.
-                    replacing.current = i;
-                    picker.open(m.kind);
-                  }}
+                  onPress={() => setViewer(i)}
                   onRemove={() => setMedia((prev) => prev.filter((_, j) => j !== i))}
                 />
               ))}
@@ -219,6 +217,33 @@ export default function QuickReport() {
       </Pressable>
 
       {picker.sheets}
+      <MediaViewer
+        items={media.map((m) => ({ kind: m.kind, uri: m.uri }))}
+        index={viewer}
+        onIndex={setViewer}
+        onClose={() => setViewer(null)}
+        caption={t('media.pending')}
+        actions={[
+          {
+            label: t('media.replace'),
+            icon: RefreshCw,
+            onPress: (i) => {
+              setViewer(null);
+              replacing.current = i;
+              picker.open(media[i]?.kind ?? 'photo');
+            },
+          },
+          {
+            label: t('media.remove'),
+            icon: Trash2,
+            danger: true,
+            onPress: (i) => {
+              setViewer(null);
+              setMedia((prev) => prev.filter((_, j) => j !== i));
+            },
+          },
+        ]}
+      />
       <BottomSheet
         visible={unitSheet}
         onClose={() => setUnitSheet(false)}
