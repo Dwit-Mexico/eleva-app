@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BackHandler, Pressable, Text, View } from 'react-native';
 
+import { registerPush } from '@/features/push/push';
 import { goHome } from '@/lib/nav';
 import { Header, Screen, useTheme } from '@/ui';
 
@@ -18,6 +19,12 @@ export default function Sent() {
     id?: string;
   }>();
   const quick = kind === 'quick';
+
+  // El permiso de avisos se pide aquí, después del primer reporte: ya se
+  // entiende para qué sirve (seguir el avance).
+  useEffect(() => {
+    void registerPush(true);
+  }, []);
 
   // Atrás no regresa al formulario ya enviado.
   useEffect(() => {

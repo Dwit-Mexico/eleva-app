@@ -11,6 +11,7 @@ const DEV = process.env.APP_VARIANT === 'development';
 
 const config: ExpoConfig = {
   name: DEV ? 'Eleva (dev)' : 'Eleva',
+  owner: 'dwit', // organización de Expo (transferido desde la cuenta personal)
   slug: 'elevaApp',
   version: '4.0.0',
   orientation: 'portrait',

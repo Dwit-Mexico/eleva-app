@@ -36,5 +36,6 @@ export const appApi = {
   addMember: (body: { unitId: number; firstName: string; lastName?: string; email: string; phone?: string }) =>
     call('POST', '/app/household-members', z.unknown(), { body }),
   removeMember: (personId: number) => call('DELETE', `/app/household-members/${personId}`, z.unknown()),
+  pushToken: (token: string) => call('PUT', '/app/push-token', z.unknown(), { body: { token } }),
   notifications: () => call('GET', '/app/notifications', z.array(inboxItem)),
 };

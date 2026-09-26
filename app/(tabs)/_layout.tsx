@@ -1,12 +1,21 @@
-import { Tabs } from 'expo-router';
+import { Tabs, useRouter } from 'expo-router';
+import { useEffect } from 'react';
 
 import { useRequests } from '@/api/queries';
+import { listenPushTaps, registerPush } from '@/features/push/push';
 import { useActiveUnit } from '@/store/activeUnit';
 import { TabBar } from '@/ui';
 
 // Tab bar propia del rediseño. Punto en Reportes cuando hay algo por valorar
 // o por agendar en la vivienda activa.
 export default function TabsLayout() {
+  const router = useRouter();
+  // Con sesión: renueva el token si ya hay permiso y abre el destino de los
+  // avisos que se toquen.
+  useEffect(() => {
+    void registerPush(false);
+    return listenPushTaps(router);
+  }, [router]);
   const { unit } = useActiveUnit();
   const pending = (useRequests().data ?? []).some(
     (r) =>
