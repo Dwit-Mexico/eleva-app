@@ -43,6 +43,8 @@ const en: Translations = {
     cta: 'Update',
   },
   home: {
+    helpTitle: 'Would you rather talk to someone?',
+    helpBody: 'Customer Service is open Monday to Friday, 9:00 to 18:00.',
     title: 'Customer service',
     yourUnit: 'Your home',
     yourUnits: 'Your homes',

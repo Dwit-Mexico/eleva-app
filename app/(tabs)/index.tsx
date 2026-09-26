@@ -19,6 +19,7 @@ import { Pressable, Text, View } from 'react-native';
 
 import { useNotifications, useRequests } from '@/api/queries';
 import { byNewest, requestLocation, requestTitle } from '@/features/requests/labels';
+import { ContactButtons } from '@/features/requests/ContactButtons';
 import { UnitCard } from '@/features/units/UnitCard';
 import { useQuickDraft } from '@/features/quick/draft';
 import { useDraft } from '@/features/wizard/draft';
@@ -168,6 +169,14 @@ export default function Home() {
                 />
               ))
             )}
+          </View>
+
+          <View className="gap-3 rounded-md border border-border bg-surface-1 p-4">
+            <View className="gap-0.5">
+              <Text className="text-body font-semibold leading-[22px] text-text">{t('home.helpTitle')}</Text>
+              <Text className="text-caption text-text-soft">{t('home.helpBody')}</Text>
+            </View>
+            <ContactButtons />
           </View>
         </>
       ) : null}

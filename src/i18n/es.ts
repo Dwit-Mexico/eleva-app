@@ -43,6 +43,8 @@ const es = {
     cta: 'Actualizar',
   },
   home: {
+    helpTitle: '¿Prefieres hablar con alguien?',
+    helpBody: 'Customer Service atiende de lunes a viernes, 9:00 a 18:00.',
     title: 'Servicio al cliente',
     yourUnit: 'Tu vivienda',
     yourUnits: 'Tus viviendas',
