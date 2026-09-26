@@ -1,6 +1,7 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { appApi } from './app';
+import type { Request } from './schemas';
 
 // Llaves de caché compartidas (la persistencia sin conexión llega en la fase 6).
 export const keys = {
@@ -11,6 +12,8 @@ export const keys = {
   equipment: (unitAreaId: number) => ['equipment', unitAreaId] as const,
   problems: (equipmentId: number) => ['problems', equipmentId] as const,
   notifications: ['notifications'] as const,
+  messages: (id: number) => ['messages', id] as const,
+  threads: ['threads'] as const,
 };
 
 const data = <T,>(p: Promise<{ data: T }>) => p.then((r) => r.data);
@@ -45,3 +48,16 @@ export const useEquipmentProblems = (equipmentId?: number) =>
 
 export const useNotifications = () =>
   useQuery({ queryKey: keys.notifications, queryFn: () => data(appApi.notifications()) });
+
+// Una solicitud: arranca con la de la lista (si ya está en caché) y se refresca.
+export const useRequest = (id: number) => {
+  const qc = useQueryClient();
+  return useQuery({
+    queryKey: keys.request(id),
+    queryFn: () => data(appApi.request(id)),
+    initialData: () => qc.getQueryData<Request[]>(keys.requests)?.find((r) => r.id === id),
+    initialDataUpdatedAt: () => qc.getQueryState(keys.requests)?.dataUpdatedAt,
+  });
+};
+
+export const useThreads = () => useQuery({ queryKey: keys.threads, queryFn: () => data(appApi.messageSummary()) });

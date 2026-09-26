@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 import { request as call } from './client';
-import { catalogItem, inboxItem, ownerUnit, request, unitArea, unitEquipment } from './schemas';
+import { catalogItem, chatMessage, chatThread, inboxItem, ownerUnit, request, unitArea, unitEquipment } from './schemas';
 
 // Endpoints de la app (kind=app) de la API v1.
 export const appApi = {
@@ -17,5 +17,17 @@ export const appApi = {
   createRequest: (form: FormData) => call('POST', '/app/requests', request, { form }),
   // multipart: unitId, areaId (opcional), description, images[]/video (≥1)
   createQuick: (form: FormData) => call('POST', '/app/requests/quick', request, { form }),
+  // date: una de proposedDates (ISO)
+  schedule: (id: number, body: { date: string; notes?: string }) =>
+    call('POST', `/app/requests/${id}/schedule`, request, { body }),
+  // repaired=false reabre la solicitud para otra visita
+  rate: (id: number, body: { repaired: boolean; score: number; comment?: string }) =>
+    call('POST', `/app/requests/${id}/rating`, request, { body }),
+  cancel: (id: number) => call('POST', `/app/requests/${id}/cancel`, request),
+  // Leer los mensajes los marca como leídos.
+  messages: (id: number) => call('GET', `/app/requests/${id}/messages`, z.array(chatMessage)),
+  // multipart: text, image (opcional)
+  sendMessage: (id: number, form: FormData) => call('POST', `/app/requests/${id}/messages`, chatMessage, { form }),
+  messageSummary: () => call('GET', '/app/messages/summary', z.array(chatThread)),
   notifications: () => call('GET', '/app/notifications', z.array(inboxItem)),
 };

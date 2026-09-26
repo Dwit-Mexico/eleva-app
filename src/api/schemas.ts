@@ -102,6 +102,27 @@ export const request = z.object({
 });
 export type Request = z.infer<typeof request>;
 
+export const chatMessage = z.object({
+  id: z.number(),
+  requestId: z.number(),
+  author: z.enum(['owner', 'team']),
+  authorName: z.string(),
+  text: z.string(),
+  imageUrl: z.string().nullish(),
+  sentAt: z.string(),
+  read: z.boolean(),
+});
+export type ChatMessage = z.infer<typeof chatMessage>;
+
+export const chatThread = z.object({
+  requestId: z.number(),
+  unread: z.number(),
+  lastAt: z.string(),
+  total: z.number(),
+  lastText: z.string().nullish(), // pendiente en la API (spV1_MensajesResumen)
+});
+export type ChatThread = z.infer<typeof chatThread>;
+
 export const inboxItem = z.object({
   id: z.number(),
   sentAt: z.string(),
