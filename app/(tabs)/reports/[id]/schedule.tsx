@@ -13,6 +13,7 @@ import { goHome } from '@/lib/nav';
 import { formatDay, formatTime } from '@/lib/relativeTime';
 import { currentLanguage } from '@/store/prefs';
 import { Header, Screen, useTheme } from '@/ui';
+import { needsNetwork } from '@/features/offline/guard';
 
 // Agendar la visita (prototipo: isAgendar): una de las fechas que propuso el
 // equipo, nota opcional para el técnico y confirmación.
@@ -72,9 +73,7 @@ export default function Schedule() {
   }
 
   return (
-    <Screen
-      header={<Header title={t('schedule.title')} back />}
-    >
+    <Screen header={<Header title={t('schedule.title')} back />}>
       <Text className="text-body leading-[1.375rem] text-text-soft">{t('schedule.intro')}</Text>
 
       <View className="gap-2.5" accessibilityRole="radiogroup">
@@ -139,7 +138,7 @@ export default function Schedule() {
       ) : null}
 
       <Pressable
-        onPress={submit}
+        onPress={needsNetwork(submit)}
         disabled={sending}
         accessibilityRole="button"
         accessibilityState={{ busy: sending }}

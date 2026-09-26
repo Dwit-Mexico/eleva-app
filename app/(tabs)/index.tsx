@@ -202,7 +202,9 @@ export default function Home() {
 
           <View className="gap-3 rounded-md border border-border bg-surface-1 p-4">
             <View className="gap-0.5">
-              <Text className="text-body font-semibold leading-[1.375rem] text-text">{t('home.helpTitle')}</Text>
+              <Text className="text-body font-semibold leading-[1.375rem] text-text">
+                {t('home.helpTitle')}
+              </Text>
               <Text className="text-caption text-text-soft">{t('home.helpBody')}</Text>
             </View>
             <ContactButtons />
@@ -348,7 +350,9 @@ function Tile({
     >
       <Icon size={20} color={palette.brandSoft} strokeWidth={2} />
       <View>
-        <Text className="text-[1.375rem] font-semibold leading-[1.625rem] text-text">{loading ? '–' : value}</Text>
+        <Text className="text-[1.375rem] font-semibold leading-[1.625rem] text-text">
+          {loading ? '–' : value}
+        </Text>
         <Text className="text-label text-text-soft">{label}</Text>
       </View>
       {alert ? <View className="absolute right-2.5 top-2.5 h-2 w-2 rounded-pill bg-warning" /> : null}

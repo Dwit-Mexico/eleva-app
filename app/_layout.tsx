@@ -1,7 +1,7 @@
 import '../global.css';
 import '@/i18n';
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
 import Constants from 'expo-constants';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
@@ -12,7 +12,10 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { authApi } from '@/api/auth';
 import type { AppConfig } from '@/api/schemas';
+import { OfflineSheet } from '@/features/offline/guard';
 import { UpdateRequired } from '@/features/update/UpdateRequired';
+import '@/lib/online';
+import { persistOptions, queryClient } from '@/lib/queryClient';
 import { isBelow } from '@/lib/version';
 import { usePrefs } from '@/store/prefs';
 import { useSession } from '@/store/session';
@@ -20,10 +23,6 @@ import { ThemeProvider } from '@/ui';
 import type { ThemeName } from '@/ui/tokens';
 
 void SplashScreen.preventAutoHideAsync();
-
-const queryClient = new QueryClient({
-  defaultOptions: { queries: { retry: 1, staleTime: 30_000 } },
-});
 
 const APP_VERSION = Constants.expoConfig?.version ?? '0.0.0';
 
@@ -54,7 +53,7 @@ export default function RootLayout() {
 
   return (
     <SafeAreaProvider>
-      <QueryClientProvider client={queryClient}>
+      <PersistQueryClientProvider client={queryClient} persistOptions={persistOptions}>
         <ThemeProvider name={theme}>
           <StatusBar style={theme === 'dark' ? 'light' : 'dark'} />
           {mustUpdate && config ? (
@@ -71,8 +70,9 @@ export default function RootLayout() {
               </Stack.Protected>
             </Stack>
           )}
+          {mustUpdate ? null : <OfflineSheet />}
         </ThemeProvider>
-      </QueryClientProvider>
+      </PersistQueryClientProvider>
     </SafeAreaProvider>
   );
 }

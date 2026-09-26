@@ -1,7 +1,19 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
-import { AlertCircle, Building2, Camera, CheckCircle2, Info, Play, Plus, RefreshCw, Trash2, Video, X } from 'lucide-react-native';
+import {
+  AlertCircle,
+  Building2,
+  Camera,
+  CheckCircle2,
+  Info,
+  Play,
+  Plus,
+  RefreshCw,
+  Trash2,
+  Video,
+  X,
+} from 'lucide-react-native';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BackHandler, Pressable, Text, TextInput, View } from 'react-native';
@@ -19,6 +31,7 @@ import { goHome } from '@/lib/nav';
 import { useActiveUnit, useActiveUnitStore } from '@/store/activeUnit';
 import { currentLanguage } from '@/store/prefs';
 import { BottomSheet, Chip, Header, Screen, useTheme } from '@/ui';
+import { needsNetwork } from '@/features/offline/guard';
 
 // Reporte rápido (prototipo: isQuick). Primero solo la toma; el área y la
 // nota aparecen cuando ya hay foto o video. El equipo clasifica área, equipo
@@ -81,11 +94,17 @@ export default function QuickReport() {
     setError(undefined);
     setSending(true);
     try {
-      const form = requestForm({ unitId: unit.unitId, areaId: areaId || undefined, description: note.trim() }, media);
+      const form = requestForm(
+        { unitId: unit.unitId, areaId: areaId || undefined, description: note.trim() },
+        media,
+      );
       const { data } = await appApi.createQuick(form);
       clear();
       void qc.invalidateQueries({ queryKey: keys.requests });
-      router.replace({ pathname: '/reports/sent', params: { kind: 'quick', folio: data.folio, id: String(data.id) } });
+      router.replace({
+        pathname: '/reports/sent',
+        params: { kind: 'quick', folio: data.folio, id: String(data.id) },
+      });
     } catch (e) {
       setError(errorText(e, lang));
     } finally {
@@ -107,7 +126,9 @@ export default function QuickReport() {
             <Text className="text-label font-medium text-text-mute">{t('report.reportingIn')}</Text>
             <Text className="text-body text-text">{unit.label}</Text>
           </View>
-          {units.length > 1 ? <Text className="text-caption font-semibold text-brand-soft">{t('home.change')}</Text> : null}
+          {units.length > 1 ? (
+            <Text className="text-caption font-semibold text-brand-soft">{t('home.change')}</Text>
+          ) : null}
         </Pressable>
       ) : null}
 
@@ -167,7 +188,12 @@ export default function QuickReport() {
             <SectionTitle title={t('report.where')} optional={t('report.optional')} />
             <View className="flex-row flex-wrap gap-2" accessibilityRole="radiogroup">
               {(areas.data ?? []).map((a) => (
-                <Chip key={a.id} label={loc(a.name, lang)} selected={areaId === a.areaId} onPress={() => setAreaId(a.areaId)} />
+                <Chip
+                  key={a.id}
+                  label={loc(a.name, lang)}
+                  selected={areaId === a.areaId}
+                  onPress={() => setAreaId(a.areaId)}
+                />
               ))}
               <Chip label={t('report.unsure')} selected={areaId === 0} onPress={() => setAreaId(0)} />
             </View>
@@ -205,7 +231,7 @@ export default function QuickReport() {
 
       {/* Enviar: gris hasta que hay foto o video, dorado después. */}
       <Pressable
-        onPress={send}
+        onPress={needsNetwork(send)}
         disabled={sending}
         accessibilityRole="button"
         accessibilityState={{ busy: sending }}

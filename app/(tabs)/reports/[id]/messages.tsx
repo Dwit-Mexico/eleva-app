@@ -15,7 +15,8 @@ import { filePart, type Media } from '@/features/media/media';
 import { MediaViewer } from '@/features/media/MediaViewer';
 import { useMediaPicker } from '@/features/media/useMediaPicker';
 import { currentLanguage } from '@/store/prefs';
-import { Header, Skeleton, useTheme } from '@/ui';
+import { ConnectionBanner, Header, Skeleton, useTheme } from '@/ui';
+import { needsNetwork } from '@/features/offline/guard';
 
 const pad = (n: number) => String(n).padStart(2, '0');
 const stamp = (iso: string) => {
@@ -71,6 +72,7 @@ export default function Messages() {
   return (
     <SafeAreaView edges={['top', 'left', 'right']} className="flex-1 bg-bg">
       <Header title={t('chat.title')} back />
+      <ConnectionBanner />
       <KeyboardAvoidingView className="flex-1" behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
         <ScrollView
           ref={scroll}
@@ -147,7 +149,7 @@ export default function Messages() {
             className="max-h-32 min-h-11 flex-1 rounded-md border border-border bg-surface-2 px-3.5 py-2.5 text-body leading-[1.375rem] text-text"
           />
           <Pressable
-            onPress={send}
+            onPress={needsNetwork(send)}
             disabled={!canSend}
             accessibilityRole="button"
             accessibilityLabel={sending ? t('chat.sending') : t('chat.send')}

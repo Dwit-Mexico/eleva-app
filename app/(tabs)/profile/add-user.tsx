@@ -12,6 +12,7 @@ import { validEmail } from '@/features/auth/password';
 import { useActiveUnit } from '@/store/activeUnit';
 import { currentLanguage } from '@/store/prefs';
 import { BottomSheet, Button, ErrorMessage, Field, Header, Screen, useTheme } from '@/ui';
+import { needsNetwork } from '@/features/offline/guard';
 
 // Agregar persona (prototipo: isAddUser): vivienda, nombre, apellidos, correo
 // y teléfono. La API le manda sus datos para entrar.
@@ -112,7 +113,7 @@ export default function AddUser() {
       />
       {errors.form ? <ErrorMessage message={errors.form} /> : null}
       <View className="mt-1.5">
-        <Button label={t('users.submit')} onPress={submit} loading={sending} fullWidth />
+        <Button label={t('users.submit')} onPress={needsNetwork(submit)} loading={sending} fullWidth />
       </View>
 
       <BottomSheet

@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Pressable, RefreshControl, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { ConnectionBanner } from './ConnectionBanner';
 import { useTheme } from './ThemeProvider';
 
 type HeaderProps = {
@@ -78,6 +79,7 @@ export function Screen({ children, header, banner, scroll = true, footer, onRefr
   return (
     <SafeAreaView edges={['top', 'left', 'right']} className="flex-1 bg-bg">
       {header}
+      <ConnectionBanner />
       {banner}
       {scroll ? (
         <ScrollView

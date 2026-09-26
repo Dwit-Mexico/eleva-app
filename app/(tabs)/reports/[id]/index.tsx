@@ -17,6 +17,7 @@ import { loc, requestLocation, requestTitle } from '@/features/requests/labels';
 import { formatDate, formatVisit, relativeTime } from '@/lib/relativeTime';
 import { currentLanguage } from '@/store/prefs';
 import { BottomSheet, EmptyState, ErrorMessage, Header, Screen, Skeleton, StatusBadge, useTheme } from '@/ui';
+import { needsNetwork } from '@/features/offline/guard';
 
 // Detalle del reporte (prototipo: isDetail).
 export default function RequestDetail() {
@@ -50,7 +51,7 @@ export default function RequestDetail() {
       bodyClassName="gap-4 px-5 pb-7 pt-4"
     >
       {r ? (
-        <Body r={r} onCancel={() => setCancelSheet(true)} cancelError={cancelError} />
+        <Body r={r} onCancel={needsNetwork(() => setCancelSheet(true))} cancelError={cancelError} />
       ) : query.isLoading ? (
         <>
           <Skeleton height={28} />
@@ -232,14 +233,14 @@ function Body({ r, onCancel, cancelError }: { r: Request; onCancel: () => void; 
         <Cta
           icon={<Star size={18} color={palette.ink} strokeWidth={2} />}
           label={t('detail.rateNow')}
-          onPress={() => router.push(`/reports/${r.id}/rate`)}
+          onPress={needsNetwork(() => router.push(`/reports/${r.id}/rate`))}
         />
       ) : null}
       {canSchedule(r) ? (
         <Cta
           icon={<CalendarClock size={18} color={palette.ink} strokeWidth={2} />}
           label={t('detail.schedule')}
-          onPress={() => router.push(`/reports/${r.id}/schedule`)}
+          onPress={needsNetwork(() => router.push(`/reports/${r.id}/schedule`))}
         />
       ) : null}
       {score > 0 ? (

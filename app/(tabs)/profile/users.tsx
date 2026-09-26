@@ -11,6 +11,7 @@ import { keys, useMembers } from '@/api/queries';
 import type { HouseholdMember } from '@/api/schemas';
 import { currentLanguage } from '@/store/prefs';
 import { BottomSheet, EmptyState, ErrorMessage, Header, Screen, Skeleton, useTheme } from '@/ui';
+import { needsNetwork } from '@/features/offline/guard';
 
 const fullName = (m: HouseholdMember) => `${m.firstName} ${m.lastName}`.trim();
 
@@ -73,7 +74,7 @@ export default function HouseholdUsers() {
               <Text className="text-caption text-text-soft">{m.email}</Text>
             </View>
             <Pressable
-              onPress={() => setRemoving(m)}
+              onPress={needsNetwork(() => setRemoving(m))}
               accessibilityRole="button"
               accessibilityLabel={t('users.remove', { name: fullName(m) })}
               className="h-11 w-11 items-center justify-center rounded-sm"
@@ -85,7 +86,7 @@ export default function HouseholdUsers() {
       )}
       {error ? <ErrorMessage message={error} /> : null}
       <Pressable
-        onPress={() => router.push('/profile/add-user')}
+        onPress={needsNetwork(() => router.push('/profile/add-user'))}
         accessibilityRole="button"
         className="mt-1.5 min-h-13 flex-row items-center justify-center gap-2 rounded-md bg-brand active:opacity-80"
       >

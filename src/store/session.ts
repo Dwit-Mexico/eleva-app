@@ -1,3 +1,4 @@
+import { clearQueryCache } from '@/lib/queryClient';
 import * as SecureStore from 'expo-secure-store';
 import { create } from 'zustand';
 
@@ -52,6 +53,7 @@ export const useSession = create<State>((set, get) => ({
   signOut: async () => {
     const rt = get().refreshToken;
     set({ status: 'signedOut', token: null, refreshToken: null, user: null });
+    clearQueryCache();
     await SecureStore.deleteItemAsync(KEY).catch(() => {});
     // Revoca este dispositivo en el servidor; si no hay red, el token vence solo.
     if (rt) void authApi.logout(rt).catch(() => {});

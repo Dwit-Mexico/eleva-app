@@ -18,6 +18,7 @@ import { errorText } from '@/api/client';
 import { keys } from '@/api/queries';
 import { currentLanguage } from '@/store/prefs';
 import { Header, Screen, useTheme } from '@/ui';
+import { needsNetwork } from '@/features/offline/guard';
 
 // Calificar la reparación (prototipo: isRate). Primero "¿quedó satisfecho?";
 // después estrellas (vacías por defecto) y comentario. "No" reabre el reporte.
@@ -161,7 +162,7 @@ export default function Rate() {
       ) : null}
 
       <Pressable
-        onPress={submit}
+        onPress={needsNetwork(submit)}
         disabled={sending}
         accessibilityRole="button"
         accessibilityState={{ busy: sending }}

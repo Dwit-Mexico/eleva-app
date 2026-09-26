@@ -64,7 +64,13 @@ export default function Verify() {
         {error ? <ErrorMessage message={error} /> : null}
         {notice && !error ? <Text className="text-caption text-success">{notice}</Text> : null}
       </View>
-      <Button label={t('auth.verify')} onPress={submit} loading={loading} disabled={code.length !== 6} fullWidth />
+      <Button
+        label={t('auth.verify')}
+        onPress={submit}
+        loading={loading}
+        disabled={code.length !== 6}
+        fullWidth
+      />
       <View className="-mt-3">
         <TextLink
           label={wait > 0 ? t('auth.resendIn', { time: mmss }) : t('auth.resend')}

@@ -39,7 +39,12 @@ export default function Documents() {
         folders.data.map((f) => (
           <Pressable
             key={f.id}
-            onPress={() => router.push({ pathname: '/documents/[folderId]', params: { folderId: String(f.id), name: f.name } })}
+            onPress={() =>
+              router.push({
+                pathname: '/documents/[folderId]',
+                params: { folderId: String(f.id), name: f.name },
+              })
+            }
             accessibilityRole="button"
             accessibilityLabel={`${f.name}, ${t('docs.files', { count: f.documentCount })}`}
             className="min-h-16 flex-row items-center gap-3.5 rounded-md border border-border bg-surface-1 px-4 py-3.5 active:opacity-80"
@@ -49,7 +54,9 @@ export default function Documents() {
             </View>
             <View className="min-w-0 flex-1">
               <Text className="text-body-lg text-text">{f.name}</Text>
-              <Text className="text-caption text-text-soft">{t('docs.files', { count: f.documentCount })}</Text>
+              <Text className="text-caption text-text-soft">
+                {t('docs.files', { count: f.documentCount })}
+              </Text>
             </View>
             <ChevronRight size={18} color={palette.textMute} strokeWidth={2} />
           </Pressable>

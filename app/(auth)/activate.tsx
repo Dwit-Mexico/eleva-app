@@ -39,7 +39,9 @@ export default function Activate() {
       await signIn(data);
     } catch (e) {
       // 401: venció el token de activación (15 min); hay que volver a entrar.
-      setError(e instanceof APIError && e.status === 401 ? t('auth.expired') : errorText(e, currentLanguage()));
+      setError(
+        e instanceof APIError && e.status === 401 ? t('auth.expired') : errorText(e, currentLanguage()),
+      );
     } finally {
       setLoading(false);
     }

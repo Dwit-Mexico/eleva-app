@@ -9,7 +9,9 @@ import { TabBar } from '@/ui';
 export default function TabsLayout() {
   const { unit } = useActiveUnit();
   const pending = (useRequests().data ?? []).some(
-    (r) => (!unit || r.unit.id === unit.unitId) && (r.canRate || (r.status.id === 4 && (r.proposedDates?.length ?? 0) > 0)),
+    (r) =>
+      (!unit || r.unit.id === unit.unitId) &&
+      (r.canRate || (r.status.id === 4 && (r.proposedDates?.length ?? 0) > 0)),
   );
   return (
     <Tabs

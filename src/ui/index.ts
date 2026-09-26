@@ -15,3 +15,4 @@ export { StatusBadge, statusTone } from './StatusBadge';
 export { StepIndicator } from './StepIndicator';
 export { TabBar } from './TabBar';
 export { ThemeProvider, useTheme } from './ThemeProvider';
+export { ConnectionBanner } from './ConnectionBanner';

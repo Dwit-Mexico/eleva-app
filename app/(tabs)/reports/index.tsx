@@ -26,7 +26,9 @@ export default function Reports() {
   const { palette } = useTheme();
   const lang = currentLanguage();
   const params = useLocalSearchParams<{ tab?: Stage }>();
-  const [stage, setStage] = useState<Stage>(() => (STAGES.includes(params.tab as Stage) ? params.tab! : 'status'));
+  const [stage, setStage] = useState<Stage>(() =>
+    STAGES.includes(params.tab as Stage) ? params.tab! : 'status',
+  );
   // El Inicio vuelve a mandar ?tab= al tocar un contador con la lista ya montada.
   const [lastTab, setLastTab] = useState(params.tab);
   if (params.tab !== lastTab) {
@@ -65,7 +67,9 @@ export default function Reports() {
         >
           <Building2 size={16} color={palette.brandSoft} strokeWidth={2} />
           <Text className="flex-1 text-[0.875rem] leading-5 text-text-soft">{unit.label}</Text>
-          {units.length > 1 ? <Text className="text-[0.8125rem] font-semibold text-brand-soft">{t('home.change')}</Text> : null}
+          {units.length > 1 ? (
+            <Text className="text-[0.8125rem] font-semibold text-brand-soft">{t('home.change')}</Text>
+          ) : null}
         </Pressable>
       ) : null}
 
@@ -80,7 +84,9 @@ export default function Reports() {
               accessibilityState={{ selected: on }}
               className={`min-h-10 items-center justify-center rounded-pill px-4 ${on ? 'bg-brand' : 'border border-border bg-surface-1'}`}
             >
-              <Text className={`text-[0.875rem] font-semibold ${on ? 'text-ink' : 'text-text-soft'}`}>{t(`list.${s}`)}</Text>
+              <Text className={`text-[0.875rem] font-semibold ${on ? 'text-ink' : 'text-text-soft'}`}>
+                {t(`list.${s}`)}
+              </Text>
             </Pressable>
           );
         })}
@@ -108,7 +114,11 @@ export default function Reports() {
             icon={Inbox}
             title={t(emptyTitle)}
             text={t(emptyBody)}
-            action={{ label: t('report.newReport'), onPress: () => router.push('/reports/wizard'), primary: true }}
+            action={{
+              label: t('report.newReport'),
+              onPress: () => router.push('/reports/wizard'),
+              primary: true,
+            }}
           />
         ) : (
           <View className="gap-2.5">

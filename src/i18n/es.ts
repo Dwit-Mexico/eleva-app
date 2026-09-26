@@ -355,8 +355,12 @@ const es = {
   },
   offline: {
     banner: 'Sin conexión · solo consulta',
-    lastData: 'Datos de las {{time}}',
+    lastData: 'Mostrando lo último que cargaste, {{when}} {{time}}',
+    noData: 'Mostrando lo último que cargaste',
     back: 'Conexión recuperada',
+    title: 'Necesitas internet para esto',
+    body: 'Sin conexión puedes ver tus reportes, visitas y documentos, pero no enviar ni cambiar nada. Lo que ya escribiste sigue aquí; vuelve a intentarlo cuando regrese la señal.',
+    ok: 'Entendido',
   },
 };
 

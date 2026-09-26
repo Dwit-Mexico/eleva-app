@@ -52,7 +52,9 @@ export default function Notifications() {
               <MessageSquare size={18} color={palette.brandSoft} strokeWidth={2} />
             </View>
             <View className="min-w-0 flex-1">
-              <Text className="text-body leading-[1.375rem] text-text">{localizedNotice(n.message, lang)}</Text>
+              <Text className="text-body leading-[1.375rem] text-text">
+                {localizedNotice(n.message, lang)}
+              </Text>
               <Text className="mt-0.5 text-caption text-text-mute">{formatDateTime(new Date(n.sentAt))}</Text>
             </View>
             {!n.read ? <View className="h-2 w-2 rounded-pill bg-brand" /> : null}

@@ -16,6 +16,7 @@ import { loc } from '@/features/requests/labels';
 import { useDraft, withArea, withEquipment, type Draft } from '@/features/wizard/draft';
 import { useActiveUnit, useActiveUnitStore } from '@/store/activeUnit';
 import { currentLanguage } from '@/store/prefs';
+import { needsNetwork } from '@/features/offline/guard';
 import {
   BottomSheet,
   Button,
@@ -48,7 +49,15 @@ export default function Wizard() {
   const unitId = draft.unitId ?? activeUnit?.unitId;
 
   const steps: Step[] = useMemo(
-    () => [...(units.length > 1 ? (['unit'] as Step[]) : []), 'area', 'equipment', 'problem', 'comment', 'evidence', 'summary'],
+    () => [
+      ...(units.length > 1 ? (['unit'] as Step[]) : []),
+      'area',
+      'equipment',
+      'problem',
+      'comment',
+      'evidence',
+      'summary',
+    ],
     [units.length],
   );
   const index = Math.min(draft.step, steps.length - 1);
@@ -68,9 +77,10 @@ export default function Wizard() {
     const at = replacing.current;
     replacing.current = null;
     if (at !== null) return update({ media: draft.media.map((x, i) => (i === at ? m : x)) });
-    update({ media: m.kind === 'video' ? [...draft.media.filter((x) => x.kind !== 'video'), m] : [...draft.media, m] });
-  }
-  );
+    update({
+      media: m.kind === 'video' ? [...draft.media.filter((x) => x.kind !== 'video'), m] : [...draft.media, m],
+    });
+  });
 
   const go = (i: number) => {
     setError(undefined);
@@ -174,10 +184,22 @@ export default function Wizard() {
   const rawRows: { step: Step; label: string; value: string }[] = [
     { step: 'unit', label: t('report.unit'), value: selectedUnit?.label ?? '' },
     { step: 'area', label: t('report.area'), value: draft.area ? loc(draft.area.name, lang) : '' },
-    { step: 'equipment', label: t('report.equipment'), value: draft.equipment ? loc(draft.equipment.name, lang) : '' },
-    { step: 'problem', label: t('report.problem'), value: draft.problem ? loc(draft.problem.name, lang) : '' },
+    {
+      step: 'equipment',
+      label: t('report.equipment'),
+      value: draft.equipment ? loc(draft.equipment.name, lang) : '',
+    },
+    {
+      step: 'problem',
+      label: t('report.problem'),
+      value: draft.problem ? loc(draft.problem.name, lang) : '',
+    },
     { step: 'comment', label: t('report.comments'), value: draft.description.trim() },
-    { step: 'evidence', label: t('report.evidence'), value: draft.media.length ? t('report.files', { count: draft.media.length }) : '' },
+    {
+      step: 'evidence',
+      label: t('report.evidence'),
+      value: draft.media.length ? t('report.files', { count: draft.media.length }) : '',
+    },
   ];
   // Solo los pasos que existen (la vivienda, si hay más de una); vacías en cursiva.
   const summaryRows = rawRows
@@ -204,12 +226,17 @@ export default function Wizard() {
           <View className="flex-row gap-2.5">
             {index > 0 ? (
               <View className="flex-1">
-                <Button label={t('common.back')} variant="secondary" onPress={() => go(index - 1)} fullWidth />
+                <Button
+                  label={t('common.back')}
+                  variant="secondary"
+                  onPress={() => go(index - 1)}
+                  fullWidth
+                />
               </View>
             ) : null}
             <View className="flex-[2]">
               {step === 'summary' ? (
-                <Button label={t('report.send')} onPress={send} loading={sending} fullWidth />
+                <Button label={t('report.send')} onPress={needsNetwork(send)} loading={sending} fullWidth />
               ) : (
                 <Button label={t('common.next')} onPress={next} fullWidth />
               )}
@@ -336,27 +363,27 @@ export default function Wizard() {
 
       {step === 'summary' ? (
         <View className="gap-4">
-        <Text className="text-body text-text-soft">{t('report.summaryHelp')}</Text>
-        <View className="overflow-hidden rounded-md border border-border bg-surface-1">
-          {summaryRows.map((row, i) => (
-            <Pressable
-              key={row.step}
-              onPress={() => go(steps.indexOf(row.step))}
-              accessibilityRole="button"
-              accessibilityLabel={`${row.label}: ${row.value}. ${t('report.edit')}`}
-              className={`min-h-14 flex-row items-center gap-3 px-4 py-3 active:opacity-80 ${i < summaryRows.length - 1 ? 'border-b border-surface-2' : ''}`}
-            >
-              <Text className="w-[5.25rem] text-label font-medium text-text-mute">{row.label}</Text>
-              <Text
-                className={`min-w-0 flex-1 text-body ${row.empty ? 'italic text-text-mute' : 'text-text'}`}
-                numberOfLines={3}
+          <Text className="text-body text-text-soft">{t('report.summaryHelp')}</Text>
+          <View className="overflow-hidden rounded-md border border-border bg-surface-1">
+            {summaryRows.map((row, i) => (
+              <Pressable
+                key={row.step}
+                onPress={() => go(steps.indexOf(row.step))}
+                accessibilityRole="button"
+                accessibilityLabel={`${row.label}: ${row.value}. ${t('report.edit')}`}
+                className={`min-h-14 flex-row items-center gap-3 px-4 py-3 active:opacity-80 ${i < summaryRows.length - 1 ? 'border-b border-surface-2' : ''}`}
               >
-                {row.value}
-              </Text>
-              <Text className="text-caption font-semibold text-brand-soft">{t('report.edit')}</Text>
-            </Pressable>
-          ))}
-        </View>
+                <Text className="w-[5.25rem] text-label font-medium text-text-mute">{row.label}</Text>
+                <Text
+                  className={`min-w-0 flex-1 text-body ${row.empty ? 'italic text-text-mute' : 'text-text'}`}
+                  numberOfLines={3}
+                >
+                  {row.value}
+                </Text>
+                <Text className="text-caption font-semibold text-brand-soft">{t('report.edit')}</Text>
+              </Pressable>
+            ))}
+          </View>
         </View>
       ) : null}
 

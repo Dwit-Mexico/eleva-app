@@ -354,9 +354,13 @@ const en: Translations = {
     pause: 'Pause',
   },
   offline: {
-    banner: 'Offline · read only',
-    lastData: 'Data from {{time}}',
-    back: 'Back online',
+    banner: 'Offline · view only',
+    lastData: 'Showing the last data you loaded, {{when}} {{time}}',
+    noData: 'Showing the last data you loaded',
+    back: 'Connection restored',
+    title: 'You need internet for this',
+    body: 'While offline you can view your reports, visits and documents, but you cannot send or change anything. What you already wrote stays here; try again when the signal is back.',
+    ok: 'Got it',
   },
 };
 

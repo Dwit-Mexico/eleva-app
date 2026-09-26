@@ -12,7 +12,11 @@ export default function Sent() {
   const { t } = useTranslation();
   const router = useRouter();
   const { palette } = useTheme();
-  const { kind, folio, id } = useLocalSearchParams<{ kind: 'quick' | 'guided'; folio: string; id?: string }>();
+  const { kind, folio, id } = useLocalSearchParams<{
+    kind: 'quick' | 'guided';
+    folio: string;
+    id?: string;
+  }>();
   const quick = kind === 'quick';
 
   // Atrás no regresa al formulario ya enviado.
@@ -90,7 +94,9 @@ function Choice({ label, onPress, primary }: { label: string; onPress: () => voi
       accessibilityRole="button"
       className={`min-h-13 flex-1 items-center justify-center rounded-md px-3 ${primary ? 'bg-brand' : 'border border-border'} active:opacity-80`}
     >
-      <Text className={`text-center text-[1rem] font-semibold ${primary ? 'text-ink' : 'text-text'}`}>{label}</Text>
+      <Text className={`text-center text-[1rem] font-semibold ${primary ? 'text-ink' : 'text-text'}`}>
+        {label}
+      </Text>
     </Pressable>
   );
 }

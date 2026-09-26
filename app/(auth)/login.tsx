@@ -58,7 +58,9 @@ export default function Login() {
       </View>
       <View className="mb-2 items-center gap-3.5">
         <Logo />
-        <Text className="text-label font-medium uppercase tracking-[2.16px] text-text-soft">{t('auth.tagline')}</Text>
+        <Text className="text-label font-medium uppercase tracking-[2.16px] text-text-soft">
+          {t('auth.tagline')}
+        </Text>
       </View>
       <Field
         label={t('auth.email')}
