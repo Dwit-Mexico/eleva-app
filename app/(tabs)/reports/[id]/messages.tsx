@@ -175,14 +175,21 @@ export default function Messages() {
 
 function Bubble({ m, onImage }: { m: ChatMessage; onImage: (uri: string) => void }) {
   const { t } = useTranslation();
-  const mine = m.author === 'owner';
+  const mine = m.mine ?? m.author === 'owner';
+  // Del equipo: "Customer Service" en dorado. De otra persona de la vivienda
+  // (propietario o invitado): su nombre, en gris.
+  const label = mine ? null : m.author === 'team' ? t('chat.team') : m.authorName || t('chat.household');
   return (
     <View className={`flex-row ${mine ? 'justify-end' : 'justify-start'}`}>
       <View
         className={`max-w-[80%] gap-1 rounded-[14px] px-3.5 py-3 ${mine ? 'bg-brand' : 'border border-border bg-surface-1'}`}
       >
-        {!mine ? (
-          <Text className="text-label font-semibold tracking-[0.24px] text-brand-soft">{t('chat.team')}</Text>
+        {label ? (
+          <Text
+            className={`text-label font-semibold tracking-[0.24px] ${m.author === 'team' ? 'text-brand-soft' : 'text-text-soft'}`}
+          >
+            {label}
+          </Text>
         ) : null}
         {m.imageUrl ? (
           <Pressable

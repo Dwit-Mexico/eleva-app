@@ -111,6 +111,9 @@ export const chatMessage = z.object({
   imageUrl: z.string().nullish(),
   sentAt: z.string(),
   read: z.boolean(),
+  // Lo escribió quien pregunta (con reportes compartidos puede ser otra
+  // persona de la vivienda). Sin el campo (API vieja): todo 'owner' es mío.
+  mine: z.boolean().optional(),
 });
 export type ChatMessage = z.infer<typeof chatMessage>;
 
@@ -123,6 +126,7 @@ export const chatThread = z.object({
   lastText: z.string().nullish(),
   lastAuthor: z.enum(['owner', 'team']).nullish(),
   lastPhoto: z.boolean().nullish(),
+  lastMine: z.boolean().nullish(),
 });
 export type ChatThread = z.infer<typeof chatThread>;
 

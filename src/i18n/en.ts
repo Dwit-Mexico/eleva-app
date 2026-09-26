@@ -255,6 +255,7 @@ const en: Translations = {
   chat: {
     title: 'Messages',
     team: 'Customer Service',
+    household: 'Your home',
     placeholder: 'Write a message',
     attach: 'Attach photo',
     send: 'Send message',

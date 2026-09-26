@@ -285,7 +285,7 @@ function MessagesCard({ requestId, onPress }: { requestId: number; onPress: () =
   // propietario); sin ella, los no leídos o la fecha del último.
   const last = thread?.lastText || (thread?.lastPhoto ? t('chat.photo') : '');
   const sub = last
-    ? thread?.lastAuthor === 'owner'
+    ? thread?.lastMine
       ? t('detail.you', { text: last })
       : last
     : thread?.unread

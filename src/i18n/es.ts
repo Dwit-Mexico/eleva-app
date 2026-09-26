@@ -257,6 +257,7 @@ const es = {
   chat: {
     title: 'Mensajes',
     team: 'Customer Service',
+    household: 'Tu vivienda',
     placeholder: 'Escribe un mensaje',
     attach: 'Adjuntar foto',
     send: 'Enviar mensaje',
