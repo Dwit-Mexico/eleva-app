@@ -1,18 +1,23 @@
+import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'expo-router';
 import { AlertTriangle, Bell, MessageSquare } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
 import { Pressable, Text, View } from 'react-native';
 
 import { useNotifications } from '@/api/queries';
+import { markNoticeRead, noticeTarget } from '@/features/notifications/read';
 import { localizedNotice } from '@/features/notifications/text';
 import { formatDateTime } from '@/lib/relativeTime';
 import { currentLanguage } from '@/store/prefs';
 import { EmptyState, Header, Screen, Skeleton, useTheme } from '@/ui';
 
 // Bandeja de avisos (prototipo: isNotifs). Los sin leer llevan punto brand.
+// Tocar uno lo marca leído y lleva directo a su destino (sin pantalla
+// intermedia salvo los avisos generales).
 export default function Notifications() {
   const { t } = useTranslation();
   const router = useRouter();
+  const qc = useQueryClient();
   const { palette } = useTheme();
   const lang = currentLanguage();
   const q = useNotifications();
@@ -43,7 +48,10 @@ export default function Notifications() {
         list.map((n) => (
           <Pressable
             key={n.id}
-            onPress={() => router.push({ pathname: '/notifications/[id]', params: { id: String(n.id) } })}
+            onPress={() => {
+              markNoticeRead(qc, n);
+              router.push(noticeTarget(n) as never);
+            }}
             accessibilityRole="button"
             accessibilityLabel={`${n.read ? '' : `${t('notifs.unread')}. `}${localizedNotice(n.message, lang)}`}
             className={`min-h-16 flex-row items-center gap-3 rounded-md border bg-surface-1 px-4 py-3.5 active:opacity-80 ${n.read ? 'border-surface-2' : 'border-border'}`}

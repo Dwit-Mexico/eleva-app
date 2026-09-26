@@ -1,7 +1,8 @@
 import { isMessageNotice, localizedNotice } from '../text';
 
 describe('localizedNotice', () => {
-  const both = 'Customer Service respondió en tu reporte QA-101-1. / Customer Service replied on your report QA-101-1.';
+  const both =
+    'Customer Service respondió en tu reporte QA-101-1. / Customer Service replied on your report QA-101-1.';
 
   it('elige la mitad del idioma', () => {
     expect(localizedNotice(both, 'es')).toBe('Customer Service respondió en tu reporte QA-101-1.');

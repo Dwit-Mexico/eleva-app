@@ -5,16 +5,16 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, Text } from 'react-native';
 
-import { appApi } from '@/api/app';
-import { keys, useNotifications, useRequests } from '@/api/queries';
-import type { InboxItem } from '@/api/schemas';
+import { useNotifications, useRequests } from '@/api/queries';
+import { markNoticeRead } from '@/features/notifications/read';
 import { isMessageNotice, localizedNotice } from '@/features/notifications/text';
 import { formatDateTime } from '@/lib/relativeTime';
 import { currentLanguage } from '@/store/prefs';
 import { Header, Screen, useTheme } from '@/ui';
 
-// Aviso (prototipo: isNotifDetail): fecha, texto y "Ver reporte" si trae uno.
-// Abrirlo lo marca como leído.
+// Aviso (prototipo: isNotifDetail): fecha y texto. Desde la bandeja solo se
+// llega aquí con los avisos generales; los de reporte van directo a su
+// destino. Abrirlo lo marca como leído.
 export default function NotificationDetail() {
   const { t } = useTranslation();
   const router = useRouter();
@@ -29,12 +29,8 @@ export default function NotificationDetail() {
   const chat = n ? isMessageNotice(n.message) : false;
   const unread = n ? !n.read : false;
   useEffect(() => {
-    if (!unread) return;
-    qc.setQueryData<InboxItem[]>(keys.notifications, (prev) =>
-      prev?.map((x) => (x.id === nid ? { ...x, read: true } : x)),
-    );
-    appApi.readNotification(nid).catch(() => void qc.invalidateQueries({ queryKey: keys.notifications }));
-  }, [unread, nid, qc]);
+    if (unread && n) markNoticeRead(qc, n);
+  }, [unread, n, qc]);
 
   return (
     <Screen header={<Header title={t('notifs.title')} back />} bodyClassName="gap-3 px-5 pb-7 pt-4">
