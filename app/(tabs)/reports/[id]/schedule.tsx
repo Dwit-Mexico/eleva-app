@@ -50,7 +50,7 @@ export default function Schedule() {
   if (done) {
     return (
       <Screen header={<Header title="" back />}>
-        <View className="h-[72px] w-[72px] items-center justify-center self-center rounded-pill bg-success-tint">
+        <View className="h-[4.5rem] w-[4.5rem] items-center justify-center self-center rounded-pill bg-success-tint">
           <CalendarCheck size={34} color={palette.success} strokeWidth={2} />
         </View>
         <Text className="-mt-1 text-center text-title font-semibold text-text">{t('schedule.okTitle')}</Text>
@@ -65,7 +65,7 @@ export default function Schedule() {
           accessibilityRole="button"
           className="min-h-13 items-center justify-center rounded-md bg-brand active:opacity-80"
         >
-          <Text className="text-[16px] font-semibold text-ink">{t('schedule.done')}</Text>
+          <Text className="text-[1rem] font-semibold text-ink">{t('schedule.done')}</Text>
         </Pressable>
       </Screen>
     );
@@ -75,7 +75,7 @@ export default function Schedule() {
     <Screen
       header={<Header title={t('schedule.title')} back />}
     >
-      <Text className="text-body leading-[22px] text-text-soft">{t('schedule.intro')}</Text>
+      <Text className="text-body leading-[1.375rem] text-text-soft">{t('schedule.intro')}</Text>
 
       <View className="gap-2.5" accessibilityRole="radiogroup">
         {(r?.proposedDates ?? []).map((iso) => {
@@ -91,12 +91,12 @@ export default function Schedule() {
               }}
               accessibilityRole="radio"
               accessibilityState={{ selected: on }}
-              className={`min-h-[72px] flex-row items-center gap-3.5 rounded-md border bg-surface-1 p-4 ${on ? 'border-brand' : 'border-border'}`}
+              className={`min-h-[4.5rem] flex-row items-center gap-3.5 rounded-md border bg-surface-1 p-4 ${on ? 'border-brand' : 'border-border'}`}
             >
               <Icon size={20} color={on ? palette.brand : palette.border} strokeWidth={2} />
               <View className="min-w-0 flex-1">
                 <Text className="text-body-lg font-semibold text-text">{formatDay(d, lang)}</Text>
-                <Text className="text-body leading-[22px] text-text-soft">
+                <Text className="text-body leading-[1.375rem] text-text-soft">
                   {t('schedule.fromTime', { time: formatTime(d, lang) })}
                 </Text>
               </View>
@@ -114,7 +114,7 @@ export default function Schedule() {
 
       <View className="gap-2">
         <View className="flex-row flex-wrap items-baseline gap-2">
-          <Text className="text-body leading-[22px] text-text">{t('schedule.noteLabel')}</Text>
+          <Text className="text-body leading-[1.375rem] text-text">{t('schedule.noteLabel')}</Text>
           <Text className="text-label font-medium text-text-mute">{t('report.optional')}</Text>
         </View>
         <TextInput
@@ -126,7 +126,7 @@ export default function Schedule() {
           multiline
           maxLength={200}
           accessibilityLabel={t('schedule.noteLabel')}
-          className="min-h-[88px] rounded-sm border border-border bg-surface-2 p-3.5 text-body leading-[22px] text-text"
+          className="min-h-[5.5rem] rounded-sm border border-border bg-surface-2 p-3.5 text-body leading-[1.375rem] text-text"
           style={{ textAlignVertical: 'top' }}
         />
       </View>
@@ -145,7 +145,7 @@ export default function Schedule() {
         accessibilityState={{ busy: sending }}
         className={`min-h-13 items-center justify-center rounded-md ${picked ? 'bg-brand' : 'border border-border bg-surface-2'} active:opacity-80`}
       >
-        <Text className={`text-[16px] font-semibold ${picked ? 'text-ink' : 'text-text-mute'}`}>
+        <Text className={`text-[1rem] font-semibold ${picked ? 'text-ink' : 'text-text-mute'}`}>
           {sending ? '…' : t('schedule.cta')}
         </Text>
       </Pressable>

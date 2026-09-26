@@ -149,7 +149,7 @@ function Body({ r, onCancel, cancelError }: { r: Request; onCancel: () => void; 
               </View>
               <View className="min-w-0 flex-1 pb-0.5">
                 <Text
-                  className={`text-body leading-[22px] ${s.state === 'todo' ? 'text-text-mute' : 'text-text'} ${s.state === 'now' ? 'font-semibold' : ''}`}
+                  className={`text-body leading-[1.375rem] ${s.state === 'todo' ? 'text-text-mute' : 'text-text'} ${s.state === 'now' ? 'font-semibold' : ''}`}
                 >
                   {t(`detail.steps.${s.key}`)}
                 </Text>
@@ -162,7 +162,7 @@ function Body({ r, onCancel, cancelError }: { r: Request; onCancel: () => void; 
           <NextIcon size={18} color={palette.brandSoft} strokeWidth={2} style={{ marginTop: 2 }} />
           <View className="min-w-0 flex-1">
             <Label>{t('detail.whatsNext')}</Label>
-            <Text className="mt-0.5 text-body leading-[22px] text-text">
+            <Text className="mt-0.5 text-body leading-[1.375rem] text-text">
               {t(next.key, { date: visit ? formatVisit(visit, lang) : '' })}
             </Text>
           </View>
@@ -178,9 +178,9 @@ function Body({ r, onCancel, cancelError }: { r: Request; onCancel: () => void; 
             key={row.k}
             className={`flex-row items-baseline gap-4 px-4 py-3 ${i < rows.length - 1 ? 'border-b border-surface-2' : ''}`}
           >
-            <Text className="w-[88px] text-label font-medium text-text-mute">{row.k}</Text>
+            <Text className="w-[5.5rem] text-label font-medium text-text-mute">{row.k}</Text>
             <Text
-              className={`flex-1 text-body leading-[22px] ${row.v === pending ? 'italic text-text-mute' : 'text-text'}`}
+              className={`flex-1 text-body leading-[1.375rem] ${row.v === pending ? 'italic text-text-mute' : 'text-text'}`}
             >
               {row.v}
             </Text>
@@ -194,7 +194,7 @@ function Body({ r, onCancel, cancelError }: { r: Request; onCancel: () => void; 
           className={`rounded-md border bg-surface-1 px-4 py-3.5 ${r.description ? 'border-border' : 'border-dashed border-border'}`}
         >
           <Text
-            className={`text-body leading-[22px] ${r.description ? 'text-text' : 'italic text-text-mute'}`}
+            className={`text-body leading-[1.375rem] ${r.description ? 'text-text' : 'italic text-text-mute'}`}
           >
             {r.description || t('detail.noComment')}
           </Text>
@@ -245,7 +245,7 @@ function Body({ r, onCancel, cancelError }: { r: Request; onCancel: () => void; 
       {score > 0 ? (
         <View className="flex-row items-center gap-2.5 rounded-md border border-border bg-surface-1 px-4 py-3.5">
           <Star size={18} color={palette.brandSoft} fill={palette.brandSoft} strokeWidth={2} />
-          <Text className="flex-1 text-body leading-[22px] text-text-soft">
+          <Text className="flex-1 text-body leading-[1.375rem] text-text-soft">
             {t('detail.rated')} · {stars[score - 1]}
           </Text>
         </View>
@@ -268,7 +268,7 @@ function Body({ r, onCancel, cancelError }: { r: Request; onCancel: () => void; 
           accessibilityRole="button"
           className="min-h-11 items-center justify-center self-center px-3"
         >
-          <Text className="text-[14px] text-danger">{t('detail.cancelReport')}</Text>
+          <Text className="text-[0.875rem] text-danger">{t('detail.cancelReport')}</Text>
         </Pressable>
       ) : null}
     </>
@@ -296,13 +296,13 @@ function MessagesCard({ requestId, onPress }: { requestId: number; onPress: () =
     >
       <MessagesSquare size={20} color={palette.brandSoft} strokeWidth={2} />
       <View className="min-w-0 flex-1">
-        <Text className="text-[16px] leading-[22px] text-text">{t('detail.messages')}</Text>
+        <Text className="text-[1rem] leading-[1.375rem] text-text">{t('detail.messages')}</Text>
         <Text className="text-caption text-text-soft" numberOfLines={3}>
           {sub}
         </Text>
       </View>
       {thread?.unread ? (
-        <View className="h-[22px] min-w-[22px] items-center justify-center rounded-pill bg-brand px-[7px]">
+        <View className="h-[1.375rem] min-w-[1.375rem] items-center justify-center rounded-pill bg-brand px-[0.4375rem]">
           <Text className="text-label font-semibold text-ink">{thread.unread}</Text>
         </View>
       ) : null}
@@ -322,7 +322,7 @@ function Cta({ icon, label, onPress }: { icon: ReactNode; label: string; onPress
       className="min-h-13 flex-row items-center justify-center gap-2 rounded-md bg-brand active:opacity-80"
     >
       {icon}
-      <Text className="text-[16px] font-semibold text-ink">{label}</Text>
+      <Text className="text-[1rem] font-semibold text-ink">{label}</Text>
     </Pressable>
   );
 }

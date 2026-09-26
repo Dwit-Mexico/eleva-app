@@ -96,7 +96,7 @@ export default function Rate() {
       {ok !== null ? (
         <>
           <View className="items-center gap-2.5 rounded-md border border-border bg-surface-1 p-4">
-            <Text className="text-center text-body font-semibold leading-[22px] text-text">
+            <Text className="text-center text-body font-semibold leading-[1.375rem] text-text">
               {t('rate.service')}
             </Text>
             <View className="flex-row gap-0.5" accessibilityRole="radiogroup">
@@ -122,7 +122,7 @@ export default function Rate() {
               ))}
             </View>
             <Text
-              className={`text-center text-body leading-[22px] ${stars ? 'font-semibold text-brand-soft' : 'text-text-mute'}`}
+              className={`text-center text-body leading-[1.375rem] ${stars ? 'font-semibold text-brand-soft' : 'text-text-mute'}`}
             >
               {stars ? labels[stars - 1] : t('rate.tapStars')}
             </Text>
@@ -130,7 +130,7 @@ export default function Rate() {
 
           <View className="gap-2">
             <View className="flex-row flex-wrap items-baseline gap-2">
-              <Text className="text-body leading-[22px] text-text">
+              <Text className="text-body leading-[1.375rem] text-text">
                 {ok ? t('rate.yesNote') : t('rate.noNote')}
               </Text>
               <Text className="text-label font-medium text-text-mute">
@@ -146,7 +146,7 @@ export default function Rate() {
               multiline
               maxLength={500}
               accessibilityLabel={ok ? t('rate.yesNote') : t('rate.noNote')}
-              className="min-h-[112px] rounded-sm border border-border bg-surface-2 p-3.5 text-body leading-[22px] text-text"
+              className="min-h-[7rem] rounded-sm border border-border bg-surface-2 p-3.5 text-body leading-[1.375rem] text-text"
               style={{ textAlignVertical: 'top' }}
             />
           </View>
@@ -167,7 +167,7 @@ export default function Rate() {
         accessibilityState={{ busy: sending }}
         className={`min-h-13 items-center justify-center rounded-md ${ready ? 'bg-brand' : 'border border-border bg-surface-2'} active:opacity-80`}
       >
-        <Text className={`text-[16px] font-semibold ${ready ? 'text-ink' : 'text-text-mute'}`}>
+        <Text className={`text-[1rem] font-semibold ${ready ? 'text-ink' : 'text-text-mute'}`}>
           {sending ? '…' : t('rate.send')}
         </Text>
       </Pressable>
@@ -199,7 +199,7 @@ function Answer({
       className={`min-h-13 flex-1 flex-row items-center justify-center gap-2 rounded-md ${on ? (tone === 'success' ? 'bg-success' : 'bg-danger') : 'border border-border bg-surface-1'}`}
     >
       <Icon size={18} color={on ? palette.ink : palette.text} strokeWidth={2} />
-      <Text className={`text-[16px] font-semibold ${on ? 'text-ink' : 'text-text'}`}>{label}</Text>
+      <Text className={`text-[1rem] font-semibold ${on ? 'text-ink' : 'text-text'}`}>{label}</Text>
     </Pressable>
   );
 }

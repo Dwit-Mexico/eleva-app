@@ -115,7 +115,7 @@ export function MediaViewer({ items, index, onIndex, onClose, caption, actions }
           >
             <View className="flex-row items-center gap-2 px-3 pb-2">
               <View className="min-w-0 flex-1 pl-2">
-                <Text style={{ color: c.text }} className="text-body font-semibold leading-[22px]">
+                <Text style={{ color: c.text }} className="text-body font-semibold leading-[1.375rem]">
                   {isVideo ? t('media.video') : t('media.photo', { n: photoN })}
                 </Text>
                 <Text style={{ color: c.textMute }} className="text-label">
@@ -162,7 +162,7 @@ export function MediaViewer({ items, index, onIndex, onClose, caption, actions }
                   onPress={() => apply(zoom - 0.5)}
                   disabled={zoom <= 1 || isVideo}
                 />
-                <Text style={{ color: c.textSoft }} className="min-w-11 text-center font-mono text-[13px]">
+                <Text style={{ color: c.textSoft }} className="min-w-11 text-center font-mono text-[0.8125rem]">
                   {zoom}×
                 </Text>
                 <Round
@@ -220,7 +220,7 @@ export function MediaViewer({ items, index, onIndex, onClose, caption, actions }
                     <a.icon size={18} color={a.danger ? c.danger : c.ink} strokeWidth={2} />
                     <Text
                       style={{ color: a.danger ? c.danger : c.ink }}
-                      className="text-[16px] font-semibold"
+                      className="text-[1rem] font-semibold"
                     >
                       {a.label}
                     </Text>

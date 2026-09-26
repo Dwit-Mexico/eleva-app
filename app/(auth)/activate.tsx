@@ -49,7 +49,7 @@ export default function Activate() {
     <AuthScreen title={t('auth.activate')} back={() => router.replace('/login')} lang>
       <View className="flex-row gap-3 rounded-md border border-border bg-surface-1 p-4">
         <MailCheck size={20} color={palette.brandSoft} strokeWidth={2} style={{ marginTop: 2 }} />
-        <Text className="flex-1 text-body leading-[22px] text-text-soft">{t('auth.activateIntro')}</Text>
+        <Text className="flex-1 text-body leading-[1.375rem] text-text-soft">{t('auth.activateIntro')}</Text>
       </View>
       <PasswordField
         label={t('auth.newPassword')}

@@ -25,7 +25,7 @@ export default function Sent() {
   }, [router]);
 
   const circle = (
-    <View className="h-[72px] w-[72px] items-center justify-center self-center rounded-pill bg-success-tint">
+    <View className="h-[4.5rem] w-[4.5rem] items-center justify-center self-center rounded-pill bg-success-tint">
       <Check size={34} color={palette.success} strokeWidth={2.5} />
     </View>
   );
@@ -90,7 +90,7 @@ function Choice({ label, onPress, primary }: { label: string; onPress: () => voi
       accessibilityRole="button"
       className={`min-h-13 flex-1 items-center justify-center rounded-md px-3 ${primary ? 'bg-brand' : 'border border-border'} active:opacity-80`}
     >
-      <Text className={`text-center text-[16px] font-semibold ${primary ? 'text-ink' : 'text-text'}`}>{label}</Text>
+      <Text className={`text-center text-[1rem] font-semibold ${primary ? 'text-ink' : 'text-text'}`}>{label}</Text>
     </Pressable>
   );
 }

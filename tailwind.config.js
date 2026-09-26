@@ -7,6 +7,8 @@ const tint = (name) => `rgb(var(--${name}) / var(--tint))`;
 const { platformSelect } = require('nativewind/theme');
 
 /** @type {import('tailwindcss').Config} */
+// Tamaños en rem: la base (16) se multiplica por el tamaño de texto elegido
+// en Perfil y toda la app escala, como el zoom del prototipo.
 module.exports = {
   content: ['./app/**/*.{ts,tsx}', './src/**/*.{ts,tsx}'],
   presets: [require('nativewind/preset')],
@@ -38,17 +40,17 @@ module.exports = {
       },
       // [tamaño, {lineHeight, letterSpacing}] del handoff.
       fontSize: {
-        display: ['28px', { lineHeight: '34px', letterSpacing: '-0.28px' }],
-        title: ['22px', { lineHeight: '28px', letterSpacing: '-0.22px' }],
-        'body-lg': ['17px', { lineHeight: '24px' }],
-        body: ['15px', { lineHeight: '22px' }],
-        caption: ['13px', { lineHeight: '18px' }],
-        label: ['12px', { lineHeight: '16px', letterSpacing: '0.24px' }],
-        tab: ['11px', { lineHeight: '14px' }],
-        folio: ['12px', { lineHeight: '16px' }],
+        display: ['1.75rem', { lineHeight: '2.125rem', letterSpacing: '-0.28px' }],
+        title: ['1.375rem', { lineHeight: '1.75rem', letterSpacing: '-0.22px' }],
+        'body-lg': ['1.0625rem', { lineHeight: '1.5rem' }],
+        body: ['0.9375rem', { lineHeight: '1.375rem' }],
+        caption: ['0.8125rem', { lineHeight: '1.125rem' }],
+        label: ['0.75rem', { lineHeight: '1rem', letterSpacing: '0.24px' }],
+        tab: ['0.6875rem', { lineHeight: '0.875rem' }],
+        folio: ['0.75rem', { lineHeight: '1rem' }],
       },
       borderRadius: { sm: '8px', md: '12px', sheet: '20px', pill: '999px' },
-      spacing: { 13: '52px', 11: '44px', 15: '60px' },
+      spacing: { 13: '3.25rem', 11: '2.75rem', 15: '3.75rem' },
     },
   },
   plugins: [],

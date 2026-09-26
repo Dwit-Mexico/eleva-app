@@ -85,7 +85,7 @@ export default function Messages() {
               <Skeleton height={48} />
             </>
           ) : list.length === 0 ? (
-            <Text className="py-8 text-center text-body leading-[22px] text-text-soft">
+            <Text className="py-8 text-center text-body leading-[1.375rem] text-text-soft">
               {t('chat.empty')}
             </Text>
           ) : (
@@ -144,7 +144,7 @@ export default function Messages() {
             multiline
             maxLength={2000}
             accessibilityLabel={t('chat.placeholder')}
-            className="max-h-32 min-h-11 flex-1 rounded-md border border-border bg-surface-2 px-3.5 py-2.5 text-body leading-[22px] text-text"
+            className="max-h-32 min-h-11 flex-1 rounded-md border border-border bg-surface-2 px-3.5 py-2.5 text-body leading-[1.375rem] text-text"
           />
           <Pressable
             onPress={send}
@@ -196,9 +196,9 @@ function Bubble({ m, onImage }: { m: ChatMessage; onImage: (uri: string) => void
           </Pressable>
         ) : null}
         {m.text ? (
-          <Text className={`text-body leading-[22px] ${mine ? 'text-ink' : 'text-text'}`}>{m.text}</Text>
+          <Text className={`text-body leading-[1.375rem] ${mine ? 'text-ink' : 'text-text'}`}>{m.text}</Text>
         ) : null}
-        <Text className={`text-[11px] leading-[14px] ${mine ? 'text-ink/60' : 'text-text-mute'}`}>
+        <Text className={`text-[0.6875rem] leading-[0.875rem] ${mine ? 'text-ink/60' : 'text-text-mute'}`}>
           {stamp(m.sentAt)}
         </Text>
       </View>

@@ -296,7 +296,7 @@ export default function Wizard() {
             multiline
             maxLength={1500}
             accessibilityLabel={t('report.qComment')}
-            className="min-h-[176px] rounded-sm border border-border bg-surface-2 p-3.5 text-body text-text"
+            className="min-h-[11rem] rounded-sm border border-border bg-surface-2 p-3.5 text-body text-text"
             style={{ textAlignVertical: 'top' }}
           />
           <View className="flex-row justify-between gap-3">
@@ -346,7 +346,7 @@ export default function Wizard() {
               accessibilityLabel={`${row.label}: ${row.value}. ${t('report.edit')}`}
               className={`min-h-14 flex-row items-center gap-3 px-4 py-3 active:opacity-80 ${i < summaryRows.length - 1 ? 'border-b border-surface-2' : ''}`}
             >
-              <Text className="w-[84px] text-label font-medium text-text-mute">{row.label}</Text>
+              <Text className="w-[5.25rem] text-label font-medium text-text-mute">{row.label}</Text>
               <Text
                 className={`min-w-0 flex-1 text-body ${row.empty ? 'italic text-text-mute' : 'text-text'}`}
                 numberOfLines={3}

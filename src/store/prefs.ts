@@ -1,3 +1,4 @@
+import { rem } from 'nativewind';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
@@ -7,6 +8,11 @@ import type { ThemeName } from '@/ui/tokens';
 
 export type ThemePref = 'system' | ThemeName;
 export type TextScale = 1 | 1.3 | 1.6;
+
+// Base de rem (tailwind.config.js usa rem para texto y espacios).
+const BASE_REM = 16;
+const applyTextScale = (scale: TextScale) => rem.set(BASE_REM * scale);
+applyTextScale(1); // antes de hidratar (el de css-interop es 14)
 
 // Preferencias del usuario, en MMKV. El idioma se elige en el login (ES/EN)
 // y en Perfil; el tema y el tamaño de texto en Perfil → Accesibilidad.
@@ -25,7 +31,10 @@ export const usePrefs = create<Prefs>()(
       theme: 'system',
       language: null,
       textScale: 1,
-      setTextScale: (textScale) => set({ textScale }),
+      setTextScale: (textScale) => {
+        applyTextScale(textScale);
+        set({ textScale });
+      },
       setTheme: (theme) => set({ theme }),
       setLanguage: (language) => {
         void i18n.changeLanguage(language);
@@ -37,6 +46,7 @@ export const usePrefs = create<Prefs>()(
       storage: createJSONStorage(() => zustandStorage),
       onRehydrateStorage: () => (state) => {
         void i18n.changeLanguage(state?.language ?? systemLanguage());
+        applyTextScale(state?.textScale ?? 1);
       },
     },
   ),

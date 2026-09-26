@@ -63,7 +63,7 @@ export function BottomSheet({ visible, onClose, title, body, options, cancelLabe
               accessibilityRole="button"
               className={`min-h-13 items-center justify-center rounded-md px-4 ${optionBox[o.tone ?? 'neutral']} active:opacity-80`}
             >
-              <Text className={`text-[16px] ${optionText[o.tone ?? 'neutral']}`}>{o.label}</Text>
+              <Text className={`text-[1rem] ${optionText[o.tone ?? 'neutral']}`}>{o.label}</Text>
             </Pressable>
           ))}
           {hideCancel ? null : (
@@ -72,7 +72,7 @@ export function BottomSheet({ visible, onClose, title, body, options, cancelLabe
               accessibilityRole="button"
               className="min-h-13 items-center justify-center rounded-md active:opacity-80"
             >
-              <Text className="text-[16px] text-text-soft">{cancelLabel ?? t('common.cancel')}</Text>
+              <Text className="text-[1rem] text-text-soft">{cancelLabel ?? t('common.cancel')}</Text>
             </Pressable>
           )}
         </View>

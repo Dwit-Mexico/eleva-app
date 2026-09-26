@@ -10,7 +10,7 @@ export function Chip({ label, selected, onPress, disabled }: Props) {
       disabled={disabled}
       accessibilityRole="radio"
       accessibilityState={{ selected: !!selected, disabled: !!disabled }}
-      className={`min-h-11 justify-center rounded-sm border px-4 py-[11px] ${selected ? 'border-brand bg-brand' : 'border-border bg-surface-1'} ${disabled ? 'opacity-40' : ''} active:opacity-80`}
+      className={`min-h-11 justify-center rounded-sm border px-4 py-[0.6875rem] ${selected ? 'border-brand bg-brand' : 'border-border bg-surface-1'} ${disabled ? 'opacity-40' : ''} active:opacity-80`}
     >
       <Text className={`text-body ${selected ? 'font-semibold text-ink' : 'text-text'}`}>{label}</Text>
     </Pressable>

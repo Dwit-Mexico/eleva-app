@@ -64,7 +64,7 @@ export default function HouseholdUsers() {
             className="flex-row items-center gap-3.5 rounded-md border border-border bg-surface-1 px-4 py-3.5"
           >
             <View className="h-10 w-10 items-center justify-center rounded-pill bg-surface-2">
-              <Text className="text-[14px] font-semibold text-brand-soft">
+              <Text className="text-[0.875rem] font-semibold text-brand-soft">
                 {`${m.firstName[0] ?? ''}${m.lastName[0] ?? ''}`.toUpperCase()}
               </Text>
             </View>
@@ -90,7 +90,7 @@ export default function HouseholdUsers() {
         className="mt-1.5 min-h-13 flex-row items-center justify-center gap-2 rounded-md bg-brand active:opacity-80"
       >
         <UserPlus size={18} color={palette.ink} strokeWidth={2} />
-        <Text className="text-[16px] font-semibold text-ink">{t('users.add')}</Text>
+        <Text className="text-[1rem] font-semibold text-ink">{t('users.add')}</Text>
       </Pressable>
 
       <BottomSheet

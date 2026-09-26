@@ -40,7 +40,7 @@ export function ReportCard({ folio, statusId, createdAt, title, location, cta, p
         {cta ? (
           <View className="mt-0.5 min-h-11 flex-row items-center justify-center gap-2 rounded-sm border border-warning px-3">
             <Star size={16} color={palette.warning} strokeWidth={2} />
-            <Text className="text-[14px] font-semibold text-warning">{cta}</Text>
+            <Text className="text-[0.875rem] font-semibold text-warning">{cta}</Text>
           </View>
         ) : null}
       </View>

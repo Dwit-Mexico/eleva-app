@@ -26,7 +26,7 @@ export function EmptyState({ icon: Icon, title, text, action, bare, tone = 'neut
         <Icon size={26} color={danger ? palette.danger : palette.textMute} strokeWidth={2} />
       </View>
       <Text className="text-center text-body-lg font-semibold text-text">{title}</Text>
-      {text ? <Text className="text-center text-body leading-[22px] text-text-soft">{text}</Text> : null}
+      {text ? <Text className="text-center text-body leading-[1.375rem] text-text-soft">{text}</Text> : null}
       {action ? (
         <Button
           label={action.label}

@@ -202,7 +202,7 @@ export default function Home() {
 
           <View className="gap-3 rounded-md border border-border bg-surface-1 p-4">
             <View className="gap-0.5">
-              <Text className="text-body font-semibold leading-[22px] text-text">{t('home.helpTitle')}</Text>
+              <Text className="text-body font-semibold leading-[1.375rem] text-text">{t('home.helpTitle')}</Text>
               <Text className="text-caption text-text-soft">{t('home.helpBody')}</Text>
             </View>
             <ContactButtons />
@@ -212,7 +212,7 @@ export default function Home() {
               accessibilityRole="link"
               className="min-h-11 items-center justify-center self-center px-3"
             >
-              <Text className="text-[14px] text-brand-soft">
+              <Text className="text-[0.875rem] text-brand-soft">
                 {t('home.helpEmail', { email: supportEmail })}
               </Text>
             </Pressable>
@@ -246,7 +246,7 @@ function QuickCta({ onPress }: { onPress: () => void }) {
         <Camera size={24} color={palette.ink} strokeWidth={2} />
       </View>
       <View className="min-w-0 flex-1">
-        <Text className="text-[19px] font-semibold leading-6 text-ink">{t('home.quickTitle')}</Text>
+        <Text className="text-[1.1875rem] font-semibold leading-6 text-ink">{t('home.quickTitle')}</Text>
         <Text className="mt-0.5 text-caption text-ink/[0.72]">{t('home.quickSub')}</Text>
       </View>
       <ArrowRight size={20} color={palette.ink} strokeWidth={2} />
@@ -264,7 +264,7 @@ function GuidedLink({ onPress }: { onPress: () => void }) {
       className="-mt-2.5 min-h-11 flex-row items-center gap-1.5 self-center px-3"
     >
       <ListChecks size={16} color={palette.brandSoft} strokeWidth={2} />
-      <Text className="text-[14px] text-brand-soft">{t('home.guidedLink')}</Text>
+      <Text className="text-[0.875rem] text-brand-soft">{t('home.guidedLink')}</Text>
     </Pressable>
   );
 }
@@ -344,11 +344,11 @@ function Tile({
       onPress={onPress}
       accessibilityRole="button"
       accessibilityLabel={`${label}: ${value}`}
-      className="min-h-[104px] flex-1 justify-between gap-2 rounded-md border border-border bg-surface-1 p-3 active:opacity-80"
+      className="min-h-[6.5rem] flex-1 justify-between gap-2 rounded-md border border-border bg-surface-1 p-3 active:opacity-80"
     >
       <Icon size={20} color={palette.brandSoft} strokeWidth={2} />
       <View>
-        <Text className="text-[22px] font-semibold leading-[26px] text-text">{loading ? '–' : value}</Text>
+        <Text className="text-[1.375rem] font-semibold leading-[1.625rem] text-text">{loading ? '–' : value}</Text>
         <Text className="text-label text-text-soft">{label}</Text>
       </View>
       {alert ? <View className="absolute right-2.5 top-2.5 h-2 w-2 rounded-pill bg-warning" /> : null}

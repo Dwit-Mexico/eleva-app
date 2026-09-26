@@ -28,7 +28,7 @@ export function AuthScreen({ title, back, lang, description, centered, children 
             <View className="flex-1 justify-center gap-5 px-6 pb-15">{children}</View>
           ) : (
             <View className="gap-5 px-5 pb-10 pt-5">
-              {description ? <Text className="text-body leading-[22px] text-text-soft">{description}</Text> : null}
+              {description ? <Text className="text-body leading-[1.375rem] text-text-soft">{description}</Text> : null}
               {children}
             </View>
           )}
@@ -50,10 +50,10 @@ export function LanguagePill() {
       accessibilityRole="button"
       accessibilityLabel={t('auth.language')}
       hitSlop={4}
-      className="h-9 min-w-[60px] flex-row items-center justify-center gap-1.5 rounded-pill border border-border px-3 active:opacity-80"
+      className="h-9 min-w-[3.75rem] flex-row items-center justify-center gap-1.5 rounded-pill border border-border px-3 active:opacity-80"
     >
       <Languages size={15} color={palette.brandSoft} strokeWidth={2} />
-      <Text className="text-[13px] font-semibold tracking-[0.26px] text-brand-soft">{lang.toUpperCase()}</Text>
+      <Text className="text-[0.8125rem] font-semibold tracking-[0.26px] text-brand-soft">{lang.toUpperCase()}</Text>
     </Pressable>
   );
 }
@@ -68,7 +68,7 @@ export function TextLink({ label, onPress, disabled }: { label: string; onPress:
       accessibilityState={{ disabled: !!disabled }}
       className="self-center p-3 active:opacity-70"
     >
-      <Text className={disabled ? 'text-[13px] leading-[18px] text-text-mute' : 'text-[14px] text-brand-soft'}>
+      <Text className={disabled ? 'text-[0.8125rem] leading-[1.125rem] text-text-mute' : 'text-[0.875rem] text-brand-soft'}>
         {label}
       </Text>
     </Pressable>

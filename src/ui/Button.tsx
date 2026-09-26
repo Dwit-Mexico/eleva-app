@@ -65,7 +65,7 @@ export function Button({
       ) : (
         <View className="flex-row items-center gap-2">
           {Icon ? <Icon size={20} color={tint} strokeWidth={2} /> : null}
-          <Text className={`${size === 'lg' ? 'text-[16px]' : 'text-body'} font-semibold ${text[variant]}`}>
+          <Text className={`${size === 'lg' ? 'text-[1rem]' : 'text-body'} font-semibold ${text[variant]}`}>
             {label}
           </Text>
         </View>

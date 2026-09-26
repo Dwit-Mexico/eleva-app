@@ -64,8 +64,8 @@ export default function Reports() {
           className="mx-5 min-h-11 flex-row items-center gap-2.5 rounded-md border border-border bg-surface-1 px-3.5 py-2 active:opacity-80"
         >
           <Building2 size={16} color={palette.brandSoft} strokeWidth={2} />
-          <Text className="flex-1 text-[14px] leading-5 text-text-soft">{unit.label}</Text>
-          {units.length > 1 ? <Text className="text-[13px] font-semibold text-brand-soft">{t('home.change')}</Text> : null}
+          <Text className="flex-1 text-[0.875rem] leading-5 text-text-soft">{unit.label}</Text>
+          {units.length > 1 ? <Text className="text-[0.8125rem] font-semibold text-brand-soft">{t('home.change')}</Text> : null}
         </Pressable>
       ) : null}
 
@@ -80,7 +80,7 @@ export default function Reports() {
               accessibilityState={{ selected: on }}
               className={`min-h-10 items-center justify-center rounded-pill px-4 ${on ? 'bg-brand' : 'border border-border bg-surface-1'}`}
             >
-              <Text className={`text-[14px] font-semibold ${on ? 'text-ink' : 'text-text-soft'}`}>{t(`list.${s}`)}</Text>
+              <Text className={`text-[0.875rem] font-semibold ${on ? 'text-ink' : 'text-text-soft'}`}>{t(`list.${s}`)}</Text>
             </Pressable>
           );
         })}

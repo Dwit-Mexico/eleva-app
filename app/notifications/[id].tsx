@@ -47,7 +47,7 @@ export default function NotificationDetail() {
               className="mt-1 min-h-14 flex-row items-center gap-2.5 rounded-md border border-border bg-surface-1 px-4 py-3.5 active:opacity-80"
             >
               <Text className="font-mono text-folio text-text-mute">{folio ?? `#${n.requestId}`}</Text>
-              <Text className="ml-auto text-[14px] font-semibold text-brand-soft">{t('notifs.openReport')}</Text>
+              <Text className="ml-auto text-[0.875rem] font-semibold text-brand-soft">{t('notifs.openReport')}</Text>
               <ChevronRight size={18} color={palette.textMute} strokeWidth={2} />
             </Pressable>
           ) : null}

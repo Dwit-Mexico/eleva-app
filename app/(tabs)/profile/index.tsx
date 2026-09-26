@@ -50,10 +50,10 @@ export default function Profile() {
     <Screen header={<Header title={t('profile.title')} />}>
       <View className="flex-row items-center gap-3.5">
         <View className="h-14 w-14 items-center justify-center rounded-pill border border-border bg-surface-2">
-          <Text className="text-[19px] font-semibold text-brand-soft">{initials}</Text>
+          <Text className="text-[1.1875rem] font-semibold text-brand-soft">{initials}</Text>
         </View>
         <View className="min-w-0 flex-1">
-          <Text className="text-[19px] font-semibold leading-6 text-text">{name}</Text>
+          <Text className="text-[1.1875rem] font-semibold leading-6 text-text">{name}</Text>
           <Text className="text-caption text-text-soft">{user?.email}</Text>
         </View>
       </View>
@@ -65,7 +65,7 @@ export default function Profile() {
           <UserCheck size={18} color={palette.brandSoft} strokeWidth={2} style={{ marginTop: 2 }} />
         )}
         <View className="min-w-0 flex-1">
-          <Text className="text-body leading-[22px] text-text">
+          <Text className="text-body leading-[1.375rem] text-text">
             {owner ? t('profile.ownerTitle') : t('profile.guestTitle')}
           </Text>
           <Text className="mt-0.5 text-caption text-text-soft">
@@ -112,7 +112,7 @@ export default function Profile() {
           className="min-h-13 flex-row items-center justify-center gap-2 rounded-md border border-border active:opacity-80"
         >
           <LogOut size={18} color={palette.danger} strokeWidth={2} />
-          <Text className="text-[16px] font-semibold text-danger">{t('profile.logout')}</Text>
+          <Text className="text-[1rem] font-semibold text-danger">{t('profile.logout')}</Text>
         </Pressable>
       </View>
 
@@ -154,13 +154,13 @@ function UnitWarranty({ u }: { u: OwnerUnit }) {
   return (
     <View className="gap-1.5 rounded-md border border-border bg-surface-1 p-4">
       <Text className="text-body-lg font-semibold text-brand-soft">{u.name}</Text>
-      <Text className="text-body leading-[22px] text-text">{u.label}</Text>
+      <Text className="text-body leading-[1.375rem] text-text">{u.label}</Text>
       {u.address ? <Text className="text-caption text-text-soft">{u.address}</Text> : null}
       <View className="mt-1 flex-row flex-wrap items-center gap-2">
         <Text className="text-label font-medium text-text-mute">{t('profile.warranty')}</Text>
         {until ? (
           <View
-            className={`min-h-[22px] justify-center rounded-pill px-2 py-0.5 ${active ? 'bg-success' : 'border border-border bg-surface-2'}`}
+            className={`min-h-[1.375rem] justify-center rounded-pill px-2 py-0.5 ${active ? 'bg-success' : 'border border-border bg-surface-2'}`}
           >
             <Text
               className={`text-label font-semibold tracking-[0.24px] ${active ? 'text-ink' : 'text-text-soft'}`}
@@ -196,12 +196,12 @@ function Row({
       className="min-h-13 flex-row items-center gap-3 rounded-md border border-border bg-surface-1 px-4 active:opacity-80"
     >
       <Icon size={20} color={palette.brandSoft} strokeWidth={2} />
-      <Text className="flex-1 text-[16px] text-text">{label}</Text>
+      <Text className="flex-1 text-[1rem] text-text">{label}</Text>
       {children}
     </Pressable>
   );
 }
 
 function Value({ children }: { children: ReactNode }) {
-  return <Text className="text-[14px] font-semibold text-brand-soft">{children}</Text>;
+  return <Text className="text-[0.875rem] font-semibold text-brand-soft">{children}</Text>;
 }

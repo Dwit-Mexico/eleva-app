@@ -23,7 +23,7 @@ export function CodeInput({ value, onChange, error }: { value: string; onChange:
               key={i}
               className={`h-15 flex-1 items-center justify-center rounded-sm border bg-surface-2 ${error ? 'border-danger' : current ? 'border-brand' : 'border-border'}`}
             >
-              <Text className="text-[24px] font-semibold text-text">{value[i] ?? ''}</Text>
+              <Text className="text-[1.5rem] font-semibold text-text">{value[i] ?? ''}</Text>
             </View>
           );
         })}

@@ -18,7 +18,7 @@ export default function TextSize() {
   const { textScale, setTextScale } = usePrefs();
   return (
     <Screen header={<Header title={t('profile.a11y')} back />}>
-      <Text className="text-body leading-[22px] text-text-soft">{t('profile.a11yIntro')}</Text>
+      <Text className="text-body leading-[1.375rem] text-text-soft">{t('profile.a11yIntro')}</Text>
       <View className="gap-2" accessibilityRole="radiogroup">
         {OPTIONS.map((o) => {
           const on = textScale === o.v;

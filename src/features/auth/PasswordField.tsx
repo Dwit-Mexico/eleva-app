@@ -53,7 +53,7 @@ export function PasswordRules({ value }: { value: string }) {
           ) : (
             <Circle size={16} color={palette.textMute} strokeWidth={2} />
           )}
-          <Text className="text-[13px] leading-[18px] text-text-soft">{r.label}</Text>
+          <Text className="text-[0.8125rem] leading-[1.125rem] text-text-soft">{r.label}</Text>
         </View>
       ))}
     </View>

@@ -117,7 +117,7 @@ export default function QuickReport() {
             onPress={() => add('photo')}
             accessibilityRole="button"
             accessibilityLabel={`${t('report.shotEmpty')}. ${t('report.shotHint')}`}
-            className="min-h-[150px] items-center justify-center gap-2 rounded-md border-[1.5px] border-dashed border-border bg-surface-1 p-5"
+            className="min-h-[9.375rem] items-center justify-center gap-2 rounded-md border-[1.5px] border-dashed border-border bg-surface-1 p-5"
           >
             <Camera size={30} color={palette.brandSoft} strokeWidth={2} />
             <Text className="text-center text-body font-semibold text-text">{t('report.shotEmpty')}</Text>
@@ -154,7 +154,7 @@ export default function QuickReport() {
                 className="min-h-11 flex-row items-center gap-2 self-start rounded-pill border border-border bg-surface-1 px-3.5"
               >
                 <Video size={16} color={palette.text} strokeWidth={2} />
-                <Text className="text-[14px] font-semibold text-text">{t('report.addVideo')}</Text>
+                <Text className="text-[0.875rem] font-semibold text-text">{t('report.addVideo')}</Text>
               </Pressable>
             ) : null}
           </>
@@ -184,7 +184,7 @@ export default function QuickReport() {
               multiline
               maxLength={1500}
               accessibilityLabel={t('report.noteLabel')}
-              className="min-h-[112px] rounded-sm border border-border bg-surface-2 p-3.5 text-body text-text"
+              className="min-h-[7rem] rounded-sm border border-border bg-surface-2 p-3.5 text-body text-text"
               style={{ textAlignVertical: 'top' }}
             />
           </View>
@@ -211,7 +211,7 @@ export default function QuickReport() {
         accessibilityState={{ busy: sending }}
         className={`min-h-13 items-center justify-center rounded-md ${ready ? 'bg-brand' : 'border border-border bg-surface-2'} active:opacity-80`}
       >
-        <Text className={`text-[16px] font-semibold ${ready ? 'text-ink' : 'text-text-mute'}`}>
+        <Text className={`text-[1rem] font-semibold ${ready ? 'text-ink' : 'text-text-mute'}`}>
           {sending ? '…' : t('report.send')}
         </Text>
       </Pressable>
@@ -291,7 +291,7 @@ function Thumb({ media, onPress, onRemove }: { media: Media; onPress: () => void
         </View>
       )}
       {media.kind === 'video' ? (
-        <View className="absolute left-1.5 top-1.5 h-[22px] w-[22px] items-center justify-center rounded-pill bg-ink/[0.72]">
+        <View className="absolute left-1.5 top-1.5 h-[1.375rem] w-[1.375rem] items-center justify-center rounded-pill bg-ink/[0.72]">
           <Play size={12} color={palette.brandSoft} fill={palette.brandSoft} />
         </View>
       ) : null}
@@ -300,7 +300,7 @@ function Thumb({ media, onPress, onRemove }: { media: Media; onPress: () => void
         accessibilityRole="button"
         accessibilityLabel={t('report.remove')}
         hitSlop={8}
-        className="absolute right-1 top-1 h-[26px] w-[26px] items-center justify-center rounded-pill border border-border bg-[rgba(24,25,26,0.82)]"
+        className="absolute right-1 top-1 h-[1.625rem] w-[1.625rem] items-center justify-center rounded-pill border border-border bg-[rgba(24,25,26,0.82)]"
       >
         <X size={14} color={palette.danger} strokeWidth={2.5} />
       </Pressable>
