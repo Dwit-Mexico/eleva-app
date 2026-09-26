@@ -44,7 +44,8 @@ const es = {
   },
   home: {
     helpTitle: '¿Prefieres hablar con alguien?',
-    helpBody: 'Customer Service atiende de lunes a viernes, 9:00 a 18:00.',
+    helpBody: 'Customer Service atiende de lunes a viernes de 9:00 a 18:00 y sábados de 10:00 a 13:00. Fuera de ese horario, escríbenos por correo.',
+    helpEmail: 'Escribir a {{email}}',
     title: 'Servicio al cliente',
     yourUnit: 'Tu vivienda',
     yourUnits: 'Tus viviendas',

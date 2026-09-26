@@ -44,7 +44,8 @@ const en: Translations = {
   },
   home: {
     helpTitle: 'Would you rather talk to someone?',
-    helpBody: 'Customer Service is open Monday to Friday, 9:00 to 18:00.',
+    helpBody: 'Customer Service is open Monday to Friday 9:00 to 18:00 and Saturday 10:00 to 13:00. Outside those hours, email us.',
+    helpEmail: 'Email {{email}}',
     title: 'Customer service',
     yourUnit: 'Your home',
     yourUnits: 'Your homes',

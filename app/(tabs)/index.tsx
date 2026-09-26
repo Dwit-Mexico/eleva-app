@@ -24,6 +24,7 @@ import { UnitCard } from '@/features/units/UnitCard';
 import { useQuickDraft } from '@/features/quick/draft';
 import { useDraft } from '@/features/wizard/draft';
 import { formatVisit } from '@/lib/relativeTime';
+import { support, supportEmail } from '@/lib/support';
 import { useActiveUnit } from '@/store/activeUnit';
 import { currentLanguage } from '@/store/prefs';
 import { BellButton, EmptyState, Header, ReportCard, Screen, Skeleton, useTheme } from '@/ui';
@@ -62,7 +63,10 @@ export default function Home() {
   return (
     <Screen
       header={
-        <Header title={t('home.title')} right={<BellButton unread={unread} onPress={() => router.push('/notifications')} />} />
+        <Header
+          title={t('home.title')}
+          right={<BellButton unread={unread} onPress={() => router.push('/notifications')} />}
+        />
       }
       onRefresh={refresh}
       refreshing={requests.isRefetching}
@@ -123,9 +127,28 @@ export default function Home() {
           <View className="gap-2.5">
             <SectionLabel>{t('home.followUp')}</SectionLabel>
             <View className="flex-row gap-2.5">
-              <Tile icon={Activity} label={t('home.inProgress')} value={count('status')} loading={requests.isLoading} onPress={() => router.push({ pathname: '/reports', params: { tab: 'status' } })} />
-              <Tile icon={Star} label={t('home.toRate')} value={count('rating')} loading={requests.isLoading} alert={toRate > 0} onPress={() => router.push({ pathname: '/reports', params: { tab: 'rating' } })} />
-              <Tile icon={Archive} label={t('home.closed')} value={count('history')} loading={requests.isLoading} onPress={() => router.push({ pathname: '/reports', params: { tab: 'history' } })} />
+              <Tile
+                icon={Activity}
+                label={t('home.inProgress')}
+                value={count('status')}
+                loading={requests.isLoading}
+                onPress={() => router.push({ pathname: '/reports', params: { tab: 'status' } })}
+              />
+              <Tile
+                icon={Star}
+                label={t('home.toRate')}
+                value={count('rating')}
+                loading={requests.isLoading}
+                alert={toRate > 0}
+                onPress={() => router.push({ pathname: '/reports', params: { tab: 'rating' } })}
+              />
+              <Tile
+                icon={Archive}
+                label={t('home.closed')}
+                value={count('history')}
+                loading={requests.isLoading}
+                onPress={() => router.push({ pathname: '/reports', params: { tab: 'history' } })}
+              />
             </View>
           </View>
 
@@ -153,21 +176,27 @@ export default function Home() {
                 <Skeleton />
               </>
             ) : requests.isError ? (
-              <EmptyState icon={AlertTriangle} title={t('home.loadError')} action={{ label: t('common.retry'), onPress: refresh }} />
+              <EmptyState
+                icon={AlertTriangle}
+                title={t('home.loadError')}
+                action={{ label: t('common.retry'), onPress: refresh }}
+              />
             ) : mine.length === 0 ? (
               <EmptyState icon={ListChecks} title={t('home.noReports')} text={t('home.noReportsBody')} />
             ) : (
-              mine.slice(0, 2).map((r) => (
-                <ReportCard
-                  key={r.id}
-                  folio={r.folio}
-                  statusId={r.status.id}
-                  createdAt={new Date(r.createdAt)}
-                  title={title(r)}
-                  location={requestLocation(r, lang)}
-                  onPress={() => router.push(`/reports/${r.id}`)}
-                />
-              ))
+              mine
+                .slice(0, 2)
+                .map((r) => (
+                  <ReportCard
+                    key={r.id}
+                    folio={r.folio}
+                    statusId={r.status.id}
+                    createdAt={new Date(r.createdAt)}
+                    title={title(r)}
+                    location={requestLocation(r, lang)}
+                    onPress={() => router.push(`/reports/${r.id}`)}
+                  />
+                ))
             )}
           </View>
 
@@ -177,6 +206,16 @@ export default function Home() {
               <Text className="text-caption text-text-soft">{t('home.helpBody')}</Text>
             </View>
             <ContactButtons />
+            {/* Fuera de horario la atención es por correo. */}
+            <Pressable
+              onPress={() => support.email()}
+              accessibilityRole="link"
+              className="min-h-11 items-center justify-center self-center px-3"
+            >
+              <Text className="text-[14px] text-brand-soft">
+                {t('home.helpEmail', { email: supportEmail })}
+              </Text>
+            </Pressable>
           </View>
         </>
       ) : null}
@@ -245,7 +284,19 @@ type ActionCardProps = {
 };
 
 // Tarjetas con borde de color (agendar, próxima visita, borrador, calificar).
-function ActionCard({ border, tile, icon, title, label, value, sub, onPress, chevron = true, compact, plain }: ActionCardProps) {
+function ActionCard({
+  border,
+  tile,
+  icon,
+  title,
+  label,
+  value,
+  sub,
+  onPress,
+  chevron = true,
+  compact,
+  plain,
+}: ActionCardProps) {
   const { palette } = useTheme();
   return (
     <Pressable
@@ -254,11 +305,17 @@ function ActionCard({ border, tile, icon, title, label, value, sub, onPress, che
       accessibilityLabel={[label, value, title, sub].filter(Boolean).join('. ')}
       className={`flex-row items-center rounded-md border bg-surface-1 ${border} ${compact ? 'gap-3 px-4 py-3.5' : 'gap-3.5 p-4'} active:opacity-80`}
     >
-      {tile ? <View className={`h-11 w-11 items-center justify-center rounded-md ${tile}`}>{icon}</View> : icon}
+      {tile ? (
+        <View className={`h-11 w-11 items-center justify-center rounded-md ${tile}`}>{icon}</View>
+      ) : (
+        icon
+      )}
       <View className="min-w-0 flex-1">
         {label ? <Text className="text-label font-medium text-text-mute">{label}</Text> : null}
         {value ? <Text className="mt-0.5 text-body-lg text-text">{value}</Text> : null}
-        {title ? <Text className={`text-body text-text ${plain || compact ? '' : 'font-semibold'}`}>{title}</Text> : null}
+        {title ? (
+          <Text className={`text-body text-text ${plain || compact ? '' : 'font-semibold'}`}>{title}</Text>
+        ) : null}
         {sub ? <Text className="mt-0.5 text-caption text-text-soft">{sub}</Text> : null}
       </View>
       {chevron ? <ChevronRight size={18} color={palette.textMute} strokeWidth={2} /> : null}
