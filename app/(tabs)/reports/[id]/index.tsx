@@ -1,15 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { Image } from 'expo-image';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import {
-  AlertTriangle,
-  CalendarClock,
-  MessageCircle,
-  MessagesSquare,
-  Phone,
-  Play,
-  Star,
-} from 'lucide-react-native';
+import { AlertTriangle, CalendarClock, MessagesSquare, Play, Star } from 'lucide-react-native';
 import { useState, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, Text, View } from 'react-native';
@@ -19,10 +11,10 @@ import { errorText } from '@/api/client';
 import { keys, useRequest, useThreads } from '@/api/queries';
 import type { Request } from '@/api/schemas';
 import { MediaViewer } from '@/features/media/MediaViewer';
+import { ContactButtons } from '@/features/requests/ContactButtons';
 import { canCancel, canSchedule, nextStep, ownerMedia, timelineOf } from '@/features/requests/detail';
 import { loc, requestLocation, requestTitle } from '@/features/requests/labels';
 import { formatDate, formatVisit, relativeTime } from '@/lib/relativeTime';
-import { support } from '@/lib/support';
 import { currentLanguage } from '@/store/prefs';
 import { BottomSheet, EmptyState, ErrorMessage, Header, Screen, Skeleton, StatusBadge, useTheme } from '@/ui';
 
@@ -259,24 +251,7 @@ function Body({ r, onCancel, cancelError }: { r: Request; onCancel: () => void; 
         </View>
       ) : null}
 
-      <View className="flex-row gap-2.5">
-        <Pressable
-          onPress={support.call}
-          accessibilityRole="button"
-          className="min-h-12 flex-1 flex-row items-center justify-center gap-2 rounded-md border border-border bg-surface-2 active:opacity-80"
-        >
-          <Phone size={18} color={palette.text} strokeWidth={2} />
-          <Text className="text-body font-semibold text-text">{t('detail.call')}</Text>
-        </Pressable>
-        <Pressable
-          onPress={() => support.whatsapp(r.folio)}
-          accessibilityRole="button"
-          className="min-h-12 flex-1 flex-row items-center justify-center gap-2 rounded-md bg-brand active:opacity-80"
-        >
-          <MessageCircle size={18} color={palette.ink} strokeWidth={2} />
-          <Text className="text-body font-semibold text-ink">{t('detail.whatsapp')}</Text>
-        </Pressable>
-      </View>
+      <ContactButtons folio={r.folio} />
 
       <MediaViewer
         items={media.map((m) => ({ kind: m.kind, uri: m.url }))}

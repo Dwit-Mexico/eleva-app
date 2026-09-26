@@ -27,3 +27,15 @@ export function formatVisit(date: Date, lang: 'es' | 'en'): string {
   const time = date.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit', hour12: false });
   return `${day} · ${time}`;
 }
+
+// "Lunes 28 de septiembre" / "Monday, September 28" y "10:00" (fechas propuestas).
+export function formatDay(date: Date, lang: 'es' | 'en'): string {
+  const locale = lang === 'en' ? 'en-US' : 'es-MX';
+  const s = date.toLocaleDateString(locale, { weekday: 'long', day: 'numeric', month: 'long' });
+  const out = lang === 'es' ? s.replace(',', '') : s;
+  return out.charAt(0).toUpperCase() + out.slice(1);
+}
+
+export function formatTime(date: Date, lang: 'es' | 'en'): string {
+  return date.toLocaleTimeString(lang === 'en' ? 'en-US' : 'es-MX', { hour: '2-digit', minute: '2-digit', hour12: false });
+}
