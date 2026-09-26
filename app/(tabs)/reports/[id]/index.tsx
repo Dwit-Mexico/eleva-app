@@ -18,6 +18,7 @@ import { formatDate, formatVisit, parseDay, relativeTime } from '@/lib/relativeT
 import { currentLanguage } from '@/store/prefs';
 import { BottomSheet, EmptyState, ErrorMessage, Header, Screen, Skeleton, StatusBadge, useTheme } from '@/ui';
 import { needsNetwork } from '@/features/offline/guard';
+import { OfflineEmpty, pausedWithoutData } from '@/features/offline/OfflineEmpty';
 
 // Detalle del reporte (prototipo: isDetail).
 export default function RequestDetail() {
@@ -52,6 +53,8 @@ export default function RequestDetail() {
     >
       {r ? (
         <Body r={r} onCancel={needsNetwork(() => setCancelSheet(true))} cancelError={cancelError} />
+      ) : pausedWithoutData(query) ? (
+        <OfflineEmpty />
       ) : query.isLoading ? (
         <>
           <Skeleton height={28} />

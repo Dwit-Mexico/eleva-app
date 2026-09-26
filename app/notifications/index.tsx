@@ -10,6 +10,7 @@ import { localizedNotice } from '@/features/notifications/text';
 import { formatDateTime } from '@/lib/relativeTime';
 import { currentLanguage } from '@/store/prefs';
 import { EmptyState, Header, Screen, Skeleton, useTheme } from '@/ui';
+import { OfflineEmpty, pausedWithoutData } from '@/features/offline/OfflineEmpty';
 
 // Bandeja de avisos (prototipo: isNotifs). Los sin leer llevan punto brand.
 // Tocar uno lo marca leído y lleva directo a su destino (sin pantalla
@@ -29,7 +30,9 @@ export default function Notifications() {
       refreshing={q.isRefetching}
       bodyClassName="gap-2.5 px-5 pb-7 pt-4"
     >
-      {q.isLoading ? (
+      {pausedWithoutData(q) ? (
+        <OfflineEmpty />
+      ) : q.isLoading ? (
         <>
           <Skeleton height={64} />
           <Skeleton height={64} />

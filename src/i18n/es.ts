@@ -399,6 +399,8 @@ const es = {
     pause: 'Pausar',
   },
   offline: {
+    notSavedTitle: 'No está guardado en el teléfono',
+    notSavedBody: 'Ábrelo una vez con internet y después podrás consultarlo sin conexión.',
     banner: 'Sin conexión · solo consulta',
     lastData: 'Mostrando lo último que cargaste, {{when}} {{time}}',
     noData: 'Mostrando lo último que cargaste',

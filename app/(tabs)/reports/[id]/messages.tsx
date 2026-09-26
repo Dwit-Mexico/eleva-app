@@ -17,6 +17,7 @@ import { useMediaPicker } from '@/features/media/useMediaPicker';
 import { currentLanguage } from '@/store/prefs';
 import { BottomSheet, ConnectionBanner, Header, Skeleton, useTheme } from '@/ui';
 import { needsNetwork } from '@/features/offline/guard';
+import { OfflineEmpty, pausedWithoutData } from '@/features/offline/OfflineEmpty';
 
 const pad = (n: number) => String(n).padStart(2, '0');
 const stamp = (iso: string) => {
@@ -99,7 +100,9 @@ export default function Messages() {
           onContentSizeChange={() => scroll.current?.scrollToEnd({ animated: false })}
           keyboardShouldPersistTaps="handled"
         >
-          {messages.isLoading ? (
+          {pausedWithoutData(messages) ? (
+            <OfflineEmpty />
+          ) : messages.isLoading ? (
             <>
               <Skeleton height={64} />
               <Skeleton height={48} />

@@ -398,6 +398,8 @@ const en: Translations = {
     pause: 'Pause',
   },
   offline: {
+    notSavedTitle: 'Not saved on this phone',
+    notSavedBody: 'Open it once with internet and you will be able to see it offline later.',
     banner: 'Offline · view only',
     lastData: 'Showing the last data you loaded, {{when}} {{time}}',
     noData: 'Showing the last data you loaded',

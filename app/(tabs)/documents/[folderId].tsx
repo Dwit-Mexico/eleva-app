@@ -7,6 +7,7 @@ import { useDocuments } from '@/api/queries';
 import { fileSize } from '@/lib/fileSize';
 import { formatDate } from '@/lib/relativeTime';
 import { EmptyState, Header, Screen, Skeleton, useTheme } from '@/ui';
+import { OfflineEmpty, pausedWithoutData } from '@/features/offline/OfflineEmpty';
 
 // Archivos de una carpeta (prototipo: isDocFiles). Tocar abre el PDF con el
 // visor del sistema.
@@ -22,7 +23,9 @@ export default function FolderFiles() {
       refreshing={docs.isRefetching}
       bodyClassName="gap-2.5 px-5 pb-7 pt-4"
     >
-      {docs.isLoading ? (
+      {pausedWithoutData(docs) ? (
+        <OfflineEmpty />
+      ) : docs.isLoading ? (
         <>
           <Skeleton height={64} />
           <Skeleton height={64} />
