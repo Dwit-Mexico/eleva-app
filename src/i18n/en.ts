@@ -244,6 +244,7 @@ const en: Translations = {
   },
   chat: { title: 'Messages', team: 'Customer Service', placeholder: 'Write a message', attach: 'Attach photo', send: 'Send message', empty: 'Write to us if you have questions about the report. We will answer here.', photo: 'Attached photo', sending: 'Sending…' },
   docs: { title: 'Documents', files_one: '{{count}} file', files_other: '{{count}} files', emptyFolders: 'No documents yet', emptyFoldersBody: 'When the team shares manuals, blueprints or warranties, they will show up here.', emptyFiles: 'This folder is empty', loadError: 'Could not load the documents', open: 'Open {{name}}' },
+  notifs: { title: 'Notifications', empty: 'No notifications', emptyBody: 'We will let you know here about visits, ratings and new documents.', loadError: 'Could not load the notifications', openReport: 'Open report', unread: 'Unread' },
   tabs: { home: 'Home', reports: 'Reports', documents: 'Documents', profile: 'Profile' },
   common: {
     back: 'Back',

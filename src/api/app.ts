@@ -31,5 +31,6 @@ export const appApi = {
   messageSummary: () => call('GET', '/app/messages/summary', z.array(chatThread)),
   folders: () => call('GET', '/app/document-folders', z.array(documentFolder)),
   documents: (folderId: number) => call('GET', `/app/document-folders/${folderId}/documents`, z.array(documentFile)),
+  readNotification: (id: number) => call('POST', `/app/notifications/${id}/read`, z.unknown()),
   notifications: () => call('GET', '/app/notifications', z.array(inboxItem)),
 };

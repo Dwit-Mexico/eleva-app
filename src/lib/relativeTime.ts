@@ -39,3 +39,9 @@ export function formatDay(date: Date, lang: 'es' | 'en'): string {
 export function formatTime(date: Date, lang: 'es' | 'en'): string {
   return date.toLocaleTimeString(lang === 'en' ? 'en-US' : 'es-MX', { hour: '2-digit', minute: '2-digit', hour12: false });
 }
+
+// "16/09/2026 09:12" (avisos).
+export function formatDateTime(date: Date): string {
+  const pad = (n: number) => String(n).padStart(2, '0');
+  return `${formatDate(date)} ${pad(date.getHours())}:${pad(date.getMinutes())}`;
+}
