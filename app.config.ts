@@ -64,6 +64,7 @@ const config: ExpoConfig = {
     ],
     ['expo-video', { supportsBackgroundPlayback: false, supportsPictureInPicture: false }],
     ['expo-image', { disableLibdav1d: true }],
+    './plugins/withGradleMemory',
   ],
   // OTA: cambios de JS sin pasar por tienda. runtimeVersion = versión de la
   // app: un build nativo nuevo exige subir `version`.
