@@ -102,6 +102,7 @@ const en: Translations = {
     pickPhoto: 'Choose from device',
     takeVideo: 'Record video',
     pickVideo: 'Choose video',
+    pickAny: 'Choose a photo or video from the device',
     remove: 'Remove',
     replace: 'Replace',
     permTitle: 'Eleva needs the camera',

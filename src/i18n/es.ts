@@ -104,6 +104,7 @@ const es = {
     pickPhoto: 'Elegir del dispositivo',
     takeVideo: 'Grabar video',
     pickVideo: 'Elegir video',
+    pickAny: 'Elegir foto o video del dispositivo',
     remove: 'Quitar',
     replace: 'Reemplazar',
     permTitle: 'Eleva necesita la cámara',

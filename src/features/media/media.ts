@@ -22,11 +22,13 @@ async function compressPhoto(asset: ImagePicker.ImagePickerAsset): Promise<Media
 }
 
 export type Source = 'camera' | 'library';
+// 'any': la galería muestra fotos y videos (primera evidencia del reporte rápido).
+export type PickKind = 'photo' | 'video' | 'any';
 
 // Regresa null si el usuario cancela.
-export async function pickMedia(kind: 'photo' | 'video', source: Source): Promise<Media | null> {
+export async function pickMedia(kind: PickKind, source: Source): Promise<Media | null> {
   const options: ImagePicker.ImagePickerOptions = {
-    mediaTypes: kind === 'photo' ? 'images' : 'videos',
+    mediaTypes: kind === 'any' ? ['images', 'videos'] : kind === 'photo' ? 'images' : 'videos',
     quality: 1,
     videoMaxDuration: VIDEO_MAX_SECONDS,
     videoQuality: ImagePicker.UIImagePickerControllerQualityType.Medium,
@@ -38,7 +40,8 @@ export async function pickMedia(kind: 'photo' | 'video', source: Source): Promis
       : await ImagePicker.launchImageLibraryAsync(options);
   const asset = result.canceled ? undefined : result.assets[0];
   if (!asset) return null;
-  if (kind === 'photo') return compressPhoto(asset);
+  const isVideo = kind === 'video' || (kind === 'any' && asset.type === 'video');
+  if (!isVideo) return compressPhoto(asset);
   return { uri: asset.uri, kind: 'video', mime: 'video/mp4', name: `video-${Date.now()}.mp4` };
 }
 

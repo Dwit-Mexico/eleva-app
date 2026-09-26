@@ -21,7 +21,7 @@ import { BackHandler, Pressable, Text, TextInput, View } from 'react-native';
 import { appApi } from '@/api/app';
 import { errorText } from '@/api/client';
 import { keys, useUnitAreas } from '@/api/queries';
-import { MAX_PHOTOS, type Media } from '@/features/media/media';
+import { MAX_PHOTOS, type Media, type PickKind } from '@/features/media/media';
 import { MediaViewer } from '@/features/media/MediaViewer';
 import { useMediaPicker } from '@/features/media/useMediaPicker';
 import { useQuickDraft } from '@/features/quick/draft';
@@ -70,7 +70,7 @@ export default function QuickReport() {
       return m.kind === 'video' ? [...prev.filter((x) => x.kind !== 'video'), m] : [...prev, m];
     });
   });
-  const add = (kind: 'photo' | 'video') => {
+  const add = (kind: PickKind) => {
     replacing.current = null;
     picker.open(kind);
   };
@@ -135,7 +135,7 @@ export default function QuickReport() {
       <View className="gap-2.5">
         {!ready ? (
           <Pressable
-            onPress={() => add('photo')}
+            onPress={() => add('any')}
             accessibilityRole="button"
             accessibilityLabel={`${t('report.shotEmpty')}. ${t('report.shotHint')}`}
             className="min-h-[9.375rem] items-center justify-center gap-2 rounded-md border-[1.5px] border-dashed border-border bg-surface-1 p-5"

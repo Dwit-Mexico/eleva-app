@@ -4,7 +4,7 @@ import { Linking } from 'react-native';
 
 import { BottomSheet } from '@/ui';
 
-import { cameraPermission, pickMedia, requestCamera, type Media, type Source } from './media';
+import { cameraPermission, pickMedia, requestCamera, type Media, type PickKind, type Source } from './media';
 
 // iOS no presenta la cámara mientras un Modal todavía se está cerrando.
 const sheetClosed = () => new Promise((r) => setTimeout(r, 350));
@@ -13,11 +13,11 @@ const sheetClosed = () => new Promise((r) => setTimeout(r, 350));
 // permiso propio antes del aviso del sistema, y la liga a Ajustes si se negó.
 export function useMediaPicker(onPicked: (m: Media) => void) {
   const { t } = useTranslation();
-  const [kind, setKind] = useState<'photo' | 'video' | null>(null);
+  const [kind, setKind] = useState<PickKind | null>(null);
   const [perm, setPerm] = useState<'ask' | 'denied' | null>(null);
-  const [pending, setPending] = useState<'photo' | 'video'>('photo');
+  const [pending, setPending] = useState<PickKind>('photo');
 
-  const run = async (k: 'photo' | 'video', source: Source) => {
+  const run = async (k: PickKind, source: Source) => {
     setKind(null);
     await sheetClosed();
     if (source === 'camera') {
@@ -39,15 +39,29 @@ export function useMediaPicker(onPicked: (m: Media) => void) {
         onClose={() => setKind(null)}
         title={t('report.mediaSheet')}
         options={
-          kind === 'video'
+          kind === 'any'
             ? [
-                { label: t('report.takeVideo'), tone: 'primary', onPress: () => void run('video', 'camera') },
-                { label: t('report.pickVideo'), onPress: () => void run('video', 'library') },
-              ]
-            : [
                 { label: t('report.takePhoto'), tone: 'primary', onPress: () => void run('photo', 'camera') },
-                { label: t('report.pickPhoto'), onPress: () => void run('photo', 'library') },
+                { label: t('report.takeVideo'), onPress: () => void run('video', 'camera') },
+                { label: t('report.pickAny'), onPress: () => void run('any', 'library') },
               ]
+            : kind === 'video'
+              ? [
+                  {
+                    label: t('report.takeVideo'),
+                    tone: 'primary',
+                    onPress: () => void run('video', 'camera'),
+                  },
+                  { label: t('report.pickVideo'), onPress: () => void run('video', 'library') },
+                ]
+              : [
+                  {
+                    label: t('report.takePhoto'),
+                    tone: 'primary',
+                    onPress: () => void run('photo', 'camera'),
+                  },
+                  { label: t('report.pickPhoto'), onPress: () => void run('photo', 'library') },
+                ]
         }
       />
       <BottomSheet
@@ -76,5 +90,5 @@ export function useMediaPicker(onPicked: (m: Media) => void) {
     </>
   );
 
-  return { open: (k: 'photo' | 'video') => setKind(k), sheets };
+  return { open: (k: PickKind) => setKind(k), sheets };
 }

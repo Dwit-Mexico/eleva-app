@@ -162,7 +162,10 @@ export function MediaViewer({ items, index, onIndex, onClose, caption, actions }
                   onPress={() => apply(zoom - 0.5)}
                   disabled={zoom <= 1 || isVideo}
                 />
-                <Text style={{ color: c.textSoft }} className="min-w-11 text-center font-mono text-[0.8125rem]">
+                <Text
+                  style={{ color: c.textSoft }}
+                  className="min-w-11 text-center font-mono text-[0.8125rem]"
+                >
                   {zoom}×
                 </Text>
                 <Round
