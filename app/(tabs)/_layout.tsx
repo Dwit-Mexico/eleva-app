@@ -1,4 +1,4 @@
-import { Tabs, useRouter } from 'expo-router';
+import { Tabs, useRootNavigationState, useRouter } from 'expo-router';
 import { useEffect } from 'react';
 
 import { useRequests } from '@/api/queries';
@@ -10,12 +10,14 @@ import { TabBar } from '@/ui';
 // o por agendar en la vivienda activa.
 export default function TabsLayout() {
   const router = useRouter();
+  const ready = !!useRootNavigationState()?.key;
   // Con sesión: renueva el token si ya hay permiso y abre el destino de los
-  // avisos que se toquen.
+  // avisos que se toquen (cuando la navegación ya está montada).
   useEffect(() => {
+    if (!ready) return undefined;
     void registerPush(false);
     return listenPushTaps(router);
-  }, [router]);
+  }, [ready, router]);
   const { unit } = useActiveUnit();
   const pending = (useRequests().data ?? []).some(
     (r) =>

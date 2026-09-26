@@ -52,11 +52,20 @@ export function pushTarget(data: PushData | undefined): string {
   return `/reports/${id}`;
 }
 
-// Tocar un aviso abre su pantalla, también con la app cerrada (arranque en frío).
+// Tocar un aviso abre su pantalla, también con la app cerrada (arranque en
+// frío). En frío la respuesta llega antes de que el router termine de montar:
+// quien llama espera a que la navegación esté lista y aquí se difiere un
+// tick. Cada aviso se abre una sola vez (el layout puede volver a montarse).
+let handled: string | null = null;
+
 export function listenPushTaps(router: ReturnType<typeof useRouter>): () => void {
   const open = (r: Notifications.NotificationResponse | null) => {
     if (!r) return;
-    router.push(pushTarget(r.notification.request.content.data as PushData) as never);
+    const id = r.notification.request.identifier;
+    if (id === handled) return;
+    handled = id;
+    const target = pushTarget(r.notification.request.content.data as PushData);
+    setTimeout(() => router.push(target as never), 0);
   };
   void Notifications.getLastNotificationResponseAsync().then(open);
   const sub = Notifications.addNotificationResponseReceivedListener(open);

@@ -8,7 +8,7 @@ import { Pressable, Text } from 'react-native';
 import { appApi } from '@/api/app';
 import { keys, useNotifications, useRequests } from '@/api/queries';
 import type { InboxItem } from '@/api/schemas';
-import { localizedNotice } from '@/features/notifications/text';
+import { isMessageNotice, localizedNotice } from '@/features/notifications/text';
 import { formatDateTime } from '@/lib/relativeTime';
 import { currentLanguage } from '@/store/prefs';
 import { Header, Screen, useTheme } from '@/ui';
@@ -26,6 +26,7 @@ export default function NotificationDetail() {
   const n = useNotifications().data?.find((x) => x.id === nid);
   const folio = useRequests().data?.find((r) => r.id === n?.requestId)?.folio;
 
+  const chat = n ? isMessageNotice(n.message) : false;
   const unread = n ? !n.read : false;
   useEffect(() => {
     if (!unread) return;
@@ -45,9 +46,11 @@ export default function NotificationDetail() {
           </Text>
           {n.requestId ? (
             <Pressable
-              onPress={() => router.push(`/reports/${n.requestId}`)}
+              onPress={() =>
+                router.push(chat ? `/reports/${n.requestId}/messages` : `/reports/${n.requestId}`)
+              }
               accessibilityRole="button"
-              accessibilityLabel={`${t('notifs.openReport')} ${folio ?? ''}`}
+              accessibilityLabel={`${chat ? t('notifs.openMessages') : t('notifs.openReport')} ${folio ?? ''}`}
               className="mt-1 min-h-14 flex-row items-center gap-2.5 rounded-md border border-border bg-surface-1 px-4 py-3.5 active:opacity-80"
             >
               <Text className="font-mono text-folio text-text-mute">{folio ?? `#${n.requestId}`}</Text>
