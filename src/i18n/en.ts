@@ -239,6 +239,7 @@ const en: Translations = {
     once: 'The rating is sent only once.',
     star: '{{n}} of 5 stars',
   },
+  chat: { title: 'Messages', team: 'Customer Service', placeholder: 'Write a message', attach: 'Attach photo', send: 'Send message', empty: 'Write to us if you have questions about the report. We will answer here.', photo: 'Attached photo', sending: 'Sending…' },
   tabs: { home: 'Home', reports: 'Reports', documents: 'Documents', profile: 'Profile' },
   common: {
     back: 'Back',

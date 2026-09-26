@@ -239,6 +239,7 @@ const es = {
     once: 'La calificación se envía una sola vez.',
     star: '{{n}} de 5 estrellas',
   },
+  chat: { title: 'Mensajes', team: 'Customer Service', placeholder: 'Escribe un mensaje', attach: 'Adjuntar foto', send: 'Enviar mensaje', empty: 'Escríbenos si tienes dudas del reporte. Te contestamos por aquí.', photo: 'Foto adjunta', sending: 'Enviando…' },
   tabs: { home: 'Inicio', reports: 'Reportes', documents: 'Documentos', profile: 'Perfil' },
   common: {
     back: 'Regresar',

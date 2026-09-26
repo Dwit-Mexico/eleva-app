@@ -61,3 +61,8 @@ export const useRequest = (id: number) => {
 };
 
 export const useThreads = () => useQuery({ queryKey: keys.threads, queryFn: () => data(appApi.messageSummary()) });
+
+// Hilo del reporte; leerlo marca como leídos los del equipo. Se refresca solo
+// mientras la pantalla está abierta.
+export const useMessages = (id: number) =>
+  useQuery({ queryKey: keys.messages(id), queryFn: () => data(appApi.messages(id)), refetchInterval: 15_000 });
