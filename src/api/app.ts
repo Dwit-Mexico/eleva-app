@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 import { request as call } from './client';
-import { catalogItem, chatMessage, chatThread, documentFile, documentFolder, inboxItem, ownerUnit, request, unitArea, unitEquipment } from './schemas';
+import { catalogItem, chatMessage, chatThread, documentFile, documentFolder, householdMember, inboxItem, ownerUnit, request, unitArea, unitEquipment } from './schemas';
 
 // Endpoints de la app (kind=app) de la API v1.
 export const appApi = {
@@ -32,5 +32,9 @@ export const appApi = {
   folders: () => call('GET', '/app/document-folders', z.array(documentFolder)),
   documents: (folderId: number) => call('GET', `/app/document-folders/${folderId}/documents`, z.array(documentFile)),
   readNotification: (id: number) => call('POST', `/app/notifications/${id}/read`, z.unknown()),
+  members: () => call('GET', '/app/household-members', z.array(householdMember)),
+  addMember: (body: { unitId: number; firstName: string; lastName?: string; email: string; phone?: string }) =>
+    call('POST', '/app/household-members', z.unknown(), { body }),
+  removeMember: (personId: number) => call('DELETE', `/app/household-members/${personId}`, z.unknown()),
   notifications: () => call('GET', '/app/notifications', z.array(inboxItem)),
 };

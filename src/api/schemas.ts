@@ -141,6 +141,18 @@ export const documentFile = z.object({
 });
 export type DocumentFile = z.infer<typeof documentFile>;
 
+export const householdMember = z.object({
+  personId: z.number(),
+  firstName: z.string(),
+  lastName: z.string(),
+  email: z.string(),
+  phone: z.string(),
+  unitId: z.number(),
+  unitNumber: z.string(),
+  removable: z.boolean(),
+});
+export type HouseholdMember = z.infer<typeof householdMember>;
+
 export const inboxItem = z.object({
   id: z.number(),
   sentAt: z.string(),

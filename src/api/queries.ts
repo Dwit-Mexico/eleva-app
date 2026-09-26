@@ -15,6 +15,7 @@ export const keys = {
   messages: (id: number) => ['messages', id] as const,
   threads: ['threads'] as const,
   folders: ['folders'] as const,
+  members: ['members'] as const,
   documents: (folderId: number) => ['documents', folderId] as const,
 };
 
@@ -73,3 +74,5 @@ export const useFolders = () => useQuery({ queryKey: keys.folders, queryFn: () =
 
 export const useDocuments = (folderId: number) =>
   useQuery({ queryKey: keys.documents(folderId), queryFn: () => data(appApi.documents(folderId)) });
+
+export const useMembers = () => useQuery({ queryKey: keys.members, queryFn: () => data(appApi.members()) });
