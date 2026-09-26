@@ -254,6 +254,11 @@ const en: Translations = {
   },
   chat: {
     title: 'Messages',
+    deleted: 'Message deleted',
+    deleteQ: 'Delete this message?',
+    deleteBody: 'It is removed for everyone. You can only do this in the first 15 minutes.',
+    deleteCta: 'Delete',
+    deleteHint: 'Long press to delete',
     team: 'Customer Service',
     household: 'Your home',
     placeholder: 'Write a message',

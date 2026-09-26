@@ -15,7 +15,7 @@ import { filePart, type Media } from '@/features/media/media';
 import { MediaViewer } from '@/features/media/MediaViewer';
 import { useMediaPicker } from '@/features/media/useMediaPicker';
 import { currentLanguage } from '@/store/prefs';
-import { ConnectionBanner, Header, Skeleton, useTheme } from '@/ui';
+import { BottomSheet, ConnectionBanner, Header, Skeleton, useTheme } from '@/ui';
 import { needsNetwork } from '@/features/offline/guard';
 
 const pad = (n: number) => String(n).padStart(2, '0');
@@ -41,6 +41,7 @@ export default function Messages() {
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string>();
   const [viewer, setViewer] = useState<{ uri: string } | null>(null);
+  const [removing, setRemoving] = useState<ChatMessage | null>(null);
   const picker = useMediaPicker((m) => setPhoto(m));
   const canSend = (draft.trim() !== '' || photo !== null) && !sending;
 
@@ -69,6 +70,23 @@ export default function Messages() {
     }
   };
 
+  // Borrar un mensaje propio (dentro de los 15 minutos; lo valida la API).
+  const remove = async () => {
+    const m = removing;
+    setRemoving(null);
+    if (!m) return;
+    setError(undefined);
+    try {
+      await appApi.deleteMessage(rid, m.id);
+      qc.setQueryData<ChatMessage[]>(keys.messages(rid), (prev) =>
+        prev?.map((x) => (x.id === m.id ? { ...x, deleted: true, text: '', imageUrl: null } : x)),
+      );
+      void qc.invalidateQueries({ queryKey: keys.threads });
+    } catch (e) {
+      setError(errorText(e, lang));
+    }
+  };
+
   return (
     <SafeAreaView edges={['top', 'left', 'right']} className="flex-1 bg-bg">
       <Header title={t('chat.title')} back />
@@ -91,7 +109,14 @@ export default function Messages() {
               {t('chat.empty')}
             </Text>
           ) : (
-            list.map((m) => <Bubble key={m.id} m={m} onImage={(uri) => setViewer({ uri })} />)
+            list.map((m) => (
+              <Bubble
+                key={m.id}
+                m={m}
+                onImage={(uri) => setViewer({ uri })}
+                onLongPress={canDelete(m) ? needsNetwork(() => setRemoving(m)) : undefined}
+              />
+            ))
           )}
         </ScrollView>
 
@@ -162,6 +187,13 @@ export default function Messages() {
       </KeyboardAvoidingView>
 
       {picker.sheets}
+      <BottomSheet
+        visible={removing !== null}
+        onClose={() => setRemoving(null)}
+        title={t('chat.deleteQ')}
+        body={t('chat.deleteBody')}
+        options={[{ label: t('chat.deleteCta'), tone: 'danger', onPress: remove }]}
+      />
       <MediaViewer
         items={viewer ? [{ kind: 'photo', uri: viewer.uri }] : []}
         index={viewer ? 0 : null}
@@ -173,7 +205,21 @@ export default function Messages() {
   );
 }
 
-function Bubble({ m, onImage }: { m: ChatMessage; onImage: (uri: string) => void }) {
+// Se ofrece borrar los propios de los últimos 15 minutos (la API lo vuelve a
+// revisar).
+const DELETE_WINDOW = 15 * 60 * 1000;
+const canDelete = (m: ChatMessage) =>
+  !!m.mine && !m.deleted && Date.now() - new Date(m.sentAt).getTime() < DELETE_WINDOW;
+
+function Bubble({
+  m,
+  onImage,
+  onLongPress,
+}: {
+  m: ChatMessage;
+  onImage: (uri: string) => void;
+  onLongPress?: () => void;
+}) {
   const { t } = useTranslation();
   const mine = m.mine ?? m.author === 'owner';
   // Del equipo: "Customer Service" en dorado. De otra persona de la vivienda
@@ -181,8 +227,11 @@ function Bubble({ m, onImage }: { m: ChatMessage; onImage: (uri: string) => void
   const label = mine ? null : m.author === 'team' ? t('chat.team') : m.authorName || t('chat.household');
   return (
     <View className={`flex-row ${mine ? 'justify-end' : 'justify-start'}`}>
-      <View
-        className={`max-w-[80%] gap-1 rounded-[14px] px-3.5 py-3 ${mine ? 'bg-brand' : 'border border-border bg-surface-1'}`}
+      <Pressable
+        onLongPress={onLongPress}
+        disabled={!onLongPress}
+        accessibilityHint={onLongPress ? t('chat.deleteHint') : undefined}
+        className={`max-w-[80%] gap-1 rounded-[14px] px-3.5 py-3 ${m.deleted ? 'border border-dashed border-border' : mine ? 'bg-brand' : 'border border-border bg-surface-1'}`}
       >
         {label ? (
           <Text
@@ -204,13 +253,17 @@ function Bubble({ m, onImage }: { m: ChatMessage; onImage: (uri: string) => void
             />
           </Pressable>
         ) : null}
-        {m.text ? (
+        {m.deleted ? (
+          <Text className="text-body italic leading-[1.375rem] text-text-mute">{t('chat.deleted')}</Text>
+        ) : m.text ? (
           <Text className={`text-body leading-[1.375rem] ${mine ? 'text-ink' : 'text-text'}`}>{m.text}</Text>
         ) : null}
-        <Text className={`text-[0.6875rem] leading-[0.875rem] ${mine ? 'text-ink/60' : 'text-text-mute'}`}>
+        <Text
+          className={`text-[0.6875rem] leading-[0.875rem] ${mine && !m.deleted ? 'text-ink/60' : 'text-text-mute'}`}
+        >
           {stamp(m.sentAt)}
         </Text>
-      </View>
+      </Pressable>
     </View>
   );
 }

@@ -28,6 +28,8 @@ export const appApi = {
   messages: (id: number) => call('GET', `/app/requests/${id}/messages`, z.array(chatMessage)),
   // multipart: text, image (opcional)
   sendMessage: (id: number, form: FormData) => call('POST', `/app/requests/${id}/messages`, chatMessage, { form }),
+  deleteMessage: (id: number, messageId: number) =>
+    call('DELETE', `/app/requests/${id}/messages/${messageId}`, z.unknown()),
   messageSummary: () => call('GET', '/app/messages/summary', z.array(chatThread)),
   folders: () => call('GET', '/app/document-folders', z.array(documentFolder)),
   documents: (folderId: number) => call('GET', `/app/document-folders/${folderId}/documents`, z.array(documentFile)),

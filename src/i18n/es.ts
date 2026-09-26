@@ -256,6 +256,11 @@ const es = {
   },
   chat: {
     title: 'Mensajes',
+    deleted: 'Mensaje eliminado',
+    deleteQ: '¿Eliminar este mensaje?',
+    deleteBody: 'Se quita para todos. Solo puedes hacerlo en los primeros 15 minutos.',
+    deleteCta: 'Eliminar',
+    deleteHint: 'Mantén presionado para eliminar',
     team: 'Customer Service',
     household: 'Tu vivienda',
     placeholder: 'Escribe un mensaje',
