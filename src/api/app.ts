@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 import { request as call } from './client';
-import { catalogItem, chatMessage, chatThread, inboxItem, ownerUnit, request, unitArea, unitEquipment } from './schemas';
+import { catalogItem, chatMessage, chatThread, documentFile, documentFolder, inboxItem, ownerUnit, request, unitArea, unitEquipment } from './schemas';
 
 // Endpoints de la app (kind=app) de la API v1.
 export const appApi = {
@@ -29,5 +29,7 @@ export const appApi = {
   // multipart: text, image (opcional)
   sendMessage: (id: number, form: FormData) => call('POST', `/app/requests/${id}/messages`, chatMessage, { form }),
   messageSummary: () => call('GET', '/app/messages/summary', z.array(chatThread)),
+  folders: () => call('GET', '/app/document-folders', z.array(documentFolder)),
+  documents: (folderId: number) => call('GET', `/app/document-folders/${folderId}/documents`, z.array(documentFile)),
   notifications: () => call('GET', '/app/notifications', z.array(inboxItem)),
 };

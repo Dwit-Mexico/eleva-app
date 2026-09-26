@@ -243,6 +243,7 @@ const es = {
     star: '{{n}} de 5 estrellas',
   },
   chat: { title: 'Mensajes', team: 'Customer Service', placeholder: 'Escribe un mensaje', attach: 'Adjuntar foto', send: 'Enviar mensaje', empty: 'Escríbenos si tienes dudas del reporte. Te contestamos por aquí.', photo: 'Foto adjunta', sending: 'Enviando…' },
+  docs: { title: 'Documentos', files_one: '{{count}} archivo', files_other: '{{count}} archivos', emptyFolders: 'Aún no hay documentos', emptyFoldersBody: 'Cuando el equipo comparta manuales, planos o garantías, aparecerán aquí.', emptyFiles: 'Esta carpeta está vacía', loadError: 'No se pudieron cargar los documentos', open: 'Abrir {{name}}' },
   tabs: { home: 'Inicio', reports: 'Reportes', documents: 'Documentos', profile: 'Perfil' },
   common: {
     back: 'Regresar',

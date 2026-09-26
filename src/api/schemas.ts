@@ -123,6 +123,24 @@ export const chatThread = z.object({
 });
 export type ChatThread = z.infer<typeof chatThread>;
 
+export const documentFolder = z.object({
+  id: z.number(),
+  name: z.string(),
+  project: z.object({ id: z.number(), name: z.string() }).nullish(),
+  documentCount: z.number(),
+});
+export type DocumentFolder = z.infer<typeof documentFolder>;
+
+export const documentFile = z.object({
+  id: z.number(),
+  name: z.string(),
+  folderId: z.number(),
+  url: z.string(),
+  size: z.number().nullish(),
+  uploadedAt: z.string().nullish(),
+});
+export type DocumentFile = z.infer<typeof documentFile>;
+
 export const inboxItem = z.object({
   id: z.number(),
   sentAt: z.string(),

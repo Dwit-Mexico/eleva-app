@@ -14,6 +14,8 @@ export const keys = {
   notifications: ['notifications'] as const,
   messages: (id: number) => ['messages', id] as const,
   threads: ['threads'] as const,
+  folders: ['folders'] as const,
+  documents: (folderId: number) => ['documents', folderId] as const,
 };
 
 const data = <T,>(p: Promise<{ data: T }>) => p.then((r) => r.data);
@@ -66,3 +68,8 @@ export const useThreads = () => useQuery({ queryKey: keys.threads, queryFn: () =
 // mientras la pantalla está abierta.
 export const useMessages = (id: number) =>
   useQuery({ queryKey: keys.messages(id), queryFn: () => data(appApi.messages(id)), refetchInterval: 15_000 });
+
+export const useFolders = () => useQuery({ queryKey: keys.folders, queryFn: () => data(appApi.folders()) });
+
+export const useDocuments = (folderId: number) =>
+  useQuery({ queryKey: keys.documents(folderId), queryFn: () => data(appApi.documents(folderId)) });
