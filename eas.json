@@ -11,7 +11,8 @@
       "env": {
         "EXPO_PUBLIC_API_URL": "https://api-v1.elevacap.com",
         "APP_VARIANT": "development"
-      }
+      },
+      "extends": "base"
     },
     "preview": {
       "distribution": "internal",
@@ -21,7 +22,8 @@
       },
       "env": {
         "EXPO_PUBLIC_API_URL": "https://api-customerservice.elevacap.com"
-      }
+      },
+      "extends": "base"
     },
     "production": {
       "channel": "production",
@@ -31,7 +33,11 @@
       },
       "env": {
         "EXPO_PUBLIC_API_URL": "https://api-customerservice.elevacap.com"
-      }
+      },
+      "extends": "base"
+    },
+    "base": {
+      "bun": "1.4.2"
     }
   },
   "submit": {
