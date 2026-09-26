@@ -119,7 +119,10 @@ export const chatThread = z.object({
   unread: z.number(),
   lastAt: z.string(),
   total: z.number(),
-  lastText: z.string().nullish(), // pendiente en la API (spV1_MensajesResumen)
+  // Último mensaje (0007): texto, autor y si trae foto.
+  lastText: z.string().nullish(),
+  lastAuthor: z.enum(['owner', 'team']).nullish(),
+  lastPhoto: z.boolean().nullish(),
 });
 export type ChatThread = z.infer<typeof chatThread>;
 

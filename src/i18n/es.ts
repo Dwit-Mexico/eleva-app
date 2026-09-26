@@ -196,6 +196,7 @@ const es = {
     unread_other: '{{count}} mensajes nuevos',
     lastMessage: 'Último mensaje {{when}}',
     noMessages: 'Escríbenos si tienes dudas del reporte',
+    you: 'Tú: {{text}}',
     unit: 'Unidad',
     area: 'Área',
     equipment: 'Equipo',

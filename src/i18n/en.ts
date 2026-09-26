@@ -194,6 +194,7 @@ const en: Translations = {
     unread_other: '{{count}} new messages',
     lastMessage: 'Last message {{when}}',
     noMessages: 'Write to us if you have questions about the report',
+    you: 'You: {{text}}',
     unit: 'Unit',
     area: 'Area',
     equipment: 'Equipment',

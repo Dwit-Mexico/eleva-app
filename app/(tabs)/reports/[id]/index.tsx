@@ -281,8 +281,13 @@ function MessagesCard({ requestId, onPress }: { requestId: number; onPress: () =
   const { t } = useTranslation();
   const { palette } = useTheme();
   const thread = useThreads().data?.find((x) => x.requestId === requestId);
-  const sub = thread?.lastText
-    ? thread.lastText
+  // Con la 0007 el resumen trae el último mensaje ("Tú: …" si fue del
+  // propietario); sin ella, los no leídos o la fecha del último.
+  const last = thread?.lastText || (thread?.lastPhoto ? t('chat.photo') : '');
+  const sub = last
+    ? thread?.lastAuthor === 'owner'
+      ? t('detail.you', { text: last })
+      : last
     : thread?.unread
       ? t('detail.unread', { count: thread.unread })
       : thread?.total
