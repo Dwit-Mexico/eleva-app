@@ -21,7 +21,8 @@ const projectId = Constants.expoConfig?.extra?.eas?.projectId as string | undefi
 // Registra el token de Expo en la API. ask=false solo lo hace si el permiso ya
 // estaba dado (arranque); ask=true lo pide (después del primer reporte).
 export async function registerPush(ask: boolean): Promise<void> {
-  if (!Device.isDevice || !projectId) return;
+  // El simulador de iOS no recibe push; el emulador de Android con Play sí.
+  if ((Platform.OS === 'ios' && !Device.isDevice) || !projectId) return;
   if (Platform.OS === 'android') {
     await Notifications.setNotificationChannelAsync('default', {
       name: 'default',

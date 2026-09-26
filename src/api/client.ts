@@ -71,7 +71,8 @@ async function send(method: string, path: string, opts: Options, token: string |
       body: opts.form ?? (opts.body !== undefined ? JSON.stringify(opts.body) : undefined),
       signal: opts.signal,
     });
-  } catch {
+  } catch (e) {
+    if (__DEV__) console.warn(`[api] ${method} ${path}:`, e);
     throw new APIError(0, { es: 'Sin conexión', en: 'No connection' });
   }
 }

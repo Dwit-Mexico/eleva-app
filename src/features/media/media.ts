@@ -1,3 +1,4 @@
+import { File } from 'expo-file-system';
 import { ImageManipulator, SaveFormat } from 'expo-image-manipulator';
 import * as ImagePicker from 'expo-image-picker';
 
@@ -54,7 +55,9 @@ export async function requestCamera(): Promise<boolean> {
   return (await ImagePicker.requestCameraPermissionsAsync()).granted;
 }
 
-// Parte multipart de un archivo local (RN acepta {uri, name, type}).
-export function filePart(m: Media) {
-  return { uri: m.uri, name: m.name, type: m.mime } as unknown as Blob;
+// Parte multipart de un archivo local. El fetch global de Expo (SDK 57) no
+// acepta el {uri, name, type} de React Native: necesita un Blob con bytes(),
+// como el File de expo-file-system (nombre y tipo salen del archivo).
+export function filePart(m: Media): Blob {
+  return new File(m.uri);
 }
