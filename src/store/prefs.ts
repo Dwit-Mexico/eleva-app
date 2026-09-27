@@ -20,9 +20,11 @@ type Prefs = {
   theme: ThemePref;
   language: Language | null; // null = el del sistema
   textScale: TextScale; // Perfil → Tamaño de texto
+  dismissedVersion: string | null; // versión de tienda opcional que ya se cerró
   setTheme: (t: ThemePref) => void;
   setLanguage: (l: Language) => void;
   setTextScale: (s: TextScale) => void;
+  dismissVersion: (v: string) => void;
 };
 
 export const usePrefs = create<Prefs>()(
@@ -31,6 +33,8 @@ export const usePrefs = create<Prefs>()(
       theme: 'system',
       language: null,
       textScale: 1,
+      dismissedVersion: null,
+      dismissVersion: (dismissedVersion) => set({ dismissedVersion }),
       setTextScale: (textScale) => {
         applyTextScale(textScale);
         set({ textScale });

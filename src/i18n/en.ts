@@ -38,6 +38,11 @@ const en: Translations = {
     language: 'Language',
   },
   update: {
+    otaTitle: 'An improvement is ready',
+    otaCta: 'Apply',
+    softTitle: 'A new version of Eleva is available',
+    softCta: 'Update',
+    dismiss: 'Not now',
     title: 'Update the app',
     body: 'There is a new version of Eleva with important changes. Update it to keep using it.',
     cta: 'Update',

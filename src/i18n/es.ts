@@ -39,6 +39,11 @@ const es = {
     language: 'Idioma',
   },
   update: {
+    otaTitle: 'Hay una mejora lista',
+    otaCta: 'Aplicar',
+    softTitle: 'Hay una versión nueva de Eleva',
+    softCta: 'Actualizar',
+    dismiss: 'Ahora no',
     title: 'Actualiza la app',
     body: 'Hay una versión nueva de Eleva con cambios importantes. Actualízala para seguir usándola.',
     cta: 'Actualizar',

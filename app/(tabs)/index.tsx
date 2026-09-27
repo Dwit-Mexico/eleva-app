@@ -20,6 +20,7 @@ import { Pressable, Text, View } from 'react-native';
 import { useNotifications, useRequests } from '@/api/queries';
 import { byNewest, requestLocation, requestTitle } from '@/features/requests/labels';
 import { ContactButtons } from '@/features/requests/ContactButtons';
+import { StoreUpdateCard } from '@/features/update/StoreUpdateCard';
 import { UnitCard } from '@/features/units/UnitCard';
 import { useQuickDraft } from '@/features/quick/draft';
 import { useDraft } from '@/features/wizard/draft';
@@ -97,6 +98,7 @@ export default function Home() {
             />
           ) : null}
 
+          <StoreUpdateCard />
           <QuickCta onPress={() => router.push('/reports/quick')} />
           <GuidedLink onPress={() => router.push('/reports/wizard')} />
 
