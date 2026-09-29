@@ -31,7 +31,7 @@ export const palettes: Record<ThemeName, Palette> = {
     border: '#3A3D40',
     text: '#F5F5F4',
     textSoft: '#A8ABAD',
-    textMute: '#94989A',
+    textMute: '#9EA2A4', // 5.9:1 sobre surface-1 (antes #94989A, 5.2)
     textDisabled: '#4A4D50',
     brand: '#B29360',
     brandSoft: '#C9A96E',
@@ -48,7 +48,7 @@ export const palettes: Record<ThemeName, Palette> = {
     border: '#DCD3C2',
     text: '#211E19',
     textSoft: '#574F44',
-    textMute: '#7B7365',
+    textMute: '#696154', // 5.7:1 sobre surface-1 (antes #7B7365, 4.35: no pasaba AA)
     textDisabled: '#B6AE9F',
     brand: '#B29360',
     brandSoft: '#7A5D27',
