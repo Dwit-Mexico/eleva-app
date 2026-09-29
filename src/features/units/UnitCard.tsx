@@ -24,7 +24,7 @@ export function UnitCard({ unit, units }: { unit: OwnerUnit; units: OwnerUnit[] 
         <Building2 size={20} color={palette.brandSoft} strokeWidth={2} />
       </View>
       <View className="min-w-0 flex-1">
-        <Text className="text-label font-medium text-text-soft">
+        <Text className="text-label font-medium text-text">
           {many ? t('home.yourUnits') : t('home.yourUnit')}
         </Text>
         <Text className="mt-0.5 text-body-lg text-text">{unit.label}</Text>

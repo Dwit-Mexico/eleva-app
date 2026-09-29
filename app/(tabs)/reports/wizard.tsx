@@ -383,7 +383,7 @@ export default function Wizard() {
                   'border-b border-surface-2': i < summaryRows.length - 1,
                 })}
               >
-                <Text className="w-[5.25rem] text-label font-medium text-text-soft">{row.label}</Text>
+                <Text className="w-[5.25rem] text-label font-medium text-text">{row.label}</Text>
                 <Text
                   className={cn('min-w-0 flex-1 text-body', {
                     'italic text-text-mute': row.empty,

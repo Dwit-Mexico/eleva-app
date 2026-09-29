@@ -189,7 +189,7 @@ function Body({ r, onCancel, cancelError }: { r: Request; onCancel: () => void; 
               'border-b border-surface-2': i < rows.length - 1,
             })}
           >
-            <Text className="w-[5.5rem] text-label font-medium text-text-soft">{row.k}</Text>
+            <Text className="w-[5.5rem] text-label font-medium text-text">{row.k}</Text>
             <Text
               className={cn('flex-1 text-body leading-[1.375rem]', {
                 'italic text-text-mute': row.v === pending,

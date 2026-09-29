@@ -321,7 +321,7 @@ function ActionCard({
         icon
       )}
       <View className="min-w-0 flex-1">
-        {label ? <Text className="text-label font-medium text-text-soft">{label}</Text> : null}
+        {label ? <Text className="text-label font-medium text-text">{label}</Text> : null}
         {value ? <Text className="mt-0.5 text-body-lg text-text">{value}</Text> : null}
         {title ? (
           <Text className={cn('text-body text-text', { 'font-semibold': !(plain || compact) })}>{title}</Text>

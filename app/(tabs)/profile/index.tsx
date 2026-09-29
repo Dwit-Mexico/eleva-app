@@ -158,7 +158,7 @@ function UnitWarranty({ u }: { u: OwnerUnit }) {
       <Text className="text-body leading-[1.375rem] text-text">{u.label}</Text>
       {u.address ? <Text className="text-caption text-text-soft">{u.address}</Text> : null}
       <View className="mt-1 flex-row flex-wrap items-center gap-2">
-        <Text className="text-label font-medium text-text-soft">{t('profile.warranty')}</Text>
+        <Text className="text-label font-medium text-text">{t('profile.warranty')}</Text>
         {until ? (
           <View
             className={cn('min-h-[1.375rem] justify-center rounded-pill px-2 py-0.5', {
