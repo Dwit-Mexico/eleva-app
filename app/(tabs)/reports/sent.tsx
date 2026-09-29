@@ -6,13 +6,15 @@ import { BackHandler, Pressable, Text, View } from 'react-native';
 
 import { registerPush } from '@/features/push/push';
 import { goHome } from '@/lib/nav';
-import { Header, Screen, useTheme } from '@/ui';
+import { Header, Screen, useLargeText, useTheme } from '@/ui';
 
 // Confirmación (prototipo: quickSent e isDoneStep).
 export default function Sent() {
   const { t } = useTranslation();
   const router = useRouter();
   const { palette } = useTheme();
+  // Con texto grande los dos botones se apilan (el principal arriba).
+  const large = useLargeText();
   const { kind, folio, id } = useLocalSearchParams<{
     kind: 'quick' | 'guided';
     folio: string;
@@ -55,7 +57,7 @@ export default function Sent() {
           </Text>
           <Text className="ml-auto text-caption text-text-mute">{t('report.folioNote')}</Text>
         </View>
-        <View className="flex-row gap-2.5">
+        <View className={large ? 'flex-col-reverse gap-2.5' : 'flex-row gap-2.5'}>
           <Choice label={t('report.anotherNo')} onPress={() => goHome(router)} />
           <Choice
             label={t('report.openReport')}
@@ -86,7 +88,7 @@ export default function Sent() {
         </Text>
       </View>
       <Text className="mt-1 text-center text-body text-text">{t('report.another')}</Text>
-      <View className="flex-row gap-2.5">
+      <View className={large ? 'flex-col-reverse gap-2.5' : 'flex-row gap-2.5'}>
         <Choice label={t('report.anotherYes')} onPress={() => router.replace('/reports/wizard')} />
         <Choice label={t('report.anotherNo')} primary onPress={() => goHome(router)} />
       </View>

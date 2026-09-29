@@ -16,3 +16,4 @@ export { StepIndicator } from './StepIndicator';
 export { TabBar } from './TabBar';
 export { ThemeProvider, useTheme } from './ThemeProvider';
 export { ConnectionBanner } from './ConnectionBanner';
+export { useLargeText } from './useLargeText';

@@ -1,30 +1,32 @@
 import { Building2, ChevronsUpDown } from 'lucide-react-native';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Pressable, Text, useWindowDimensions, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 
 import type { OwnerUnit } from '@/api/schemas';
 import { useActiveUnitStore } from '@/store/activeUnit';
 import { BottomSheet, useTheme } from '@/ui';
 
 // Tarjeta de la vivienda activa (prototipo: unitCard). Con más de una, tocarla
-// abre la hoja para cambiarla. Con texto grande el contenido va en columna.
+// abre la hoja para cambiarla.
 export function UnitCard({ unit, units }: { unit: OwnerUnit; units: OwnerUnit[] }) {
   const { t } = useTranslation();
   const { palette } = useTheme();
-  const { fontScale } = useWindowDimensions();
   const setUnit = useActiveUnitStore((s) => s.setUnit);
   const [open, setOpen] = useState(false);
   const many = units.length > 1;
   const body = (
-    <View
-      className={`gap-3.5 rounded-md border border-border bg-surface-1 p-4 ${fontScale > 1.15 ? 'items-start' : 'flex-row items-center'}`}
-    >
+    // Siempre en fila: en columna, el flex-1 del texto lo dejaba con alto 0 y
+    // con letra grande solo se veía el ícono. El texto se acomoda en varias
+    // líneas si no cabe.
+    <View className="flex-row items-center gap-3.5 rounded-md border border-border bg-surface-1 p-4">
       <View className="h-11 w-11 items-center justify-center rounded-pill border border-border bg-surface-2">
         <Building2 size={20} color={palette.brandSoft} strokeWidth={2} />
       </View>
       <View className="min-w-0 flex-1">
-        <Text className="text-label font-medium text-text-mute">{many ? t('home.yourUnits') : t('home.yourUnit')}</Text>
+        <Text className="text-label font-medium text-text-mute">
+          {many ? t('home.yourUnits') : t('home.yourUnit')}
+        </Text>
         <Text className="mt-0.5 text-body-lg text-text">{unit.label}</Text>
       </View>
       {many ? (

@@ -3,14 +3,16 @@ import { useTranslation } from 'react-i18next';
 import { Pressable, Text, View } from 'react-native';
 
 import { support } from '@/lib/support';
-import { useTheme } from '@/ui';
+import { useLargeText, useTheme } from '@/ui';
 
 // Llamar (surface-2) y WhatsApp (brand), 48 de alto (prototipo: contactBtns).
 export function ContactButtons({ folio }: { folio?: string }) {
   const { t } = useTranslation();
   const { palette } = useTheme();
+  // Con texto grande se apilan (WhatsApp arriba).
+  const large = useLargeText();
   return (
-    <View className="flex-row gap-2.5">
+    <View className={large ? 'flex-col-reverse gap-2.5' : 'flex-row gap-2.5'}>
       <Pressable
         onPress={support.call}
         accessibilityRole="button"

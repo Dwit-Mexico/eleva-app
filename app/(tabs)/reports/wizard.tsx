@@ -28,6 +28,7 @@ import {
   Screen,
   Skeleton,
   StepIndicator,
+  useLargeText,
   useTheme,
 } from '@/ui';
 
@@ -41,6 +42,7 @@ export default function Wizard() {
   const qc = useQueryClient();
   const { palette } = useTheme();
   const { fontScale } = useWindowDimensions();
+  const large = useLargeText();
   const lang = currentLanguage();
   const { unit: activeUnit, units } = useActiveUnit();
   const setActiveUnit = useActiveUnitStore((s) => s.setUnit);
@@ -223,9 +225,11 @@ export default function Wizard() {
       footer={
         <View className="gap-3">
           {error ? <ErrorMessage message={error} /> : null}
-          <View className="flex-row gap-2.5">
+          {/* Con texto grande se apilan (Siguiente arriba): lado a lado
+              "Regresar" no cabe y se parte en sílabas. */}
+          <View className={large ? 'flex-col-reverse gap-2.5' : 'flex-row gap-2.5'}>
             {index > 0 ? (
-              <View className="flex-1">
+              <View className={large ? '' : 'flex-1'}>
                 <Button
                   label={t('common.back')}
                   variant="secondary"
@@ -234,7 +238,7 @@ export default function Wizard() {
                 />
               </View>
             ) : null}
-            <View className="flex-[2]">
+            <View className={large ? '' : 'flex-[2]'}>
               {step === 'summary' ? (
                 <Button label={t('report.send')} onPress={needsNetwork(send)} loading={sending} fullWidth />
               ) : (
