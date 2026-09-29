@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, ScrollView, Text, View } from 'react-native';
 
+import { cn } from '@/lib/cn';
 import { useRequests } from '@/api/queries';
 import { byNewest, requestLocation, requestTitle } from '@/features/requests/labels';
 import { useActiveUnit, useActiveUnitStore } from '@/store/activeUnit';
@@ -83,9 +84,14 @@ export default function Reports() {
               onPress={() => setStage(s)}
               accessibilityRole="tab"
               accessibilityState={{ selected: on }}
-              className={`min-h-10 items-center justify-center rounded-pill px-4 ${on ? 'bg-brand' : 'border border-border bg-surface-1'}`}
+              className={cn('min-h-10 items-center justify-center rounded-pill px-4', {
+                'bg-brand': on,
+                'border border-border bg-surface-1': !on,
+              })}
             >
-              <Text className={`text-[0.875rem] font-semibold ${on ? 'text-ink' : 'text-text-soft'}`}>
+              <Text
+                className={cn('text-[0.875rem] font-semibold', { 'text-ink': on, 'text-text-soft': !on })}
+              >
                 {t(`list.${s}`)}
               </Text>
             </Pressable>

@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BackHandler, Pressable, Text, View } from 'react-native';
 
+import { cn } from '@/lib/cn';
 import { registerPush } from '@/features/push/push';
 import { goHome } from '@/lib/nav';
 import { Header, Screen, useLargeText, useTheme } from '@/ui';
@@ -57,7 +58,7 @@ export default function Sent() {
           </Text>
           <Text className="ml-auto text-caption text-text-mute">{t('report.folioNote')}</Text>
         </View>
-        <View className={large ? 'flex-col-reverse gap-2.5' : 'flex-row gap-2.5'}>
+        <View className={cn({ 'flex-col-reverse gap-2.5': large, 'flex-row gap-2.5': !large })}>
           <Choice label={t('report.anotherNo')} onPress={() => goHome(router)} />
           <Choice
             label={t('report.openReport')}
@@ -88,7 +89,7 @@ export default function Sent() {
         </Text>
       </View>
       <Text className="mt-1 text-center text-body text-text">{t('report.another')}</Text>
-      <View className={large ? 'flex-col-reverse gap-2.5' : 'flex-row gap-2.5'}>
+      <View className={cn({ 'flex-col-reverse gap-2.5': large, 'flex-row gap-2.5': !large })}>
         <Choice label={t('report.anotherYes')} onPress={() => router.replace('/reports/wizard')} />
         <Choice label={t('report.anotherNo')} primary onPress={() => goHome(router)} />
       </View>
@@ -101,9 +102,18 @@ function Choice({ label, onPress, primary }: { label: string; onPress: () => voi
     <Pressable
       onPress={onPress}
       accessibilityRole="button"
-      className={`min-h-13 flex-1 items-center justify-center rounded-md px-3 ${primary ? 'bg-brand' : 'border border-border'} active:opacity-80`}
+      className={cn(
+        'min-h-13 flex-1 items-center justify-center rounded-md px-3',
+        { 'bg-brand': primary, 'border border-border': !primary },
+        'active:opacity-80',
+      )}
     >
-      <Text className={`text-center text-[1rem] font-semibold ${primary ? 'text-ink' : 'text-text'}`}>
+      <Text
+        className={cn('text-center text-[1rem] font-semibold', {
+          'text-ink': primary,
+          'text-text': !primary,
+        })}
+      >
         {label}
       </Text>
     </Pressable>

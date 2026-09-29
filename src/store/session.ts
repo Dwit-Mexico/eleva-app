@@ -45,7 +45,12 @@ export const useSession = create<State>((set, get) => ({
 
   signIn: async (s) => {
     if (!s.token || !s.user) throw new Error('session without token');
-    const stored: Stored = { token: s.token, expiresAt: s.expiresAt, refreshToken: s.refreshToken, user: s.user };
+    const stored: Stored = {
+      token: s.token,
+      expiresAt: s.expiresAt,
+      refreshToken: s.refreshToken,
+      user: s.user,
+    };
     await SecureStore.setItemAsync(KEY, JSON.stringify(stored));
     set({ status: 'signedIn', token: s.token, refreshToken: s.refreshToken ?? null, user: s.user });
   },

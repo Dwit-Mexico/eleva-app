@@ -5,6 +5,7 @@ import { Pressable, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { useTheme } from './ThemeProvider';
+import { cn } from '../lib/cn';
 
 const icons: Record<string, LucideIcon> = {
   index: House,
@@ -53,7 +54,9 @@ export function TabBar({
               const event = navigation.emit({ type: 'tabPress', target: route.key, canPreventDefault: true });
               if (!focused && !event.defaultPrevented) navigation.navigate(route.name, route.params);
             }}
-            className={`min-h-[52px] flex-1 items-center justify-center gap-[4px] rounded-md ${focused ? 'bg-brand-tint' : ''}`}
+            className={cn('min-h-[52px] flex-1 items-center justify-center gap-[4px] rounded-md', {
+              'bg-brand-tint': focused,
+            })}
           >
             <View>
               <Icon size={22} color={color} strokeWidth={2} />
@@ -64,7 +67,10 @@ export function TabBar({
             <Text
               numberOfLines={1}
               maxFontSizeMultiplier={1.3}
-              className={`text-[11px] font-medium leading-[14px] ${focused ? 'text-brand-soft' : 'text-text-mute'}`}
+              className={cn('text-[11px] font-medium leading-[14px]', {
+                'text-brand-soft': focused,
+                'text-text-mute': !focused,
+              })}
             >
               {label}
             </Text>

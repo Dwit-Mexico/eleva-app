@@ -3,6 +3,7 @@ import { Text, View } from 'react-native';
 
 import { Button } from './Button';
 import { useTheme } from './ThemeProvider';
+import { cn } from '../lib/cn';
 
 type Props = {
   icon: LucideIcon;
@@ -18,10 +19,19 @@ export function EmptyState({ icon: Icon, title, text, action, bare, tone = 'neut
   const danger = tone === 'danger';
   return (
     <View
-      className={`items-center gap-3 ${bare ? (danger ? 'p-6' : 'px-4 py-8') : 'rounded-md border border-border bg-surface-1 px-4 py-8'}`}
+      className={cn('items-center gap-3', {
+        'p-6': bare && danger,
+        'px-4 py-8': !bare || !danger,
+        'rounded-md border border-border bg-surface-1': !bare,
+      })}
     >
       <View
-        className={`h-14 w-14 items-center justify-center rounded-pill ${danger ? 'bg-danger-tint' : `border border-border ${bare ? 'bg-surface-1' : 'bg-surface-2'}`}`}
+        className={cn('h-14 w-14 items-center justify-center rounded-pill', {
+          'bg-danger-tint': danger,
+          'border border-border': !danger,
+          'bg-surface-1': !danger && bare,
+          'bg-surface-2': !danger && !bare,
+        })}
       >
         <Icon size={26} color={danger ? palette.danger : palette.textMute} strokeWidth={2} />
       </View>

@@ -7,7 +7,10 @@ import type { Localized } from './schemas';
 // Cliente de la API v1 (api-go). Todas las respuestas vienen en el envelope
 // {success, message:{en,es}, data, schema, error} con códigos HTTP reales.
 
-const BASE = (process.env.EXPO_PUBLIC_API_URL ?? 'https://api-customerservice.elevacap.com').replace(/\/$/, '');
+const BASE = (process.env.EXPO_PUBLIC_API_URL ?? 'https://api-customerservice.elevacap.com').replace(
+  /\/$/,
+  '',
+);
 const APP_VERSION = Constants.expoConfig?.version ?? '0.0.0';
 
 export class APIError extends Error {
@@ -92,7 +95,11 @@ async function unwrap(res: Response): Promise<Envelope> {
     // respuesta sin JSON (p. ej. un 502 del proxy)
   }
   if (!res.ok || body.success === false) {
-    throw new APIError(res.status, body.message ?? { es: 'Ocurrió un error', en: 'Something went wrong' }, body.schema);
+    throw new APIError(
+      res.status,
+      body.message ?? { es: 'Ocurrió un error', en: 'Something went wrong' },
+      body.schema,
+    );
   }
   return body;
 }

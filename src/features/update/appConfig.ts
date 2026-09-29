@@ -24,5 +24,6 @@ export const useAppConfig = create<{ config: AppConfig | null; refresh: () => Pr
 }));
 
 export const mustUpdate = (c: AppConfig | null) => !!c && isBelow(APP_VERSION, c.minVersion);
-export const canUpdate = (c: AppConfig | null) => !!c && !!c.latestVersion && isBelow(APP_VERSION, c.latestVersion);
+export const canUpdate = (c: AppConfig | null) =>
+  !!c && !!c.latestVersion && isBelow(APP_VERSION, c.latestVersion);
 export const storeUrl = (c: AppConfig) => (Platform.OS === 'ios' ? c.storeUrls.ios : c.storeUrls.android);

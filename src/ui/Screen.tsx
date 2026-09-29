@@ -72,7 +72,16 @@ type ScreenProps = {
 };
 
 // Fondo sólido bg (sin foto), margen lateral 20.
-export function Screen({ children, header, banner, scroll = true, footer, onRefresh, refreshing, bodyClassName }: ScreenProps) {
+export function Screen({
+  children,
+  header,
+  banner,
+  scroll = true,
+  footer,
+  onRefresh,
+  refreshing,
+  bodyClassName,
+}: ScreenProps) {
   const { palette } = useTheme();
   // padding 16 20 28 y gap 20, como el contenedor de cada pantalla del prototipo.
   const body = <View className={bodyClassName ?? 'gap-5 px-5 pb-7 pt-4'}>{children}</View>;

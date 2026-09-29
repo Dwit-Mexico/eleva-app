@@ -15,6 +15,7 @@ import { useState, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, Text, View } from 'react-native';
 
+import { cn } from '@/lib/cn';
 import { useUnits } from '@/api/queries';
 import type { OwnerUnit } from '@/api/schemas';
 import { formatDate } from '@/lib/relativeTime';
@@ -160,10 +161,16 @@ function UnitWarranty({ u }: { u: OwnerUnit }) {
         <Text className="text-label font-medium text-text-mute">{t('profile.warranty')}</Text>
         {until ? (
           <View
-            className={`min-h-[1.375rem] justify-center rounded-pill px-2 py-0.5 ${active ? 'bg-success' : 'border border-border bg-surface-2'}`}
+            className={cn('min-h-[1.375rem] justify-center rounded-pill px-2 py-0.5', {
+              'bg-success': active,
+              'border border-border bg-surface-2': !active,
+            })}
           >
             <Text
-              className={`text-label font-semibold tracking-[0.24px] ${active ? 'text-ink' : 'text-text-soft'}`}
+              className={cn('text-label font-semibold tracking-[0.24px]', {
+                'text-ink': active,
+                'text-text-soft': !active,
+              })}
             >
               {formatDate(until)}
             </Text>

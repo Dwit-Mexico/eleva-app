@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { Text, View } from 'react-native';
+import { cn } from '../lib/cn';
 
 type Tone = 'info' | 'success' | 'danger' | 'warning' | 'neutral';
 
@@ -34,8 +35,18 @@ export function StatusBadge({ statusId }: { statusId: number }) {
   const { t } = useTranslation();
   const tone = statusTone(statusId);
   return (
-    <View className={`min-h-[1.375rem] justify-center self-start rounded-pill px-[0.5625rem] py-0.5 ${fill[tone]}`}>
-      <Text className={`text-label font-semibold tracking-[0.24px] ${tone === 'neutral' ? 'text-text-soft' : 'text-ink'}`}>
+    <View
+      className={cn(
+        'min-h-[1.375rem] justify-center self-start rounded-pill px-[0.5625rem] py-0.5',
+        fill[tone],
+      )}
+    >
+      <Text
+        className={cn('text-label font-semibold tracking-[0.24px]', {
+          'text-text-soft': tone === 'neutral',
+          'text-ink': tone !== 'neutral',
+        })}
+      >
         {t(`status.${statusId}` as 'status.1', { defaultValue: `#${statusId}` })}
       </Text>
     </View>

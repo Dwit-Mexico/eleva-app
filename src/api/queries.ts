@@ -19,11 +19,12 @@ export const keys = {
   documents: (folderId: number) => ['documents', folderId] as const,
 };
 
-const data = <T,>(p: Promise<{ data: T }>) => p.then((r) => r.data);
+const data = <T>(p: Promise<{ data: T }>) => p.then((r) => r.data);
 
 export const useUnits = () => useQuery({ queryKey: keys.units, queryFn: () => data(appApi.units()) });
 
-export const useRequests = () => useQuery({ queryKey: keys.requests, queryFn: () => data(appApi.requests()) });
+export const useRequests = () =>
+  useQuery({ queryKey: keys.requests, queryFn: () => data(appApi.requests()) });
 
 export const useUnitAreas = (unitId?: number) =>
   useQuery({
@@ -63,12 +64,17 @@ export const useRequest = (id: number) => {
   });
 };
 
-export const useThreads = () => useQuery({ queryKey: keys.threads, queryFn: () => data(appApi.messageSummary()) });
+export const useThreads = () =>
+  useQuery({ queryKey: keys.threads, queryFn: () => data(appApi.messageSummary()) });
 
 // Hilo del reporte; leerlo marca como leídos los del equipo. Se refresca solo
 // mientras la pantalla está abierta.
 export const useMessages = (id: number) =>
-  useQuery({ queryKey: keys.messages(id), queryFn: () => data(appApi.messages(id)), refetchInterval: 15_000 });
+  useQuery({
+    queryKey: keys.messages(id),
+    queryFn: () => data(appApi.messages(id)),
+    refetchInterval: 15_000,
+  });
 
 export const useFolders = () => useQuery({ queryKey: keys.folders, queryFn: () => data(appApi.folders()) });
 

@@ -18,6 +18,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BackHandler, Pressable, Text, TextInput, View } from 'react-native';
 
+import { cn } from '@/lib/cn';
 import { appApi } from '@/api/app';
 import { errorText } from '@/api/client';
 import { keys, useUnitAreas } from '@/api/queries';
@@ -235,9 +236,13 @@ export default function QuickReport() {
         disabled={sending}
         accessibilityRole="button"
         accessibilityState={{ busy: sending }}
-        className={`min-h-13 items-center justify-center rounded-md ${ready ? 'bg-brand' : 'border border-border bg-surface-2'} active:opacity-80`}
+        className={cn(
+          'min-h-13 items-center justify-center rounded-md',
+          { 'bg-brand': ready, 'border border-border bg-surface-2': !ready },
+          'active:opacity-80',
+        )}
       >
-        <Text className={`text-[1rem] font-semibold ${ready ? 'text-ink' : 'text-text-mute'}`}>
+        <Text className={cn('text-[1rem] font-semibold', { 'text-ink': ready, 'text-text-mute': !ready })}>
           {sending ? '…' : t('report.send')}
         </Text>
       </Pressable>

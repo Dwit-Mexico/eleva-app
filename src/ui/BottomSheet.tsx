@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Modal, Pressable, Text, View } from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { cn } from '../lib/cn';
 
 export type SheetOption = {
   label: string;
@@ -61,9 +62,13 @@ export function BottomSheet({ visible, onClose, title, body, options, cancelLabe
               key={o.label}
               onPress={o.onPress}
               accessibilityRole="button"
-              className={`min-h-13 items-center justify-center rounded-md px-4 ${optionBox[o.tone ?? 'neutral']} active:opacity-80`}
+              className={cn(
+                'min-h-13 items-center justify-center rounded-md px-4',
+                optionBox[o.tone ?? 'neutral'],
+                'active:opacity-80',
+              )}
             >
-              <Text className={`text-[1rem] ${optionText[o.tone ?? 'neutral']}`}>{o.label}</Text>
+              <Text className={cn('text-[1rem]', optionText[o.tone ?? 'neutral'])}>{o.label}</Text>
             </Pressable>
           ))}
           {hideCancel ? null : (

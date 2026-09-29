@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, Text, View } from 'react-native';
 
+import { cn } from '@/lib/cn';
 import { appApi } from '@/api/app';
 import { errorText } from '@/api/client';
 import { keys } from '@/api/queries';
@@ -67,7 +68,10 @@ export default function AddUser() {
           disabled={units.length < 2}
           accessibilityRole={units.length > 1 ? 'button' : undefined}
           accessibilityLabel={`${t('users.unit')}: ${chosen?.label ?? ''}`}
-          className={`h-13 flex-row items-center gap-2.5 rounded-sm border bg-surface-2 px-3.5 ${errors.unit ? 'border-danger' : 'border-border'}`}
+          className={cn('h-13 flex-row items-center gap-2.5 rounded-sm border bg-surface-2 px-3.5', {
+            'border-danger': errors.unit,
+            'border-border': !errors.unit,
+          })}
         >
           <Building2 size={18} color={palette.textMute} strokeWidth={2} />
           <Text className="flex-1 text-body text-text">{chosen?.label ?? ''}</Text>

@@ -2,13 +2,22 @@ import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, Text, TextInput, View } from 'react-native';
 
+import { cn } from '@/lib/cn';
 import { useTheme } from '@/ui';
 
 const LENGTH = 6;
 
 // Código de 6 dígitos: un TextInput invisible (pega y autocompleta el código
 // completo) dibujado como 6 casillas de 60 de alto; la actual con borde brand.
-export function CodeInput({ value, onChange, error }: { value: string; onChange: (v: string) => void; error?: boolean }) {
+export function CodeInput({
+  value,
+  onChange,
+  error,
+}: {
+  value: string;
+  onChange: (v: string) => void;
+  error?: boolean;
+}) {
   const { t } = useTranslation();
   const { palette } = useTheme();
   const input = useRef<TextInput>(null);
@@ -21,7 +30,11 @@ export function CodeInput({ value, onChange, error }: { value: string; onChange:
           return (
             <View
               key={i}
-              className={`h-15 flex-1 items-center justify-center rounded-sm border bg-surface-2 ${error ? 'border-danger' : current ? 'border-brand' : 'border-border'}`}
+              className={cn('h-15 flex-1 items-center justify-center rounded-sm border bg-surface-2', {
+                'border-danger': error,
+                'border-brand': !error && current,
+                'border-border': !error && !current,
+              })}
             >
               <Text className="text-[1.5rem] font-semibold text-text">{value[i] ?? ''}</Text>
             </View>

@@ -24,6 +24,11 @@ versionada de **SDK 57** (https://docs.expo.dev/versions/v57.0.0/).
 - Un solo CTA dorado por pantalla; texto sobre dorado o semántico en `ink`.
   Sin sombras: la elevación es superficie + borde.
 - Área táctil mínima 44 × 44; botón primario de 52 de alto.
+- Clases condicionales con `cn()` (`src/lib/cn.ts`, clsx + tailwind-merge) y en
+  **objeto**: `cn('base', { 'bg-brand': selected, 'bg-surface-1': !selected })`.
+  Sin template strings ni ternarios (menos anidados) en `className`. Un token
+  nuevo en `tailwind.config.js` también va en `cn.ts` (su test lo revisa).
+- Botones lado a lado: con `useLargeText()` se apilan (el principal arriba).
 - Commits de una línea, firmados.
 
 ## Identidad de tiendas (no cambiar)

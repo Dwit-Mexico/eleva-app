@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { Text, View } from 'react-native';
+import { cn } from '../lib/cn';
 
 // Barras de 4 px: completadas brand, actual brand-soft, pendientes border.
 export function StepIndicator({ current, total }: { current: number; total: number }) {
@@ -15,7 +16,11 @@ export function StepIndicator({ current, total }: { current: number; total: numb
         {Array.from({ length: total }, (_, i) => (
           <View
             key={i}
-            className={`h-1 flex-1 rounded-pill ${i + 1 < current ? 'bg-brand' : i + 1 === current ? 'bg-brand-soft' : 'bg-border'}`}
+            className={cn('h-1 flex-1 rounded-pill', {
+              'bg-brand': i + 1 < current,
+              'bg-brand-soft': i + 1 === current,
+              'bg-border': i + 1 > current,
+            })}
           />
         ))}
       </View>

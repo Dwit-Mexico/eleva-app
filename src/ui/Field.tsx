@@ -4,6 +4,7 @@ import { Text, TextInput, View, type TextInputProps } from 'react-native';
 
 import { ErrorMessage } from './ErrorMessage';
 import { useTheme } from './ThemeProvider';
+import { cn } from '../lib/cn';
 
 type Props = TextInputProps & {
   label: string;
@@ -25,9 +26,19 @@ export const Field = forwardRef<TextInput, Props>(function Field(
   return (
     <View className="gap-1.5">
       <Text className="text-label font-medium text-text-soft">{label}</Text>
-      <View className={`rounded-[11px] border-[3px] ${focused && !error ? 'border-brand/25' : 'border-transparent'} -m-[3px]`}>
+      <View
+        className={cn(
+          'rounded-[11px] border-[3px]',
+          { 'border-brand/25': focused && !error, 'border-transparent': !(focused && !error) },
+          '-m-[3px]',
+        )}
+      >
         <View
-          className={`${multiline ? 'min-h-[7.5rem] items-start py-3' : 'h-13 items-center'} flex-row gap-2.5 rounded-sm border bg-surface-2 px-3.5 ${border}`}
+          className={cn(
+            { 'min-h-[7.5rem] items-start py-3': multiline, 'h-13 items-center': !multiline },
+            'flex-row gap-2.5 rounded-sm border bg-surface-2 px-3.5',
+            border,
+          )}
         >
           {Icon ? <Icon size={18} color={palette.textMute} strokeWidth={2} /> : null}
           <TextInput
@@ -45,7 +56,7 @@ export const Field = forwardRef<TextInput, Props>(function Field(
               setFocused(false);
               onBlur?.(e);
             }}
-            className={`flex-1 text-body text-text ${multiline ? 'min-h-[6rem]' : ''}`}
+            className={cn('flex-1 text-body text-text', { 'min-h-[6rem]': multiline })}
             style={multiline ? { textAlignVertical: 'top' } : undefined}
           />
           {right}

@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, Text, TextInput, View } from 'react-native';
 
+import { cn } from '@/lib/cn';
 import { appApi } from '@/api/app';
 import { errorText } from '@/api/client';
 import { keys, useRequest } from '@/api/queries';
@@ -90,7 +91,10 @@ export default function Schedule() {
               }}
               accessibilityRole="radio"
               accessibilityState={{ selected: on }}
-              className={`min-h-[4.5rem] flex-row items-center gap-3.5 rounded-md border bg-surface-1 p-4 ${on ? 'border-brand' : 'border-border'}`}
+              className={cn(
+                'min-h-[4.5rem] flex-row items-center gap-3.5 rounded-md border bg-surface-1 p-4',
+                { 'border-brand': on, 'border-border': !on },
+              )}
             >
               <Icon size={20} color={on ? palette.brand : palette.border} strokeWidth={2} />
               <View className="min-w-0 flex-1">
@@ -142,9 +146,13 @@ export default function Schedule() {
         disabled={sending}
         accessibilityRole="button"
         accessibilityState={{ busy: sending }}
-        className={`min-h-13 items-center justify-center rounded-md ${picked ? 'bg-brand' : 'border border-border bg-surface-2'} active:opacity-80`}
+        className={cn(
+          'min-h-13 items-center justify-center rounded-md',
+          { 'bg-brand': picked, 'border border-border bg-surface-2': !picked },
+          'active:opacity-80',
+        )}
       >
-        <Text className={`text-[1rem] font-semibold ${picked ? 'text-ink' : 'text-text-mute'}`}>
+        <Text className={cn('text-[1rem] font-semibold', { 'text-ink': picked, 'text-text-mute': !picked })}>
           {sending ? '…' : t('schedule.cta')}
         </Text>
       </Pressable>

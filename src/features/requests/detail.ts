@@ -1,5 +1,14 @@
 import type { LucideIcon } from 'lucide-react-native';
-import { CalendarCheck, CheckCircle2, Hourglass, Info, PauseCircle, PhoneCall, Star, XCircle } from 'lucide-react-native';
+import {
+  CalendarCheck,
+  CheckCircle2,
+  Hourglass,
+  Info,
+  PauseCircle,
+  PhoneCall,
+  Star,
+  XCircle,
+} from 'lucide-react-native';
 
 import type { Request, TimelineStep } from '@/api/schemas';
 
@@ -33,7 +42,8 @@ const ICONS: Record<number, LucideIcon> = {
 // "Qué sigue": llave de i18n e ícono según el estatus.
 export function nextStep(r: Request): { key: string; icon: LucideIcon } {
   if (r.needsClassification && r.status.id === 1) return { key: 'detail.nextClassify', icon: Hourglass };
-  if (r.status.id === 5) return { key: r.visit?.scheduledAt ? 'detail.next5' : 'detail.next5NoDate', icon: CalendarCheck };
+  if (r.status.id === 5)
+    return { key: r.visit?.scheduledAt ? 'detail.next5' : 'detail.next5NoDate', icon: CalendarCheck };
   return { key: `detail.next${r.status.id}`, icon: ICONS[r.status.id] ?? Info };
 }
 

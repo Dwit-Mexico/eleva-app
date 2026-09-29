@@ -13,6 +13,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, Text, TextInput, View } from 'react-native';
 
+import { cn } from '@/lib/cn';
 import { appApi } from '@/api/app';
 import { errorText } from '@/api/client';
 import { keys } from '@/api/queries';
@@ -80,7 +81,10 @@ export default function Rate() {
         </View>
         {ok !== null ? (
           <View
-            className={`flex-row gap-2.5 rounded-sm border bg-surface-1 px-3.5 py-3 ${ok ? 'border-border' : 'border-warning'}`}
+            className={cn('flex-row gap-2.5 rounded-sm border bg-surface-1 px-3.5 py-3', {
+              'border-border': ok,
+              'border-warning': !ok,
+            })}
           >
             {ok ? (
               <CheckCircle2 size={18} color={palette.success} strokeWidth={2} style={{ marginTop: 2 }} />
@@ -123,7 +127,10 @@ export default function Rate() {
               ))}
             </View>
             <Text
-              className={`text-center text-body leading-[1.375rem] ${stars ? 'font-semibold text-brand-soft' : 'text-text-mute'}`}
+              className={cn('text-center text-body leading-[1.375rem]', {
+                'font-semibold text-brand-soft': stars,
+                'text-text-mute': !stars,
+              })}
             >
               {stars ? labels[stars - 1] : t('rate.tapStars')}
             </Text>
@@ -166,9 +173,13 @@ export default function Rate() {
         disabled={sending}
         accessibilityRole="button"
         accessibilityState={{ busy: sending }}
-        className={`min-h-13 items-center justify-center rounded-md ${ready ? 'bg-brand' : 'border border-border bg-surface-2'} active:opacity-80`}
+        className={cn(
+          'min-h-13 items-center justify-center rounded-md',
+          { 'bg-brand': ready, 'border border-border bg-surface-2': !ready },
+          'active:opacity-80',
+        )}
       >
-        <Text className={`text-[1rem] font-semibold ${ready ? 'text-ink' : 'text-text-mute'}`}>
+        <Text className={cn('text-[1rem] font-semibold', { 'text-ink': ready, 'text-text-mute': !ready })}>
           {sending ? '…' : t('rate.send')}
         </Text>
       </Pressable>
@@ -197,10 +208,14 @@ function Answer({
       onPress={onPress}
       accessibilityRole="radio"
       accessibilityState={{ selected: on }}
-      className={`min-h-13 flex-1 flex-row items-center justify-center gap-2 rounded-md ${on ? (tone === 'success' ? 'bg-success' : 'bg-danger') : 'border border-border bg-surface-1'}`}
+      className={cn('min-h-13 flex-1 flex-row items-center justify-center gap-2 rounded-md', {
+        'bg-success': on && tone === 'success',
+        'bg-danger': on && tone === 'danger',
+        'border border-border bg-surface-1': !on,
+      })}
     >
       <Icon size={18} color={on ? palette.ink : palette.text} strokeWidth={2} />
-      <Text className={`text-[1rem] font-semibold ${on ? 'text-ink' : 'text-text'}`}>{label}</Text>
+      <Text className={cn('text-[1rem] font-semibold', { 'text-ink': on, 'text-text': !on })}>{label}</Text>
     </Pressable>
   );
 }

@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { cn } from '@/lib/cn';
 import { appApi } from '@/api/app';
 import { errorText } from '@/api/client';
 import { keys, useMessages } from '@/api/queries';
@@ -155,7 +156,9 @@ export default function Messages() {
         ) : null}
 
         <View
-          className={`flex-row items-end gap-2 bg-bg px-4 pb-5 pt-2.5 ${photo ? '' : 'border-t border-surface-1'}`}
+          className={cn('flex-row items-end gap-2 bg-bg px-4 pb-5 pt-2.5', {
+            'border-t border-surface-1': !photo,
+          })}
         >
           <Pressable
             onPress={() => picker.open('photo')}
@@ -182,7 +185,10 @@ export default function Messages() {
             accessibilityRole="button"
             accessibilityLabel={sending ? t('chat.sending') : t('chat.send')}
             accessibilityState={{ disabled: !canSend, busy: sending }}
-            className={`h-11 w-11 items-center justify-center rounded-pill ${canSend ? 'bg-brand' : 'bg-surface-2'}`}
+            className={cn('h-11 w-11 items-center justify-center rounded-pill', {
+              'bg-brand': canSend,
+              'bg-surface-2': !canSend,
+            })}
           >
             <SendHorizontal size={18} color={canSend ? palette.ink : palette.textDisabled} strokeWidth={2} />
           </Pressable>
@@ -229,16 +235,23 @@ function Bubble({
   // (propietario o invitado): su nombre, en gris.
   const label = mine ? null : m.author === 'team' ? t('chat.team') : m.authorName || t('chat.household');
   return (
-    <View className={`flex-row ${mine ? 'justify-end' : 'justify-start'}`}>
+    <View className={cn('flex-row', { 'justify-end': mine, 'justify-start': !mine })}>
       <Pressable
         onLongPress={onLongPress}
         disabled={!onLongPress}
         accessibilityHint={onLongPress ? t('chat.deleteHint') : undefined}
-        className={`max-w-[80%] gap-1 rounded-[14px] px-3.5 py-3 ${m.deleted ? 'border border-dashed border-border' : mine ? 'bg-brand' : 'border border-border bg-surface-1'}`}
+        className={cn('max-w-[80%] gap-1 rounded-[14px] px-3.5 py-3', {
+          'border border-dashed border-border': m.deleted,
+          'bg-brand': !m.deleted && mine,
+          'border border-border bg-surface-1': !m.deleted && !mine,
+        })}
       >
         {label ? (
           <Text
-            className={`text-label font-semibold tracking-[0.24px] ${m.author === 'team' ? 'text-brand-soft' : 'text-text-soft'}`}
+            className={cn('text-label font-semibold tracking-[0.24px]', {
+              'text-brand-soft': m.author === 'team',
+              'text-text-soft': m.author !== 'team',
+            })}
           >
             {label}
           </Text>
@@ -259,10 +272,15 @@ function Bubble({
         {m.deleted ? (
           <Text className="text-body italic leading-[1.375rem] text-text-mute">{t('chat.deleted')}</Text>
         ) : m.text ? (
-          <Text className={`text-body leading-[1.375rem] ${mine ? 'text-ink' : 'text-text'}`}>{m.text}</Text>
+          <Text className={cn('text-body leading-[1.375rem]', { 'text-ink': mine, 'text-text': !mine })}>
+            {m.text}
+          </Text>
         ) : null}
         <Text
-          className={`text-[0.6875rem] leading-[0.875rem] ${mine && !m.deleted ? 'text-ink/60' : 'text-text-mute'}`}
+          className={cn('text-[0.6875rem] leading-[0.875rem]', {
+            'text-ink/60': mine && !m.deleted,
+            'text-text-mute': !(mine && !m.deleted),
+          })}
         >
           {stamp(m.sentAt)}
         </Text>

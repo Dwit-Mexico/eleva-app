@@ -10,7 +10,11 @@ it('cambiar el área limpia equipo y problema', () => {
   const { update } = useDraft.getState();
   update({ area, equipment, problem, description: 'gotea' });
   update(withArea({ ...area, id: 11, areaId: 2 }));
-  expect(useDraft.getState().draft).toMatchObject({ description: 'gotea', equipment: undefined, problem: undefined });
+  expect(useDraft.getState().draft).toMatchObject({
+    description: 'gotea',
+    equipment: undefined,
+    problem: undefined,
+  });
 });
 
 it('cambiar el equipo limpia solo el problema', () => {

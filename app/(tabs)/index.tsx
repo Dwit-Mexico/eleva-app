@@ -17,6 +17,7 @@ import { useMemo, useState, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, Text, View } from 'react-native';
 
+import { cn } from '@/lib/cn';
 import { useNotifications, useRequests } from '@/api/queries';
 import { byNewest, requestLocation, requestTitle } from '@/features/requests/labels';
 import { ContactButtons } from '@/features/requests/ContactButtons';
@@ -307,10 +308,15 @@ function ActionCard({
       onPress={onPress}
       accessibilityRole="button"
       accessibilityLabel={[label, value, title, sub].filter(Boolean).join('. ')}
-      className={`flex-row items-center rounded-md border bg-surface-1 ${border} ${compact ? 'gap-3 px-4 py-3.5' : 'gap-3.5 p-4'} active:opacity-80`}
+      className={cn(
+        'flex-row items-center rounded-md border bg-surface-1',
+        border,
+        { 'gap-3 px-4 py-3.5': compact, 'gap-3.5 p-4': !compact },
+        'active:opacity-80',
+      )}
     >
       {tile ? (
-        <View className={`h-11 w-11 items-center justify-center rounded-md ${tile}`}>{icon}</View>
+        <View className={cn('h-11 w-11 items-center justify-center rounded-md', tile)}>{icon}</View>
       ) : (
         icon
       )}
@@ -318,7 +324,7 @@ function ActionCard({
         {label ? <Text className="text-label font-medium text-text-mute">{label}</Text> : null}
         {value ? <Text className="mt-0.5 text-body-lg text-text">{value}</Text> : null}
         {title ? (
-          <Text className={`text-body text-text ${plain || compact ? '' : 'font-semibold'}`}>{title}</Text>
+          <Text className={cn('text-body text-text', { 'font-semibold': !(plain || compact) })}>{title}</Text>
         ) : null}
         {sub ? <Text className="mt-0.5 text-caption text-text-soft">{sub}</Text> : null}
       </View>

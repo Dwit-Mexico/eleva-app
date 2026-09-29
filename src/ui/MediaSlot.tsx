@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Pressable, Text, View } from 'react-native';
 
 import { useTheme } from './ThemeProvider';
+import { cn } from '../lib/cn';
 
 type Props = {
   kind: 'photo' | 'video';
@@ -26,7 +27,11 @@ export function MediaSlot({ kind, index = 1, uri, onPress, disabled }: Props) {
       disabled={disabled}
       accessibilityRole="button"
       accessibilityLabel={uri ? `${label}, ${t('media.loaded')}` : label}
-      className={`aspect-square flex-1 overflow-hidden rounded-md ${uri ? 'border border-success' : 'border-[1.5px] border-dashed border-border bg-surface-1'} ${disabled ? 'opacity-40' : ''}`}
+      className={cn('aspect-square flex-1 overflow-hidden rounded-md', {
+        'border border-success': uri,
+        'border-[1.5px] border-dashed border-border bg-surface-1': !uri,
+        'opacity-40': disabled,
+      })}
     >
       {uri ? (
         <View className="flex-1">

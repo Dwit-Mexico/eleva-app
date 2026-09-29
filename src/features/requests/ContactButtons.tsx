@@ -2,6 +2,7 @@ import { MessageCircle, Phone } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
 import { Pressable, Text, View } from 'react-native';
 
+import { cn } from '@/lib/cn';
 import { support } from '@/lib/support';
 import { useLargeText, useTheme } from '@/ui';
 
@@ -12,7 +13,7 @@ export function ContactButtons({ folio }: { folio?: string }) {
   // Con texto grande se apilan (WhatsApp arriba).
   const large = useLargeText();
   return (
-    <View className={large ? 'flex-col-reverse gap-2.5' : 'flex-row gap-2.5'}>
+    <View className={cn({ 'flex-col-reverse gap-2.5': large, 'flex-row gap-2.5': !large })}>
       <Pressable
         onPress={support.call}
         accessibilityRole="button"

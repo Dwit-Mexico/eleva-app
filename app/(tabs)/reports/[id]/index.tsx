@@ -6,6 +6,7 @@ import { useState, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, Text, View } from 'react-native';
 
+import { cn } from '@/lib/cn';
 import { appApi } from '@/api/app';
 import { errorText } from '@/api/client';
 import { keys, useRequest, useThreads } from '@/api/queries';
@@ -153,7 +154,11 @@ function Body({ r, onCancel, cancelError }: { r: Request; onCancel: () => void; 
               </View>
               <View className="min-w-0 flex-1 pb-0.5">
                 <Text
-                  className={`text-body leading-[1.375rem] ${s.state === 'todo' ? 'text-text-mute' : 'text-text'} ${s.state === 'now' ? 'font-semibold' : ''}`}
+                  className={cn('text-body leading-[1.375rem]', {
+                    'text-text-mute': s.state === 'todo',
+                    'text-text': s.state !== 'todo',
+                    'font-semibold': s.state === 'now',
+                  })}
                 >
                   {t(`detail.steps.${s.key}`)}
                 </Text>
@@ -180,11 +185,16 @@ function Body({ r, onCancel, cancelError }: { r: Request; onCancel: () => void; 
         {rows.map((row, i) => (
           <View
             key={row.k}
-            className={`flex-row items-baseline gap-4 px-4 py-3 ${i < rows.length - 1 ? 'border-b border-surface-2' : ''}`}
+            className={cn('flex-row items-baseline gap-4 px-4 py-3', {
+              'border-b border-surface-2': i < rows.length - 1,
+            })}
           >
             <Text className="w-[5.5rem] text-label font-medium text-text-mute">{row.k}</Text>
             <Text
-              className={`flex-1 text-body leading-[1.375rem] ${row.v === pending ? 'italic text-text-mute' : 'text-text'}`}
+              className={cn('flex-1 text-body leading-[1.375rem]', {
+                'italic text-text-mute': row.v === pending,
+                'text-text': row.v !== pending,
+              })}
             >
               {row.v}
             </Text>
@@ -195,10 +205,16 @@ function Body({ r, onCancel, cancelError }: { r: Request; onCancel: () => void; 
       <View className="gap-2">
         <Label>{t('detail.comments')}</Label>
         <View
-          className={`rounded-md border bg-surface-1 px-4 py-3.5 ${r.description ? 'border-border' : 'border-dashed border-border'}`}
+          className={cn('rounded-md border bg-surface-1 px-4 py-3.5', {
+            'border-border': r.description,
+            'border-dashed border-border': !r.description,
+          })}
         >
           <Text
-            className={`text-body leading-[1.375rem] ${r.description ? 'text-text' : 'italic text-text-mute'}`}
+            className={cn('text-body leading-[1.375rem]', {
+              'text-text': r.description,
+              'italic text-text-mute': !r.description,
+            })}
           >
             {r.description || t('detail.noComment')}
           </Text>

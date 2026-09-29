@@ -2,6 +2,7 @@ import { Check, Info } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
 import { Pressable, Text, View } from 'react-native';
 
+import { cn } from '@/lib/cn';
 import { usePrefs, type TextScale } from '@/store/prefs';
 import { Header, Screen, useTheme } from '@/ui';
 
@@ -28,7 +29,10 @@ export default function TextSize() {
               onPress={() => setTextScale(o.v)}
               accessibilityRole="radio"
               accessibilityState={{ selected: on }}
-              className={`min-h-16 flex-row items-center gap-3 rounded-md border bg-surface-1 px-4 py-3.5 ${on ? 'border-brand' : 'border-border'}`}
+              className={cn(
+                'min-h-16 flex-row items-center gap-3 rounded-md border bg-surface-1 px-4 py-3.5',
+                { 'border-brand': on, 'border-border': !on },
+              )}
             >
               <View className="min-w-0 flex-1">
                 <Text

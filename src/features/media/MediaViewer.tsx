@@ -10,6 +10,7 @@ import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-na
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { scheduleOnRN } from 'react-native-worklets';
 
+import { cn } from '@/lib/cn';
 import { palettes, withAlpha } from '@/ui/tokens';
 
 export type ViewerItem = { kind: 'photo' | 'video'; uri: string };
@@ -261,7 +262,7 @@ function Round({
       accessibilityLabel={label}
       accessibilityState={{ disabled: !!disabled }}
       style={{ backgroundColor: withAlpha('#FFFFFF', disabled ? 0.04 : 0.08) }}
-      className={`${big ? 'h-11 w-11' : 'h-10 w-10'} items-center justify-center rounded-pill`}
+      className={cn({ 'h-11 w-11': big, 'h-10 w-10': !big }, 'items-center justify-center rounded-pill')}
     >
       <Icon size={size} color={disabled ? c.textDisabled : c.text} strokeWidth={2} />
     </Pressable>

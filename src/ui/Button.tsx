@@ -2,6 +2,7 @@ import type { LucideIcon } from 'lucide-react-native';
 import { ActivityIndicator, Pressable, Text, View } from 'react-native';
 
 import { useTheme } from './ThemeProvider';
+import { cn } from '../lib/cn';
 
 export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger';
 
@@ -58,14 +59,26 @@ export function Button({
       accessibilityLabel={label}
       accessibilityHint={accessibilityHint}
       accessibilityState={{ disabled: !!disabled, busy: !!loading }}
-      className={`${size === 'lg' ? 'min-h-13 px-6' : 'min-h-11 px-5'} flex-row items-center justify-center gap-2 rounded-md ${box[variant]} ${fullWidth ? 'self-stretch' : ''} ${disabled ? 'opacity-40' : ''} active:opacity-80`}
+      className={cn(
+        { 'min-h-13 px-6': size === 'lg', 'min-h-11 px-5': size !== 'lg' },
+        'flex-row items-center justify-center gap-2 rounded-md',
+        box[variant],
+        { 'self-stretch': fullWidth, 'opacity-40': disabled },
+        'active:opacity-80',
+      )}
     >
       {loading ? (
         <ActivityIndicator color={tint} />
       ) : (
         <View className="flex-row items-center gap-2">
           {Icon ? <Icon size={20} color={tint} strokeWidth={2} /> : null}
-          <Text className={`${size === 'lg' ? 'text-[1rem]' : 'text-body'} font-semibold ${text[variant]}`}>
+          <Text
+            className={cn(
+              { 'text-[1rem]': size === 'lg', 'text-body': size !== 'lg' },
+              'font-semibold',
+              text[variant],
+            )}
+          >
             {label}
           </Text>
         </View>

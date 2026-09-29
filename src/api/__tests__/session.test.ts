@@ -28,7 +28,9 @@ beforeEach(async () => {
 
 describe('refreshSession', () => {
   it('es de un solo vuelo: varias llamadas rotan una sola vez', async () => {
-    const spy = jest.spyOn(authApi, 'refresh').mockResolvedValue({ data: session(2), message: { es: '', en: '' } });
+    const spy = jest
+      .spyOn(authApi, 'refresh')
+      .mockResolvedValue({ data: session(2), message: { es: '', en: '' } });
     const [a, b, c] = await Promise.all([refreshSession(), refreshSession(), refreshSession()]);
     expect(spy).toHaveBeenCalledTimes(1);
     expect(spy).toHaveBeenCalledWith('r1');

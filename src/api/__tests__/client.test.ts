@@ -3,7 +3,11 @@ import { z } from 'zod';
 import { APIError, errorText, request, setAuth } from '../client';
 
 const ok = (data: unknown, status = 200) =>
-  ({ ok: status < 400, status, json: async () => ({ success: true, message: { es: 'Listo', en: 'Done' }, data }) }) as Response;
+  ({
+    ok: status < 400,
+    status,
+    json: async () => ({ success: true, message: { es: 'Listo', en: 'Done' }, data }),
+  }) as Response;
 const fail = (status: number, body: object) => ({ ok: false, status, json: async () => body }) as Response;
 
 const fetchMock = jest.fn();
@@ -33,7 +37,11 @@ describe('request', () => {
 
   it('convierte el envelope de error en APIError con schema', async () => {
     fetchMock.mockResolvedValueOnce(
-      fail(400, { success: false, message: { es: 'Datos inválidos', en: 'Invalid data' }, schema: { email: ['required'] } }),
+      fail(400, {
+        success: false,
+        message: { es: 'Datos inválidos', en: 'Invalid data' },
+        schema: { email: ['required'] },
+      }),
     );
     const e = await request('POST', '/x', z.unknown()).catch((x) => x);
     expect(e).toBeInstanceOf(APIError);

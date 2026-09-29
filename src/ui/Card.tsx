@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { Pressable, View } from 'react-native';
+import { cn } from '../lib/cn';
 
 type Props = { children: ReactNode; onPress?: () => void; accessibilityLabel?: string; className?: string };
 
@@ -12,7 +13,7 @@ export function Card({ children, onPress, accessibilityLabel, className = '' }: 
       onPress={onPress}
       accessibilityRole="button"
       accessibilityLabel={accessibilityLabel}
-      className={`${base} active:opacity-80`}
+      className={cn(base, 'active:opacity-80')}
     >
       {children}
     </Pressable>

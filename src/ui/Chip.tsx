@@ -1,4 +1,5 @@
 import { Pressable, Text } from 'react-native';
+import { cn } from '../lib/cn';
 
 type Props = { label: string; selected?: boolean; onPress?: () => void; disabled?: boolean };
 
@@ -10,9 +11,19 @@ export function Chip({ label, selected, onPress, disabled }: Props) {
       disabled={disabled}
       accessibilityRole="radio"
       accessibilityState={{ selected: !!selected, disabled: !!disabled }}
-      className={`min-h-11 justify-center rounded-sm border px-4 py-[0.6875rem] ${selected ? 'border-brand bg-brand' : 'border-border bg-surface-1'} ${disabled ? 'opacity-40' : ''} active:opacity-80`}
+      className={cn(
+        'min-h-11 justify-center rounded-sm border px-4 py-[0.6875rem]',
+        {
+          'border-brand bg-brand': selected,
+          'border-border bg-surface-1': !selected,
+          'opacity-40': disabled,
+        },
+        'active:opacity-80',
+      )}
     >
-      <Text className={`text-body ${selected ? 'font-semibold text-ink' : 'text-text'}`}>{label}</Text>
+      <Text className={cn('text-body', { 'font-semibold text-ink': selected, 'text-text': !selected })}>
+        {label}
+      </Text>
     </Pressable>
   );
 }

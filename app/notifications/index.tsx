@@ -4,6 +4,7 @@ import { AlertTriangle, Bell, MessageSquare } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
 import { Pressable, Text, View } from 'react-native';
 
+import { cn } from '@/lib/cn';
 import { useNotifications } from '@/api/queries';
 import { markNoticeRead, noticeTarget } from '@/features/notifications/read';
 import { localizedNotice } from '@/features/notifications/text';
@@ -57,7 +58,10 @@ export default function Notifications() {
             }}
             accessibilityRole="button"
             accessibilityLabel={`${n.read ? '' : `${t('notifs.unread')}. `}${localizedNotice(n.message, lang)}`}
-            className={`min-h-16 flex-row items-center gap-3 rounded-md border bg-surface-1 px-4 py-3.5 active:opacity-80 ${n.read ? 'border-surface-2' : 'border-border'}`}
+            className={cn(
+              'min-h-16 flex-row items-center gap-3 rounded-md border bg-surface-1 px-4 py-3.5 active:opacity-80',
+              { 'border-surface-2': n.read, 'border-border': !n.read },
+            )}
           >
             <View className="h-10 w-10 items-center justify-center rounded-pill bg-surface-2">
               <MessageSquare size={18} color={palette.brandSoft} strokeWidth={2} />

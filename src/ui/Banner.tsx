@@ -2,6 +2,7 @@ import { CloudOff, Wifi, type LucideIcon } from 'lucide-react-native';
 import { Text, View } from 'react-native';
 
 import { useTheme } from './ThemeProvider';
+import { cn } from '../lib/cn';
 
 type Tone = 'offline' | 'success';
 
@@ -14,9 +15,9 @@ export function Banner({ tone, text, detail }: { tone: Tone; text: string; detai
   };
   const { icon: Icon, box, color, text: txt } = cfg[tone];
   return (
-    <View className={`flex-row items-center gap-2 px-5 py-2.5 ${box}`} accessibilityRole="alert">
+    <View className={cn('flex-row items-center gap-2 px-5 py-2.5', box)} accessibilityRole="alert">
       <Icon size={18} color={color} strokeWidth={2} />
-      <Text className={`flex-1 text-caption font-medium ${txt}`}>{text}</Text>
+      <Text className={cn('flex-1 text-caption font-medium', txt)}>{text}</Text>
       {detail ? <Text className="text-caption text-text-soft">{detail}</Text> : null}
     </View>
   );

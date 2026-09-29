@@ -5,6 +5,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BackHandler, Pressable, Text, TextInput, useWindowDimensions, View } from 'react-native';
 
+import { cn } from '@/lib/cn';
 import { appApi } from '@/api/app';
 import { errorText } from '@/api/client';
 import { keys, useAreaEquipment, useEquipmentProblems, useUnitAreas } from '@/api/queries';
@@ -227,9 +228,9 @@ export default function Wizard() {
           {error ? <ErrorMessage message={error} /> : null}
           {/* Con texto grande se apilan (Siguiente arriba): lado a lado
               "Regresar" no cabe y se parte en sílabas. */}
-          <View className={large ? 'flex-col-reverse gap-2.5' : 'flex-row gap-2.5'}>
+          <View className={cn({ 'flex-col-reverse gap-2.5': large, 'flex-row gap-2.5': !large })}>
             {index > 0 ? (
-              <View className={large ? '' : 'flex-1'}>
+              <View className={cn({ 'flex-1': !large })}>
                 <Button
                   label={t('common.back')}
                   variant="secondary"
@@ -238,7 +239,7 @@ export default function Wizard() {
                 />
               </View>
             ) : null}
-            <View className={large ? '' : 'flex-[2]'}>
+            <View className={cn({ 'flex-[2]': !large })}>
               {step === 'summary' ? (
                 <Button label={t('report.send')} onPress={needsNetwork(send)} loading={sending} fullWidth />
               ) : (
@@ -267,7 +268,10 @@ export default function Wizard() {
                 }}
                 accessibilityRole="radio"
                 accessibilityState={{ selected: on }}
-                className={`min-h-16 flex-row items-center gap-3 rounded-md border bg-surface-1 px-4 py-3.5 ${on ? 'border-brand' : 'border-border'}`}
+                className={cn(
+                  'min-h-16 flex-row items-center gap-3 rounded-md border bg-surface-1 px-4 py-3.5',
+                  { 'border-brand': on, 'border-border': !on },
+                )}
               >
                 <View className="min-w-0 flex-1">
                   <Text className="text-body-lg text-text">{u.label}</Text>
@@ -375,11 +379,16 @@ export default function Wizard() {
                 onPress={() => go(steps.indexOf(row.step))}
                 accessibilityRole="button"
                 accessibilityLabel={`${row.label}: ${row.value}. ${t('report.edit')}`}
-                className={`min-h-14 flex-row items-center gap-3 px-4 py-3 active:opacity-80 ${i < summaryRows.length - 1 ? 'border-b border-surface-2' : ''}`}
+                className={cn('min-h-14 flex-row items-center gap-3 px-4 py-3 active:opacity-80', {
+                  'border-b border-surface-2': i < summaryRows.length - 1,
+                })}
               >
                 <Text className="w-[5.25rem] text-label font-medium text-text-mute">{row.label}</Text>
                 <Text
-                  className={`min-w-0 flex-1 text-body ${row.empty ? 'italic text-text-mute' : 'text-text'}`}
+                  className={cn('min-w-0 flex-1 text-body', {
+                    'italic text-text-mute': row.empty,
+                    'text-text': !row.empty,
+                  })}
                   numberOfLines={3}
                 >
                   {row.value}

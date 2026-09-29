@@ -47,7 +47,12 @@ export function PasswordRules({ value }: { value: string }) {
   return (
     <View className="gap-2">
       {rules.map((r) => (
-        <View key={r.label} className="flex-row items-center gap-2" accessible accessibilityState={{ checked: r.ok }}>
+        <View
+          key={r.label}
+          className="flex-row items-center gap-2"
+          accessible
+          accessibilityState={{ checked: r.ok }}
+        >
           {r.ok ? (
             <Check size={16} color={palette.success} strokeWidth={2} />
           ) : (
