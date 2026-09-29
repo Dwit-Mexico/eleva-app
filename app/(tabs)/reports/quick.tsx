@@ -124,7 +124,7 @@ export default function QuickReport() {
         >
           <Building2 size={18} color={palette.brandSoft} strokeWidth={2} />
           <View className="min-w-0 flex-1">
-            <Text className="text-label font-medium text-text-mute">{t('report.reportingIn')}</Text>
+            <Text className="text-label font-medium text-text-soft">{t('report.reportingIn')}</Text>
             <Text className="text-body text-text">{unit.label}</Text>
           </View>
           {units.length > 1 ? (
